@@ -17,12 +17,12 @@ namespace HIWIN_Robot
         /// <summary>
         /// 笛卡爾原點絕對坐標。
         /// </summary>
-        public double[] positionDescartesHome = { 0, 368, 294, 180, 0, 90 };
+        public readonly double[] positionDescartesHome = { 0, 368, 294, 180, 0, 90 };
 
         /// <summary>
         /// 關節原點絕對坐標。
         /// </summary>
-        public double[] positionJointHome = { 0, 0, 0, 0, 0, 0 };
+        public readonly double[] positionJointHome = { 0, 0, 0, 0, 0, 0 };
 
         private static HRobot.CallBackFun callback;
 
