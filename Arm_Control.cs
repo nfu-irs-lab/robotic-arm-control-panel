@@ -2,6 +2,7 @@
 using System;
 using System.Threading;
 using System.Windows.Forms;
+using System.Runtime.CompilerServices;
 using Timer = System.Windows.Forms.Timer;
 
 namespace HIWIN_Robot
@@ -587,7 +588,8 @@ namespace HIWIN_Robot
         /// ● true：手臂已連線。<br/>
         /// ● false：手臂未連線或狀態未知。
         /// </returns>
-        public bool is_connected()
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool IsConnected()
         {
             return ConnectState;
         }
