@@ -640,6 +640,7 @@ namespace HIWIN_Robot
         /// <param name="relativePosition"></param>
         /// <param name="type"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private double[] ConvertRelativeToAdsolute(double[] relativePosition,
                                                    PositionType type)
         {
@@ -664,6 +665,7 @@ namespace HIWIN_Robot
         /// ● true：出現錯誤。<br/>
         /// ● false：沒有出現錯誤。
         /// </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private bool ErrorHandler(int code, int successCode = 0)
         {
             // Not successful.
@@ -691,6 +693,7 @@ namespace HIWIN_Robot
             timer.Tick += new EventHandler(timer_Tick);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void ShowUnknownPositionType()
         {
             string text = "錯誤的位置類型。\r\n" +
