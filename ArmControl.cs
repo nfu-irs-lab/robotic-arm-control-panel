@@ -733,5 +733,76 @@ namespace HIWIN_Robot
         }
 
         #endregion - Others -
+
+        #region - NEW -
+
+        public SetFunction Set = new SetFunction();
+
+        public class BasicArmFunction
+        {
+            protected int DeviceID;
+
+            public void UpdateID(int newID)
+            {
+                DeviceID = newID;
+            }
+
+            protected bool ErrorHandler(int code, int successCode = 0)
+            {
+                // Not successful.
+                if (code != successCode)
+                {
+                    MessageBox.Show("上銀機械手臂控制錯誤。\r\n錯誤代碼：" + code.ToString(),
+                                    "錯誤！",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public class SetFunction : BasicArmFunction
+        {
+            public void Acceleration(int value)
+            {
+                if (value > 100 || value < 1)
+                {
+                    MessageBox.Show("手臂加速度應為1% ~ 100%之間。",
+                                    "錯誤！",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                }
+                else
+                {
+                    int retuenCode = HRobot.set_acc_dec_ratio(DeviceID, value);
+
+                    ErrorHandler(retuenCode);
+                }
+            }
+
+            public void Speed(int value)
+            {
+                if (value > 100 || value < 1)
+                {
+                    MessageBox.Show("手臂速度應為1% ~ 100%之間。",
+                                    "錯誤！",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                }
+                else
+                {
+                    int retuenCode = HRobot.set_override_ratio(DeviceID, value);
+
+                    ErrorHandler(retuenCode);
+                }
+            }
+        }
+
+        #endregion - NEW -
     }
 }
