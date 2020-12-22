@@ -76,7 +76,7 @@
     <Compile Include="Form_HIWIN_Robot.Designer.cs">
       <DependentUpon>Form_HIWIN_Robot.cs</DependentUpon>
     </Compile>
-    <Compile Include="Gripper_Control.cs" />
+    <Compile Include="GripperControl.cs" />
     <Compile Include="HRobot.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
