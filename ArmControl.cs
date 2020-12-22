@@ -510,12 +510,12 @@ namespace HIWIN_Robot
 
                 MessageBox.Show(string.Format("連線成功!\r\n" +
                                               "手臂ID: {0}\r\n" +
-                                              "連線等級 (0爲觀測者，1爲操作者): {1}\r\n" +
-                                              "控制器狀態 (0為關閉，1為開啟): {2}\r\n" +
+                                              "連線等級: {1}\r\n" +
+                                              "控制器狀態: {2}\r\n" +
                                               "錯誤代碼: {3}\r\n",
                                               DeviceID,
-                                              connectionLevel,
-                                              motorState,
+                                              (connectionLevel == 0) ? "觀測者" : "操作者",
+                                              (motorState == 0) ? "關閉" : "開啟",
                                               alarmState));
 
                 ConnectState = true;
@@ -584,9 +584,9 @@ namespace HIWIN_Robot
             HRobot.disconnect(DeviceID);
 
             MessageBox.Show(string.Format("斷線成功!\r\n" +
-                                          "控制器狀態 (0為關閉，1為開啟): {0}\r\n" +
+                                          "控制器狀態: {0}\r\n" +
                                           "錯誤代碼: {1}\r\n",
-                                          motorState,
+                                          (motorState == 0) ? "關閉" : "開啟",
                                           alarmState));
 
             ConnectState = false;
