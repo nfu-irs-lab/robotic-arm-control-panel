@@ -32,7 +32,7 @@ namespace HIWIN_Robot
         /// <summary>
         /// 手臂控制。
         /// </summary>
-        private Arm_Control arm = new Arm_Control(config.arm_IP);
+        private Arm_Control arm = new Arm_Control(Configuration.armIP);
 
         #region 位置
 
@@ -427,7 +427,7 @@ namespace HIWIN_Robot
         /// <summary>
         /// 夾爪控制。
         /// </summary>
-        private Gripper_Control XEG32 = new Gripper_Control(config.gripper_COM_Port);
+        private Gripper_Control XEG32 = new Gripper_Control(Configuration.gripperCOMPort);
 
         /// <summary>
         /// 進行夾爪動作。
@@ -542,23 +542,5 @@ namespace HIWIN_Robot
         }
 
         #endregion - 其它 -
-
-        /// <summary>
-        /// 可調整之設定。
-        /// </summary>
-        private class config
-        {
-            /// <summary>
-            /// 手臂連線IP位置。<br/>
-            /// 設定錯誤將會無法連線。
-            /// </summary>
-            public const string arm_IP = "192.168.0.3";
-
-            /// <summary>
-            /// 夾爪連線COM Port。<br/>
-            /// 設定錯誤將會無法連線。
-            /// </summary>
-            public const string gripper_COM_Port = "COM12";
-        }
     }
 }

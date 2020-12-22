@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arm_Control.cs" />
+    <Compile Include="Configuration.cs" />
     <Compile Include="Form_HIWIN_Robot.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,7 +77,6 @@
       <DependentUpon>Form_HIWIN_Robot.cs</DependentUpon>
     </Compile>
     <Compile Include="Gripper_Control.cs" />
-    <Compile Include="HIWIN_Robot_SDK.cs" />
     <Compile Include="HRobot.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
