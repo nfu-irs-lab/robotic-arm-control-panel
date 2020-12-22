@@ -10,7 +10,7 @@ namespace HIWIN_Robot
     /// <summary>
     /// 上銀機械手臂基本控制。
     /// </summary>
-    internal class Arm_Control
+    internal class ArmControl
     {
         #region - 基本變數與列舉 -
 
@@ -46,13 +46,13 @@ namespace HIWIN_Robot
 
         private Timer timer = new Timer();
 
-        public Arm_Control()
+        public ArmControl()
         {
             // 初始化。
             InitTimer();
         }
 
-        public Arm_Control(string IP)
+        public ArmControl(string IP)
         {
             // 初始化。
             ArmIP = IP;

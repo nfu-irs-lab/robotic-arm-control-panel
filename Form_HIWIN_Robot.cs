@@ -25,7 +25,7 @@ namespace HIWIN_Robot
         /// <summary>
         /// 手臂控制。
         /// </summary>
-        private Arm_Control arm = new Arm_Control(Configuration.armIP);
+        private ArmControl arm = new ArmControl(Configuration.armIP);
 
         #region 位置
 
@@ -165,11 +165,11 @@ namespace HIWIN_Robot
         {
             switch (get_motion_type())
             {
-                case Arm_Control.MotionType.linear:
+                case ArmControl.MotionType.linear:
                     arm.MotionLinear(get_postion_target(), get_positino_type(), get_coordinate_type());
                     break;
 
-                case Arm_Control.MotionType.pointToPoint:
+                case ArmControl.MotionType.pointToPoint:
                     arm.MotionPointToPoint(get_postion_target(), get_positino_type(), get_coordinate_type());
                     break;
 
@@ -240,20 +240,20 @@ namespace HIWIN_Robot
         /// 取得目前所選的坐標類型。
         /// </summary>
         /// <returns>目前所選的坐標類型。</returns>
-        private Arm_Control.CoordinateType get_coordinate_type()
+        private ArmControl.CoordinateType get_coordinate_type()
         {
-            Arm_Control.CoordinateType type = Arm_Control.CoordinateType.unknown;
+            ArmControl.CoordinateType type = ArmControl.CoordinateType.unknown;
             if (radioButton_coordinate_type_absolute.Checked)
             {
-                type = Arm_Control.CoordinateType.absolute;
+                type = ArmControl.CoordinateType.absolute;
             }
             else if (radioButton_coordinate_type_relative.Checked)
             {
-                type = Arm_Control.CoordinateType.relative;
+                type = ArmControl.CoordinateType.relative;
             }
             else
             {
-                type = Arm_Control.CoordinateType.unknown;
+                type = ArmControl.CoordinateType.unknown;
             }
             return type;
         }
@@ -262,20 +262,20 @@ namespace HIWIN_Robot
         /// 取得目前所選的運動類型。
         /// </summary>
         /// <returns>目前所選的運動類型。</returns>
-        private Arm_Control.MotionType get_motion_type()
+        private ArmControl.MotionType get_motion_type()
         {
-            Arm_Control.MotionType type = Arm_Control.MotionType.unknown;
+            ArmControl.MotionType type = ArmControl.MotionType.unknown;
             if (radioButton_motion_type_linear.Checked)
             {
-                type = Arm_Control.MotionType.linear;
+                type = ArmControl.MotionType.linear;
             }
             else if (radioButton_motion_type_point_to_point.Checked)
             {
-                type = Arm_Control.MotionType.pointToPoint;
+                type = ArmControl.MotionType.pointToPoint;
             }
             else
             {
-                type = Arm_Control.MotionType.unknown;
+                type = ArmControl.MotionType.unknown;
             }
             return type;
         }
@@ -284,20 +284,20 @@ namespace HIWIN_Robot
         /// 取得目前所選的位置類型。
         /// </summary>
         /// <returns>目前所選的位置類型。</returns>
-        private Arm_Control.PositionType get_positino_type()
+        private ArmControl.PositionType get_positino_type()
         {
-            Arm_Control.PositionType type = Arm_Control.PositionType.unknown;
+            ArmControl.PositionType type = ArmControl.PositionType.unknown;
             if (radioButton_position_type_descartes.Checked)
             {
-                type = Arm_Control.PositionType.descartes;
+                type = ArmControl.PositionType.descartes;
             }
             else if (radioButton_position_type_joint.Checked)
             {
-                type = Arm_Control.PositionType.joint;
+                type = ArmControl.PositionType.joint;
             }
             else
             {
-                type = Arm_Control.PositionType.unknown;
+                type = ArmControl.PositionType.unknown;
             }
             return type;
         }
@@ -311,11 +311,11 @@ namespace HIWIN_Robot
             {
                 if (radioButton_position_type_descartes.Checked)
                 {
-                    set_postion_target(arm.GetNowPosition(Arm_Control.PositionType.descartes));
+                    set_postion_target(arm.GetNowPosition(ArmControl.PositionType.descartes));
                 }
                 else if (radioButton_position_type_joint.Checked)
                 {
-                    set_postion_target(arm.GetNowPosition(Arm_Control.PositionType.joint));
+                    set_postion_target(arm.GetNowPosition(ArmControl.PositionType.joint));
                 }
             }
             else

@@ -68,7 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Arm_Control.cs" />
+    <Compile Include="ArmControl.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Form_HIWIN_Robot.cs">
       <SubType>Form</SubType>
