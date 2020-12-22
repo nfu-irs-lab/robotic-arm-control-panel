@@ -1,4 +1,6 @@
-﻿using System;
+﻿#define DISABLE_GRIPPER
+
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -430,9 +432,11 @@ namespace HIWIN_Robot
         /// <param name="e"></param>
         private void button_gripper_action_Click(object sender, EventArgs e)
         {
+#if (!DISABLE_GRIPPER)
             XEG32.control(Convert.ToInt32(numericUpDown_gripper_position.Value),
                           Convert.ToInt32(numericUpDown_gripper_speed.Value),
                           Convert.ToInt32(numericUpDown_gripper_force.Value));
+#endif
         }
 
         /// <summary>
@@ -442,7 +446,9 @@ namespace HIWIN_Robot
         /// <param name="e"></param>
         private void button_gripper_reset_Click(object sender, EventArgs e)
         {
+#if (!DISABLE_GRIPPER)
             XEG32.reset();
+#endif
         }
 
         #endregion - 夾爪 -
@@ -473,8 +479,9 @@ namespace HIWIN_Robot
                 arm.SetAcceletarion(get_asseleration());
                 update_now_position();
             }
-
+#if (!DISABLE_GRIPPER)
             XEG32.connect();
+#endif
         }
 
         /// <summary>
@@ -486,7 +493,9 @@ namespace HIWIN_Robot
         {
             arm.Disconnect();
 
+#if (!DISABLE_GRIPPER)
             XEG32.disconnect();
+#endif
         }
 
         #endregion - 連線與斷線 -
@@ -498,7 +507,11 @@ namespace HIWIN_Robot
         /// </summary>
         private void Form_HIWIN_Robot_FormClosing(object sender, FormClosingEventArgs e)
         {
+#if (!DISABLE_GRIPPER)
             if (arm.IsConnected() || XEG32.is_connected())
+#else
+            if (arm.IsConnected())
+#endif
             {
                 DialogResult dr = MessageBox.Show("手臂或夾爪似乎還在連線中。\r\n是否要斷開連線後關閉視窗？",
                                                   "關閉視窗",
@@ -508,7 +521,9 @@ namespace HIWIN_Robot
                 if (dr == DialogResult.Yes)
                 {
                     arm.Disconnect();
+#if (!DISABLE_GRIPPER)
                     XEG32.disconnect();
+#endif
                     e.Cancel = false;
                 }
                 else if (dr == DialogResult.No)
