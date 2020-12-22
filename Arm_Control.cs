@@ -554,24 +554,27 @@ namespace HIWIN_Robot
         /// </summary>
         public void Disconnect()
         {
-            int j, k, l;
+            int alarmState;
+            int motorState;
 
             //設定控制器: 1為啟動,0為關閉
-            j = HRobot.set_motor_state(DeviceID, 0);
+            HRobot.set_motor_state(DeviceID, 0);
             Thread.Sleep(200);
 
             //將所有錯誤代碼清除
-            k = HRobot.clear_alarm(DeviceID);
+            alarmState = HRobot.clear_alarm(DeviceID);
 
-            //回傳控制器狀態,開啟回傳值為1,沒開啟回傳值為0
-            l = HRobot.get_motor_state(DeviceID);
+            //回傳控制器狀態
+            motorState = HRobot.get_motor_state(DeviceID);
 
             //關閉手臂連線
             HRobot.disconnect(DeviceID);
 
             MessageBox.Show(string.Format("斷線成功!\r\n" +
-                                          "控制器狀態(0為關閉,1為開啟): {0}\r\n" +
-                                          "錯誤代碼: {1}\r\n", l, k));
+                                          "控制器狀態 (0為關閉，1為開啟): {0}\r\n" +
+                                          "錯誤代碼: {1}\r\n",
+                                          motorState,
+                                          alarmState));
 
             ConnectState = false;
         }
