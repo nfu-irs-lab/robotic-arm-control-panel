@@ -492,6 +492,12 @@ namespace HIWIN_Robot
                 //清除錯誤
                 alarmState = HRobot.clear_alarm(DeviceID);
 
+                //錯誤代碼300代表沒有警報，無法清除警報
+                if (alarmState == 300)
+                {
+                    alarmState = 0;
+                }
+
                 //設定控制器: 1為啟動,0為關閉
                 HRobot.set_motor_state(DeviceID, 1);
                 Thread.Sleep(500);
@@ -564,6 +570,12 @@ namespace HIWIN_Robot
             //將所有錯誤代碼清除
             alarmState = HRobot.clear_alarm(DeviceID);
 
+            //錯誤代碼300代表沒有警報，無法清除警報
+            if (alarmState == 300)
+            {
+                alarmState = 0;
+            }
+
             //回傳控制器狀態
             motorState = HRobot.get_motor_state(DeviceID);
 
@@ -630,6 +642,12 @@ namespace HIWIN_Robot
         public void ClearAlarm()
         {
             int retuenCode = HRobot.clear_alarm(DeviceID);
+
+            //錯誤代碼300代表沒有警報，無法清除警報
+            if (retuenCode == 300)
+            {
+                retuenCode = 0;
+            }
 
             ErrorHandler(retuenCode);
         }
