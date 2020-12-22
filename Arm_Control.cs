@@ -474,7 +474,7 @@ namespace HIWIN_Robot
         /// <summary>
         /// 進行手臂連線、開啟控制器。
         /// </summary>
-        public void connect()
+        public void Connect()
         {
             //接收控制器回傳訊息
             callback = new HRobot.CallBackFun(EventFun);

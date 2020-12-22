@@ -465,7 +465,7 @@ namespace HIWIN_Robot
         /// <param name="e"></param>
         private void button_connect_Click(object sender, EventArgs e)
         {
-            arm.connect();
+            arm.Connect();
             if (arm.is_connected())
             {
                 arm.set_speed(get_speed());
