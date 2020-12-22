@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using SDKHrobot;
+using System;
 using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
-using System.Runtime.Remoting.Channels;
-using SDKHrobot;
 
 namespace HIWIN_Robot
 {
