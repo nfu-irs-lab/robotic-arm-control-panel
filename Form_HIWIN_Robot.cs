@@ -149,7 +149,7 @@ namespace HIWIN_Robot
         /// </summary>
         private void update_now_position()
         {
-            set_postion_now(arm.get_now_position(get_positino_type()));
+            set_postion_now(arm.GetNowPosition(get_positino_type()));
         }
 
         #endregion 位置
@@ -165,12 +165,12 @@ namespace HIWIN_Robot
         {
             switch (get_motion_type())
             {
-                case Arm_Control.Motion_Type.linear:
-                    arm.motion_linear(get_postion_target(), get_positino_type(), get_coordinate_type());
+                case Arm_Control.MotionType.linear:
+                    arm.MotionLinear(get_postion_target(), get_positino_type(), get_coordinate_type());
                     break;
 
-                case Arm_Control.Motion_Type.point_to_point:
-                    arm.motion_point_to_point(get_postion_target(), get_positino_type(), get_coordinate_type());
+                case Arm_Control.MotionType.pointToPoint:
+                    arm.MotionPointToPoint(get_postion_target(), get_positino_type(), get_coordinate_type());
                     break;
 
                 default:
@@ -190,20 +190,20 @@ namespace HIWIN_Robot
         {
             if (checkBox_arm_to_zero_slow.Checked)
             {
-                arm.set_speed(5);
-                arm.set_acceletarion(10);
+                arm.SetSpeed(5);
+                arm.SetAcceletarion(10);
 
                 Thread.Sleep(300);
 
-                arm.to_zero(get_positino_type());
+                arm.GoHome(get_positino_type());
                 update_now_position();
 
-                arm.set_speed(get_speed());
-                arm.set_acceletarion(get_asseleration());
+                arm.SetSpeed(get_speed());
+                arm.SetAcceletarion(get_asseleration());
             }
             else
             {
-                arm.to_zero(get_positino_type());
+                arm.GoHome(get_positino_type());
                 update_now_position();
             }
         }
@@ -240,20 +240,20 @@ namespace HIWIN_Robot
         /// 取得目前所選的坐標類型。
         /// </summary>
         /// <returns>目前所選的坐標類型。</returns>
-        private Arm_Control.Coordinate_Type get_coordinate_type()
+        private Arm_Control.CoordinateType get_coordinate_type()
         {
-            Arm_Control.Coordinate_Type type = Arm_Control.Coordinate_Type.unknown;
+            Arm_Control.CoordinateType type = Arm_Control.CoordinateType.unknown;
             if (radioButton_coordinate_type_absolute.Checked)
             {
-                type = Arm_Control.Coordinate_Type.absolute;
+                type = Arm_Control.CoordinateType.absolute;
             }
             else if (radioButton_coordinate_type_relative.Checked)
             {
-                type = Arm_Control.Coordinate_Type.relative;
+                type = Arm_Control.CoordinateType.relative;
             }
             else
             {
-                type = Arm_Control.Coordinate_Type.unknown;
+                type = Arm_Control.CoordinateType.unknown;
             }
             return type;
         }
@@ -262,20 +262,20 @@ namespace HIWIN_Robot
         /// 取得目前所選的運動類型。
         /// </summary>
         /// <returns>目前所選的運動類型。</returns>
-        private Arm_Control.Motion_Type get_motion_type()
+        private Arm_Control.MotionType get_motion_type()
         {
-            Arm_Control.Motion_Type type = Arm_Control.Motion_Type.unknown;
+            Arm_Control.MotionType type = Arm_Control.MotionType.unknown;
             if (radioButton_motion_type_linear.Checked)
             {
-                type = Arm_Control.Motion_Type.linear;
+                type = Arm_Control.MotionType.linear;
             }
             else if (radioButton_motion_type_point_to_point.Checked)
             {
-                type = Arm_Control.Motion_Type.point_to_point;
+                type = Arm_Control.MotionType.pointToPoint;
             }
             else
             {
-                type = Arm_Control.Motion_Type.unknown;
+                type = Arm_Control.MotionType.unknown;
             }
             return type;
         }
@@ -284,20 +284,20 @@ namespace HIWIN_Robot
         /// 取得目前所選的位置類型。
         /// </summary>
         /// <returns>目前所選的位置類型。</returns>
-        private Arm_Control.Position_Type get_positino_type()
+        private Arm_Control.PositionType get_positino_type()
         {
-            Arm_Control.Position_Type type = Arm_Control.Position_Type.unknown;
+            Arm_Control.PositionType type = Arm_Control.PositionType.unknown;
             if (radioButton_position_type_descartes.Checked)
             {
-                type = Arm_Control.Position_Type.descartes;
+                type = Arm_Control.PositionType.descartes;
             }
             else if (radioButton_position_type_joint.Checked)
             {
-                type = Arm_Control.Position_Type.joint;
+                type = Arm_Control.PositionType.joint;
             }
             else
             {
-                type = Arm_Control.Position_Type.unknown;
+                type = Arm_Control.PositionType.unknown;
             }
             return type;
         }
@@ -311,11 +311,11 @@ namespace HIWIN_Robot
             {
                 if (radioButton_position_type_descartes.Checked)
                 {
-                    set_postion_target(arm.get_now_position(Arm_Control.Position_Type.descartes));
+                    set_postion_target(arm.GetNowPosition(Arm_Control.PositionType.descartes));
                 }
                 else if (radioButton_position_type_joint.Checked)
                 {
-                    set_postion_target(arm.get_now_position(Arm_Control.Position_Type.joint));
+                    set_postion_target(arm.GetNowPosition(Arm_Control.PositionType.joint));
                 }
             }
             else
@@ -366,13 +366,13 @@ namespace HIWIN_Robot
         /// <param name="e"></param>
         private void button_set_speed_acceleration_Click(object sender, EventArgs e)
         {
-            arm.set_speed(get_speed());
-            arm.set_acceletarion(get_asseleration());
+            arm.SetSpeed(get_speed());
+            arm.SetAcceletarion(get_asseleration());
 
             Thread.Sleep(300);
 
-            MessageBox.Show("　目前速度：" + arm.get_speed().ToString() + " %\r\n" +
-                            "目前加速度：" + arm.get_speed().ToString() + " %");
+            MessageBox.Show("　目前速度：" + arm.GetSpeed().ToString() + " %\r\n" +
+                            "目前加速度：" + arm.GetSpeed().ToString() + " %");
         }
 
         /// <summary>
@@ -455,7 +455,7 @@ namespace HIWIN_Robot
         /// <param name="e"></param>
         private void button_arm_clear_alarm_Click(object sender, EventArgs e)
         {
-            arm.clear_alarm();
+            arm.ClearAlarm();
         }
 
         /// <summary>
@@ -468,8 +468,8 @@ namespace HIWIN_Robot
             arm.Connect();
             if (arm.IsConnected())
             {
-                arm.set_speed(get_speed());
-                arm.set_acceletarion(get_asseleration());
+                arm.SetSpeed(get_speed());
+                arm.SetAcceletarion(get_asseleration());
                 update_now_position();
             }
 

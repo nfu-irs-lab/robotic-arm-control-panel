@@ -1,8 +1,8 @@
 ﻿using SDKHrobot;
 using System;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
-using System.Runtime.CompilerServices;
 using Timer = System.Windows.Forms.Timer;
 
 namespace HIWIN_Robot
@@ -49,20 +49,20 @@ namespace HIWIN_Robot
         public Arm_Control()
         {
             // 初始化。
-            init_timer();
+            InitTimer();
         }
 
         public Arm_Control(string IP)
         {
             // 初始化。
             ArmIP = IP;
-            init_timer();
+            InitTimer();
         }
 
         /// <summary>
         /// 坐標類型。
         /// </summary>
-        public enum Coordinate_Type
+        public enum CoordinateType
         {
             /// <summary>
             /// 絕對坐標。
@@ -83,7 +83,7 @@ namespace HIWIN_Robot
         /// <summary>
         /// 運動類型。
         /// </summary>
-        public enum Motion_Type
+        public enum MotionType
         {
             /// <summary>
             /// 直線運動。
@@ -93,7 +93,7 @@ namespace HIWIN_Robot
             /// <summary>
             /// 點對點運動。
             /// </summary>
-            point_to_point,
+            pointToPoint,
 
             /// <summary>
             /// 圓弧運動。
@@ -109,7 +109,7 @@ namespace HIWIN_Robot
         /// <summary>
         /// 位置類型。
         /// </summary>
-        public enum Position_Type
+        public enum PositionType
         {
             /// <summary>
             /// 笛卡爾。
@@ -130,7 +130,7 @@ namespace HIWIN_Robot
         /// <summary>
         /// 手臂平滑模式。
         /// </summary>
-        public enum Smooth_Type
+        public enum SmoothType
         {
             /// <summary>
             /// 關閉平滑功能。
@@ -140,17 +140,17 @@ namespace HIWIN_Robot
             /// <summary>
             /// 貝茲曲線平滑百分比。
             /// </summary>
-            bezier_curve_smooth_percent = 1,
+            bezierCurveSmoothPercent = 1,
 
             /// <summary>
             /// 貝茲曲線平滑半徑。
             /// </summary>
-            bezier_curve_smooth_radius = 2,
+            bezierCurveSmoothRadius = 2,
 
             /// <summary>
             /// 依兩線段速度平滑。
             /// </summary>
-            two_lines_speed_smooth = 3
+            twoLinesSpeedSmooth = 3
         }
 
         #endregion - 基本變數與列舉 -
@@ -164,7 +164,7 @@ namespace HIWIN_Robot
         /// ● 1~100：目前手臂的加速度比例。<br/>
         /// ● -1：錯誤。
         /// </returns>
-        public int get_acceleration()
+        public int GetAcceleration()
         {
             int value = HRobot.get_acc_dec_ratio(DeviceID);
 
@@ -186,7 +186,7 @@ namespace HIWIN_Robot
         /// ● 1~100：目前手臂的整體速度比例。<br/>
         /// ● -1：錯誤。
         /// </returns>
-        public int get_speed()
+        public int GetSpeed()
         {
             int value = HRobot.get_override_ratio(DeviceID);
 
@@ -206,7 +206,7 @@ namespace HIWIN_Robot
         /// 引數應為1 ~ 100 (%)。
         /// </summary>
         /// <param name="value"></param>
-        public void set_acceletarion(int value)
+        public void SetAcceletarion(int value)
         {
             if (value > 100 || value < 1)
             {
@@ -217,9 +217,9 @@ namespace HIWIN_Robot
             }
             else
             {
-                int return_code = HRobot.set_acc_dec_ratio(DeviceID, value);
+                int retuenCode = HRobot.set_acc_dec_ratio(DeviceID, value);
 
-                this.is_error_and_show_message(return_code);
+                ErrorHandler(retuenCode);
             }
         }
 
@@ -228,7 +228,7 @@ namespace HIWIN_Robot
         /// 引數應為1 ~ 100 (%)。
         /// </summary>
         /// <param name="value"></param>
-        public void set_speed(int value)
+        public void SetSpeed(int value)
         {
             if (value > 100 || value < 1)
             {
@@ -239,9 +239,9 @@ namespace HIWIN_Robot
             }
             else
             {
-                int return_code = HRobot.set_override_ratio(DeviceID, value);
+                int retuenCode = HRobot.set_override_ratio(DeviceID, value);
 
-                this.is_error_and_show_message(return_code);
+                ErrorHandler(retuenCode);
             }
         }
 
@@ -255,148 +255,43 @@ namespace HIWIN_Robot
         /// </summary>
         /// <param name="type"></param>
         /// <returns>目前的手臂位置。</returns>
-        public double[] get_now_position(Position_Type type)
+        public double[] GetNowPosition(PositionType type)
         {
             double[] position = new double[6];
-            int return_code = -1;
+            int retuenCode = -1;
 
             foreach (int k in position)
             {
-                if (type == Position_Type.descartes)
+                if (type == PositionType.descartes)
                 {
-                    return_code = HRobot.get_current_position(DeviceID, position);
+                    retuenCode = HRobot.get_current_position(DeviceID, position);
                 }
-                else if (type == Position_Type.joint)
+                else if (type == PositionType.joint)
                 {
-                    return_code = HRobot.get_current_joint(DeviceID, position);
+                    retuenCode = HRobot.get_current_joint(DeviceID, position);
                 }
                 else
                 {
-                    show_unknown_position_type();
+                    ShowUnknownPositionType();
                     break;
                 }
             }
-            this.is_error_and_show_message(return_code);
+            ErrorHandler(retuenCode);
             return position;
         }
 
-        /// <summary>
-        /// 進行直線運動。<br/>
-        /// ● target_position：目標位置。<br/>
-        /// ● position_type：位置類型，笛卡爾或關節。<br/>
-        /// ● coordinate_type：坐標類型，絕對坐標或相對坐標。預設為絕對坐標。<br/>
-        /// ● smooth_type：平滑模式類型。預設為依兩線段速度平滑。<br/>
-        /// ● smooth_value：平滑值。預設為50。
-        /// </summary>
-        /// <param name="target_position"></param>
-        /// <param name="position_type"></param>
-        /// <param name="coordinate_type"></param>
-        /// <param name="smooth_type"></param>
-        /// <param name="smooth_value"></param>
-        public void motion_linear(double[] target_position,
-                                  Position_Type position_type,
-                                  Coordinate_Type coordinate_type = Coordinate_Type.absolute,
-                                  Smooth_Type smooth_type = Smooth_Type.two_lines_speed_smooth,
-                                  double smooth_value = 50)
-        {
-            int return_code = -1;
-
-            if (coordinate_type == Coordinate_Type.relative)
-            {
-                target_position = convert_relative_to_adsolute(target_position, position_type);
-            }
-
-            switch (position_type)
-            {
-                case Position_Type.descartes:
-                    return_code = HRobot.lin_pos(DeviceID, (int)smooth_type, smooth_value, target_position);
-                    break;
-
-                case Position_Type.joint:
-                    return_code = HRobot.lin_axis(DeviceID, (int)smooth_type, smooth_value, target_position);
-                    break;
-
-                default:
-                    show_unknown_position_type();
-                    return_code = 0;
-                    break;
-            }
-
-            if (this.is_error_and_show_message(return_code) == false)
-            {
-                this.wait_for_action_complete(target_position, position_type);
-            }
-        }
-
-        /// <summary>
-        ///  進行點對點運動。<br/>
-        ///  ● target_position：目標位置。<br/>
-        ///  ● position_type：位置類型，笛卡爾或關節。<br/>
-        ///  ● coordinate_type：坐標類型，絕對坐標或相對坐標。預設為絕對坐標。<br/>
-        ///  ● smooth_type：平滑模式類型。預設為依兩線段速度平滑。<br/>
-        /// </summary>
-        /// <param name="target_position"></param>
-        /// <param name="position_type"></param>
-        /// <param name="coordinate_type"></param>
-        /// <param name="smooth_type"></param>
-        public void motion_point_to_point(double[] target_position,
-                                          Position_Type position_type,
-                                          Coordinate_Type coordinate_type = Coordinate_Type.absolute,
-                                          Smooth_Type smooth_type = Smooth_Type.two_lines_speed_smooth)
-        {
-            int return_code = -1;
-            int smooth_type_code = 0;
-
-            if (coordinate_type == Coordinate_Type.relative)
-            {
-                target_position = convert_relative_to_adsolute(target_position, position_type);
-            }
-
-            switch (smooth_type)
-            {
-                case Smooth_Type.two_lines_speed_smooth:
-                    smooth_type_code = 1;
-                    break;
-
-                default:
-                    smooth_type_code = 0;
-                    break;
-            }
-
-            switch (position_type)
-            {
-                case Position_Type.descartes:
-                    return_code = HRobot.ptp_pos(DeviceID, smooth_type_code, target_position);
-                    break;
-
-                case Position_Type.joint:
-                    return_code = HRobot.ptp_axis(DeviceID, smooth_type_code, target_position);
-                    break;
-
-                default:
-                    show_unknown_position_type();
-                    return_code = 0;
-                    break;
-            }
-
-            if (this.is_error_and_show_message(return_code) == false)
-            {
-                this.wait_for_action_complete(target_position, position_type);
-            }
-        }
-
-        public void to_zero(Position_Type type)
+        public void GoHome(PositionType type)
         {
             switch (type)
             {
-                case Position_Type.descartes:
+                case PositionType.descartes:
                     HRobot.ptp_pos(DeviceID, 1, positionDescartesHome);
-                    wait_for_action_complete(positionDescartesHome, type);
+                    WaitForMotionComplete(positionDescartesHome, type);
                     break;
 
-                case Position_Type.joint:
+                case PositionType.joint:
                     HRobot.ptp_axis(DeviceID, 1, positionJointHome);
-                    wait_for_action_complete(positionJointHome, type);
+                    WaitForMotionComplete(positionJointHome, type);
                     break;
 
                 default:
@@ -409,52 +304,157 @@ namespace HIWIN_Robot
         }
 
         /// <summary>
+        /// 進行直線運動。<br/>
+        /// ● target_position：目標位置。<br/>
+        /// ● position_type：位置類型，笛卡爾或關節。<br/>
+        /// ● coordinate_type：坐標類型，絕對坐標或相對坐標。預設為絕對坐標。<br/>
+        /// ● smooth_type：平滑模式類型。預設為依兩線段速度平滑。<br/>
+        /// ● smooth_value：平滑值。預設為50。
+        /// </summary>
+        /// <param name="targetPosition"></param>
+        /// <param name="positionType"></param>
+        /// <param name="coordinateType"></param>
+        /// <param name="smoothType"></param>
+        /// <param name="smoothValue"></param>
+        public void MotionLinear(double[] targetPosition,
+                                  PositionType positionType,
+                                  CoordinateType coordinateType = CoordinateType.absolute,
+                                  SmoothType smoothType = SmoothType.twoLinesSpeedSmooth,
+                                  double smoothValue = 50)
+        {
+            int retuenCode;
+
+            if (coordinateType == CoordinateType.relative)
+            {
+                targetPosition = ConvertRelativeToAdsolute(targetPosition, positionType);
+            }
+
+            switch (positionType)
+            {
+                case PositionType.descartes:
+                    retuenCode = HRobot.lin_pos(DeviceID, (int)smoothType, smoothValue, targetPosition);
+                    break;
+
+                case PositionType.joint:
+                    retuenCode = HRobot.lin_axis(DeviceID, (int)smoothType, smoothValue, targetPosition);
+                    break;
+
+                default:
+                    ShowUnknownPositionType();
+                    retuenCode = 0;
+                    break;
+            }
+
+            if (ErrorHandler(retuenCode) == false)
+            {
+                WaitForMotionComplete(targetPosition, positionType);
+            }
+        }
+
+        /// <summary>
+        ///  進行點對點運動。<br/>
+        ///  ● target_position：目標位置。<br/>
+        ///  ● position_type：位置類型，笛卡爾或關節。<br/>
+        ///  ● coordinate_type：坐標類型，絕對坐標或相對坐標。預設為絕對坐標。<br/>
+        ///  ● smooth_type：平滑模式類型。預設為依兩線段速度平滑。<br/>
+        /// </summary>
+        /// <param name="targetPosition"></param>
+        /// <param name="positionType"></param>
+        /// <param name="coordinateType"></param>
+        /// <param name="smoothType"></param>
+        public void MotionPointToPoint(double[] targetPosition,
+                                          PositionType positionType,
+                                          CoordinateType coordinateType = CoordinateType.absolute,
+                                          SmoothType smoothType = SmoothType.twoLinesSpeedSmooth)
+        {
+            int retuenCode;
+            int smoothTypeCode;
+
+            if (coordinateType == CoordinateType.relative)
+            {
+                targetPosition = ConvertRelativeToAdsolute(targetPosition, positionType);
+            }
+
+            switch (smoothType)
+            {
+                case SmoothType.twoLinesSpeedSmooth:
+                    smoothTypeCode = 1;
+                    break;
+
+                default:
+                    smoothTypeCode = 0;
+                    break;
+            }
+
+            switch (positionType)
+            {
+                case PositionType.descartes:
+                    retuenCode = HRobot.ptp_pos(DeviceID, smoothTypeCode, targetPosition);
+                    break;
+
+                case PositionType.joint:
+                    retuenCode = HRobot.ptp_axis(DeviceID, smoothTypeCode, targetPosition);
+                    break;
+
+                default:
+                    ShowUnknownPositionType();
+                    retuenCode = 0;
+                    break;
+            }
+
+            if (ErrorHandler(retuenCode) == false)
+            {
+                WaitForMotionComplete(targetPosition, positionType);
+            }
+        }
+
+        /// <summary>
         /// 等待手臂運動完成。
         /// </summary>
-        /// <param name="target_position"></param>
+        /// <param name="targetPosition"></param>
         /// <param name="type"></param>
-        private void wait_for_action_complete(double[] target_position, Position_Type type)
+        private void WaitForMotionComplete(double[] targetPosition, PositionType type)
         {
-            double[] now_position = new double[6];
+            double[] nowPosition = new double[6];
 
             timer.Enabled = true;
 
             // For無限回圈。
             for (; ; )
             {
-                if (TimeCheck % 1 == 0 && type == Position_Type.descartes)
+                if (TimeCheck % 1 == 0 && type == PositionType.descartes)
                 {
-                    foreach (int k in now_position)
+                    foreach (int k in nowPosition)
                     {
                         // 取得目前的笛卡爾坐標。
-                        HRobot.get_current_position(DeviceID, now_position);
+                        HRobot.get_current_position(DeviceID, nowPosition);
                     }
 
-                    if (Math.Abs(target_position[0] - now_position[0]) < 0.01 &&
-                        Math.Abs(target_position[1] - now_position[1]) < 0.01 &&
-                        Math.Abs(target_position[2] - now_position[2]) < 0.01 &&
-                        Math.Abs(Math.Abs(target_position[3]) - Math.Abs(now_position[3])) < 0.01 &&
-                        Math.Abs(Math.Abs(target_position[4]) - Math.Abs(now_position[4])) < 0.01 &&
-                        Math.Abs(Math.Abs(target_position[5]) - Math.Abs(now_position[5])) < 0.01)
+                    if (Math.Abs(targetPosition[0] - nowPosition[0]) < 0.01 &&
+                        Math.Abs(targetPosition[1] - nowPosition[1]) < 0.01 &&
+                        Math.Abs(targetPosition[2] - nowPosition[2]) < 0.01 &&
+                        Math.Abs(Math.Abs(targetPosition[3]) - Math.Abs(nowPosition[3])) < 0.01 &&
+                        Math.Abs(Math.Abs(targetPosition[4]) - Math.Abs(nowPosition[4])) < 0.01 &&
+                        Math.Abs(Math.Abs(targetPosition[5]) - Math.Abs(nowPosition[5])) < 0.01)
                     {
                         // 跳出For無限回圈。
                         break;
                     }
                 }
-                else if (TimeCheck % 1 == 0 && type == Position_Type.joint)
+                else if (TimeCheck % 1 == 0 && type == PositionType.joint)
                 {
-                    foreach (int k in now_position)
+                    foreach (int k in nowPosition)
                     {
                         // 取得目前的關節坐標。
-                        HRobot.get_current_joint(DeviceID, now_position);
+                        HRobot.get_current_joint(DeviceID, nowPosition);
                     }
 
-                    if (Math.Abs(target_position[0] - now_position[0]) < 0.01 &&
-                        Math.Abs(target_position[1] - now_position[1]) < 0.01 &&
-                        Math.Abs(target_position[2] - now_position[2]) < 0.01 &&
-                        Math.Abs(target_position[3] - now_position[3]) < 0.01 &&
-                        Math.Abs(target_position[4] - now_position[4]) < 0.01 &&
-                        Math.Abs(target_position[5] - now_position[5]) < 0.01)
+                    if (Math.Abs(targetPosition[0] - nowPosition[0]) < 0.01 &&
+                        Math.Abs(targetPosition[1] - nowPosition[1]) < 0.01 &&
+                        Math.Abs(targetPosition[2] - nowPosition[2]) < 0.01 &&
+                        Math.Abs(targetPosition[3] - nowPosition[3]) < 0.01 &&
+                        Math.Abs(targetPosition[4] - nowPosition[4]) < 0.01 &&
+                        Math.Abs(targetPosition[5] - nowPosition[5]) < 0.01)
                     {
                         // 跳出For無限回圈。
                         break;
@@ -627,57 +627,48 @@ namespace HIWIN_Robot
         /// <summary>
         /// 清除錯誤。
         /// </summary>
-        public void clear_alarm()
+        public void ClearAlarm()
         {
-            int return_code = HRobot.clear_alarm(DeviceID);
+            int retuenCode = HRobot.clear_alarm(DeviceID);
 
-            this.is_error_and_show_message(return_code);
+            ErrorHandler(retuenCode);
         }
 
         /// <summary>
         /// 將相對坐標以目前位置轉為絕對坐標。
         /// </summary>
-        /// <param name="relative_position"></param>
+        /// <param name="relativePosition"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        private double[] convert_relative_to_adsolute(double[] relative_position,
-                                                      Position_Type type)
+        private double[] ConvertRelativeToAdsolute(double[] relativePosition,
+                                                   PositionType type)
         {
             double[] position = new double[6];
-            position = this.get_now_position(type);
+            position = GetNowPosition(type);
 
             for (int i = 0; i < 6; i++)
             {
-                position[i] += relative_position[i];
+                position[i] += relativePosition[i];
             }
 
             return position;
         }
 
         /// <summary>
-        /// 初始化計時器。
-        /// </summary>
-        private void init_timer()
-        {
-            timer.Interval = 50;
-            timer.Tick += new System.EventHandler(timer_Tick);
-        }
-
-        /// <summary>
         /// 如果出現錯誤，顯示錯誤代碼。
         /// </summary>
         /// <param name="code"></param>
-        /// <param name="success_code"></param>
+        /// <param name="successCode"></param>
         /// <returns>
         /// 是否出現錯誤。<br/>
         /// ● true：出現錯誤。<br/>
         /// ● false：沒有出現錯誤。
         /// </returns>
-        private bool is_error_and_show_message(int code, int success_code = 0)
+        private bool ErrorHandler(int code, int successCode = 0)
         {
-            if (code != success_code)
+            // Not successful.
+            if (code != successCode)
             {
-                // Not successful.
                 MessageBox.Show("上銀機械手臂控制錯誤。\r\n錯誤代碼：" + code.ToString(),
                                 "錯誤！",
                                 MessageBoxButtons.OK,
@@ -691,12 +682,21 @@ namespace HIWIN_Robot
             }
         }
 
-        private void show_unknown_position_type()
+        /// <summary>
+        /// 初始化計時器。
+        /// </summary>
+        private void InitTimer()
+        {
+            timer.Interval = 50;
+            timer.Tick += new EventHandler(timer_Tick);
+        }
+
+        private void ShowUnknownPositionType()
         {
             string text = "錯誤的位置類型。\r\n" +
                           "位置類型應為" +
-                          Position_Type.descartes.ToString() + "或是" +
-                          Position_Type.joint.ToString() + "。";
+                          PositionType.descartes.ToString() + "或是" +
+                          PositionType.joint.ToString() + "。";
 
             MessageBox.Show(text, "錯誤！", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
