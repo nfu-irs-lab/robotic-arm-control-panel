@@ -9,7 +9,7 @@ namespace HIWIN_Robot
     /// <summary>
     /// 夾爪控制。
     /// </summary>
-    internal class Gripper_Control
+    internal class GripperControl
     {
         /// <summary>
         /// 夾爪模式：絕對位置。
@@ -27,14 +27,14 @@ namespace HIWIN_Robot
         /// </summary>
         private string gripper_com_port;
 
-        public Gripper_Control()
+        public GripperControl()
         {
             // 初始化。
             gripper_com_port = SerialPort.GetPortNames()[0];
             init_gripper();
         }
 
-        public Gripper_Control(string COM_port)
+        public GripperControl(string COM_port)
         {
             // 初始化。
             gripper_com_port = COM_port;

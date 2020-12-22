@@ -420,7 +420,7 @@ namespace HIWIN_Robot
         /// <summary>
         /// 夾爪控制。
         /// </summary>
-        private Gripper_Control XEG32 = new Gripper_Control(Configuration.gripperCOMPort);
+        private GripperControl XEG32 = new GripperControl(Configuration.gripperCOMPort);
 
         /// <summary>
         /// 進行夾爪動作。
