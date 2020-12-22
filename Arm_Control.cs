@@ -552,7 +552,7 @@ namespace HIWIN_Robot
         /// <summary>
         /// 進行手臂斷線、關閉控制器。
         /// </summary>
-        public void disconnect()
+        public void Disconnect()
         {
             int j, k, l;
 

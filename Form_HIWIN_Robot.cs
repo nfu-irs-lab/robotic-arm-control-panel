@@ -483,7 +483,7 @@ namespace HIWIN_Robot
         /// <param name="e"></param>
         private void button_disconnect_Click(object sender, EventArgs e)
         {
-            arm.disconnect();
+            arm.Disconnect();
 
             XEG32.disconnect();
         }
@@ -506,7 +506,7 @@ namespace HIWIN_Robot
 
                 if (dr == DialogResult.Yes)
                 {
-                    arm.disconnect();
+                    arm.Disconnect();
                     XEG32.disconnect();
                     e.Cancel = false;
                 }
