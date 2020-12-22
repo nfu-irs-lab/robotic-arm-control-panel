@@ -305,11 +305,11 @@ namespace HIWIN_Robot
 
         /// <summary>
         /// 進行直線運動。<br/>
-        /// ● target_position：目標位置。<br/>
-        /// ● position_type：位置類型，笛卡爾或關節。<br/>
-        /// ● coordinate_type：坐標類型，絕對坐標或相對坐標。預設為絕對坐標。<br/>
-        /// ● smooth_type：平滑模式類型。預設為依兩線段速度平滑。<br/>
-        /// ● smooth_value：平滑值。預設為50。
+        /// ● targetPosition：目標位置。<br/>
+        /// ● positionType：位置類型，笛卡爾或關節。<br/>
+        /// ● coordinateType：坐標類型，絕對坐標或相對坐標。預設為絕對坐標。<br/>
+        /// ● smoothType：平滑模式類型。預設為依兩線段速度平滑。<br/>
+        /// ● smoothValue：平滑值。預設為50。
         /// </summary>
         /// <param name="targetPosition"></param>
         /// <param name="positionType"></param>
@@ -353,10 +353,10 @@ namespace HIWIN_Robot
 
         /// <summary>
         ///  進行點對點運動。<br/>
-        ///  ● target_position：目標位置。<br/>
-        ///  ● position_type：位置類型，笛卡爾或關節。<br/>
-        ///  ● coordinate_type：坐標類型，絕對坐標或相對坐標。預設為絕對坐標。<br/>
-        ///  ● smooth_type：平滑模式類型。預設為依兩線段速度平滑。<br/>
+        ///  ● targetPosition：目標位置。<br/>
+        ///  ● positionType：位置類型，笛卡爾或關節。<br/>
+        ///  ● coordinateType：坐標類型，絕對坐標或相對坐標。預設為絕對坐標。<br/>
+        ///  ● smoothType：平滑模式類型。預設為依兩線段速度平滑。<br/>
         /// </summary>
         /// <param name="targetPosition"></param>
         /// <param name="positionType"></param>
