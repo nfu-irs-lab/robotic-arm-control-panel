@@ -17,12 +17,12 @@ namespace HIWIN_Robot
         /// <summary>
         /// 笛卡爾原點絕對坐標。
         /// </summary>
-        public double[] position_descartes_zero = { 0, 368, 294, 180, 0, 90 };
+        public double[] positionDescartesHome = { 0, 368, 294, 180, 0, 90 };
 
         /// <summary>
         /// 關節原點絕對坐標。
         /// </summary>
-        public double[] position_joint_zero = { 0, 0, 0, 0, 0, 0 };
+        public double[] positionJointHome = { 0, 0, 0, 0, 0, 0 };
 
         private static HRobot.CallBackFun callback;
 
@@ -30,7 +30,7 @@ namespace HIWIN_Robot
         /// 手臂連線IP位置。<br/>
         /// 設定錯誤將會無法連線。
         /// </summary>
-        private string arm_IP;
+        private string ArmIP = "192.168.0.3";
 
         /// <summary>
         /// 連線狀態。true為已連線。false為未連線或未知。
@@ -42,21 +42,20 @@ namespace HIWIN_Robot
         /// </summary>
         private int DeviceID;
 
-        private int timecheck = 0;
+        private int TimeCheck = 0;
 
         private Timer timer = new Timer();
 
         public Arm_Control()
         {
             // 初始化。
-            arm_IP = "192.168.0.3";
             init_timer();
         }
 
         public Arm_Control(string IP)
         {
             // 初始化。
-            arm_IP = IP;
+            ArmIP = IP;
             init_timer();
         }
 
@@ -391,13 +390,13 @@ namespace HIWIN_Robot
             switch (type)
             {
                 case Position_Type.descartes:
-                    HRobot.ptp_pos(DeviceID, 1, position_descartes_zero);
-                    wait_for_action_complete(position_descartes_zero, type);
+                    HRobot.ptp_pos(DeviceID, 1, positionDescartesHome);
+                    wait_for_action_complete(positionDescartesHome, type);
                     break;
 
                 case Position_Type.joint:
-                    HRobot.ptp_axis(DeviceID, 1, position_joint_zero);
-                    wait_for_action_complete(position_joint_zero, type);
+                    HRobot.ptp_axis(DeviceID, 1, positionJointHome);
+                    wait_for_action_complete(positionJointHome, type);
                     break;
 
                 default:
@@ -423,7 +422,7 @@ namespace HIWIN_Robot
             // For無限回圈。
             for (; ; )
             {
-                if (timecheck % 1 == 0 && type == Position_Type.descartes)
+                if (TimeCheck % 1 == 0 && type == Position_Type.descartes)
                 {
                     foreach (int k in now_position)
                     {
@@ -442,7 +441,7 @@ namespace HIWIN_Robot
                         break;
                     }
                 }
-                else if (timecheck % 1 == 0 && type == Position_Type.joint)
+                else if (TimeCheck % 1 == 0 && type == Position_Type.joint)
                 {
                     foreach (int k in now_position)
                     {
@@ -464,7 +463,7 @@ namespace HIWIN_Robot
             }
 
             timer.Enabled = false;
-            timecheck = 0;
+            TimeCheck = 0;
         }
 
         #endregion - 基本運動 -
@@ -480,7 +479,7 @@ namespace HIWIN_Robot
             callback = new HRobot.CallBackFun(EventFun);
 
             //連線設定。測試連線設定:("127.0.0.1", 1, callback);
-            DeviceID = HRobot.open_connection(arm_IP, 1, callback);
+            DeviceID = HRobot.open_connection(ArmIP, 1, callback);
             Thread.Sleep(500);
 
             //0 ~ 65535為有效裝置ID
@@ -709,7 +708,7 @@ namespace HIWIN_Robot
         /// <param name="e"></param>
         private void timer_Tick(object sender, EventArgs e)
         {
-            ++timecheck;
+            ++TimeCheck;
         }
 
         #endregion - Others -
