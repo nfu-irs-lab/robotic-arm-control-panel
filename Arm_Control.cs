@@ -1,6 +1,5 @@
 ﻿using SDKHrobot;
 using System;
-using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
@@ -35,12 +34,12 @@ namespace HIWIN_Robot
         /// <summary>
         /// 連線狀態。true為已連線。false為未連線或未知。
         /// </summary>
-        private bool connect_state = false;
+        private bool ConnectState = false;
 
         /// <summary>
         /// 手臂ID。
         /// </summary>
-        private int DEVICE_ID;
+        private int DeviceID;
 
         private int timecheck = 0;
 
@@ -167,7 +166,7 @@ namespace HIWIN_Robot
         /// </returns>
         public int get_acceleration()
         {
-            int value = HRobot.get_acc_dec_ratio(DEVICE_ID);
+            int value = HRobot.get_acc_dec_ratio(DeviceID);
 
             if (value == -1)
             {
@@ -189,7 +188,7 @@ namespace HIWIN_Robot
         /// </returns>
         public int get_speed()
         {
-            int value = HRobot.get_override_ratio(DEVICE_ID);
+            int value = HRobot.get_override_ratio(DeviceID);
 
             if (value == -1)
             {
@@ -218,7 +217,7 @@ namespace HIWIN_Robot
             }
             else
             {
-                int return_code = HRobot.set_acc_dec_ratio(DEVICE_ID, value);
+                int return_code = HRobot.set_acc_dec_ratio(DeviceID, value);
 
                 this.is_error_and_show_message(return_code);
             }
@@ -240,7 +239,7 @@ namespace HIWIN_Robot
             }
             else
             {
-                int return_code = HRobot.set_override_ratio(DEVICE_ID, value);
+                int return_code = HRobot.set_override_ratio(DeviceID, value);
 
                 this.is_error_and_show_message(return_code);
             }
@@ -265,11 +264,11 @@ namespace HIWIN_Robot
             {
                 if (type == Position_Type.descartes)
                 {
-                    return_code = HRobot.get_current_position(DEVICE_ID, position);
+                    return_code = HRobot.get_current_position(DeviceID, position);
                 }
                 else if (type == Position_Type.joint)
                 {
-                    return_code = HRobot.get_current_joint(DEVICE_ID, position);
+                    return_code = HRobot.get_current_joint(DeviceID, position);
                 }
                 else
                 {
@@ -310,11 +309,11 @@ namespace HIWIN_Robot
             switch (position_type)
             {
                 case Position_Type.descartes:
-                    return_code = HRobot.lin_pos(DEVICE_ID, (int)smooth_type, smooth_value, target_position);
+                    return_code = HRobot.lin_pos(DeviceID, (int)smooth_type, smooth_value, target_position);
                     break;
 
                 case Position_Type.joint:
-                    return_code = HRobot.lin_axis(DEVICE_ID, (int)smooth_type, smooth_value, target_position);
+                    return_code = HRobot.lin_axis(DeviceID, (int)smooth_type, smooth_value, target_position);
                     break;
 
                 default:
@@ -367,11 +366,11 @@ namespace HIWIN_Robot
             switch (position_type)
             {
                 case Position_Type.descartes:
-                    return_code = HRobot.ptp_pos(DEVICE_ID, smooth_type_code, target_position);
+                    return_code = HRobot.ptp_pos(DeviceID, smooth_type_code, target_position);
                     break;
 
                 case Position_Type.joint:
-                    return_code = HRobot.ptp_axis(DEVICE_ID, smooth_type_code, target_position);
+                    return_code = HRobot.ptp_axis(DeviceID, smooth_type_code, target_position);
                     break;
 
                 default:
@@ -391,12 +390,12 @@ namespace HIWIN_Robot
             switch (type)
             {
                 case Position_Type.descartes:
-                    HRobot.ptp_pos(DEVICE_ID, 1, position_descartes_zero);
+                    HRobot.ptp_pos(DeviceID, 1, position_descartes_zero);
                     wait_for_action_complete(position_descartes_zero, type);
                     break;
 
                 case Position_Type.joint:
-                    HRobot.ptp_axis(DEVICE_ID, 1, position_joint_zero);
+                    HRobot.ptp_axis(DeviceID, 1, position_joint_zero);
                     wait_for_action_complete(position_joint_zero, type);
                     break;
 
@@ -428,7 +427,7 @@ namespace HIWIN_Robot
                     foreach (int k in now_position)
                     {
                         // 取得目前的笛卡爾坐標。
-                        HRobot.get_current_position(DEVICE_ID, now_position);
+                        HRobot.get_current_position(DeviceID, now_position);
                     }
 
                     if (Math.Abs(target_position[0] - now_position[0]) < 0.01 &&
@@ -447,7 +446,7 @@ namespace HIWIN_Robot
                     foreach (int k in now_position)
                     {
                         // 取得目前的關節坐標。
-                        HRobot.get_current_joint(DEVICE_ID, now_position);
+                        HRobot.get_current_joint(DeviceID, now_position);
                     }
 
                     if (Math.Abs(target_position[0] - now_position[0]) < 0.01 &&
@@ -480,63 +479,73 @@ namespace HIWIN_Robot
             callback = new HRobot.CallBackFun(EventFun);
 
             //連線設定。測試連線設定:("127.0.0.1", 1, callback);
-            DEVICE_ID = HRobot.open_connection(arm_IP, 1, callback);
+            DeviceID = HRobot.open_connection(arm_IP, 1, callback);
             Thread.Sleep(500);
 
-            //0-65535為有效裝置id
-            if (DEVICE_ID >= 0 && DEVICE_ID <= 65535)
+            //0 ~ 65535為有效裝置ID
+            if (DeviceID >= 0 && DeviceID <= 65535)
             {
-                int speed_limit_state,
-                    j,
-                    alarm_state,
-                    controller_state,
-                    version_of_HRSDK,
-                    connection_level;
+                int alarmState;
+                int motorState;
+                int connectionLevel;
 
                 //清除錯誤
-                alarm_state = HRobot.clear_alarm(DEVICE_ID);
+                alarmState = HRobot.clear_alarm(DeviceID);
 
                 //設定控制器: 1為啟動,0為關閉
-                j = HRobot.set_motor_state(DEVICE_ID, 1);
+                HRobot.set_motor_state(DeviceID, 1);
                 Thread.Sleep(500);
 
-                //關閉安全限速模式
-                //speed_limit_state = HRobot.speed_limit_off(DEVICE_ID);
+                //回傳控制器狀態
+                motorState = HRobot.get_motor_state(DeviceID);
 
-                //回傳控制器狀態,開啟回傳值為1,沒開啟回傳值為0
-                controller_state = HRobot.get_motor_state(DEVICE_ID);
-
-                connection_level = HRobot.get_connection_level(DEVICE_ID);
-
-                StringBuilder HrssV = new StringBuilder(256);
-
-                //讀取HRSDK版本
-                version_of_HRSDK = HRobot.get_hrsdk_version(HrssV);
+                connectionLevel = HRobot.get_connection_level(DeviceID);
 
                 MessageBox.Show(string.Format("連線成功!\r\n" +
-                                              "手臂裝置ID: {0}\r\n" +
-                                              "控制器狀態(0為關閉,1為開啟): {1}\r\n" +
-                                              //"關閉安全限速模式: {2}\r\n" +
-                                              "錯誤代碼: {2}\r\n" +
-                                              "HRSDK版本: {3}\r\n" +
-                                              "連線等級: {4}",
-                                              DEVICE_ID,
-                                              controller_state,
-                                              //speed_limit_state,
-                                              alarm_state,
-                                              HrssV,
-                                              connection_level));
+                                              "手臂ID: {0}\r\n" +
+                                              "連線等級 (0爲觀測者，1爲操作者): {1}\r\n" +
+                                              "控制器狀態 (0為關閉，1為開啟): {2}\r\n" +
+                                              "錯誤代碼: {3}\r\n",
+                                              DeviceID,
+                                              connectionLevel,
+                                              motorState,
+                                              alarmState));
 
-                connect_state = true;
+                ConnectState = true;
             }
             else
             {
-                MessageBox.Show(string.Format("連線失敗!\r\n" +
-                                              "錯誤代碼: {0}\r\n" +
-                                              "-1：連線未建立\r\n" +
-                                              "-2：函式 function 未定義", DEVICE_ID));
+                string message;
 
-                connect_state = false;
+                switch (DeviceID)
+                {
+                    case -1:
+                        message = "-1：連線失敗";
+                        break;
+
+                    case -2:
+                        message = "-2：回傳機制創建失敗";
+                        break;
+
+                    case -3:
+                        message = "-3：無法連線至Robot";
+                        break;
+
+                    case -4:
+                        message = "-4：版本不相符";
+                        break;
+
+                    default:
+                        message = string.Format("未知的錯誤代碼：{0}", DeviceID);
+                        break;
+                }
+
+                MessageBox.Show("無法連線!\r\n" + message,
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+
+                ConnectState = false;
             }
         }
 
@@ -548,23 +557,23 @@ namespace HIWIN_Robot
             int j, k, l;
 
             //設定控制器: 1為啟動,0為關閉
-            j = HRobot.set_motor_state(DEVICE_ID, 0);
+            j = HRobot.set_motor_state(DeviceID, 0);
             Thread.Sleep(200);
 
             //將所有錯誤代碼清除
-            k = HRobot.clear_alarm(DEVICE_ID);
+            k = HRobot.clear_alarm(DeviceID);
 
             //回傳控制器狀態,開啟回傳值為1,沒開啟回傳值為0
-            l = HRobot.get_motor_state(DEVICE_ID);
+            l = HRobot.get_motor_state(DeviceID);
 
             //關閉手臂連線
-            HRobot.disconnect(DEVICE_ID);
+            HRobot.disconnect(DeviceID);
 
             MessageBox.Show(string.Format("斷線成功!\r\n" +
                                           "控制器狀態(0為關閉,1為開啟): {0}\r\n" +
                                           "錯誤代碼: {1}\r\n", l, k));
 
-            connect_state = false;
+            ConnectState = false;
         }
 
         /// <summary>
@@ -577,7 +586,7 @@ namespace HIWIN_Robot
         /// </returns>
         public bool is_connected()
         {
-            return connect_state;
+            return ConnectState;
         }
 
         /// <summary>
@@ -616,7 +625,7 @@ namespace HIWIN_Robot
         /// </summary>
         public void clear_alarm()
         {
-            int return_code = HRobot.clear_alarm(DEVICE_ID);
+            int return_code = HRobot.clear_alarm(DeviceID);
 
             this.is_error_and_show_message(return_code);
         }
