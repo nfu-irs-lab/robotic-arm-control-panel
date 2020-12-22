@@ -219,7 +219,8 @@ namespace HIWIN_Robot
             {
                 int retuenCode = HRobot.set_acc_dec_ratio(DeviceID, value);
 
-                ErrorHandler(retuenCode);
+                //執行HRobot.set_acc_dec_ratio時會固定回傳錯誤代碼4000
+                //ErrorHandler(retuenCode);
             }
         }
 
