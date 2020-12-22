@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -526,6 +527,7 @@ namespace HIWIN_Robot
         /// 顯示例外狀況錯誤訊息。
         /// </summary>
         /// <param name="ex"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void show_error_messages(Exception ex)
         {
             MessageBox.Show("出現錯誤：" + ex.Message + "\r\n\r\n" + ex.StackTrace,
