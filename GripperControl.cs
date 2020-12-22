@@ -1,4 +1,6 @@
-﻿using System;
+﻿//#define ENABLE_SHOW_ERROR_MESSAGE
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO.Ports;
@@ -55,11 +57,13 @@ namespace HIWIN_Robot
             }
             catch (Exception ex)
             {
+#if ENABLE_SHOW_ERROR_MESSAGE
                 string text = "無法與夾爪進行連線。\r\n請檢查COM Port等設定。\r\n\r\n" +
                               ex.Message + "\r\n\r\n" +
                               ex.StackTrace;
 
                 MessageBox.Show(text, "錯誤！", MessageBoxButtons.OK, MessageBoxIcon.Error);
+#endif
             }
         }
 
@@ -121,7 +125,9 @@ namespace HIWIN_Robot
             }
             catch (Exception exception)
             {
+#if ENABLE_SHOW_ERROR_MESSAGE
                 MessageBox.Show(exception.Message);
+#endif
                 return "";
             }
         }
@@ -141,11 +147,13 @@ namespace HIWIN_Robot
             }
             catch (Exception ex)
             {
+#if ENABLE_SHOW_ERROR_MESSAGE
                 string text = "無法與夾爪進行斷線。\r\n請檢查COM Port等設定。\r\n\r\n" +
                               ex.Message + "\r\n\r\n" +
                               ex.StackTrace;
 
                 MessageBox.Show(text, "錯誤！", MessageBoxButtons.OK, MessageBoxIcon.Error);
+#endif
             }
         }
 
@@ -215,7 +223,9 @@ namespace HIWIN_Robot
             }
             catch (Exception exception)
             {
+#if ENABLE_SHOW_ERROR_MESSAGE
                 MessageBox.Show(exception.Message);
+#endif
                 return "";
             }
         }
