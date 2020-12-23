@@ -663,8 +663,7 @@ namespace HIWIN_Robot
         private double[] ConvertRelativeToAdsolute(double[] relativePosition,
                                                    PositionType type)
         {
-            double[] position = new double[6];
-            position = GetNowPosition(type);
+            double[] position = GetNowPosition(type);
 
             for (int i = 0; i < 6; i++)
             {
