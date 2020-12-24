@@ -11,60 +11,17 @@ namespace HIWIN_Robot
     /// <summary>
     /// 夾爪控制。
     /// </summary>
-    internal class GripperControl
+    internal class GripperControl : SerialPortDevice
     {
         /// <summary>
         /// 夾爪模式：絕對位置。
         /// </summary>
-        private byte direction = 2;
-
-        /// <summary>
-        /// 夾爪串列埠。
-        /// </summary>
-        private SerialPort gripper = new SerialPort();
-
-        /// <summary>
-        /// 夾爪連線COM Port。<br/>
-        /// 設定錯誤將會無法連線。
-        /// </summary>
-        private string gripper_com_port;
-
-        public GripperControl()
-        {
-            // 初始化。
-            gripper_com_port = SerialPort.GetPortNames()[0];
-            init_gripper();
-        }
+        private byte Direction = 2;
 
         public GripperControl(string COM_port)
+            : base(new SerialPort { PortName = COM_port, BaudRate = 115200, DataBits = 8 })
         {
-            // 初始化。
-            gripper_com_port = COM_port;
-            init_gripper();
-        }
-
-        /// <summary>
-        /// 連線。
-        /// </summary>
-        public void connect()
-        {
-            try
-            {
-                if (gripper.IsOpen == false)
-                {
-                    gripper.Open();
-                }
-            }
-            catch (Exception ex)
-            {
-#if ENABLE_SHOW_ERROR_MESSAGE
-                string text = "無法與夾爪進行連線。\r\n請檢查COM Port等設定。\r\n\r\n" +
-                              ex.Message + "\r\n\r\n" +
-                              ex.StackTrace;
-
-                MessageBox.Show(text, "錯誤！", MessageBoxButtons.OK, MessageBoxIcon.Error);
-#endif
-            }
+            Direction = 2;
         }
 
         /// <summary>
@@ -80,7 +37,7 @@ namespace HIWIN_Robot
         /// <param name="PushVel"></param>
         /// <param name="PushPosStk"></param>
         /// <returns></returns>
-        public string control(int position,
+        public string Control(int position,
                               int speed = 50,
                               int force = 70,
                               int CJog = 0,
@@ -102,7 +59,7 @@ namespace HIWIN_Robot
                 list.Add((byte)((speed & 0xff00) >> 8));
                 list.Add((byte)(speed & 0xff));
                 list.Add((byte)0);
-                list.Add((byte)((CJog * 4) + direction));
+                list.Add((byte)((CJog * 4) + Direction));
                 list.Add((byte)0);
                 list.Add((byte)0);
                 list.Add((byte)((force & 0xff00) >> 8));
@@ -120,7 +77,7 @@ namespace HIWIN_Robot
                 list.Add((byte)(num & 0xffL));
                 list.Add((byte)0xfe);
                 byte[] buffer = (byte[])list.ToArray();
-                gripper.Write(buffer, 0, buffer.Length);
+                sp.Write(buffer, 0, buffer.Length);
                 return BitConverter.ToString(buffer).Replace("-", " ");
             }
             catch (Exception exception)
@@ -133,65 +90,12 @@ namespace HIWIN_Robot
         }
 
         /// <summary>
-        /// 斷線。
-        /// </summary>
-        public void disconnect()
-        {
-            //關閉夾爪連線
-            try
-            {
-                if (gripper.IsOpen)
-                {
-                    gripper.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-#if ENABLE_SHOW_ERROR_MESSAGE
-                string text = "無法與夾爪進行斷線。\r\n請檢查COM Port等設定。\r\n\r\n" +
-                              ex.Message + "\r\n\r\n" +
-                              ex.StackTrace;
-
-                MessageBox.Show(text, "錯誤！", MessageBoxButtons.OK, MessageBoxIcon.Error);
-#endif
-            }
-        }
-
-        /// <summary>
-        /// 夾爪是否已連線。
-        /// </summary>
-        /// <returns>是否已經連線。</returns>
-        public bool is_connected()
-        {
-            try
-            {
-                return gripper.IsOpen;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-
-        /// <summary>
         /// 重置夾爪。
         /// </summary>
-        public void reset()
+        public void Reset()
         {
             byte gResetNum = 0x1f;
-            SendIndexCmd(gripper, gResetNum);
-        }
-
-        /// <summary>
-        /// 初始化夾爪。
-        /// </summary>
-        private void init_gripper()
-        {
-            gripper.PortName = gripper_com_port;
-            gripper.BaudRate = 115200;
-            gripper.DataBits = 8;
-
-            direction = 2;
+            SendIndexCmd(sp, gResetNum);
         }
 
         /// <summary>
