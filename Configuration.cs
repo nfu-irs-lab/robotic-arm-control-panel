@@ -15,7 +15,7 @@
         /// 藍牙連線COM Port。<br/>
         /// 設定錯誤將會無法連線。
         /// </summary>
-        public const string BluetoothCOMPort = "COM3";
+        public const string BluetoothCOMPort = "COM21";
 
         /// <summary>
         /// 夾爪連線COM Port。<br/>
