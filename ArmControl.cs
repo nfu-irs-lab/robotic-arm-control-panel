@@ -1,4 +1,6 @@
 ﻿//#define DISABLE_SHOW_MESSAGE
+#define USE_SDK_RELATIVE
+#define USE_MOTION_STATE_WAIT
 
 #if (DISABLE_SHOW_MESSAGE)
 #warning Message is disabled.
@@ -296,8 +298,44 @@ namespace HIWIN_Robot
                                   SmoothType smoothType = SmoothType.twoLinesSpeedSmooth,
                                   double smoothValue = 50)
         {
-            int retuenCode;
+            int retuenCode = 0;
 
+#if (USE_SDK_RELATIVE)
+            if (coordinateType == CoordinateType.absolute)
+            {
+                switch (positionType)
+                {
+                    case PositionType.descartes:
+                        retuenCode = HRobot.lin_pos(DeviceID, (int)smoothType, smoothValue, targetPosition);
+                        break;
+
+                    case PositionType.joint:
+                        retuenCode = HRobot.lin_axis(DeviceID, (int)smoothType, smoothValue, targetPosition);
+                        break;
+
+                    default:
+                        ShowUnknownPositionType();
+                        return;
+                }
+            }
+            else if (coordinateType == CoordinateType.relative)
+            {
+                switch (positionType)
+                {
+                    case PositionType.descartes:
+                        retuenCode = HRobot.lin_rel_pos(DeviceID, (int)smoothType, smoothValue, targetPosition);
+                        break;
+
+                    case PositionType.joint:
+                        retuenCode = HRobot.lin_rel_axis(DeviceID, (int)smoothType, smoothValue, targetPosition);
+                        break;
+
+                    default:
+                        ShowUnknownPositionType();
+                        return;
+                }
+            }
+#else
             if (coordinateType == CoordinateType.relative)
             {
                 targetPosition = ConvertRelativeToAdsolute(targetPosition, positionType);
@@ -315,9 +353,9 @@ namespace HIWIN_Robot
 
                 default:
                     ShowUnknownPositionType();
-                    retuenCode = 0;
-                    break;
+                    return;
             }
+#endif
 
             if (IsErrorAndHandler(retuenCode) == false)
             {
@@ -341,13 +379,8 @@ namespace HIWIN_Robot
                                           CoordinateType coordinateType = CoordinateType.absolute,
                                           SmoothType smoothType = SmoothType.twoLinesSpeedSmooth)
         {
-            int retuenCode;
+            int retuenCode = 0;
             int smoothTypeCode;
-
-            if (coordinateType == CoordinateType.relative)
-            {
-                targetPosition = ConvertRelativeToAdsolute(targetPosition, positionType);
-            }
 
             switch (smoothType)
             {
@@ -358,6 +391,47 @@ namespace HIWIN_Robot
                 default:
                     smoothTypeCode = 0;
                     break;
+            }
+
+#if (USE_SDK_RELATIVE)
+            if (coordinateType == CoordinateType.absolute)
+            {
+                switch (positionType)
+                {
+                    case PositionType.descartes:
+                        retuenCode = HRobot.ptp_pos(DeviceID, smoothTypeCode, targetPosition);
+                        break;
+
+                    case PositionType.joint:
+                        retuenCode = HRobot.ptp_axis(DeviceID, smoothTypeCode, targetPosition);
+                        break;
+
+                    default:
+                        ShowUnknownPositionType();
+                        return;
+                }
+            }
+            else if (coordinateType == CoordinateType.relative)
+            {
+                switch (positionType)
+                {
+                    case PositionType.descartes:
+                        retuenCode = HRobot.ptp_rel_pos(DeviceID, smoothTypeCode, targetPosition);
+                        break;
+
+                    case PositionType.joint:
+                        retuenCode = HRobot.ptp_rel_axis(DeviceID, smoothTypeCode, targetPosition);
+                        break;
+
+                    default:
+                        ShowUnknownPositionType();
+                        return;
+                }
+            }
+#else
+            if (coordinateType == CoordinateType.relative)
+            {
+                targetPosition = ConvertRelativeToAdsolute(targetPosition, positionType);
             }
 
             switch (positionType)
@@ -372,9 +446,9 @@ namespace HIWIN_Robot
 
                 default:
                     ShowUnknownPositionType();
-                    retuenCode = 0;
-                    break;
+                    retuen;
             }
+#endif
 
             if (IsErrorAndHandler(retuenCode) == false)
             {
@@ -389,6 +463,20 @@ namespace HIWIN_Robot
         /// <param name="type"></param>
         private void WaitForMotionComplete(double[] targetPosition, PositionType type)
         {
+#if (USE_MOTION_STATE_WAIT)
+            while (true)
+            {
+                // motion_state = 1: Idle.
+                if (HRobot.get_motion_state(DeviceID) != 1)
+                {
+                    Thread.Sleep(200);
+                }
+                else
+                {
+                    break;
+                }
+            }
+#else
             double[] nowPosition = new double[6];
 
             timer.Enabled = true;
@@ -438,6 +526,7 @@ namespace HIWIN_Robot
 
             timer.Enabled = false;
             TimeCheck = 0;
+#endif
         }
 
         #endregion - 基本運動 -
