@@ -18,7 +18,7 @@ namespace HIWIN_Robot
         {
             InitializeComponent();
 
-            init_control_collection();
+            InitControlCollection();
         }
 
         #region - 手臂 -
@@ -26,19 +26,19 @@ namespace HIWIN_Robot
         /// <summary>
         /// 手臂控制。
         /// </summary>
-        private ArmControl arm = new ArmControl(Configuration.armIP);
+        private ArmControl Arm = new ArmControl(Configuration.armIP);
 
         #region 位置
 
         /// <summary>
         /// 目前顯示位置的控制項陣列。
         /// </summary>
-        private List<TextBox> positino_now = new List<TextBox>();
+        private List<TextBox> NowPosition = new List<TextBox>();
 
         /// <summary>
         /// 目標位置的控制項陣列。
         /// </summary>
-        private List<NumericUpDown> positino_target = new List<NumericUpDown>();
+        private List<NumericUpDown> TargetPositino = new List<NumericUpDown>();
 
         /// <summary>
         /// 複製目前顯示的位置到目標位置。
@@ -47,26 +47,26 @@ namespace HIWIN_Robot
         /// <param name="e"></param>
         private void button_arm_copy_position_from_now_to_target_Click(object sender, EventArgs e)
         {
-            set_postion_target(get_postion_now());
+            SetTargetPostion(GetNowPostion());
         }
 
         /// <summary>
         /// 取得目前顯示的位置。
         /// </summary>
         /// <returns>目前顯示的位置。</returns>
-        private double[] get_postion_now()
+        private double[] GetNowPostion()
         {
             double[] position = new double[6];
             try
             {
                 for (int i = 0; i < 6; i++)
                 {
-                    position[i] = Convert.ToDouble(positino_now[i].Text);
+                    position[i] = Convert.ToDouble(NowPosition[i].Text);
                 }
             }
             catch (Exception ex)
             {
-                show_error_messages(ex);
+                ShowErrorMessage(ex);
             }
             return position;
         }
@@ -75,19 +75,19 @@ namespace HIWIN_Robot
         /// 取得目標位置。
         /// </summary>
         /// <returns>目標位置。</returns>
-        private double[] get_postion_target()
+        private double[] GetTargetPostion()
         {
             double[] position = new double[6];
             try
             {
                 for (int i = 0; i < 6; i++)
                 {
-                    position[i] = Convert.ToDouble(positino_target[i].Value);
+                    position[i] = Convert.ToDouble(TargetPositino[i].Value);
                 }
             }
             catch (Exception ex)
             {
-                show_error_messages(ex);
+                ShowErrorMessage(ex);
             }
             return position;
         }
@@ -95,34 +95,34 @@ namespace HIWIN_Robot
         /// <summary>
         /// 初始化控制項集合。
         /// </summary>
-        private void init_control_collection()
+        private void InitControlCollection()
         {
-            positino_target.Clear();
-            positino_target.Add(this.numericUpDown_arm_target_position_j1x);
-            positino_target.Add(this.numericUpDown_arm_target_position_j2y);
-            positino_target.Add(this.numericUpDown_arm_target_position_j3z);
-            positino_target.Add(this.numericUpDown_arm_target_position_j4a);
-            positino_target.Add(this.numericUpDown_arm_target_position_j5b);
-            positino_target.Add(this.numericUpDown_arm_target_position_j6c);
+            TargetPositino.Clear();
+            TargetPositino.Add(this.numericUpDown_arm_target_position_j1x);
+            TargetPositino.Add(this.numericUpDown_arm_target_position_j2y);
+            TargetPositino.Add(this.numericUpDown_arm_target_position_j3z);
+            TargetPositino.Add(this.numericUpDown_arm_target_position_j4a);
+            TargetPositino.Add(this.numericUpDown_arm_target_position_j5b);
+            TargetPositino.Add(this.numericUpDown_arm_target_position_j6c);
 
-            positino_now.Clear();
-            positino_now.Add(this.textBox_arm_now_position_j1x);
-            positino_now.Add(this.textBox_arm_now_position_j2y);
-            positino_now.Add(this.textBox_arm_now_position_j3z);
-            positino_now.Add(this.textBox_arm_now_position_j4a);
-            positino_now.Add(this.textBox_arm_now_position_j5b);
-            positino_now.Add(this.textBox_arm_now_position_j6c);
+            NowPosition.Clear();
+            NowPosition.Add(this.textBox_arm_now_position_j1x);
+            NowPosition.Add(this.textBox_arm_now_position_j2y);
+            NowPosition.Add(this.textBox_arm_now_position_j3z);
+            NowPosition.Add(this.textBox_arm_now_position_j4a);
+            NowPosition.Add(this.textBox_arm_now_position_j5b);
+            NowPosition.Add(this.textBox_arm_now_position_j6c);
         }
 
         /// <summary>
         /// 設定目前顯示的位置。
         /// </summary>
         /// <param name="new_position"></param>
-        private void set_postion_now(double[] new_position)
+        private void SetNowPostion(double[] new_position)
         {
             for (int i = 0; i < 6; i++)
             {
-                positino_now[i].Text = Convert.ToString(new_position[i]);
+                NowPosition[i].Text = Convert.ToString(new_position[i]);
             }
         }
 
@@ -130,27 +130,27 @@ namespace HIWIN_Robot
         /// 設定目標位置。
         /// </summary>
         /// <param name="new_position"></param>
-        private void set_postion_target(double[] new_position)
+        private void SetTargetPostion(double[] new_position)
         {
             try
             {
                 for (int i = 0; i < 6; i++)
                 {
-                    positino_target[i].Value = Convert.ToDecimal(new_position[i]);
+                    TargetPositino[i].Value = Convert.ToDecimal(new_position[i]);
                 }
             }
             catch (Exception ex)
             {
-                show_error_messages(ex);
+                ShowErrorMessage(ex);
             }
         }
 
         /// <summary>
         /// 更新目前顯示的位置。
         /// </summary>
-        private void update_now_position()
+        private void UpdateNowPosition()
         {
-            set_postion_now(arm.GetNowPosition(get_positino_type()));
+            SetNowPostion(Arm.GetNowPosition(GetPositinoType()));
         }
 
         #endregion 位置
@@ -164,14 +164,14 @@ namespace HIWIN_Robot
         /// <param name="e"></param>
         private void button_arm_motion_start_Click(object sender, EventArgs e)
         {
-            switch (get_motion_type())
+            switch (GetMotionType())
             {
                 case ArmControl.MotionType.linear:
-                    arm.MotionLinear(get_postion_target(), get_positino_type(), get_coordinate_type());
+                    Arm.MotionLinear(GetTargetPostion(), GetPositinoType(), GetCoordinateType());
                     break;
 
                 case ArmControl.MotionType.pointToPoint:
-                    arm.MotionPointToPoint(get_postion_target(), get_positino_type(), get_coordinate_type());
+                    Arm.MotionPointToPoint(GetTargetPostion(), GetPositinoType(), GetCoordinateType());
                     break;
 
                 default:
@@ -179,7 +179,7 @@ namespace HIWIN_Robot
                     break;
             }
 
-            update_now_position();
+            UpdateNowPosition();
         }
 
         /// <summary>
@@ -191,21 +191,21 @@ namespace HIWIN_Robot
         {
             if (checkBox_arm_to_zero_slow.Checked)
             {
-                arm.SetSpeed(5);
-                arm.SetAcceletarion(10);
+                Arm.SetSpeed(5);
+                Arm.SetAcceletarion(10);
 
                 Thread.Sleep(300);
 
-                arm.GoHome(get_positino_type());
-                update_now_position();
+                Arm.GoHome(GetPositinoType());
+                UpdateNowPosition();
 
-                arm.SetSpeed(get_speed());
-                arm.SetAcceletarion(get_asseleration());
+                Arm.SetSpeed(GetSpeed());
+                Arm.SetAcceletarion(GetAcceleration());
             }
             else
             {
-                arm.GoHome(get_positino_type());
-                update_now_position();
+                Arm.GoHome(GetPositinoType());
+                UpdateNowPosition();
             }
         }
 
@@ -216,7 +216,7 @@ namespace HIWIN_Robot
         /// <param name="e"></param>
         private void button_update_now_position_Click(object sender, EventArgs e)
         {
-            update_now_position();
+            UpdateNowPosition();
         }
 
         #region 位置、坐標、動作類型
@@ -224,16 +224,16 @@ namespace HIWIN_Robot
         /// <summary>
         /// 所選的坐標類型改變。
         /// </summary>
-        private void coorrdinate_type_change()
+        private void CoorrdinateTypeChange()
         {
             if (radioButton_coordinate_type_absolute.Checked)
             {
-                set_postion_target(get_postion_now());
+                SetTargetPostion(GetNowPostion());
             }
             else if (radioButton_coordinate_type_relative.Checked)
             {
                 double[] position = new double[6] { 0, 0, 0, 0, 0, 0 };
-                set_postion_target(position);
+                SetTargetPostion(position);
             }
         }
 
@@ -241,7 +241,7 @@ namespace HIWIN_Robot
         /// 取得目前所選的坐標類型。
         /// </summary>
         /// <returns>目前所選的坐標類型。</returns>
-        private ArmControl.CoordinateType get_coordinate_type()
+        private ArmControl.CoordinateType GetCoordinateType()
         {
             ArmControl.CoordinateType type = ArmControl.CoordinateType.unknown;
             if (radioButton_coordinate_type_absolute.Checked)
@@ -263,7 +263,7 @@ namespace HIWIN_Robot
         /// 取得目前所選的運動類型。
         /// </summary>
         /// <returns>目前所選的運動類型。</returns>
-        private ArmControl.MotionType get_motion_type()
+        private ArmControl.MotionType GetMotionType()
         {
             ArmControl.MotionType type = ArmControl.MotionType.unknown;
             if (radioButton_motion_type_linear.Checked)
@@ -285,7 +285,7 @@ namespace HIWIN_Robot
         /// 取得目前所選的位置類型。
         /// </summary>
         /// <returns>目前所選的位置類型。</returns>
-        private ArmControl.PositionType get_positino_type()
+        private ArmControl.PositionType GetPositinoType()
         {
             ArmControl.PositionType type = ArmControl.PositionType.unknown;
             if (radioButton_position_type_descartes.Checked)
@@ -306,17 +306,17 @@ namespace HIWIN_Robot
         /// <summary>
         /// 所選的位置類型改變。
         /// </summary>
-        private void position_type_change()
+        private void PositionTypeChange()
         {
-            if (arm.IsConnect())
+            if (Arm.IsConnect())
             {
                 if (radioButton_position_type_descartes.Checked)
                 {
-                    set_postion_target(arm.GetNowPosition(ArmControl.PositionType.descartes));
+                    SetTargetPostion(Arm.GetNowPosition(ArmControl.PositionType.descartes));
                 }
                 else if (radioButton_position_type_joint.Checked)
                 {
-                    set_postion_target(arm.GetNowPosition(ArmControl.PositionType.joint));
+                    SetTargetPostion(Arm.GetNowPosition(ArmControl.PositionType.joint));
                 }
             }
             else
@@ -324,34 +324,34 @@ namespace HIWIN_Robot
                 if (radioButton_position_type_descartes.Checked)
                 {
                     double[] postion = { 0, 368, 294, 180, 0, 90 };
-                    set_postion_target(postion);
+                    SetTargetPostion(postion);
                 }
                 else if (radioButton_position_type_joint.Checked)
                 {
                     double[] postion = { 0, 0, 0, 0, 0, 0 };
-                    set_postion_target(postion);
+                    SetTargetPostion(postion);
                 }
             }
         }
 
         private void radioButton_coordinate_type_absolute_CheckedChanged(object sender, EventArgs e)
         {
-            coorrdinate_type_change();
+            CoorrdinateTypeChange();
         }
 
         private void radioButton_coordinate_type_relative_CheckedChanged(object sender, EventArgs e)
         {
-            coorrdinate_type_change();
+            CoorrdinateTypeChange();
         }
 
         private void radioButton_position_type_descartes_CheckedChanged(object sender, EventArgs e)
         {
-            position_type_change();
+            PositionTypeChange();
         }
 
         private void radioButton_position_type_joint_CheckedChanged(object sender, EventArgs e)
         {
-            position_type_change();
+            PositionTypeChange();
         }
 
         #endregion 位置、坐標、動作類型
@@ -367,20 +367,20 @@ namespace HIWIN_Robot
         /// <param name="e"></param>
         private void button_set_speed_acceleration_Click(object sender, EventArgs e)
         {
-            arm.SetSpeed(get_speed());
-            arm.SetAcceletarion(get_asseleration());
+            Arm.SetSpeed(GetSpeed());
+            Arm.SetAcceletarion(GetAcceleration());
 
             Thread.Sleep(300);
 
-            MessageBox.Show("　目前速度：" + arm.GetSpeed().ToString() + " %\r\n" +
-                            "目前加速度：" + arm.GetSpeed().ToString() + " %");
+            MessageBox.Show("　目前速度：" + Arm.GetSpeed().ToString() + " %\r\n" +
+                            "目前加速度：" + Arm.GetSpeed().ToString() + " %");
         }
 
         /// <summary>
         /// 取得所顯示的手臂加速度。
         /// </summary>
         /// <returns>目前所顯示的手臂加速度。</returns>
-        private int get_asseleration()
+        private int GetAcceleration()
         {
             int value = -1;
             try
@@ -389,7 +389,7 @@ namespace HIWIN_Robot
             }
             catch (Exception ex)
             {
-                show_error_messages(ex);
+                ShowErrorMessage(ex);
             }
             return value;
         }
@@ -398,7 +398,7 @@ namespace HIWIN_Robot
         /// 取得目前所顯示的手臂速度。
         /// </summary>
         /// <returns>目前所顯示的手臂速度。</returns>
-        private int get_speed()
+        private int GetSpeed()
         {
             int value = -1;
             try
@@ -407,7 +407,7 @@ namespace HIWIN_Robot
             }
             catch (Exception ex)
             {
-                show_error_messages(ex);
+                ShowErrorMessage(ex);
             }
             return value;
         }
@@ -421,7 +421,7 @@ namespace HIWIN_Robot
         /// <summary>
         /// 夾爪控制。
         /// </summary>
-        private GripperControl XEG32 = new GripperControl(Configuration.gripperCOMPort);
+        private GripperControl Gripper = new GripperControl(Configuration.gripperCOMPort);
 
         /// <summary>
         /// 進行夾爪動作。
@@ -430,9 +430,9 @@ namespace HIWIN_Robot
         /// <param name="e"></param>
         private void button_gripper_action_Click(object sender, EventArgs e)
         {
-            XEG32.Control(Convert.ToInt32(numericUpDown_gripper_position.Value),
-                          Convert.ToInt32(numericUpDown_gripper_speed.Value),
-                          Convert.ToInt32(numericUpDown_gripper_force.Value));
+            Gripper.Control(Convert.ToInt32(numericUpDown_gripper_position.Value),
+                            Convert.ToInt32(numericUpDown_gripper_speed.Value),
+                            Convert.ToInt32(numericUpDown_gripper_force.Value));
         }
 
         /// <summary>
@@ -442,7 +442,7 @@ namespace HIWIN_Robot
         /// <param name="e"></param>
         private void button_gripper_reset_Click(object sender, EventArgs e)
         {
-            XEG32.Reset();
+            Gripper.Reset();
         }
 
         #endregion - 夾爪 -
@@ -456,7 +456,7 @@ namespace HIWIN_Robot
         /// <param name="e"></param>
         private void button_arm_clear_alarm_Click(object sender, EventArgs e)
         {
-            arm.ClearAlarm();
+            Arm.ClearAlarm();
         }
 
         /// <summary>
@@ -466,14 +466,14 @@ namespace HIWIN_Robot
         /// <param name="e"></param>
         private void button_connect_Click(object sender, EventArgs e)
         {
-            arm.Connect();
-            if (arm.IsConnect())
+            Arm.Connect();
+            if (Arm.IsConnect())
             {
-                arm.SetSpeed(get_speed());
-                arm.SetAcceletarion(get_asseleration());
-                update_now_position();
+                Arm.SetSpeed(GetSpeed());
+                Arm.SetAcceletarion(GetAcceleration());
+                UpdateNowPosition();
             }
-            XEG32.Connect();
+            Gripper.Connect();
         }
 
         /// <summary>
@@ -483,9 +483,9 @@ namespace HIWIN_Robot
         /// <param name="e"></param>
         private void button_disconnect_Click(object sender, EventArgs e)
         {
-            arm.Disconnect();
+            Arm.Disconnect();
 
-            XEG32.Disconnect();
+            Gripper.Disconnect();
         }
 
         #endregion - 連線與斷線 -
@@ -497,7 +497,7 @@ namespace HIWIN_Robot
         /// </summary>
         private void Form_HIWIN_Robot_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (arm.IsConnect() || XEG32.IsConnect())
+            if (Arm.IsConnect() || Gripper.IsConnect())
             {
                 DialogResult dr = MessageBox.Show("手臂或夾爪似乎還在連線中。\r\n是否要斷開連線後關閉視窗？",
                                                   "關閉視窗",
@@ -506,8 +506,8 @@ namespace HIWIN_Robot
 
                 if (dr == DialogResult.Yes)
                 {
-                    arm.Disconnect();
-                    XEG32.Disconnect();
+                    Arm.Disconnect();
+                    Gripper.Disconnect();
                     e.Cancel = false;
                 }
                 else if (dr == DialogResult.No)
@@ -527,7 +527,7 @@ namespace HIWIN_Robot
         /// </summary>
         /// <param name="ex"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void show_error_messages(Exception ex)
+        private void ShowErrorMessage(Exception ex)
         {
             MessageBox.Show("出現錯誤：" + ex.Message + "\r\n\r\n" + ex.StackTrace,
                             "錯誤！",
