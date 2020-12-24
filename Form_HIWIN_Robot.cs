@@ -49,7 +49,14 @@ namespace HIWIN_Robot
         /// <param name="e"></param>
         private void button_arm_copy_position_from_now_to_target_Click(object sender, EventArgs e)
         {
-            SetTargetPostion(GetNowPostion());
+            if (GetCoordinateType() == ArmControl.CoordinateType.absolute)
+            {
+                SetTargetPostion(GetNowPostion());
+            }
+            else if (GetCoordinateType() == ArmControl.CoordinateType.relative)
+            {
+                SetTargetPostion(new double[] { 0, 0, 0, 0, 0, 0 });
+            }
         }
 
         /// <summary>
@@ -230,10 +237,12 @@ namespace HIWIN_Robot
         {
             if (radioButton_coordinate_type_absolute.Checked)
             {
+                button_arm_copy_position_from_now_to_target.Text = "複製";
                 SetTargetPostion(GetNowPostion());
             }
             else if (radioButton_coordinate_type_relative.Checked)
             {
+                button_arm_copy_position_from_now_to_target.Text = "歸零";
                 SetTargetPostion(new double[] { 0, 0, 0, 0, 0, 0 });
             }
         }
