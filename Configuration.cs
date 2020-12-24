@@ -9,12 +9,12 @@
         /// 手臂連線IP位置。<br/>
         /// 設定錯誤將會無法連線。
         /// </summary>
-        public const string armIP = "192.168.0.3";
+        public const string ArmIP = "192.168.0.3";
 
         /// <summary>
         /// 夾爪連線COM Port。<br/>
         /// 設定錯誤將會無法連線。
         /// </summary>
-        public const string gripperCOMPort = "COM12";
+        public const string GripperCOMPort = "COM12";
     }
 }

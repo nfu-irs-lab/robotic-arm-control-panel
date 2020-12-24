@@ -26,7 +26,7 @@ namespace HIWIN_Robot
         /// <summary>
         /// 手臂控制。
         /// </summary>
-        private ArmControl Arm = new ArmControl(Configuration.armIP);
+        private ArmControl Arm = new ArmControl(Configuration.ArmIP);
 
         #region 位置
 
@@ -418,7 +418,7 @@ namespace HIWIN_Robot
         /// <summary>
         /// 夾爪控制。
         /// </summary>
-        private GripperControl Gripper = new GripperControl(Configuration.gripperCOMPort);
+        private GripperControl Gripper = new GripperControl(Configuration.GripperCOMPort);
 
         /// <summary>
         /// 進行夾爪動作。
