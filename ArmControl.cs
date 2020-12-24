@@ -10,7 +10,7 @@ namespace HIWIN_Robot
     /// <summary>
     /// 上銀機械手臂基本控制。
     /// </summary>
-    internal class ArmControl
+    internal class ArmControl : Device
     {
         #region - 基本變數與列舉 -
 
@@ -27,35 +27,17 @@ namespace HIWIN_Robot
         private static HRobot.CallBackFun callback;
 
         /// <summary>
-        /// 手臂連線IP位置。<br/>
-        /// 設定錯誤將會無法連線。
-        /// </summary>
-        private string ArmIP = "192.168.0.3";
-
-        /// <summary>
-        /// 連線狀態。true為已連線。false為未連線或未知。
-        /// </summary>
-        private bool ConnectState = false;
-
-        /// <summary>
         /// 手臂ID。
         /// </summary>
         private int DeviceID;
 
         private int TimeCheck = 0;
-
         private Timer timer = new Timer();
-
-        public ArmControl()
-        {
-            // 初始化。
-            InitTimer();
-        }
 
         public ArmControl(string IP)
         {
             // 初始化。
-            ArmIP = IP;
+            Address = IP;
             InitTimer();
         }
 
@@ -474,13 +456,13 @@ namespace HIWIN_Robot
         /// <summary>
         /// 進行手臂連線、開啟控制器。
         /// </summary>
-        public void Connect()
+        public override bool Connect()
         {
             //接收控制器回傳訊息
             callback = new HRobot.CallBackFun(EventFun);
 
             //連線設定。測試連線設定:("127.0.0.1", 1, callback);
-            DeviceID = HRobot.open_connection(ArmIP, 1, callback);
+            DeviceID = HRobot.open_connection(Address, 1, callback);
             Thread.Sleep(500);
 
             //0 ~ 65535為有效裝置ID
@@ -519,6 +501,7 @@ namespace HIWIN_Robot
                                               alarmState));
 
                 ConnectState = true;
+                return true;
             }
             else
             {
@@ -553,13 +536,14 @@ namespace HIWIN_Robot
                                 MessageBoxIcon.Error);
 
                 ConnectState = false;
+                return false;
             }
         }
 
         /// <summary>
         /// 進行手臂斷線、關閉控制器。
         /// </summary>
-        public void Disconnect()
+        public override bool Disconnect()
         {
             int alarmState;
             int motorState;
@@ -590,20 +574,7 @@ namespace HIWIN_Robot
                                           alarmState));
 
             ConnectState = false;
-        }
-
-        /// <summary>
-        /// 取得手臂連線狀態。
-        /// </summary>
-        /// <returns>
-        /// 手臂是否連線。<br/>
-        /// ● true：手臂已連線。<br/>
-        /// ● false：手臂未連線或狀態未知。
-        /// </returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool IsConnected()
-        {
-            return ConnectState;
+            return true;
         }
 
         /// <summary>

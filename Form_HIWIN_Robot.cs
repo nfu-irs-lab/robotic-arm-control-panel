@@ -308,7 +308,7 @@ namespace HIWIN_Robot
         /// </summary>
         private void position_type_change()
         {
-            if (arm.IsConnected())
+            if (arm.IsConnect())
             {
                 if (radioButton_position_type_descartes.Checked)
                 {
@@ -467,7 +467,7 @@ namespace HIWIN_Robot
         private void button_connect_Click(object sender, EventArgs e)
         {
             arm.Connect();
-            if (arm.IsConnected())
+            if (arm.IsConnect())
             {
                 arm.SetSpeed(get_speed());
                 arm.SetAcceletarion(get_asseleration());
@@ -497,7 +497,7 @@ namespace HIWIN_Robot
         /// </summary>
         private void Form_HIWIN_Robot_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (arm.IsConnected() || XEG32.is_connected())
+            if (arm.IsConnect() || XEG32.is_connected())
             {
                 DialogResult dr = MessageBox.Show("手臂或夾爪似乎還在連線中。\r\n是否要斷開連線後關閉視窗？",
                                                   "關閉視窗",

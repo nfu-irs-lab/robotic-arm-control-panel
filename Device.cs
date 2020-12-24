@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,27 +12,30 @@ namespace HIWIN_Robot
 {
     public abstract class Device
     {
-        public string Address;
+        protected string Address;
 
-        public bool IsConnect;
+        protected bool ConnectState;
 
         public abstract bool Connect();
 
         public abstract bool Disconnect();
+
+        /// <summary>
+        /// Get connect state.<br/>
+        /// </summary>
+        /// <returns>
+        /// true: Connected. <br/>
+        /// false: Unconnected or unknown.
+        /// </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool IsConnect()
+        {
+            return ConnectState;
+        }
     }
 
     internal class SerialPortDevice : Device
     {
-        /// <summary>
-        /// Connect state. <br/> true: Connected; false: Unconnected or Unknown.
-        /// </summary>
-        public new bool IsConnect = false;
-
-        /// <summary>
-        /// COM Port name. Like: COM1.
-        /// </summary>
-        private new readonly string Address = "COM1";
-
         private readonly SerialPort sp = new SerialPort();
 
         /// <summary>
@@ -76,12 +80,12 @@ namespace HIWIN_Robot
                     Thread.Sleep(50);
                     if (sp.IsOpen)
                     {
-                        IsConnect = true;
+                        ConnectState = true;
                         return true;
                     }
                     else
                     {
-                        IsConnect = false;
+                        ConnectState = false;
                         return false;
                     }
                 }
@@ -98,7 +102,7 @@ namespace HIWIN_Robot
             }
             else
             {
-                IsConnect = true;
+                ConnectState = true;
                 return true;
             }
         }
@@ -120,12 +124,12 @@ namespace HIWIN_Robot
                     Thread.Sleep(50);
                     if (sp.IsOpen)
                     {
-                        IsConnect = true;
+                        ConnectState = true;
                         return false;
                     }
                     else
                     {
-                        IsConnect = false;
+                        ConnectState = false;
                         return true;
                     }
                 }
@@ -142,7 +146,7 @@ namespace HIWIN_Robot
             }
             else
             {
-                IsConnect = false;
+                ConnectState = false;
                 return true;
             }
         }
