@@ -80,9 +80,6 @@ namespace HIWIN_Robot
                                         ArmControl.CoordinateType.relative);
                     break;
 
-                case "":
-                    break;
-
                 default:
                     MessageBox.Show($"Unknown date: {data}");
                     break;
