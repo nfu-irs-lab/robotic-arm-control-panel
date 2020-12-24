@@ -1,4 +1,6 @@
-﻿using System;
+﻿//#define DISABLE_KEYBOARD_CONTROL
+
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -530,6 +532,57 @@ namespace HIWIN_Robot
                     e.Cancel = true;
                 }
             }
+        }
+
+        /// <summary>
+        /// 鍵盤控制。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Form_HIWIN_Robot_KeyDown(object sender, KeyEventArgs e)
+        {
+#if (!DISABLE_KEYBOARD_CONTROL)
+            switch (e.KeyCode)
+            {
+                case Keys.F1:
+                    TargetPositino[0].Focus();
+                    TargetPositino[0].ResetText();
+                    break;
+
+                case Keys.F2:
+                    TargetPositino[1].Focus();
+                    TargetPositino[1].ResetText();
+                    break;
+
+                case Keys.F3:
+                    TargetPositino[2].Focus();
+                    TargetPositino[2].ResetText();
+                    break;
+
+                case Keys.F4:
+                    button_arm_motion_start.PerformClick();
+                    break;
+
+                case Keys.F5:
+                    UpdateNowPosition();
+                    break;
+
+                case Keys.F6:
+                    button_arm_copy_position_from_now_to_target.PerformClick();
+                    break;
+
+                case Keys.Home:
+                    button_arm_to_zero.PerformClick();
+                    break;
+
+                case Keys.End:
+                    button_disconnect.PerformClick();
+                    break;
+
+                default:
+                    break;
+            }
+#endif
         }
 
         /// <summary>
