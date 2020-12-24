@@ -1,4 +1,10 @@
-﻿using SDKHrobot;
+﻿//#define DISABLE_SHOW_MESSAGE
+
+#if (DISABLE_SHOW_MESSAGE)
+#warning Message is disabled.
+#endif
+
+using SDKHrobot;
 using System;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -152,10 +158,7 @@ namespace HIWIN_Robot
 
             if (value == -1)
             {
-                MessageBox.Show("取得手臂加速度時出錯。",
-                                "錯誤！",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
+                ShowErrorMessage("取得手臂加速度時出錯。");
             }
 
             return value;
@@ -174,10 +177,7 @@ namespace HIWIN_Robot
 
             if (value == -1)
             {
-                MessageBox.Show("取得手臂速度時出錯。",
-                                "錯誤！",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
+                ShowErrorMessage("取得手臂速度時出錯。");
             }
 
             return value;
@@ -192,17 +192,14 @@ namespace HIWIN_Robot
         {
             if (value > 100 || value < 1)
             {
-                MessageBox.Show("手臂加速度應為1% ~ 100%之間。",
-                                "錯誤！",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
+                ShowErrorMessage("手臂加速度應為1% ~ 100%之間。");
             }
             else
             {
                 int retuenCode = HRobot.set_acc_dec_ratio(DeviceID, value);
 
                 //執行HRobot.set_acc_dec_ratio時會固定回傳錯誤代碼4000
-                //ErrorHandler(retuenCode);
+                IsErrorAndHandler(retuenCode, 0, 4000);
             }
         }
 
@@ -215,16 +212,13 @@ namespace HIWIN_Robot
         {
             if (value > 100 || value < 1)
             {
-                MessageBox.Show("手臂速度應為1% ~ 100%之間。",
-                                "錯誤！",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
+                ShowErrorMessage("手臂速度應為1% ~ 100%之間。");
             }
             else
             {
                 int retuenCode = HRobot.set_override_ratio(DeviceID, value);
 
-                ErrorHandler(retuenCode);
+                IsErrorAndHandler(retuenCode);
             }
         }
 
@@ -259,7 +253,7 @@ namespace HIWIN_Robot
                     break;
                 }
             }
-            ErrorHandler(retuenCode);
+            IsErrorAndHandler(retuenCode);
             return position;
         }
 
@@ -278,10 +272,7 @@ namespace HIWIN_Robot
                     break;
 
                 default:
-                    MessageBox.Show("錯誤的位置類型。",
-                                    "錯誤！",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Error);
+                    ShowUnknownPositionType();
                     break;
             }
         }
@@ -328,7 +319,7 @@ namespace HIWIN_Robot
                     break;
             }
 
-            if (ErrorHandler(retuenCode) == false)
+            if (IsErrorAndHandler(retuenCode) == false)
             {
                 WaitForMotionComplete(targetPosition, positionType);
             }
@@ -385,7 +376,7 @@ namespace HIWIN_Robot
                     break;
             }
 
-            if (ErrorHandler(retuenCode) == false)
+            if (IsErrorAndHandler(retuenCode) == false)
             {
                 WaitForMotionComplete(targetPosition, positionType);
             }
@@ -490,6 +481,7 @@ namespace HIWIN_Robot
 
                 connectionLevel = HRobot.get_connection_level(DeviceID);
 
+#if (!DISABLE_SHOW_MESSAGE)
                 MessageBox.Show(string.Format("連線成功!\r\n" +
                                               "手臂ID: {0}\r\n" +
                                               "連線等級: {1}\r\n" +
@@ -499,6 +491,7 @@ namespace HIWIN_Robot
                                               (connectionLevel == 0) ? "觀測者" : "操作者",
                                               (motorState == 0) ? "關閉" : "開啟",
                                               alarmState));
+#endif
 
                 ConnectState = true;
                 return true;
@@ -530,10 +523,12 @@ namespace HIWIN_Robot
                         break;
                 }
 
+#if (!DISABLE_SHOW_MESSAGE)
                 MessageBox.Show("無法連線!\r\n" + message,
                                 "Error",
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Error);
+#endif
 
                 ConnectState = false;
                 return false;
@@ -567,11 +562,13 @@ namespace HIWIN_Robot
             //關閉手臂連線
             HRobot.disconnect(DeviceID);
 
+#if (!DISABLE_SHOW_MESSAGE)
             MessageBox.Show(string.Format("斷線成功!\r\n" +
                                           "控制器狀態: {0}\r\n" +
                                           "錯誤代碼: {1}\r\n",
                                           (motorState == 0) ? "關閉" : "開啟",
                                           alarmState));
+#endif
 
             ConnectState = false;
             return true;
@@ -593,12 +590,14 @@ namespace HIWIN_Robot
                 case 4011:
                     if (rlt != 0)
                     {
+#if (!DISABLE_SHOW_MESSAGE)
                         MessageBox.Show("Update fail. " + rlt,
                                         "HRSS update callback",
                                         MessageBoxButtons.OK,
                                         MessageBoxIcon.Warning,
                                         MessageBoxDefaultButton.Button1,
                                         MessageBoxOptions.DefaultDesktopOnly);
+#endif
                     }
                     break;
             }
@@ -616,12 +615,15 @@ namespace HIWIN_Robot
             int retuenCode = HRobot.clear_alarm(DeviceID);
 
             //錯誤代碼300代表沒有警報，無法清除警報
-            if (retuenCode == 300)
-            {
-                retuenCode = 0;
-            }
+            IsErrorAndHandler(retuenCode, 0, 300);
+        }
 
-            ErrorHandler(retuenCode);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        protected override void ShowErrorMessage(string message = "Error.", Exception ex = null)
+        {
+#if (!DISABLE_SHOW_MESSAGE)
+            base.ShowErrorMessage(message, ex);
+#endif
         }
 
         /// <summary>
@@ -645,35 +647,6 @@ namespace HIWIN_Robot
         }
 
         /// <summary>
-        /// 如果出現錯誤，顯示錯誤代碼。
-        /// </summary>
-        /// <param name="code"></param>
-        /// <param name="successCode"></param>
-        /// <returns>
-        /// 是否出現錯誤。<br/>
-        /// ● true：出現錯誤。<br/>
-        /// ● false：沒有出現錯誤。
-        /// </returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private bool ErrorHandler(int code, int successCode = 0)
-        {
-            // Not successful.
-            if (code != successCode)
-            {
-                MessageBox.Show("上銀機械手臂控制錯誤。\r\n錯誤代碼：" + code.ToString(),
-                                "錯誤！",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
-
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        /// <summary>
         /// 初始化計時器。
         /// </summary>
         private void InitTimer()
@@ -682,15 +655,38 @@ namespace HIWIN_Robot
             timer.Tick += new EventHandler(timer_Tick);
         }
 
+        /// <summary>
+        /// 如果出現錯誤，顯示錯誤代碼。
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="successCode"></param>
+        /// <param name="ignoreCode"></param>
+        /// <returns>
+        /// 是否出現錯誤。<br/>
+        /// ● true：出現錯誤。<br/>
+        /// ● false：沒有出現錯誤。
+        /// </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private bool IsErrorAndHandler(int code, int successCode = 0, int ignoreCode = 0)
+        {
+            if (code == successCode || code == ignoreCode)
+            {
+                // Successful.
+                return false;
+            }
+            else
+            {
+                // Not successful.
+                ShowErrorMessage($"上銀機械手臂控制錯誤。\r\n錯誤代碼：{code}");
+                return true;
+            }
+        }
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void ShowUnknownPositionType()
         {
-            string text = "錯誤的位置類型。\r\n" +
-                          "位置類型應為" +
-                          PositionType.descartes.ToString() + "或是" +
-                          PositionType.joint.ToString() + "。";
-
-            MessageBox.Show(text, "錯誤！", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            ShowErrorMessage($"錯誤的位置類型。\r\n" +
+                             $"位置類型應為：{PositionType.descartes} 或是 {PositionType.joint}");
         }
 
         /// <summary>

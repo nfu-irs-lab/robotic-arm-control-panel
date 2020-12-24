@@ -1,9 +1,14 @@
-﻿//#define ENABLE_SHOW_ERROR_MESSAGE
+﻿#define DISABLE_SHOW_MESSAGE
+
+#if (DISABLE_SHOW_MESSAGE)
+#warning Message is disabled.
+#endif
 
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO.Ports;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 namespace HIWIN_Robot
@@ -80,11 +85,9 @@ namespace HIWIN_Robot
                 sp.Write(buffer, 0, buffer.Length);
                 return BitConverter.ToString(buffer).Replace("-", " ");
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-#if ENABLE_SHOW_ERROR_MESSAGE
-                MessageBox.Show(exception.Message);
-#endif
+                ShowErrorMessage("Error.", ex);
                 return "";
             }
         }
@@ -95,6 +98,14 @@ namespace HIWIN_Robot
         public void Reset()
         {
             SendIndexCmd(sp, (byte)0x1f);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        protected override void ShowErrorMessage(string message = "Error.", Exception ex = null)
+        {
+#if (!DISABLE_SHOW_MESSAGE)
+            base.ShowErrorMessage(message, ex);
+#endif
         }
 
         /// <summary>
@@ -124,11 +135,9 @@ namespace HIWIN_Robot
                 Comm1.Write(buffer, 0, buffer.Length);
                 return BitConverter.ToString(buffer).Replace("-", " ");
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-#if ENABLE_SHOW_ERROR_MESSAGE
-                MessageBox.Show(exception.Message);
-#endif
+                ShowErrorMessage("Error.", ex);
                 return "";
             }
         }

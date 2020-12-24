@@ -1,4 +1,10 @@
-﻿using System;
+﻿//#define DISABLE_SHOW_MESSAGE
+
+#if (DISABLE_SHOW_MESSAGE)
+#warning Message is disabled.
+#endif
+
+using System;
 using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
@@ -31,6 +37,20 @@ namespace HIWIN_Robot
         public bool IsConnect()
         {
             return ConnectState;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        protected virtual void ShowErrorMessage(string message = "Error.", Exception ex = null)
+        {
+            string text = $"{message} \r\n\r\n";
+
+            if (ex != null)
+            {
+                text += $"{ex.Message} \r\n\r\n" +
+                        $"{ex.StackTrace}";
+            }
+
+            MessageBox.Show(text, "錯誤！", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 
@@ -91,12 +111,7 @@ namespace HIWIN_Robot
                 }
                 catch (Exception ex)
                 {
-                    string text = "無法進行連線。\r\n請檢查COM Port等設定。\r\n\r\n" +
-                                  ex.Message + "\r\n\r\n" +
-                                  ex.StackTrace;
-
-                    MessageBox.Show(text, "錯誤！", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+                    ShowErrorMessage("無法進行連線。\r\n請檢查COM Port等設定。", ex);
                     return false;
                 }
             }
@@ -135,12 +150,7 @@ namespace HIWIN_Robot
                 }
                 catch (Exception ex)
                 {
-                    string text = "無法進行斷線。\r\n請檢查COM Port等設定。\r\n\r\n" +
-                                  ex.Message + "\r\n\r\n" +
-                                  ex.StackTrace;
-
-                    MessageBox.Show(text, "錯誤！", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+                    ShowErrorMessage("無法進行斷線。\r\n請檢查COM Port等設定。", ex);
                     return false;
                 }
             }
@@ -149,6 +159,14 @@ namespace HIWIN_Robot
                 ConnectState = false;
                 return true;
             }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        protected override void ShowErrorMessage(string message = "Error.", Exception ex = null)
+        {
+#if (!DISABLE_SHOW_MESSAGE)
+            base.ShowErrorMessage(message, ex);
+#endif
         }
     }
 }
