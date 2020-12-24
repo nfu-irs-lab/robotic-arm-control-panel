@@ -10,7 +10,7 @@ namespace HIWIN_Robot
     /// 【 上銀機器手臂控制 範例程式 】<br/>
     /// HIWIN Robot Control<br/>
     /// <br/>
-    /// 最後更新日期：2020/July/24
+    /// 最後更新日期：2020/Dec/24
     /// </summary>
     public partial class Form_HIWIN_Robot : Form
     {
