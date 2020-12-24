@@ -23,16 +23,16 @@ namespace HIWIN_Robot
     internal class SerialPortDevice : Device
     {
         /// <summary>
-        /// COM Port name. Like: COM1.
-        /// </summary>
-        public new string Address = "COM1";
-
-        /// <summary>
         /// Connect state. <br/> true: Connected; false: Unconnected or Unknown.
         /// </summary>
         public new bool IsConnect = false;
 
-        private SerialPort sp = new SerialPort();
+        /// <summary>
+        /// COM Port name. Like: COM1.
+        /// </summary>
+        private new readonly string Address = "COM1";
+
+        private readonly SerialPort sp = new SerialPort();
 
         /// <summary>
         /// Serial port device.
