@@ -232,8 +232,7 @@ namespace HIWIN_Robot
             }
             else if (radioButton_coordinate_type_relative.Checked)
             {
-                double[] position = new double[6] { 0, 0, 0, 0, 0, 0 };
-                SetTargetPostion(position);
+                SetTargetPostion(new double[] { 0, 0, 0, 0, 0, 0 });
             }
         }
 
@@ -323,13 +322,11 @@ namespace HIWIN_Robot
             {
                 if (radioButton_position_type_descartes.Checked)
                 {
-                    double[] postion = { 0, 368, 294, 180, 0, 90 };
-                    SetTargetPostion(postion);
+                    SetTargetPostion(new double[] { 0, 368, 294, 180, 0, 90 });
                 }
                 else if (radioButton_position_type_joint.Checked)
                 {
-                    double[] postion = { 0, 0, 0, 0, 0, 0 };
-                    SetTargetPostion(postion);
+                    SetTargetPostion(new double[] { 0, 0, 0, 0, 0, 0 });
                 }
             }
         }
@@ -484,7 +481,6 @@ namespace HIWIN_Robot
         private void button_disconnect_Click(object sender, EventArgs e)
         {
             Arm.Disconnect();
-
             Gripper.Disconnect();
         }
 
