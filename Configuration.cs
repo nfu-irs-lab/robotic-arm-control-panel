@@ -12,6 +12,12 @@
         public const string ArmIP = "192.168.0.3";
 
         /// <summary>
+        /// 藍牙連線COM Port。<br/>
+        /// 設定錯誤將會無法連線。
+        /// </summary>
+        public const string BluetoothCOMPort = "COM3";
+
+        /// <summary>
         /// 夾爪連線COM Port。<br/>
         /// 設定錯誤將會無法連線。
         /// </summary>

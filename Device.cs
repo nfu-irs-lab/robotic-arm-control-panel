@@ -56,7 +56,7 @@ namespace HIWIN_Robot
 
     internal class SerialPortDevice : Device
     {
-        protected readonly SerialPort sp = new SerialPort();
+        protected SerialPort sp = new SerialPort();
 
         /// <summary>
         /// Serial port device.

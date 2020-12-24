@@ -14,6 +14,8 @@ namespace HIWIN_Robot
     /// </summary>
     public partial class Form_HIWIN_Robot : Form
     {
+        private BluetoothControl BluetoothControl = new BluetoothControl(Configuration.BluetoothCOMPort);
+
         public Form_HIWIN_Robot()
         {
             InitializeComponent();
@@ -471,6 +473,8 @@ namespace HIWIN_Robot
                 UpdateNowPosition();
             }
             Gripper.Connect();
+
+            BluetoothControl.Connect();
         }
 
         /// <summary>
@@ -482,6 +486,7 @@ namespace HIWIN_Robot
         {
             Arm.Disconnect();
             Gripper.Disconnect();
+            BluetoothControl.Disconnect();
         }
 
         #endregion - 連線與斷線 -
