@@ -94,8 +94,7 @@ namespace HIWIN_Robot
         /// </summary>
         public void Reset()
         {
-            byte gResetNum = 0x1f;
-            SendIndexCmd(sp, gResetNum);
+            SendIndexCmd(sp, (byte)0x1f);
         }
 
         /// <summary>
