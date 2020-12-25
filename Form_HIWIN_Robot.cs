@@ -545,18 +545,36 @@ namespace HIWIN_Robot
             switch (e.KeyCode)
             {
                 case Keys.F1:
-                    TargetPositino[0].Focus();
-                    TargetPositino[0].ResetText();
+                    if (TargetPositino[0].Focused)
+                    {
+                        TargetPositino[0].ResetText();
+                    }
+                    else
+                    {
+                        TargetPositino[0].Focus();
+                    }
                     break;
 
                 case Keys.F2:
-                    TargetPositino[1].Focus();
-                    TargetPositino[1].ResetText();
+                    if (TargetPositino[1].Focused)
+                    {
+                        TargetPositino[1].ResetText();
+                    }
+                    else
+                    {
+                        TargetPositino[1].Focus();
+                    }
                     break;
 
                 case Keys.F3:
-                    TargetPositino[2].Focus();
-                    TargetPositino[2].ResetText();
+                    if (TargetPositino[2].Focused)
+                    {
+                        TargetPositino[2].ResetText();
+                    }
+                    else
+                    {
+                        TargetPositino[2].Focus();
+                    }
                     break;
 
                 case Keys.F4:
