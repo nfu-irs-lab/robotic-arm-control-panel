@@ -50,14 +50,6 @@ namespace HIWIN_Robot
             InitTimer();
         }
 
-        ~ArmControl()
-        {
-            if (ConnectState)
-            {
-                Disconnect();
-            }
-        }
-
         /// <summary>
         /// 坐標類型。
         /// </summary>

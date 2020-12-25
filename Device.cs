@@ -22,6 +22,14 @@ namespace HIWIN_Robot
 
         protected bool ConnectState;
 
+        ~Device()
+        {
+            if (ConnectState)
+            {
+                Disconnect();
+            }
+        }
+
         public abstract bool Connect();
 
         public abstract bool Disconnect();
