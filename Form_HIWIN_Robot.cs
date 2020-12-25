@@ -1,5 +1,11 @@
 ﻿//#define DISABLE_KEYBOARD_CONTROL
 
+//#define DISABLE_SHOW_MESSAGE
+
+#if (DISABLE_SHOW_MESSAGE)
+#warning Message is disabled.
+#endif
+
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -186,7 +192,9 @@ namespace HIWIN_Robot
                     break;
 
                 default:
+#if (!DISABLE_SHOW_MESSAGE)
                     MessageBox.Show("未知的運動類型。", "錯誤！", MessageBoxButtons.OK, MessageBoxIcon.Error);
+#endif
                     break;
             }
 
@@ -382,8 +390,10 @@ namespace HIWIN_Robot
 
             Thread.Sleep(300);
 
+#if (!DISABLE_SHOW_MESSAGE)
             MessageBox.Show("　目前速度：" + Arm.GetSpeed().ToString() + " %\r\n" +
                             "目前加速度：" + Arm.GetSpeed().ToString() + " %");
+#endif
         }
 
         /// <summary>
@@ -509,6 +519,7 @@ namespace HIWIN_Robot
         /// </summary>
         private void Form_HIWIN_Robot_FormClosing(object sender, FormClosingEventArgs e)
         {
+#if (!DISABLE_SHOW_MESSAGE)
             if (Arm.IsConnect() || Gripper.IsConnect())
             {
                 DialogResult dr = MessageBox.Show("手臂或夾爪似乎還在連線中。\r\n是否要斷開連線後關閉視窗？",
@@ -532,6 +543,7 @@ namespace HIWIN_Robot
                     e.Cancel = true;
                 }
             }
+#endif
         }
 
         /// <summary>
@@ -675,10 +687,12 @@ namespace HIWIN_Robot
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void ShowErrorMessage(Exception ex)
         {
+#if (!DISABLE_SHOW_MESSAGE)
             MessageBox.Show("出現錯誤：" + ex.Message + "\r\n\r\n" + ex.StackTrace,
                             "錯誤！",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error);
+#endif
         }
 
         #endregion - 其它 -
