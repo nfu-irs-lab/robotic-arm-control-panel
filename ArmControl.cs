@@ -45,6 +45,7 @@ namespace HIWIN_Robot
         public ArmControl(string IP)
         {
             // 初始化。
+            ConnectState = false;
             Address = IP;
             InitTimer();
         }

@@ -65,6 +65,7 @@ namespace HIWIN_Robot
         /// <param name="baudRate"></param>
         public SerialPortDevice(string comPort, int baudRate = 9600)
         {
+            ConnectState = false;
             Address = comPort;
             sp.PortName = comPort;
             sp.BaudRate = baudRate;
@@ -77,6 +78,7 @@ namespace HIWIN_Robot
         /// <param name="serialPort"></param>
         public SerialPortDevice(SerialPort serialPort)
         {
+            ConnectState = false;
             Address = serialPort.PortName;
 
             // XXX 此處沒有使用深層複製，需注意指標(pointer)的問題。
