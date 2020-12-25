@@ -27,7 +27,6 @@ namespace HIWIN_Robot
         public Form_HIWIN_Robot()
         {
             InitializeComponent();
-
             InitControlCollection();
         }
 
@@ -666,11 +665,11 @@ namespace HIWIN_Robot
                 case Keys.End:
                     if (Arm.IsConnect())
                     {
-                        button_connect.PerformClick();
+                        button_disconnect.PerformClick();
                     }
                     else
                     {
-                        button_disconnect.PerformClick();
+                        button_connect.PerformClick();
                     }
                     break;
 
