@@ -128,26 +128,26 @@ namespace HIWIN_Robot
         /// <summary>
         /// 設定目前顯示的位置。
         /// </summary>
-        /// <param name="new_position"></param>
-        private void SetNowPostion(double[] new_position)
+        /// <param name="position"></param>
+        private void SetNowPostion(double[] position)
         {
             for (int i = 0; i < 6; i++)
             {
-                NowPosition[i].Text = Convert.ToString(new_position[i]);
+                NowPosition[i].Text = Convert.ToString(position[i]);
             }
         }
 
         /// <summary>
         /// 設定目標位置。
         /// </summary>
-        /// <param name="new_position"></param>
-        private void SetTargetPostion(double[] new_position)
+        /// <param name="position"></param>
+        private void SetTargetPostion(double[] position)
         {
             try
             {
                 for (int i = 0; i < 6; i++)
                 {
-                    TargetPositino[i].Value = Convert.ToDecimal(new_position[i]);
+                    TargetPositino[i].Value = Convert.ToDecimal(position[i]);
                 }
             }
             catch (Exception ex)
