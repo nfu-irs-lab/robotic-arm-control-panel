@@ -595,7 +595,24 @@ namespace HIWIN_Robot
                     {
                         if (TargetPositino[i].Focused)
                         {
-                            TargetPositino[i].UpButton();
+                            decimal value;
+                            if (!e.Control && e.Shift && !e.Alt)
+                            {
+                                value = 1;
+                            }
+                            else if (!e.Control && !e.Shift && e.Alt)
+                            {
+                                value = (decimal)0.1;
+                            }
+                            else if (!e.Control && e.Shift && e.Alt)
+                            {
+                                value = (decimal)0.05;
+                            }
+                            else
+                            {
+                                value = 10;
+                            }
+                            TargetPositino[i].Value += value;
                             break;
                         }
                     }
@@ -607,7 +624,24 @@ namespace HIWIN_Robot
                     {
                         if (TargetPositino[i].Focused)
                         {
-                            TargetPositino[i].DownButton();
+                            decimal value;
+                            if (!e.Control && e.Shift && !e.Alt)
+                            {
+                                value = 1;
+                            }
+                            else if (!e.Control && !e.Shift && e.Alt)
+                            {
+                                value = (decimal)0.1;
+                            }
+                            else if (!e.Control && e.Shift && e.Alt)
+                            {
+                                value = (decimal)0.05;
+                            }
+                            else
+                            {
+                                value = 10;
+                            }
+                            TargetPositino[i].Value -= value;
                             break;
                         }
                     }
@@ -618,7 +652,14 @@ namespace HIWIN_Robot
                     break;
 
                 case Keys.End:
-                    button_disconnect.PerformClick();
+                    if (Arm.IsConnect())
+                    {
+                        button_connect.PerformClick();
+                    }
+                    else
+                    {
+                        button_disconnect.PerformClick();
+                    }
                     break;
 
                 default:
