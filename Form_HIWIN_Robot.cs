@@ -589,6 +589,30 @@ namespace HIWIN_Robot
                     button_arm_copy_position_from_now_to_target.PerformClick();
                     break;
 
+                //case Keys.Add:
+                case Keys.PageUp:
+                    for (int i = 0; i < TargetPositino.Count; i++)
+                    {
+                        if (TargetPositino[i].Focused)
+                        {
+                            TargetPositino[i].UpButton();
+                            break;
+                        }
+                    }
+                    break;
+
+                //case Keys.Subtract:
+                case Keys.PageDown:
+                    for (int i = 0; i < TargetPositino.Count; i++)
+                    {
+                        if (TargetPositino[i].Focused)
+                        {
+                            TargetPositino[i].DownButton();
+                            break;
+                        }
+                    }
+                    break;
+
                 case Keys.Home:
                     button_arm_to_zero.PerformClick();
                     break;
