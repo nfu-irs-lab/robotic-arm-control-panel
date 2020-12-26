@@ -30,6 +30,82 @@ namespace HIWIN_Robot
 #endif
         }
 
+        public enum DataType
+        {
+            descartesPosition,
+            jointPosition,
+            state
+        }
+
+        public void Send(DataType dataType, double[] value)
+        {
+            int[] newValue = new int[value.Length];
+            for (int index = 0; index < value.Length; index++)
+            {
+                newValue[index] = ((int)Math.Round(value[index]));
+            }
+
+            switch (dataType)
+            {
+                case DataType.descartesPosition:
+                    if (newValue.Length == 6)
+                    {
+                        var xValue = ConvertIntToByte(newValue[0]);
+                        var yValue = ConvertIntToByte(newValue[1]);
+                        var zValue = ConvertIntToByte(newValue[2]);
+                        var aValue = ConvertIntToByte(newValue[3]);
+                        var bValue = ConvertIntToByte(newValue[4]);
+                        var cValue = ConvertIntToByte(newValue[5]);
+
+                        byte[] data = new byte[]
+                        {
+                            0x01,
+
+                            xValue[1],
+                            xValue[0],
+
+                            yValue[1],
+                            yValue[0],
+
+                            zValue[1],
+                            zValue[0],
+
+                            aValue[1],
+                            aValue[0],
+
+                            bValue[1],
+                            bValue[0],
+
+                            cValue[1],
+                            cValue[0],
+
+                            0xff
+                        };
+                        sp.Write(data, 0, data.Length);
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        private byte[] ConvertIntToByte(int intValue, int count = 2)
+        {
+            byte[] intByte = BitConverter.GetBytes(intValue);
+            if (!BitConverter.IsLittleEndian)
+            {
+                Array.Reverse(intByte);
+            }
+
+            byte[] result = new byte[count];
+            for (int i = 0; i < count; i++)
+            {
+                result[i] = intByte[i];
+            }
+            return result;
+        }
+
         private void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
         {
             SerialPort serialPort = (SerialPort)sender;
@@ -85,5 +161,9 @@ namespace HIWIN_Robot
                     break;
             }
         }
+
+        //        private byte[] Encoder(DataType dataType, int[] value)
+        //        {
+        //    }
     }
 }
