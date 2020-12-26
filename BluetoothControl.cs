@@ -20,10 +20,11 @@ namespace HIWIN_Robot
         /// 記得要使用 Connect() 進行連線。
         /// </summary>
         /// <param name="COMPort"></param>
-        public BluetoothControl(string COMPort)
+        public BluetoothControl(string COMPort, int armID = 0)
             : base(new SerialPort() { PortName = COMPort, BaudRate = 38400 })
         {
             sp.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+            Arm.SetID(armID);
 
 #if (CONNECT_BY_CONSTRUCTOR)
             Connect();
@@ -151,6 +152,11 @@ namespace HIWIN_Robot
             }
         }
 
+        public void UpdateArmID(int armID)
+        {
+            Arm.SetID(armID);
+        }
+
         private byte[] ConvertIntToByte(int intValue, int count = 2)
         {
             byte[] intByte = BitConverter.GetBytes(intValue);
@@ -226,9 +232,5 @@ namespace HIWIN_Robot
                     break;
             }
         }
-
-        //        private byte[] Encoder(DataType dataType, int[] value)
-        //        {
-        //    }
     }
 }

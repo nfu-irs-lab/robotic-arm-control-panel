@@ -42,11 +42,12 @@ namespace HIWIN_Robot
         private int TimeCheck = 0;
         private Timer timer = new Timer();
 
-        public ArmControl(string IP)
+        public ArmControl(string IP, int deviceID = 0)
         {
             // 初始化。
             ConnectState = false;
             Address = IP;
+            DeviceID = deviceID;
             InitTimer();
         }
 
@@ -706,6 +707,18 @@ namespace HIWIN_Robot
 
             //錯誤代碼300代表沒有警報，無法清除警報
             IsErrorAndHandler(retuenCode, 0, 300);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public int GetID()
+        {
+            return DeviceID;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void SetID(int id)
+        {
+            DeviceID = id;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
