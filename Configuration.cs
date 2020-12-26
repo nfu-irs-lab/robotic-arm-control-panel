@@ -1,6 +1,10 @@
 ﻿//#define CONFIG_1
 #define CONFIG_2
 
+#if (CONFIG_1)
+#undef CONFIG_2
+#endif
+
 namespace HIWIN_Robot
 {
     /// <summary>
@@ -18,6 +22,8 @@ namespace HIWIN_Robot
 #elif (CONFIG_2)
             "192.168.0.3";
 
+#else
+            "127.0.0.1";
 #endif
 
         /// <summary>
@@ -30,6 +36,8 @@ namespace HIWIN_Robot
 #elif (CONFIG_2)
             "COM3";
 
+#else
+            "COM2";
 #endif
 
         /// <summary>
@@ -42,6 +50,8 @@ namespace HIWIN_Robot
 #elif (CONFIG_2)
             "COM12";
 
+#else
+            "COM1";
 #endif
     }
 }
