@@ -487,6 +487,8 @@ namespace HIWIN_Robot
         /// <param name="e"></param>
         private void button_connect_Click(object sender, EventArgs e)
         {
+            Bluetooth.Connect();
+
             Arm.Connect();
             if (Arm.IsConnect())
             {
@@ -495,8 +497,6 @@ namespace HIWIN_Robot
                 UpdateNowPosition();
             }
             Gripper.Connect();
-
-            Bluetooth.Connect();
         }
 
         /// <summary>

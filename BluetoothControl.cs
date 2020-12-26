@@ -217,6 +217,10 @@ namespace HIWIN_Robot
                                         ArmControl.CoordinateType.relative);
                     break;
 
+                case "u":
+                    Send(DataType.descartesPosition, Arm.GetNowPosition(ArmControl.PositionType.descartes));
+                    break;
+
                 default:
                     MessageBox.Show($"Unknown date: {data}");
                     break;
