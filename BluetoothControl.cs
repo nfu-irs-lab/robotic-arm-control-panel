@@ -85,6 +85,67 @@ namespace HIWIN_Robot
                     }
                     break;
 
+                case DataType.jointPosition:
+                    if (newValue.Length == 6)
+                    {
+                        var xValue = ConvertIntToByte(newValue[0]);
+                        var yValue = ConvertIntToByte(newValue[1]);
+                        var zValue = ConvertIntToByte(newValue[2]);
+                        var aValue = ConvertIntToByte(newValue[3]);
+                        var bValue = ConvertIntToByte(newValue[4]);
+                        var cValue = ConvertIntToByte(newValue[5]);
+
+                        byte[] data = new byte[]
+                        {
+                            0x02,
+
+                            xValue[1],
+                            xValue[0],
+
+                            yValue[1],
+                            yValue[0],
+
+                            zValue[1],
+                            zValue[0],
+
+                            aValue[1],
+                            aValue[0],
+
+                            bValue[1],
+                            bValue[0],
+
+                            cValue[1],
+                            cValue[0],
+
+                            0xff
+                        };
+                        sp.Write(data, 0, data.Length);
+                    }
+                    break;
+
+                case DataType.state:
+                    if (newValue.Length == 3)
+                    {
+                        var speedValue = ConvertIntToByte(newValue[0], 1);
+                        var accValue = ConvertIntToByte(newValue[1], 1);
+                        byte connectState = (newValue[3] == 0) ? (byte)0 : (byte)1;
+
+                        byte[] data = new byte[]
+                        {
+                            0x03,
+
+                            speedValue[0],
+
+                            accValue[0],
+
+                            connectState,
+
+                            0xff
+                        };
+                        sp.Write(data, 0, data.Length);
+                    }
+                    break;
+
                 default:
                     break;
             }

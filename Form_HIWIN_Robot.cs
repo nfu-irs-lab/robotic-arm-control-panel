@@ -167,6 +167,8 @@ namespace HIWIN_Robot
         private void UpdateNowPosition()
         {
             SetNowPostion(Arm.GetNowPosition(GetPositinoType()));
+            Bluetooth.Send(BluetoothControl.DataType.descartesPosition,
+                Arm.GetNowPosition(ArmControl.PositionType.descartes));
         }
 
         #endregion 位置
