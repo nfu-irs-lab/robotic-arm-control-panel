@@ -60,25 +60,26 @@ namespace HIWIN_Robot
 
                         byte[] data = new byte[]
                         {
+                            0xff,
                             0x01,
 
-                            xValue[1],
-                            xValue[0],
-
-                            yValue[1],
-                            yValue[0],
-
-                            zValue[1],
-                            zValue[0],
-
-                            aValue[1],
-                            aValue[0],
+                            cValue[1],
+                            cValue[0],
 
                             bValue[1],
                             bValue[0],
 
-                            cValue[1],
-                            cValue[0],
+                            aValue[1],
+                            aValue[0],
+
+                            zValue[1],
+                            zValue[0],
+
+                            yValue[1],
+                            yValue[0],
+
+                            xValue[1],
+                            xValue[0],
 
                             0xff
                         };
@@ -98,6 +99,7 @@ namespace HIWIN_Robot
 
                         byte[] data = new byte[]
                         {
+                            0xff,
                             0x02,
 
                             xValue[1],
@@ -133,6 +135,7 @@ namespace HIWIN_Robot
 
                         byte[] data = new byte[]
                         {
+                            0xff,
                             0x03,
 
                             speedValue[0],
