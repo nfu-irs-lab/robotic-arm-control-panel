@@ -187,46 +187,32 @@ namespace HIWIN_Robot
         private void Decoder(string data)
         {
             data = data.Trim();
+            double value;
 
-            switch (data)
+            switch (data.Substring(0, 2))
             {
-                case "X":
-                    Arm.MotionLinear(new double[] { MotionValue, 0, 0, 0, 0, 0 },
+                case "xr":
+                    value = Convert.ToDouble(data.Split('r')[1]);
+                    Arm.MotionLinear(new double[] { value, 0, 0, 0, 0, 0 },
                                         ArmControl.PositionType.descartes,
                                         ArmControl.CoordinateType.relative);
                     break;
 
-                case "x":
-                    Arm.MotionLinear(new double[] { -MotionValue, 0, 0, 0, 0, 0 },
+                case "yr":
+                    value = Convert.ToDouble(data.Split('r')[1]);
+                    Arm.MotionLinear(new double[] { 0, value, 0, 0, 0, 0 },
                                         ArmControl.PositionType.descartes,
                                         ArmControl.CoordinateType.relative);
                     break;
 
-                case "Y":
-                    Arm.MotionLinear(new double[] { 0, MotionValue, 0, 0, 0, 0 },
+                case "zr":
+                    value = Convert.ToDouble(data.Split('r')[1]);
+                    Arm.MotionLinear(new double[] { 0, 0, value, 0, 0, 0 },
                                         ArmControl.PositionType.descartes,
                                         ArmControl.CoordinateType.relative);
                     break;
 
-                case "y":
-                    Arm.MotionLinear(new double[] { 0, -MotionValue, 0, 0, 0, 0 },
-                                        ArmControl.PositionType.descartes,
-                                        ArmControl.CoordinateType.relative);
-                    break;
-
-                case "Z":
-                    Arm.MotionLinear(new double[] { 0, 0, MotionValue, 0, 0, 0 },
-                                        ArmControl.PositionType.descartes,
-                                        ArmControl.CoordinateType.relative);
-                    break;
-
-                case "z":
-                    Arm.MotionLinear(new double[] { 0, 0, -MotionValue, 0, 0, 0 },
-                                        ArmControl.PositionType.descartes,
-                                        ArmControl.CoordinateType.relative);
-                    break;
-
-                case "u":
+                case "ud":
                     break;
 
                 default:
