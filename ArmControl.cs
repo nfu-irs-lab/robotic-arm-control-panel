@@ -254,7 +254,7 @@ namespace HIWIN_Robot
                 else
                 {
                     ShowUnknownPositionType();
-                    break;
+                    return position;
                 }
             }
             IsErrorAndHandler(retuenCode);
@@ -277,7 +277,7 @@ namespace HIWIN_Robot
 
                 default:
                     ShowUnknownPositionType();
-                    break;
+                    return;
             }
         }
 
