@@ -12,8 +12,6 @@ namespace HIWIN_Robot
 {
     internal class BluetoothControl : SerialPortDevice
     {
-        public double MotionValue = 50;
-
         private ArmControl Arm = new ArmControl(Configuration.ArmIP);
 
         /// <summary>
