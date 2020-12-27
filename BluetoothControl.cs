@@ -227,13 +227,13 @@ namespace HIWIN_Robot
                     break;
 
                 case "u":
-                    Send(DataType.descartesPosition, Arm.GetNowPosition(ArmControl.PositionType.descartes));
                     break;
 
                 default:
                     MessageBox.Show($"Unknown date: {data}");
                     break;
             }
+            Send(DataType.descartesPosition, Arm.GetNowPosition(ArmControl.PositionType.descartes));
         }
     }
 }
