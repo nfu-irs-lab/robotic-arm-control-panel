@@ -69,9 +69,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArmControl.cs" />
+    <Compile Include="Base.cs" />
     <Compile Include="BluetoothControl.cs" />
     <Compile Include="Configuration.cs" />
-    <Compile Include="Device.cs" />
     <Compile Include="Form_HIWIN_Robot.cs">
       <SubType>Form</SubType>
     </Compile>
