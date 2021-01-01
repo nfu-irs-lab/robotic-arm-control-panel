@@ -16,39 +16,46 @@ using System.Windows.Forms;
 
 namespace HIWIN_Robot
 {
-    public abstract class Device
+    internal interface IDevice
     {
-        protected string Address;
-
-        protected bool ConnectState;
-
-        ~Device()
-        {
-            if (ConnectState)
-            {
-                Disconnect();
-            }
-        }
-
-        public abstract bool Connect();
-
-        public abstract bool Disconnect();
+        /// <summary>
+        /// Connect state.
+        /// </summary>
+        bool Connected { get; }
 
         /// <summary>
-        /// Get connect state.<br/>
+        /// Connect.<br/>
         /// </summary>
         /// <returns>
-        /// true: Connected. <br/>
-        /// false: Unconnected or unknown.
+        /// true: Connection successful.<br/>
+        /// false: Connection unsuccessful.
         /// </returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool IsConnect()
-        {
-            return ConnectState;
-        }
+        bool Connect();
 
+        /// <summary>
+        /// Disconnect.<br/>
+        /// </summary>
+        /// <returns>
+        /// true: Disconnection successful.<br/>
+        /// false: Disconnection unsuccessful.
+        /// </returns>
+        bool Disconnect();
+    }
+
+    internal interface IErrorMessage
+    {
+        /// <summary>
+        /// Show error message.
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="ex"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected virtual void ShowErrorMessage(string message = "Error.", Exception ex = null)
+        void Show(string message = "Error.", Exception ex = null);
+    }
+
+    internal class ErrorMessage : IErrorMessage
+    {
+        public void Show(string message = "Error.", Exception ex = null)
         {
             string text = $"{message} \r\n\r\n";
 
@@ -62,121 +69,86 @@ namespace HIWIN_Robot
         }
     }
 
-    internal class SerialPortDevice : Device
+    internal abstract class SerialPortDevice : IDevice
     {
-        protected SerialPort sp = new SerialPort();
+        protected IErrorMessage ErrorMessage = new ErrorMessage();
+        protected SerialPort SerialPort = null;
 
-        /// <summary>
-        /// Serial port device.
-        /// </summary>
-        /// <param name="comPort"></param>
-        /// <param name="baudRate"></param>
-        public SerialPortDevice(string comPort, int baudRate = 9600)
+        public SerialPortDevice(SerialPort sp)
         {
-            ConnectState = false;
-            Address = comPort;
-            sp.PortName = comPort;
-            sp.BaudRate = baudRate;
-        }
-
-        /// <summary>
-        /// Serial port device. <br/>
-        /// 請注意指標的問題。
-        /// </summary>
-        /// <param name="serialPort"></param>
-        public SerialPortDevice(SerialPort serialPort)
-        {
-            ConnectState = false;
-            Address = serialPort.PortName;
-
             // XXX 此處沒有使用深層複製，需注意指標(pointer)的問題。
-            sp = serialPort;
+            SerialPort = sp;
         }
 
-        /// <summary>
-        /// Connect.<br/>
-        /// </summary>
-        /// <returns>
-        /// true: Connection successful.<br/>
-        /// false: Connection unsuccessful.
-        /// </returns>
-        public override bool Connect()
+        public SerialPortDevice(string COMPort)
         {
-            if (!sp.IsOpen)
+            SerialPort = new SerialPort(COMPort);
+        }
+
+        public bool Connected { get; protected set; } = false;
+
+        public virtual bool Connect()
+        {
+            if (!SerialPort.IsOpen)
             {
                 try
                 {
-                    sp.Open();
+                    SerialPort.Open();
                     Thread.Sleep(50);
-                    if (sp.IsOpen)
+                    if (SerialPort.IsOpen)
                     {
-                        ConnectState = true;
+                        Connected = true;
                         return true;
                     }
                     else
                     {
-                        ConnectState = false;
+                        Connected = false;
                         return false;
                     }
                 }
                 catch (Exception ex)
                 {
-                    ShowErrorMessage("無法進行連線。\r\n請檢查COM Port等設定。", ex);
+                    ErrorMessage.Show("無法進行連線。\r\n請檢查COM Port等設定。", ex);
                     return false;
                 }
             }
             else
             {
-                ConnectState = true;
+                Connected = true;
                 return true;
             }
         }
 
-        /// <summary>
-        /// Disconnect.<br/>
-        /// </summary>
-        /// <returns>
-        /// true: Disconnection successful.<br/>
-        /// false: Disconnection unsuccessful.
-        /// </returns>
-        public override bool Disconnect()
+        public virtual bool Disconnect()
         {
-            if (sp.IsOpen)
+            if (SerialPort.IsOpen)
             {
                 try
                 {
-                    sp.Close();
+                    SerialPort.Close();
                     Thread.Sleep(50);
-                    if (sp.IsOpen)
+                    if (SerialPort.IsOpen)
                     {
-                        ConnectState = true;
+                        Connected = true;
                         return false;
                     }
                     else
                     {
-                        ConnectState = false;
+                        Connected = false;
                         return true;
                     }
                 }
                 catch (Exception ex)
                 {
-                    ShowErrorMessage("無法進行斷線。\r\n請檢查COM Port等設定。", ex);
+                    ErrorMessage.Show("無法進行斷線。\r\n請檢查COM Port等設定。", ex);
                     return false;
                 }
             }
             else
             {
-                ConnectState = false;
+                Connected = false;
                 return true;
             }
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override void ShowErrorMessage(string message = "Error.", Exception ex = null)
-        {
-#if (!DISABLE_SHOW_MESSAGE)
-            base.ShowErrorMessage(message, ex);
-#endif
         }
     }
 }

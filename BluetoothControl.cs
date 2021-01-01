@@ -21,7 +21,7 @@ namespace HIWIN_Robot
         public BluetoothControl(string COMPort, int armID = 0)
             : base(new SerialPort() { PortName = COMPort, BaudRate = 38400 })
         {
-            sp.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+            SerialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
             Arm.SetID(armID);
 
 #if (CONNECT_BY_CONSTRUCTOR)
@@ -81,7 +81,7 @@ namespace HIWIN_Robot
 
                             0xff
                         };
-                        sp.Write(data, 0, data.Length);
+                        SerialPort.Write(data, 0, data.Length);
                     }
                     break;
 
@@ -120,7 +120,7 @@ namespace HIWIN_Robot
 
                             0xff
                         };
-                        sp.Write(data, 0, data.Length);
+                        SerialPort.Write(data, 0, data.Length);
                     }
                     break;
 
@@ -144,7 +144,7 @@ namespace HIWIN_Robot
 
                             0xff
                         };
-                        sp.Write(data, 0, data.Length);
+                        SerialPort.Write(data, 0, data.Length);
                     }
                     break;
 

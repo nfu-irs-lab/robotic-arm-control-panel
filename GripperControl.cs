@@ -26,7 +26,6 @@ namespace HIWIN_Robot
         public GripperControl(string COM_port)
             : base(new SerialPort { PortName = COM_port, BaudRate = 115200, DataBits = 8 })
         {
-            Direction = 2;
         }
 
         /// <summary>
@@ -82,12 +81,12 @@ namespace HIWIN_Robot
                 list.Add((byte)(num & 0xffL));
                 list.Add((byte)0xfe);
                 byte[] buffer = (byte[])list.ToArray();
-                sp.Write(buffer, 0, buffer.Length);
+                SerialPort.Write(buffer, 0, buffer.Length);
                 return BitConverter.ToString(buffer).Replace("-", " ");
             }
             catch (Exception ex)
             {
-                ShowErrorMessage("Error.", ex);
+                ErrorMessage.Show("Error.", ex);
                 return "";
             }
         }
@@ -97,16 +96,16 @@ namespace HIWIN_Robot
         /// </summary>
         public void Reset()
         {
-            SendIndexCmd(sp, (byte)0x1f);
+            SendIndexCmd(SerialPort, (byte)0x1f);
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override void ShowErrorMessage(string message = "Error.", Exception ex = null)
-        {
-#if (!DISABLE_SHOW_MESSAGE)
-            base.ShowErrorMessage(message, ex);
-#endif
-        }
+        //        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //        protected override void ShowErrorMessage(string message = "Error.", Exception ex = null)
+        //        {
+        //#if (!DISABLE_SHOW_MESSAGE)
+        //            base.ShowErrorMessage(message, ex);
+        //#endif
+        //        }
 
         /// <summary>
         /// 夾爪命令封包。
@@ -137,7 +136,7 @@ namespace HIWIN_Robot
             }
             catch (Exception ex)
             {
-                ShowErrorMessage("Error.", ex);
+                ErrorMessage.Show("Error.", ex);
                 return "";
             }
         }

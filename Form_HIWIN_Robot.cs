@@ -329,7 +329,7 @@ namespace HIWIN_Robot
         /// </summary>
         private void PositionTypeChange()
         {
-            if (Arm.IsConnect())
+            if (Arm.Connected)
             {
                 if (radioButton_position_type_descartes.Checked)
                 {
@@ -490,7 +490,7 @@ namespace HIWIN_Robot
             Bluetooth.Connect();
 
             Arm.Connect();
-            if (Arm.IsConnect())
+            if (Arm.Connected)
             {
                 Arm.SetSpeed(GetSpeed());
                 Arm.SetAcceletarion(GetAcceleration());
@@ -524,7 +524,7 @@ namespace HIWIN_Robot
         private void Form_HIWIN_Robot_FormClosing(object sender, FormClosingEventArgs e)
         {
 #if (!DISABLE_SHOW_MESSAGE)
-            if (Arm.IsConnect() || Gripper.IsConnect())
+            if (Arm.Connected || Gripper.Connected)
             {
                 DialogResult dr = MessageBox.Show("手臂或夾爪似乎還在連線中。\r\n是否要斷開連線後關閉視窗？",
                                                   "關閉視窗",
@@ -668,7 +668,7 @@ namespace HIWIN_Robot
                     break;
 
                 case Keys.End:
-                    if (Arm.IsConnect())
+                    if (Arm.Connected)
                     {
                         button_disconnect.PerformClick();
                     }

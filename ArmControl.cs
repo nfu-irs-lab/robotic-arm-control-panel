@@ -18,7 +18,7 @@ namespace HIWIN_Robot
     /// <summary>
     /// 上銀機械手臂基本控制。
     /// </summary>
-    internal class ArmControl : Device
+    internal class ArmControl : IDevice
     {
         #region - 基本變數與列舉 -
 
@@ -34,19 +34,22 @@ namespace HIWIN_Robot
 
         private static HRobot.CallBackFun callback;
 
+        private string ArmIP;
+
         /// <summary>
         /// 手臂ID。
         /// </summary>
         private int DeviceID;
 
+        private IErrorMessage ErrorMessage = new ErrorMessage();
         private int TimeCheck = 0;
         private Timer timer = new Timer();
 
         public ArmControl(string IP, int deviceID = 0)
         {
             // 初始化。
-            ConnectState = false;
-            Address = IP;
+            Connected = false;
+            ArmIP = IP;
             DeviceID = deviceID;
             InitTimer();
         }
@@ -145,6 +148,8 @@ namespace HIWIN_Robot
             twoLinesSpeedSmooth = 3
         }
 
+        public bool Connected { get; private set; }
+
         #endregion - 基本變數與列舉 -
 
         #region - 速度與加速度 -
@@ -162,7 +167,7 @@ namespace HIWIN_Robot
 
             if (value == -1)
             {
-                ShowErrorMessage("取得手臂加速度時出錯。");
+                ErrorMessage.Show("取得手臂加速度時出錯。");
             }
 
             return value;
@@ -181,7 +186,7 @@ namespace HIWIN_Robot
 
             if (value == -1)
             {
-                ShowErrorMessage("取得手臂速度時出錯。");
+                ErrorMessage.Show("取得手臂速度時出錯。");
             }
 
             return value;
@@ -196,7 +201,7 @@ namespace HIWIN_Robot
         {
             if (value > 100 || value < 1)
             {
-                ShowErrorMessage("手臂加速度應為1% ~ 100%之間。");
+                ErrorMessage.Show("手臂加速度應為1% ~ 100%之間。");
             }
             else
             {
@@ -216,7 +221,7 @@ namespace HIWIN_Robot
         {
             if (value > 100 || value < 1)
             {
-                ShowErrorMessage("手臂速度應為1% ~ 100%之間。");
+                ErrorMessage.Show("手臂速度應為1% ~ 100%之間。");
             }
             else
             {
@@ -538,13 +543,13 @@ namespace HIWIN_Robot
         /// <summary>
         /// 進行手臂連線、開啟控制器。
         /// </summary>
-        public override bool Connect()
+        public bool Connect()
         {
             //接收控制器回傳訊息
             callback = new HRobot.CallBackFun(EventFun);
 
             //連線設定。測試連線設定:("127.0.0.1", 1, callback);
-            DeviceID = HRobot.open_connection(Address, 1, callback);
+            DeviceID = HRobot.open_connection(ArmIP, 1, callback);
             Thread.Sleep(500);
 
             //0 ~ 65535為有效裝置ID
@@ -584,7 +589,7 @@ namespace HIWIN_Robot
                                               alarmState));
 #endif
 
-                ConnectState = true;
+                Connected = true;
                 return true;
             }
             else
@@ -621,7 +626,7 @@ namespace HIWIN_Robot
                                 MessageBoxIcon.Error);
 #endif
 
-                ConnectState = false;
+                Connected = false;
                 return false;
             }
         }
@@ -629,7 +634,7 @@ namespace HIWIN_Robot
         /// <summary>
         /// 進行手臂斷線、關閉控制器。
         /// </summary>
-        public override bool Disconnect()
+        public bool Disconnect()
         {
             int alarmState;
             int motorState;
@@ -661,7 +666,7 @@ namespace HIWIN_Robot
                                           alarmState));
 #endif
 
-            ConnectState = false;
+            Connected = false;
             return true;
         }
 
@@ -721,13 +726,13 @@ namespace HIWIN_Robot
             DeviceID = id;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override void ShowErrorMessage(string message = "Error.", Exception ex = null)
-        {
-#if (!DISABLE_SHOW_MESSAGE)
-            base.ShowErrorMessage(message, ex);
-#endif
-        }
+        //        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //        protected override void ShowErrorMessage(string message = "Error.", Exception ex = null)
+        //        {
+        //#if (!DISABLE_SHOW_MESSAGE)
+        //            base.ShowErrorMessage(message, ex);
+        //#endif
+        //        }
 
         /// <summary>
         /// 將相對坐標以目前位置轉為絕對坐標。
@@ -780,7 +785,7 @@ namespace HIWIN_Robot
             else
             {
                 // Not successful.
-                ShowErrorMessage($"上銀機械手臂控制錯誤。\r\n錯誤代碼：{code}");
+                ErrorMessage.Show($"上銀機械手臂控制錯誤。\r\n錯誤代碼：{code}");
                 return true;
             }
         }
@@ -788,7 +793,7 @@ namespace HIWIN_Robot
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void ShowUnknownPositionType()
         {
-            ShowErrorMessage($"錯誤的位置類型。\r\n" +
+            ErrorMessage.Show($"錯誤的位置類型。\r\n" +
                              $"位置類型應為：{PositionType.descartes} 或是 {PositionType.joint}");
         }
 
