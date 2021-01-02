@@ -20,7 +20,15 @@ namespace HIWIN_Robot
     /// </summary>
     internal class ArmControl : IDevice
     {
-        #region - 基本變數與列舉 -
+        public ArmControl(string IP, int deviceID = 0)
+        {
+            // 初始化。
+            ArmIP = IP;
+            DeviceID = deviceID;
+            InitTimer();
+        }
+
+        #region - 基本屬性 -
 
         /// <summary>
         /// 笛卡爾原點絕對坐標。
@@ -45,14 +53,11 @@ namespace HIWIN_Robot
         private int TimeCheck = 0;
         private Timer timer = new Timer();
 
-        public ArmControl(string IP, int deviceID = 0)
-        {
-            // 初始化。
-            Connected = false;
-            ArmIP = IP;
-            DeviceID = deviceID;
-            InitTimer();
-        }
+        public bool Connected { get; private set; } = false;
+
+        #endregion - 基本屬性 -
+
+        #region - 列舉 enum -
 
         /// <summary>
         /// 坐標類型。
@@ -148,9 +153,7 @@ namespace HIWIN_Robot
             twoLinesSpeedSmooth = 3
         }
 
-        public bool Connected { get; private set; }
-
-        #endregion - 基本變數與列舉 -
+        #endregion - 列舉 enum -
 
         #region - 速度與加速度 -
 
