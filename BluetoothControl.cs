@@ -12,7 +12,7 @@ namespace HIWIN_Robot
 {
     internal class BluetoothControl : SerialPortDevice
     {
-        private ArmControl Arm = null;
+        private IArmControl Arm = null;
 
         /// <summary>
         /// 記得要使用 Connect() 進行連線。
