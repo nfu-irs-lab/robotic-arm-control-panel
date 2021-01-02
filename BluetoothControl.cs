@@ -12,7 +12,7 @@ namespace HIWIN_Robot
 {
     internal class BluetoothControl : SerialPortDevice
     {
-        private ArmControl Arm = new ArmControl(Configuration.ArmIP);
+        private ArmControl Arm = null;
 
         /// <summary>
         /// 記得要使用 Connect() 進行連線。
@@ -21,8 +21,8 @@ namespace HIWIN_Robot
         public BluetoothControl(string COMPort, int armID = 0)
             : base(new SerialPort() { PortName = COMPort, BaudRate = 38400 })
         {
+            Arm = new ArmControl(Configuration.ArmIP, armID);
             SerialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
-            Arm.ID = armID;
 
 #if (CONNECT_BY_CONSTRUCTOR)
             Connect();
