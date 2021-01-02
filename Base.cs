@@ -19,7 +19,9 @@ namespace HIWIN_Robot
     internal interface IDevice
     {
         /// <summary>
-        /// Connect state.
+        /// Connect state. <br/>
+        /// • true: Connected. <br/>
+        /// • false: Disconnected or unknown. <br/>
         /// </summary>
         bool Connected { get; }
 
