@@ -144,12 +144,14 @@ namespace HIWIN_Robot
                           PositionType positionType = PositionType.descartes,
                           CoordinateType coordinateType = CoordinateType.absolute,
                           SmoothType smoothType = SmoothType.twoLinesSpeedSmooth,
-                          double smoothValue = 50);
+                          double smoothValue = 50,
+                          bool waitForMotion = true);
 
         void MotionPointToPoint(double[] targetPosition,
                                 PositionType positionType = PositionType.descartes,
                                 CoordinateType coordinateType = CoordinateType.absolute,
-                                SmoothType smoothType = SmoothType.twoLinesSpeedSmooth);
+                                SmoothType smoothType = SmoothType.twoLinesSpeedSmooth,
+                                bool waitForMotion = true);
 
         #endregion - Motion -
 
