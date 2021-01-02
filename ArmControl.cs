@@ -15,6 +15,133 @@ using Timer = System.Windows.Forms.Timer;
 
 namespace HIWIN_Robot
 {
+    #region - 列舉 enum -
+
+    /// <summary>
+    /// 坐標類型。
+    /// </summary>
+    public enum CoordinateType
+    {
+        /// <summary>
+        /// 絕對坐標。
+        /// </summary>
+        absolute,
+
+        /// <summary>
+        /// 相對坐標。
+        /// </summary>
+        relative,
+
+        /// <summary>
+        /// 未知的類型。
+        /// </summary>
+        unknown
+    }
+
+    /// <summary>
+    /// 運動類型。
+    /// </summary>
+    public enum MotionType
+    {
+        /// <summary>
+        /// 直線運動。
+        /// </summary>
+        linear,
+
+        /// <summary>
+        /// 點對點運動。
+        /// </summary>
+        pointToPoint,
+
+        /// <summary>
+        /// 圓弧運動。
+        /// </summary>
+        circle,
+
+        /// <summary>
+        /// 未知的類型。
+        /// </summary>
+        unknown
+    }
+
+    /// <summary>
+    /// 位置類型。
+    /// </summary>
+    public enum PositionType
+    {
+        /// <summary>
+        /// 笛卡爾。
+        /// </summary>
+        descartes,
+
+        /// <summary>
+        /// 關節。
+        /// </summary>
+        joint,
+
+        /// <summary>
+        /// 未知的類型。
+        /// </summary>
+        unknown
+    }
+
+    /// <summary>
+    /// 手臂平滑模式。
+    /// </summary>
+    public enum SmoothType
+    {
+        /// <summary>
+        /// 關閉平滑功能。
+        /// </summary>
+        disable = 0,
+
+        /// <summary>
+        /// 貝茲曲線平滑百分比。
+        /// </summary>
+        bezierCurveSmoothPercent = 1,
+
+        /// <summary>
+        /// 貝茲曲線平滑半徑。
+        /// </summary>
+        bezierCurveSmoothRadius = 2,
+
+        /// <summary>
+        /// 依兩線段速度平滑。
+        /// </summary>
+        twoLinesSpeedSmooth = 3
+    }
+
+    #endregion - 列舉 enum -
+
+    internal interface IArmControl : IDevice
+    {
+        int Acceleration { get; set; }
+        int ID { get; set; }
+        string IP { set; }
+        int Speed { get; set; }
+
+        void ClearAlarm();
+
+        double[] GetPosition(PositionType positionType = PositionType.descartes);
+
+        #region - Motion -
+
+        void MotionGoHome(PositionType positionType = PositionType.descartes);
+
+        void MotionLinear(double[] targetPosition,
+                          PositionType positionType = PositionType.descartes,
+                          CoordinateType coordinateType = CoordinateType.absolute,
+                          SmoothType smoothType = SmoothType.twoLinesSpeedSmooth,
+                          double smoothValue = 50);
+
+        void MotionPointToPoint(double[] targetPosition,
+                                PositionType positionType = PositionType.descartes,
+                                CoordinateType coordinateType = CoordinateType.absolute,
+                                SmoothType smoothType = SmoothType.twoLinesSpeedSmooth);
+
+        #endregion - Motion -
+    }
+
     /// <summary>
     /// 上銀機械手臂基本控制。
     /// </summary>
@@ -44,116 +171,20 @@ namespace HIWIN_Robot
 
         private string ArmIP;
 
-        /// <summary>
-        /// 手臂ID。
-        /// </summary>
-        private int DeviceID;
-
         private IErrorMessage ErrorMessage = new ErrorMessage();
+
         private int TimeCheck = 0;
+
         private Timer timer = new Timer();
 
         public bool Connected { get; private set; } = false;
 
+        /// <summary>
+        /// 手臂ID。
+        /// </summary>
+        public int DeviceID { get; set; }
+
         #endregion - 基本屬性 -
-
-        #region - 列舉 enum -
-
-        /// <summary>
-        /// 坐標類型。
-        /// </summary>
-        public enum CoordinateType
-        {
-            /// <summary>
-            /// 絕對坐標。
-            /// </summary>
-            absolute,
-
-            /// <summary>
-            /// 相對坐標。
-            /// </summary>
-            relative,
-
-            /// <summary>
-            /// 未知的類型。
-            /// </summary>
-            unknown
-        }
-
-        /// <summary>
-        /// 運動類型。
-        /// </summary>
-        public enum MotionType
-        {
-            /// <summary>
-            /// 直線運動。
-            /// </summary>
-            linear,
-
-            /// <summary>
-            /// 點對點運動。
-            /// </summary>
-            pointToPoint,
-
-            /// <summary>
-            /// 圓弧運動。
-            /// </summary>
-            circle,
-
-            /// <summary>
-            /// 未知的類型。
-            /// </summary>
-            unknown
-        }
-
-        /// <summary>
-        /// 位置類型。
-        /// </summary>
-        public enum PositionType
-        {
-            /// <summary>
-            /// 笛卡爾。
-            /// </summary>
-            descartes,
-
-            /// <summary>
-            /// 關節。
-            /// </summary>
-            joint,
-
-            /// <summary>
-            /// 未知的類型。
-            /// </summary>
-            unknown
-        }
-
-        /// <summary>
-        /// 手臂平滑模式。
-        /// </summary>
-        public enum SmoothType
-        {
-            /// <summary>
-            /// 關閉平滑功能。
-            /// </summary>
-            disable = 0,
-
-            /// <summary>
-            /// 貝茲曲線平滑百分比。
-            /// </summary>
-            bezierCurveSmoothPercent = 1,
-
-            /// <summary>
-            /// 貝茲曲線平滑半徑。
-            /// </summary>
-            bezierCurveSmoothRadius = 2,
-
-            /// <summary>
-            /// 依兩線段速度平滑。
-            /// </summary>
-            twoLinesSpeedSmooth = 3
-        }
-
-        #endregion - 列舉 enum -
 
         #region - 速度與加速度 -
 
