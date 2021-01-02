@@ -115,18 +115,30 @@ namespace HIWIN_Robot
 
     internal interface IArmControl : IDevice
     {
-        int Acceleration { get; set; }
+        #region - Default Position -
+
+        double[] DescartesHomePosition { get; }
+        double[] JointHomePosition { get; }
+
+        #endregion - Default Position -
+
+        #region - Info -
+
         int ID { get; set; }
-        string IP { set; }
+        string IP { get; set; }
+
+        #endregion - Info -
+
+        #region - Speed and Acceleration -
+
+        int Acceleration { get; set; }
         int Speed { get; set; }
 
-        void ClearAlarm();
-
-        double[] GetPosition(PositionType positionType = PositionType.descartes);
+        #endregion - Speed and Acceleration -
 
         #region - Motion -
 
-        void MotionGoHome(PositionType positionType = PositionType.descartes);
+        void GoHome(PositionType positionType = PositionType.descartes);
 
         void MotionLinear(double[] targetPosition,
                           PositionType positionType = PositionType.descartes,
@@ -140,6 +152,14 @@ namespace HIWIN_Robot
                                 SmoothType smoothType = SmoothType.twoLinesSpeedSmooth);
 
         #endregion - Motion -
+
+        #region - Others -
+
+        void ClearAlarm();
+
+        double[] GetPosition(PositionType positionType = PositionType.descartes);
+
+        #endregion - Others -
     }
 
     /// <summary>
