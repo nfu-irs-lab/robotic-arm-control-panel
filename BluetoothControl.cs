@@ -22,7 +22,7 @@ namespace HIWIN_Robot
             : base(new SerialPort() { PortName = COMPort, BaudRate = 38400 })
         {
             SerialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
-            Arm.SetID(armID);
+            Arm.ID = armID;
 
 #if (CONNECT_BY_CONSTRUCTOR)
             Connect();
@@ -155,7 +155,7 @@ namespace HIWIN_Robot
 
         public void UpdateArmID(int armID)
         {
-            Arm.SetID(armID);
+            Arm.ID = armID;
         }
 
         private byte[] ConvertIntToByte(int intValue, int count = 2)
@@ -192,22 +192,22 @@ namespace HIWIN_Robot
                 case "xr":
                     value = Convert.ToDouble(data.Split('r')[1]);
                     Arm.MotionLinear(new double[] { value, 0, 0, 0, 0, 0 },
-                                        ArmControl.PositionType.descartes,
-                                        ArmControl.CoordinateType.relative);
+                                        PositionType.descartes,
+                                        CoordinateType.relative);
                     break;
 
                 case "yr":
                     value = Convert.ToDouble(data.Split('r')[1]);
                     Arm.MotionLinear(new double[] { 0, value, 0, 0, 0, 0 },
-                                        ArmControl.PositionType.descartes,
-                                        ArmControl.CoordinateType.relative);
+                                        PositionType.descartes,
+                                        CoordinateType.relative);
                     break;
 
                 case "zr":
                     value = Convert.ToDouble(data.Split('r')[1]);
                     Arm.MotionLinear(new double[] { 0, 0, value, 0, 0, 0 },
-                                        ArmControl.PositionType.descartes,
-                                        ArmControl.CoordinateType.relative);
+                                        PositionType.descartes,
+                                        CoordinateType.relative);
                     break;
 
                 case "ud":
@@ -217,7 +217,7 @@ namespace HIWIN_Robot
                     MessageBox.Show($"Unknown date: {data}");
                     break;
             }
-            Send(DataType.descartesPosition, Arm.GetNowPosition(ArmControl.PositionType.descartes));
+            Send(DataType.descartesPosition, Arm.GetPosition(PositionType.descartes));
         }
     }
 }

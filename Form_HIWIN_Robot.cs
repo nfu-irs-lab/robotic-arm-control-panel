@@ -1,5 +1,4 @@
 ﻿//#define DISABLE_KEYBOARD_CONTROL
-
 //#define DISABLE_SHOW_MESSAGE
 
 #if (DISABLE_SHOW_MESSAGE)
@@ -18,24 +17,26 @@ namespace HIWIN_Robot
     /// 【 上銀機器手臂控制 範例程式 】<br/>
     /// HIWIN Robot Control<br/>
     /// <br/>
-    /// 最後更新日期：2020/Dec/24
+    /// 最後更新日期：2021/Jan/02
     /// </summary>
     public partial class Form_HIWIN_Robot : Form
     {
-        private BluetoothControl Bluetooth = new BluetoothControl(Configuration.BluetoothCOMPort);
+        private BluetoothControl Bluetooth = null;
 
         public Form_HIWIN_Robot()
         {
             InitializeComponent();
             InitControlCollection();
+            Arm = new ArmControl(Configuration.ArmIP);
+            Bluetooth = new BluetoothControl(Configuration.BluetoothCOMPort);
         }
 
         #region - 手臂 -
 
         /// <summary>
-        /// 手臂控制。
+        /// 手臂。
         /// </summary>
-        private ArmControl Arm = new ArmControl(Configuration.ArmIP);
+        private IArmControl Arm = null;
 
         #region 位置
 
@@ -56,11 +57,11 @@ namespace HIWIN_Robot
         /// <param name="e"></param>
         private void button_arm_copy_position_from_now_to_target_Click(object sender, EventArgs e)
         {
-            if (GetCoordinateType() == ArmControl.CoordinateType.absolute)
+            if (GetCoordinateType() == CoordinateType.absolute)
             {
                 SetTargetPostion(GetNowPostion());
             }
-            else if (GetCoordinateType() == ArmControl.CoordinateType.relative)
+            else if (GetCoordinateType() == CoordinateType.relative)
             {
                 SetTargetPostion(new double[] { 0, 0, 0, 0, 0, 0 });
             }
@@ -166,9 +167,9 @@ namespace HIWIN_Robot
         /// </summary>
         private void UpdateNowPosition()
         {
-            SetNowPostion(Arm.GetNowPosition(GetPositinoType()));
+            SetNowPostion(Arm.GetPosition(GetPositinoType()));
             Bluetooth.Send(BluetoothControl.DataType.descartesPosition,
-                Arm.GetNowPosition(ArmControl.PositionType.descartes));
+                           Arm.GetPosition(PositionType.descartes));
         }
 
         #endregion 位置
@@ -184,11 +185,11 @@ namespace HIWIN_Robot
         {
             switch (GetMotionType())
             {
-                case ArmControl.MotionType.linear:
+                case MotionType.linear:
                     Arm.MotionLinear(GetTargetPostion(), GetPositinoType(), GetCoordinateType());
                     break;
 
-                case ArmControl.MotionType.pointToPoint:
+                case MotionType.pointToPoint:
                     Arm.MotionPointToPoint(GetTargetPostion(), GetPositinoType(), GetCoordinateType());
                     break;
 
@@ -211,16 +212,16 @@ namespace HIWIN_Robot
         {
             if (checkBox_arm_to_zero_slow.Checked)
             {
-                Arm.SetSpeed(5);
-                Arm.SetAcceletarion(10);
+                Arm.Speed = 5;
+                Arm.Acceleration = 10;
 
                 Thread.Sleep(300);
 
                 Arm.GoHome(GetPositinoType());
                 UpdateNowPosition();
 
-                Arm.SetSpeed(GetSpeed());
-                Arm.SetAcceletarion(GetAcceleration());
+                Arm.Speed = GetSpeed();
+                Arm.Acceleration = GetAcceleration();
             }
             else
             {
@@ -262,20 +263,20 @@ namespace HIWIN_Robot
         /// 取得目前所選的坐標類型。
         /// </summary>
         /// <returns>目前所選的坐標類型。</returns>
-        private ArmControl.CoordinateType GetCoordinateType()
+        private CoordinateType GetCoordinateType()
         {
-            ArmControl.CoordinateType type = ArmControl.CoordinateType.unknown;
+            CoordinateType type = CoordinateType.unknown;
             if (radioButton_coordinate_type_absolute.Checked)
             {
-                type = ArmControl.CoordinateType.absolute;
+                type = CoordinateType.absolute;
             }
             else if (radioButton_coordinate_type_relative.Checked)
             {
-                type = ArmControl.CoordinateType.relative;
+                type = CoordinateType.relative;
             }
             else
             {
-                type = ArmControl.CoordinateType.unknown;
+                type = CoordinateType.unknown;
             }
             return type;
         }
@@ -284,20 +285,20 @@ namespace HIWIN_Robot
         /// 取得目前所選的運動類型。
         /// </summary>
         /// <returns>目前所選的運動類型。</returns>
-        private ArmControl.MotionType GetMotionType()
+        private MotionType GetMotionType()
         {
-            ArmControl.MotionType type = ArmControl.MotionType.unknown;
+            MotionType type = MotionType.unknown;
             if (radioButton_motion_type_linear.Checked)
             {
-                type = ArmControl.MotionType.linear;
+                type = MotionType.linear;
             }
             else if (radioButton_motion_type_point_to_point.Checked)
             {
-                type = ArmControl.MotionType.pointToPoint;
+                type = MotionType.pointToPoint;
             }
             else
             {
-                type = ArmControl.MotionType.unknown;
+                type = MotionType.unknown;
             }
             return type;
         }
@@ -306,20 +307,20 @@ namespace HIWIN_Robot
         /// 取得目前所選的位置類型。
         /// </summary>
         /// <returns>目前所選的位置類型。</returns>
-        private ArmControl.PositionType GetPositinoType()
+        private PositionType GetPositinoType()
         {
-            ArmControl.PositionType type = ArmControl.PositionType.unknown;
+            PositionType type = PositionType.unknown;
             if (radioButton_position_type_descartes.Checked)
             {
-                type = ArmControl.PositionType.descartes;
+                type = PositionType.descartes;
             }
             else if (radioButton_position_type_joint.Checked)
             {
-                type = ArmControl.PositionType.joint;
+                type = PositionType.joint;
             }
             else
             {
-                type = ArmControl.PositionType.unknown;
+                type = PositionType.unknown;
             }
             return type;
         }
@@ -333,11 +334,11 @@ namespace HIWIN_Robot
             {
                 if (radioButton_position_type_descartes.Checked)
                 {
-                    SetTargetPostion(Arm.GetNowPosition(ArmControl.PositionType.descartes));
+                    SetTargetPostion(Arm.GetPosition(PositionType.descartes));
                 }
                 else if (radioButton_position_type_joint.Checked)
                 {
-                    SetTargetPostion(Arm.GetNowPosition(ArmControl.PositionType.joint));
+                    SetTargetPostion(Arm.GetPosition(PositionType.joint));
                 }
             }
             else
@@ -386,14 +387,14 @@ namespace HIWIN_Robot
         /// <param name="e"></param>
         private void button_set_speed_acceleration_Click(object sender, EventArgs e)
         {
-            Arm.SetSpeed(GetSpeed());
-            Arm.SetAcceletarion(GetAcceleration());
+            Arm.Speed = GetSpeed();
+            Arm.Acceleration = GetAcceleration();
 
             Thread.Sleep(300);
 
 #if (!DISABLE_SHOW_MESSAGE)
-            MessageBox.Show("　目前速度：" + Arm.GetSpeed().ToString() + " %\r\n" +
-                            "目前加速度：" + Arm.GetSpeed().ToString() + " %");
+            MessageBox.Show("　目前整體速度：" + Arm.Speed.ToString() + " %\r\n" +
+                            "目前整體加速度：" + Arm.Acceleration.ToString() + " %");
 #endif
         }
 
@@ -492,11 +493,11 @@ namespace HIWIN_Robot
             Arm.Connect();
             if (Arm.Connected)
             {
-                Arm.SetSpeed(GetSpeed());
-                Arm.SetAcceletarion(GetAcceleration());
+                Arm.Speed = GetSpeed();
+                Arm.Acceleration = GetAcceleration();
                 UpdateNowPosition();
 
-                Bluetooth.UpdateArmID(Arm.GetID());
+                Bluetooth.UpdateArmID(Arm.ID);
             }
 
             Gripper.Connect();
