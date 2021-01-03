@@ -497,7 +497,7 @@ namespace HIWIN_Robot
                 Arm.Acceleration = GetAcceleration();
                 UpdateNowPosition();
 
-                Bluetooth.UpdateArmID(Arm.ID);
+                Bluetooth.UpdateArmID(Arm.Id);
             }
 
             Gripper.Connect();

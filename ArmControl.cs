@@ -121,12 +121,12 @@ namespace HIWIN_Robot
         /// <summary>
         /// 手臂ID。
         /// </summary>
-        int ID { get; set; }
+        int Id { get; set; }
 
         /// <summary>
         /// 手臂IP。
         /// </summary>
-        string IP { get; set; }
+        string Ip { get; set; }
 
         #region - Default Position -
 
@@ -235,8 +235,8 @@ namespace HIWIN_Robot
     {
         public ArmControl(string armIP, int armID = 0)
         {
-            IP = armIP;
-            ID = armID;
+            Ip = armIP;
+            Id = armID;
 
 #if (!USE_MOTION_STATE_WAIT)
             InitTimer();
@@ -247,9 +247,9 @@ namespace HIWIN_Robot
 #endif
         }
 
-        public int ID { get; set; }
+        public int Id { get; set; }
 
-        public string IP { get; set; }
+        public string Ip { get; set; }
 
         #region - Default Position -
 
@@ -264,7 +264,7 @@ namespace HIWIN_Robot
         {
             get
             {
-                int acc = HRobot.get_acc_dec_ratio(ID);
+                int acc = HRobot.get_acc_dec_ratio(Id);
                 if (acc == -1)
                 {
 #if (!DISABLE_SHOW_MESSAGE)
@@ -284,7 +284,7 @@ namespace HIWIN_Robot
                 }
                 else
                 {
-                    int retuenCode = HRobot.set_acc_dec_ratio(ID, value);
+                    int retuenCode = HRobot.set_acc_dec_ratio(Id, value);
 #if (!DISABLE_SHOW_MESSAGE)
                     //執行HRobot.set_acc_dec_ratio時會固定回傳錯誤代碼4000
                     IsErrorAndHandler(retuenCode, 0, 4000);
@@ -297,7 +297,7 @@ namespace HIWIN_Robot
         {
             get
             {
-                int speed = HRobot.get_override_ratio(ID);
+                int speed = HRobot.get_override_ratio(Id);
                 if (speed == -1)
                 {
 #if (!DISABLE_SHOW_MESSAGE)
@@ -317,7 +317,7 @@ namespace HIWIN_Robot
                 }
                 else
                 {
-                    int retuenCode = HRobot.set_override_ratio(ID, value);
+                    int retuenCode = HRobot.set_override_ratio(Id, value);
 #if (!DISABLE_SHOW_MESSAGE)
                     IsErrorAndHandler(retuenCode);
 #endif
@@ -335,14 +335,14 @@ namespace HIWIN_Robot
             switch (type)
             {
                 case PositionType.Descartes:
-                    if ((HRobot.ptp_pos(ID, 1, DescartesHomePosition) >= 0) && waitForMotion)
+                    if ((HRobot.ptp_pos(Id, 1, DescartesHomePosition) >= 0) && waitForMotion)
                     {
                         WaitForMotionComplete(DescartesHomePosition, type);
                     }
                     break;
 
                 case PositionType.Joint:
-                    if ((HRobot.ptp_axis(ID, 1, JointHomePosition) >= 0) && waitForMotion)
+                    if ((HRobot.ptp_axis(Id, 1, JointHomePosition) >= 0) && waitForMotion)
                     {
                         WaitForMotionComplete(JointHomePosition, type);
                     }
@@ -371,11 +371,11 @@ namespace HIWIN_Robot
                 switch (positionType)
                 {
                     case PositionType.Descartes:
-                        retuenCode = HRobot.lin_pos(ID, (int)smoothType, smoothValue, targetPosition);
+                        retuenCode = HRobot.lin_pos(Id, (int)smoothType, smoothValue, targetPosition);
                         break;
 
                     case PositionType.Joint:
-                        retuenCode = HRobot.lin_axis(ID, (int)smoothType, smoothValue, targetPosition);
+                        retuenCode = HRobot.lin_axis(Id, (int)smoothType, smoothValue, targetPosition);
                         break;
 
                     default:
@@ -390,11 +390,11 @@ namespace HIWIN_Robot
                 switch (positionType)
                 {
                     case PositionType.Descartes:
-                        retuenCode = HRobot.lin_rel_pos(ID, (int)smoothType, smoothValue, targetPosition);
+                        retuenCode = HRobot.lin_rel_pos(Id, (int)smoothType, smoothValue, targetPosition);
                         break;
 
                     case PositionType.Joint:
-                        retuenCode = HRobot.lin_rel_axis(ID, (int)smoothType, smoothValue, targetPosition);
+                        retuenCode = HRobot.lin_rel_axis(Id, (int)smoothType, smoothValue, targetPosition);
                         break;
 
                     default:
@@ -449,11 +449,11 @@ namespace HIWIN_Robot
                 switch (positionType)
                 {
                     case PositionType.Descartes:
-                        retuenCode = HRobot.ptp_pos(ID, smoothTypeCode, targetPosition);
+                        retuenCode = HRobot.ptp_pos(Id, smoothTypeCode, targetPosition);
                         break;
 
                     case PositionType.Joint:
-                        retuenCode = HRobot.ptp_axis(ID, smoothTypeCode, targetPosition);
+                        retuenCode = HRobot.ptp_axis(Id, smoothTypeCode, targetPosition);
                         break;
 
                     default:
@@ -468,11 +468,11 @@ namespace HIWIN_Robot
                 switch (positionType)
                 {
                     case PositionType.Descartes:
-                        retuenCode = HRobot.ptp_rel_pos(ID, smoothTypeCode, targetPosition);
+                        retuenCode = HRobot.ptp_rel_pos(Id, smoothTypeCode, targetPosition);
                         break;
 
                     case PositionType.Joint:
-                        retuenCode = HRobot.ptp_rel_axis(ID, smoothTypeCode, targetPosition);
+                        retuenCode = HRobot.ptp_rel_axis(Id, smoothTypeCode, targetPosition);
                         break;
 
                     default:
@@ -541,7 +541,7 @@ namespace HIWIN_Robot
             while (true)
             {
                 // motion_state = 1: Idle.
-                if (HRobot.get_motion_state(ID) != 1)
+                if (HRobot.get_motion_state(Id) != 1)
                 {
                     Thread.Sleep(200);
                 }
@@ -617,18 +617,18 @@ namespace HIWIN_Robot
             callback = new HRobot.CallBackFun(EventFun);
 
             //連線設定。測試連線設定:("127.0.0.1", 1, callback);
-            ID = HRobot.open_connection(IP, 1, callback);
+            Id = HRobot.open_connection(Ip, 1, callback);
             Thread.Sleep(500);
 
             //0 ~ 65535為有效裝置ID
-            if (ID >= 0 && ID <= 65535)
+            if (Id >= 0 && Id <= 65535)
             {
                 int alarmState;
                 int motorState;
                 int connectionLevel;
 
                 //清除錯誤
-                alarmState = HRobot.clear_alarm(ID);
+                alarmState = HRobot.clear_alarm(Id);
 
 #if (!DISABLE_SHOW_MESSAGE)
                 //錯誤代碼300代表沒有警報，無法清除警報
@@ -639,21 +639,21 @@ namespace HIWIN_Robot
 #endif
 
                 //設定控制器: 1為啟動,0為關閉
-                HRobot.set_motor_state(ID, 1);
+                HRobot.set_motor_state(Id, 1);
                 Thread.Sleep(500);
 
 #if (!DISABLE_SHOW_MESSAGE)
                 //回傳控制器狀態
-                motorState = HRobot.get_motor_state(ID);
+                motorState = HRobot.get_motor_state(Id);
 
-                connectionLevel = HRobot.get_connection_level(ID);
+                connectionLevel = HRobot.get_connection_level(Id);
 
                 MessageBox.Show(string.Format("連線成功!\r\n" +
                                               "手臂ID: {0}\r\n" +
                                               "連線等級: {1}\r\n" +
                                               "控制器狀態: {2}\r\n" +
                                               "錯誤代碼: {3}\r\n",
-                                              ID,
+                                              Id,
                                               (connectionLevel == 0) ? "觀測者" : "操作者",
                                               (motorState == 0) ? "關閉" : "開啟",
                                               alarmState));
@@ -667,7 +667,7 @@ namespace HIWIN_Robot
 #if (!DISABLE_SHOW_MESSAGE)
                 string message;
 
-                switch (ID)
+                switch (Id)
                 {
                     case -1:
                         message = "-1：連線失敗。";
@@ -686,7 +686,7 @@ namespace HIWIN_Robot
                         break;
 
                     default:
-                        message = string.Format("未知的錯誤代碼：{0}", ID);
+                        message = string.Format("未知的錯誤代碼：{0}", Id);
                         break;
                 }
 
@@ -707,11 +707,11 @@ namespace HIWIN_Robot
             int motorState;
 
             //設定控制器: 1為啟動,0為關閉
-            HRobot.set_motor_state(ID, 0);
+            HRobot.set_motor_state(Id, 0);
             Thread.Sleep(500);
 
             //將所有錯誤代碼清除
-            alarmState = HRobot.clear_alarm(ID);
+            alarmState = HRobot.clear_alarm(Id);
 
 #if (!DISABLE_SHOW_MESSAGE)
             //錯誤代碼300代表沒有警報，無法清除警報
@@ -721,11 +721,11 @@ namespace HIWIN_Robot
             }
 
             //回傳控制器狀態
-            motorState = HRobot.get_motor_state(ID);
+            motorState = HRobot.get_motor_state(Id);
 #endif
 
             //關閉手臂連線
-            HRobot.disconnect(ID);
+            HRobot.disconnect(Id);
 
 #if (!DISABLE_SHOW_MESSAGE)
             MessageBox.Show(string.Format("斷線成功!\r\n" +
@@ -846,7 +846,7 @@ namespace HIWIN_Robot
 
         public void ClearAlarm()
         {
-            int retuenCode = HRobot.clear_alarm(ID);
+            int retuenCode = HRobot.clear_alarm(Id);
 
 #if (!DISABLE_SHOW_MESSAGE)
             // 錯誤代碼300代表沒有警報，無法清除警報
@@ -863,11 +863,11 @@ namespace HIWIN_Robot
             {
                 if (type == PositionType.Descartes)
                 {
-                    retuenCode = HRobot.get_current_position(ID, position);
+                    retuenCode = HRobot.get_current_position(Id, position);
                 }
                 else if (type == PositionType.Joint)
                 {
-                    retuenCode = HRobot.get_current_joint(ID, position);
+                    retuenCode = HRobot.get_current_joint(Id, position);
                 }
                 else
                 {

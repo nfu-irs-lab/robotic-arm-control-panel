@@ -155,7 +155,7 @@ namespace HIWIN_Robot
 
         public void UpdateArmID(int armID)
         {
-            Arm.ID = armID;
+            Arm.Id = armID;
         }
 
         private byte[] ConvertIntToByte(int intValue, int count = 2)
