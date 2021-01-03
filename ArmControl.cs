@@ -516,13 +516,13 @@ namespace HiwinRobot
         /// 將相對坐標以目前位置轉為絕對坐標。
         /// </summary>
         /// <param name="relativePosition"></param>
-        /// <param name="type"></param>
+        /// <param name="positionType"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private double[] ConvertRelativeToAdsolute(double[] relativePosition,
-                                                   PositionType type)
+                                                   PositionType positionType)
         {
-            double[] position = GetPosition(type);
+            double[] position = GetPosition(positionType);
             for (int i = 0; i < 6; i++)
             {
                 position[i] += relativePosition[i];
@@ -534,8 +534,8 @@ namespace HiwinRobot
         /// 等待手臂運動完成。
         /// </summary>
         /// <param name="targetPosition"></param>
-        /// <param name="type"></param>
-        private void WaitForMotionComplete(double[] targetPosition, PositionType type)
+        /// <param name="positionType"></param>
+        private void WaitForMotionComplete(double[] targetPosition, PositionType positionType)
         {
 #if (USE_MOTION_STATE_WAIT)
             while (true)
@@ -553,17 +553,17 @@ namespace HiwinRobot
 #else
             double[] nowPosition = new double[6];
 
-            timer.Enabled = true;
+            ActionTimer.Enabled = true;
 
             // For無限回圈。
             for (; ; )
             {
-                if (TimeCheck % 1 == 0 && type == PositionType.descartes)
+                if (TimeCheck % 1 == 0 && positionType == PositionType.Descartes)
                 {
                     foreach (int k in nowPosition)
                     {
                         // 取得目前的笛卡爾坐標。
-                        HRobot.get_current_position(DeviceID, nowPosition);
+                        HRobot.get_current_position(Id, nowPosition);
                     }
 
                     if (Math.Abs(targetPosition[0] - nowPosition[0]) < 0.01 &&
@@ -577,12 +577,12 @@ namespace HiwinRobot
                         break;
                     }
                 }
-                else if (TimeCheck % 1 == 0 && type == PositionType.joint)
+                else if (TimeCheck % 1 == 0 && positionType == PositionType.Joint)
                 {
                     foreach (int k in nowPosition)
                     {
                         // 取得目前的關節坐標。
-                        HRobot.get_current_joint(DeviceID, nowPosition);
+                        HRobot.get_current_joint(Id, nowPosition);
                     }
 
                     if (Math.Abs(targetPosition[0] - nowPosition[0]) < 0.01 &&
@@ -598,7 +598,7 @@ namespace HiwinRobot
                 }
             }
 
-            timer.Enabled = false;
+            ActionTimer.Enabled = false;
             TimeCheck = 0;
 #endif
         }
