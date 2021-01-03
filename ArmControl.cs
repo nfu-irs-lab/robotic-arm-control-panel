@@ -357,7 +357,7 @@ namespace HIWIN_Robot
         }
 
         public void MotionLinear(double[] targetPosition,
-                                 PositionType positionType,
+                                 PositionType positionType = PositionType.descartes,
                                  CoordinateType coordinateType = CoordinateType.absolute,
                                  SmoothType smoothType = SmoothType.twoLinesSpeedSmooth,
                                  double smoothValue = 50,
@@ -433,7 +433,7 @@ namespace HIWIN_Robot
         }
 
         public void MotionPointToPoint(double[] targetPosition,
-                                       PositionType positionType,
+                                       PositionType positionType = PositionType.descartes,
                                        CoordinateType coordinateType = CoordinateType.absolute,
                                        SmoothType smoothType = SmoothType.twoLinesSpeedSmooth,
                                        bool waitForMotion = true)
