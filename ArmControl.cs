@@ -781,7 +781,7 @@ namespace HiwinRobot
         private void InitTimer()
         {
             ActionTimer = new Timer { Interval = 50, Enabled = false };
-            ActionTimer.Tick += new EventHandler(Timer_Tick);
+            ActionTimer.Tick += new EventHandler(TimerTick);
         }
 
         /// <summary>
@@ -789,7 +789,7 @@ namespace HiwinRobot
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Timer_Tick(object sender, EventArgs e)
+        private void TimerTick(object sender, EventArgs e)
         {
             ++TimeCheck;
         }
