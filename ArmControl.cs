@@ -421,7 +421,9 @@ namespace HIWIN_Robot
                     break;
 
                 default:
+#if (!DISABLE_SHOW_MESSAGE)
                     ShowUnknownPositionType();
+#endif
                     return;
             }
 #endif
@@ -497,7 +499,9 @@ namespace HIWIN_Robot
                     break;
 
                 default:
+#if (!DISABLE_SHOW_MESSAGE)
                     ShowUnknownPositionType();
+#endif
                     retuen;
             }
 #endif
