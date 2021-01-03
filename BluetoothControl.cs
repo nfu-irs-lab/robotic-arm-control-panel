@@ -192,22 +192,22 @@ namespace HIWIN_Robot
                 case "xr":
                     value = Convert.ToDouble(data.Split('r')[1]);
                     Arm.MotionLinear(new double[] { value, 0, 0, 0, 0, 0 },
-                                        PositionType.descartes,
-                                        CoordinateType.relative);
+                                        PositionType.Descartes,
+                                        CoordinateType.Relative);
                     break;
 
                 case "yr":
                     value = Convert.ToDouble(data.Split('r')[1]);
                     Arm.MotionLinear(new double[] { 0, value, 0, 0, 0, 0 },
-                                        PositionType.descartes,
-                                        CoordinateType.relative);
+                                        PositionType.Descartes,
+                                        CoordinateType.Relative);
                     break;
 
                 case "zr":
                     value = Convert.ToDouble(data.Split('r')[1]);
                     Arm.MotionLinear(new double[] { 0, 0, value, 0, 0, 0 },
-                                        PositionType.descartes,
-                                        CoordinateType.relative);
+                                        PositionType.Descartes,
+                                        CoordinateType.Relative);
                     break;
 
                 case "ud":
@@ -217,7 +217,7 @@ namespace HIWIN_Robot
                     MessageBox.Show($"Unknown date: {data}");
                     break;
             }
-            Send(DataType.descartesPosition, Arm.GetPosition(PositionType.descartes));
+            Send(DataType.descartesPosition, Arm.GetPosition(PositionType.Descartes));
         }
     }
 }

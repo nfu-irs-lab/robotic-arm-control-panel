@@ -25,17 +25,17 @@ namespace HIWIN_Robot
         /// <summary>
         /// 絕對坐標。
         /// </summary>
-        absolute,
+        Absolute,
 
         /// <summary>
         /// 相對坐標。
         /// </summary>
-        relative,
+        Relative,
 
         /// <summary>
         /// 未知的類型。
         /// </summary>
-        unknown
+        Unknown
     }
 
     /// <summary>
@@ -46,22 +46,22 @@ namespace HIWIN_Robot
         /// <summary>
         /// 直線運動。
         /// </summary>
-        linear,
+        Linear,
 
         /// <summary>
         /// 點對點運動。
         /// </summary>
-        pointToPoint,
+        PointToPoint,
 
         /// <summary>
         /// 圓弧運動。
         /// </summary>
-        circle,
+        Circle,
 
         /// <summary>
         /// 未知的類型。
         /// </summary>
-        unknown
+        Unknown
     }
 
     /// <summary>
@@ -72,17 +72,17 @@ namespace HIWIN_Robot
         /// <summary>
         /// 笛卡爾。
         /// </summary>
-        descartes,
+        Descartes,
 
         /// <summary>
         /// 關節。
         /// </summary>
-        joint,
+        Joint,
 
         /// <summary>
         /// 未知的類型。
         /// </summary>
-        unknown
+        Unknown
     }
 
     /// <summary>
@@ -93,22 +93,22 @@ namespace HIWIN_Robot
         /// <summary>
         /// 關閉平滑功能。
         /// </summary>
-        disable = 0,
+        Disable = 0,
 
         /// <summary>
         /// 貝茲曲線平滑百分比。
         /// </summary>
-        bezierCurveSmoothPercent = 1,
+        BezierCurveSmoothPercent = 1,
 
         /// <summary>
         /// 貝茲曲線平滑半徑。
         /// </summary>
-        bezierCurveSmoothRadius = 2,
+        BezierCurveSmoothRadius = 2,
 
         /// <summary>
         /// 依兩線段速度平滑。
         /// </summary>
-        twoLinesSpeedSmooth = 3
+        TwoLinesSpeedSmooth = 3
     }
 
     #endregion - 列舉 enum -
@@ -164,7 +164,7 @@ namespace HIWIN_Robot
         /// 回到指定座標系的原點。預設爲笛卡爾。
         /// </summary>
         /// <param name="positionType"></param>
-        void GoHome(PositionType positionType = PositionType.descartes,
+        void GoHome(PositionType positionType = PositionType.Descartes,
                     bool waitForMotion = true);
 
         /// <summary>
@@ -183,9 +183,9 @@ namespace HIWIN_Robot
         /// <param name="smoothValue"></param>
         /// <param name="waitForMotion"></param>
         void MotionLinear(double[] targetPosition,
-                          PositionType positionType = PositionType.descartes,
-                          CoordinateType coordinateType = CoordinateType.absolute,
-                          SmoothType smoothType = SmoothType.twoLinesSpeedSmooth,
+                          PositionType positionType = PositionType.Descartes,
+                          CoordinateType coordinateType = CoordinateType.Absolute,
+                          SmoothType smoothType = SmoothType.TwoLinesSpeedSmooth,
                           double smoothValue = 50,
                           bool waitForMotion = true);
 
@@ -203,9 +203,9 @@ namespace HIWIN_Robot
         /// <param name="smoothType"></param>
         /// <param name="waitForMotion"></param>
         void MotionPointToPoint(double[] targetPosition,
-                                PositionType positionType = PositionType.descartes,
-                                CoordinateType coordinateType = CoordinateType.absolute,
-                                SmoothType smoothType = SmoothType.twoLinesSpeedSmooth,
+                                PositionType positionType = PositionType.Descartes,
+                                CoordinateType coordinateType = CoordinateType.Absolute,
+                                SmoothType smoothType = SmoothType.TwoLinesSpeedSmooth,
                                 bool waitForMotion = true);
 
         #endregion - Motion -
@@ -223,7 +223,7 @@ namespace HIWIN_Robot
         /// </summary>
         /// <param name="positionType"></param>
         /// <returns>目前的手臂位置座標數值。</returns>
-        double[] GetPosition(PositionType positionType = PositionType.descartes);
+        double[] GetPosition(PositionType positionType = PositionType.Descartes);
 
         #endregion - Others -
     }
@@ -329,19 +329,19 @@ namespace HIWIN_Robot
 
         #region - Motion -
 
-        public void GoHome(PositionType type = PositionType.descartes,
+        public void GoHome(PositionType type = PositionType.Descartes,
                            bool waitForMotion = true)
         {
             switch (type)
             {
-                case PositionType.descartes:
+                case PositionType.Descartes:
                     if ((HRobot.ptp_pos(ID, 1, DescartesHomePosition) >= 0) && waitForMotion)
                     {
                         WaitForMotionComplete(DescartesHomePosition, type);
                     }
                     break;
 
-                case PositionType.joint:
+                case PositionType.Joint:
                     if ((HRobot.ptp_axis(ID, 1, JointHomePosition) >= 0) && waitForMotion)
                     {
                         WaitForMotionComplete(JointHomePosition, type);
@@ -357,24 +357,24 @@ namespace HIWIN_Robot
         }
 
         public void MotionLinear(double[] targetPosition,
-                                 PositionType positionType = PositionType.descartes,
-                                 CoordinateType coordinateType = CoordinateType.absolute,
-                                 SmoothType smoothType = SmoothType.twoLinesSpeedSmooth,
+                                 PositionType positionType = PositionType.Descartes,
+                                 CoordinateType coordinateType = CoordinateType.Absolute,
+                                 SmoothType smoothType = SmoothType.TwoLinesSpeedSmooth,
                                  double smoothValue = 50,
                                  bool waitForMotion = true)
         {
             int retuenCode = 0;
 
 #if (USE_SDK_RELATIVE)
-            if (coordinateType == CoordinateType.absolute)
+            if (coordinateType == CoordinateType.Absolute)
             {
                 switch (positionType)
                 {
-                    case PositionType.descartes:
+                    case PositionType.Descartes:
                         retuenCode = HRobot.lin_pos(ID, (int)smoothType, smoothValue, targetPosition);
                         break;
 
-                    case PositionType.joint:
+                    case PositionType.Joint:
                         retuenCode = HRobot.lin_axis(ID, (int)smoothType, smoothValue, targetPosition);
                         break;
 
@@ -385,15 +385,15 @@ namespace HIWIN_Robot
                         return;
                 }
             }
-            else if (coordinateType == CoordinateType.relative)
+            else if (coordinateType == CoordinateType.Relative)
             {
                 switch (positionType)
                 {
-                    case PositionType.descartes:
+                    case PositionType.Descartes:
                         retuenCode = HRobot.lin_rel_pos(ID, (int)smoothType, smoothValue, targetPosition);
                         break;
 
-                    case PositionType.joint:
+                    case PositionType.Joint:
                         retuenCode = HRobot.lin_rel_axis(ID, (int)smoothType, smoothValue, targetPosition);
                         break;
 
@@ -435,24 +435,24 @@ namespace HIWIN_Robot
         }
 
         public void MotionPointToPoint(double[] targetPosition,
-                                       PositionType positionType = PositionType.descartes,
-                                       CoordinateType coordinateType = CoordinateType.absolute,
-                                       SmoothType smoothType = SmoothType.twoLinesSpeedSmooth,
+                                       PositionType positionType = PositionType.Descartes,
+                                       CoordinateType coordinateType = CoordinateType.Absolute,
+                                       SmoothType smoothType = SmoothType.TwoLinesSpeedSmooth,
                                        bool waitForMotion = true)
         {
             int retuenCode = 0;
-            int smoothTypeCode = (smoothType == SmoothType.twoLinesSpeedSmooth) ? 1 : 0;
+            int smoothTypeCode = (smoothType == SmoothType.TwoLinesSpeedSmooth) ? 1 : 0;
 
 #if (USE_SDK_RELATIVE)
-            if (coordinateType == CoordinateType.absolute)
+            if (coordinateType == CoordinateType.Absolute)
             {
                 switch (positionType)
                 {
-                    case PositionType.descartes:
+                    case PositionType.Descartes:
                         retuenCode = HRobot.ptp_pos(ID, smoothTypeCode, targetPosition);
                         break;
 
-                    case PositionType.joint:
+                    case PositionType.Joint:
                         retuenCode = HRobot.ptp_axis(ID, smoothTypeCode, targetPosition);
                         break;
 
@@ -463,15 +463,15 @@ namespace HIWIN_Robot
                         return;
                 }
             }
-            else if (coordinateType == CoordinateType.relative)
+            else if (coordinateType == CoordinateType.Relative)
             {
                 switch (positionType)
                 {
-                    case PositionType.descartes:
+                    case PositionType.Descartes:
                         retuenCode = HRobot.ptp_rel_pos(ID, smoothTypeCode, targetPosition);
                         break;
 
-                    case PositionType.joint:
+                    case PositionType.Joint:
                         retuenCode = HRobot.ptp_rel_axis(ID, smoothTypeCode, targetPosition);
                         break;
 
@@ -836,7 +836,7 @@ namespace HIWIN_Robot
         {
 #if (!DISABLE_SHOW_MESSAGE)
             ErrorMessage.Show($"錯誤的位置類型。\r\n" +
-                             $"位置類型應為：{PositionType.descartes} 或是 {PositionType.joint}");
+                             $"位置類型應為：{PositionType.Descartes} 或是 {PositionType.Joint}");
 #endif
         }
 
@@ -854,18 +854,18 @@ namespace HIWIN_Robot
 #endif
         }
 
-        public double[] GetPosition(PositionType type = PositionType.descartes)
+        public double[] GetPosition(PositionType type = PositionType.Descartes)
         {
             double[] position = new double[6];
             int retuenCode = -1;
 
             foreach (int k in position)
             {
-                if (type == PositionType.descartes)
+                if (type == PositionType.Descartes)
                 {
                     retuenCode = HRobot.get_current_position(ID, position);
                 }
-                else if (type == PositionType.joint)
+                else if (type == PositionType.Joint)
                 {
                     retuenCode = HRobot.get_current_joint(ID, position);
                 }
