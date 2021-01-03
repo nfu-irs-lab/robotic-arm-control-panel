@@ -5,7 +5,7 @@
 #undef CONFIG_2
 #endif
 
-namespace HIWIN_Robot
+namespace HiwinRobot
 {
     /// <summary>
     /// 可調整之設定。

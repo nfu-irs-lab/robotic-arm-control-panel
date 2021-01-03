@@ -11,7 +11,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace HIWIN_Robot
+namespace HiwinRobot
 {
     /// <summary>
     /// 【 上銀機器手臂控制 範例程式 】<br/>

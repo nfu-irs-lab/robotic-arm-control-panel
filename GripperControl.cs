@@ -11,7 +11,7 @@ using System.IO.Ports;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
-namespace HIWIN_Robot
+namespace HiwinRobot
 {
     /// <summary>
     /// 夾爪控制。

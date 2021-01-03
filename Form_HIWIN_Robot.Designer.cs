@@ -1,4 +1,4 @@
-﻿namespace HIWIN_Robot
+﻿namespace HiwinRobot
 {
     partial class Form_HIWIN_Robot
     {

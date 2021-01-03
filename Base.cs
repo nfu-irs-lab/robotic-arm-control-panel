@@ -14,7 +14,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace HIWIN_Robot
+namespace HiwinRobot
 {
     internal interface IDevice
     {

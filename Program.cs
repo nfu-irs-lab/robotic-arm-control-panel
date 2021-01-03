@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace HIWIN_Robot
+namespace HiwinRobot
 {
     internal static class Program
     {

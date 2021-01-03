@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HIWIN_Robot.Properties
+namespace HiwinRobot.Properties
 {
 
 

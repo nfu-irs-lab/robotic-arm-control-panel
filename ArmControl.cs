@@ -13,7 +13,7 @@ using System.Threading;
 using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
 
-namespace HIWIN_Robot
+namespace HiwinRobot
 {
     #region - 列舉 enum -
 
