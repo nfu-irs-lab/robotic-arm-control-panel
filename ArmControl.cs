@@ -780,7 +780,7 @@ namespace HiwinRobot
         /// </summary>
         private void InitTimer()
         {
-            ActionTimer = new Timer { Interval = 50 };
+            ActionTimer = new Timer { Interval = 50, Enabled = false };
             ActionTimer.Tick += new EventHandler(Timer_Tick);
         }
 
