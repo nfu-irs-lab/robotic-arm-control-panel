@@ -428,7 +428,7 @@ namespace HIWIN_Robot
             }
 #endif
 
-            if (IsErrorAndHandler(retuenCode) == false && waitForMotion)
+            if (!IsErrorAndHandler(retuenCode) && waitForMotion)
             {
                 WaitForMotionComplete(targetPosition, positionType);
             }
@@ -506,7 +506,7 @@ namespace HIWIN_Robot
             }
 #endif
 
-            if (IsErrorAndHandler(retuenCode) == false && waitForMotion)
+            if (!IsErrorAndHandler(retuenCode) && waitForMotion)
             {
                 WaitForMotionComplete(targetPosition, positionType);
             }
