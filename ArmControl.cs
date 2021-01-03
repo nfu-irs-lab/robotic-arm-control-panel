@@ -116,7 +116,7 @@ namespace HiwinRobot
     /// <summary>
     /// 上銀機械手臂控制介面。
     /// </summary>
-    internal interface IArmControl : IDevice
+    public interface IArmControl : IDevice
     {
         /// <summary>
         /// 手臂ID。
@@ -231,7 +231,7 @@ namespace HiwinRobot
     /// <summary>
     /// 上銀機械手臂控制實作。
     /// </summary>
-    internal class ArmControl : IArmControl
+    public class ArmControl : IArmControl
     {
         public ArmControl(string armIp, int armId = 0)
         {

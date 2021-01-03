@@ -10,7 +10,7 @@ namespace HiwinRobot
     /// <summary>
     /// 可調整之設定。
     /// </summary>
-    internal class Configuration
+    public class Configuration
     {
         /// <summary>
         /// 手臂連線IP位置。<br/>

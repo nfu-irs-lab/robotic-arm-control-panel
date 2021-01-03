@@ -16,7 +16,7 @@ using System.Windows.Forms;
 
 namespace HiwinRobot
 {
-    internal interface IDevice
+    public interface IDevice
     {
         /// <summary>
         /// Connect state. <br/>
@@ -44,7 +44,7 @@ namespace HiwinRobot
         bool Disconnect();
     }
 
-    internal interface IErrorMessage
+    public interface IErrorMessage
     {
         /// <summary>
         /// Show error message.
@@ -55,7 +55,7 @@ namespace HiwinRobot
         void Show(string message = "Error.", Exception ex = null);
     }
 
-    internal class ErrorMessage : IErrorMessage
+    public class ErrorMessage : IErrorMessage
     {
         public void Show(string message = "Error.", Exception ex = null)
         {
@@ -71,7 +71,7 @@ namespace HiwinRobot
         }
     }
 
-    internal abstract class SerialPortDevice : IDevice
+    public abstract class SerialPortDevice : IDevice
     {
         protected IErrorMessage ErrorMessage = new ErrorMessage();
         protected SerialPort SerialPort = null;

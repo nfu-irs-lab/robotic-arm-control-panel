@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace HiwinRobot
 {
-    internal class BluetoothControl : SerialPortDevice
+    public class BluetoothControl : SerialPortDevice
     {
         private IArmControl Arm = null;
 

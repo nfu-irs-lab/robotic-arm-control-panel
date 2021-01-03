@@ -16,7 +16,7 @@ namespace HiwinRobot
     /// <summary>
     /// 夾爪控制。
     /// </summary>
-    internal class GripperControl : SerialPortDevice
+    public class GripperControl : SerialPortDevice
     {
         /// <summary>
         /// 夾爪模式：絕對位置。
