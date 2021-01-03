@@ -439,18 +439,7 @@ namespace HIWIN_Robot
                                        bool waitForMotion = true)
         {
             int retuenCode = 0;
-            int smoothTypeCode;
-
-            switch (smoothType)
-            {
-                case SmoothType.twoLinesSpeedSmooth:
-                    smoothTypeCode = 1;
-                    break;
-
-                default:
-                    smoothTypeCode = 0;
-                    break;
-            }
+            int smoothTypeCode = (smoothType == SmoothType.twoLinesSpeedSmooth) ? 1 : 0;
 
 #if (USE_SDK_RELATIVE)
             if (coordinateType == CoordinateType.absolute)
