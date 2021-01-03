@@ -76,15 +76,15 @@ namespace HIWIN_Robot
         protected IErrorMessage ErrorMessage = new ErrorMessage();
         protected SerialPort SerialPort = null;
 
-        public SerialPortDevice(SerialPort sp)
+        public SerialPortDevice(SerialPort serialPort)
         {
             // XXX 此處沒有使用深層複製，需注意指標(pointer)的問題。
-            SerialPort = sp;
+            SerialPort = serialPort;
         }
 
-        public SerialPortDevice(string COMPort)
+        public SerialPortDevice(string comPort)
         {
-            SerialPort = new SerialPort(COMPort);
+            SerialPort = new SerialPort(comPort);
         }
 
         public bool Connected { get; protected set; } = false;

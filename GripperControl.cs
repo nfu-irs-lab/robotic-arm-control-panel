@@ -23,8 +23,8 @@ namespace HIWIN_Robot
         /// </summary>
         private byte Direction = 2;
 
-        public GripperControl(string COM_port)
-            : base(new SerialPort { PortName = COM_port, BaudRate = 115200, DataBits = 8 })
+        public GripperControl(string comPort)
+            : base(new SerialPort { PortName = comPort, BaudRate = 115200, DataBits = 8 })
         {
         }
 

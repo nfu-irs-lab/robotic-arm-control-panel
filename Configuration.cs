@@ -16,7 +16,7 @@ namespace HIWIN_Robot
         /// 手臂連線IP位置。<br/>
         /// 設定錯誤將會無法連線。
         /// </summary>
-        public const string ArmIP =
+        public const string ArmIp =
 #if (CONFIG_1)
             "192.168.0.3";
 #elif (CONFIG_2)
@@ -30,7 +30,7 @@ namespace HIWIN_Robot
         /// 藍牙連線COM Port。<br/>
         /// 設定錯誤將會無法連線。
         /// </summary>
-        public const string BluetoothCOMPort =
+        public const string BluetoothComPort =
 #if (CONFIG_1)
             "COM21";
 #elif (CONFIG_2)
@@ -44,7 +44,7 @@ namespace HIWIN_Robot
         /// 夾爪連線COM Port。<br/>
         /// 設定錯誤將會無法連線。
         /// </summary>
-        public const string GripperCOMPort =
+        public const string GripperComPort =
 #if (CONFIG_1)
             "COM12";
 #elif (CONFIG_2)

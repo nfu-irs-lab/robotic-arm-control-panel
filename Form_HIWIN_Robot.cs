@@ -27,8 +27,8 @@ namespace HIWIN_Robot
         {
             InitializeComponent();
             InitControlCollection();
-            Arm = new ArmControl(Configuration.ArmIP);
-            Bluetooth = new BluetoothControl(Configuration.BluetoothCOMPort);
+            Arm = new ArmControl(Configuration.ArmIp);
+            Bluetooth = new BluetoothControl(Configuration.BluetoothComPort);
         }
 
         #region - 手臂 -
@@ -443,7 +443,7 @@ namespace HIWIN_Robot
         /// <summary>
         /// 夾爪控制。
         /// </summary>
-        private GripperControl Gripper = new GripperControl(Configuration.GripperCOMPort);
+        private GripperControl Gripper = new GripperControl(Configuration.GripperComPort);
 
         /// <summary>
         /// 進行夾爪動作。
