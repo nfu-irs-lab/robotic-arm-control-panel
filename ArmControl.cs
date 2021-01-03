@@ -233,10 +233,10 @@ namespace HIWIN_Robot
     /// </summary>
     internal class ArmControl : IArmControl
     {
-        public ArmControl(string armIP, int armID = 0)
+        public ArmControl(string armIp, int armId = 0)
         {
-            Ip = armIP;
-            Id = armID;
+            Ip = armIp;
+            Id = armId;
 
 #if (!USE_MOTION_STATE_WAIT)
             InitTimer();
@@ -607,17 +607,17 @@ namespace HIWIN_Robot
 
         #region - Connect and Disconnect -
 
-        private static HRobot.CallBackFun callback;
+        private static HRobot.CallBackFun CallBack;
 
         public bool Connected { get; private set; } = false;
 
         public bool Connect()
         {
             //接收控制器回傳訊息
-            callback = new HRobot.CallBackFun(EventFun);
+            CallBack = new HRobot.CallBackFun(EventFun);
 
             //連線設定。測試連線設定:("127.0.0.1", 1, callback);
-            Id = HRobot.open_connection(Ip, 1, callback);
+            Id = HRobot.open_connection(Ip, 1, CallBack);
             Thread.Sleep(500);
 
             //0 ~ 65535為有效裝置ID
@@ -772,18 +772,17 @@ namespace HIWIN_Robot
 
         #region - Timer -
 
+        private Timer ActionTimer = null;
         private int TimeCheck = 0;
-
-        private Timer timer = null;
 
         /// <summary>
         /// 初始化計時器。
         /// </summary>
         private void InitTimer()
         {
-            timer = new Timer();
-            timer.Interval = 50;
-            timer.Tick += new EventHandler(timer_Tick);
+            ActionTimer = new Timer();
+            ActionTimer.Interval = 50;
+            ActionTimer.Tick += new EventHandler(Timer_Tick);
         }
 
         /// <summary>
@@ -791,7 +790,7 @@ namespace HIWIN_Robot
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void timer_Tick(object sender, EventArgs e)
+        private void Timer_Tick(object sender, EventArgs e)
         {
             ++TimeCheck;
         }
