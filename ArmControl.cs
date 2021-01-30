@@ -235,12 +235,12 @@ namespace HiwinRobot
     {
         private IArmIntermediateLayer ArmIntermediateLayer = null;
 
-        public ArmControl(string armIp, int armId = 0)
+        public ArmControl(string armIp, IArmIntermediateLayer armIntermediateLayer)
         {
-            ArmIntermediateLayer = new ArmIntermediateLayer();
-
             Ip = armIp;
-            Id = armId;
+            Id = 0;
+
+            ArmIntermediateLayer = armIntermediateLayer;
 
 #if (!USE_MOTION_STATE_WAIT)
             InitTimer();
