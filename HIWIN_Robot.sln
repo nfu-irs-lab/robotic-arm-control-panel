@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.30225.117
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HIWIN_Robot", "HIWIN_Robot.csproj", "{95C2DDF6-1FD1-42AE-BF56-EF1391DA6D5D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HIWIN_RobotTests1", "..\HIWIN_RobotTests1\HIWIN_RobotTests1.csproj", "{DDAFDD13-2E7D-4994-87B8-E41F50CBDEAF}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,14 +21,6 @@ Global
 		{95C2DDF6-1FD1-42AE-BF56-EF1391DA6D5D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{95C2DDF6-1FD1-42AE-BF56-EF1391DA6D5D}.Release|x64.ActiveCfg = Release|x64
 		{95C2DDF6-1FD1-42AE-BF56-EF1391DA6D5D}.Release|x64.Build.0 = Release|x64
-		{DDAFDD13-2E7D-4994-87B8-E41F50CBDEAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DDAFDD13-2E7D-4994-87B8-E41F50CBDEAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DDAFDD13-2E7D-4994-87B8-E41F50CBDEAF}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{DDAFDD13-2E7D-4994-87B8-E41F50CBDEAF}.Debug|x64.Build.0 = Debug|Any CPU
-		{DDAFDD13-2E7D-4994-87B8-E41F50CBDEAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DDAFDD13-2E7D-4994-87B8-E41F50CBDEAF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DDAFDD13-2E7D-4994-87B8-E41F50CBDEAF}.Release|x64.ActiveCfg = Release|Any CPU
-		{DDAFDD13-2E7D-4994-87B8-E41F50CBDEAF}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
