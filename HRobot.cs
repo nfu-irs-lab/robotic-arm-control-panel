@@ -144,7 +144,7 @@ namespace SDKHrobot
         }
     }
 
-    internal class HRobot
+    public class HRobot
     {
         // will send message from Hiwin Controller
         public delegate void CallBackFun(UInt16 cmd, UInt16 rlt, ref UInt16 Msg, int len);

@@ -27,7 +27,7 @@ namespace HiwinRobot
         {
             InitializeComponent();
             InitControlCollection();
-            Arm = new ArmControl(Configuration.ArmIp);
+            Arm = new ArmControl(Configuration.ArmIp, new ArmIntermediateLayer());
             Bluetooth = new BluetoothControl(Configuration.BluetoothComPort);
         }
 
@@ -168,8 +168,8 @@ namespace HiwinRobot
         private void UpdateNowPosition()
         {
             SetNowPostion(Arm.GetPosition(GetPositinoType()));
-            Bluetooth.Send(BluetoothControl.DataType.descartesPosition,
-                           Arm.GetPosition(PositionType.Descartes));
+            //Bluetooth.Send(BluetoothControl.DataType.descartesPosition,
+            //               Arm.GetPosition(PositionType.Descartes));
         }
 
         #endregion 位置
@@ -488,7 +488,7 @@ namespace HiwinRobot
         /// <param name="e"></param>
         private void button_connect_Click(object sender, EventArgs e)
         {
-            Bluetooth.Connect();
+            //Bluetooth.Connect();
 
             Arm.Connect();
             if (Arm.Connected)
@@ -500,7 +500,7 @@ namespace HiwinRobot
                 Bluetooth.UpdateArmID(Arm.Id);
             }
 
-            Gripper.Connect();
+            //Gripper.Connect();
         }
 
         /// <summary>
