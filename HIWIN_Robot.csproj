@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArmControl.cs" />
+    <Compile Include="ArmIntermediateLayer.cs" />
     <Compile Include="Base.cs" />
     <Compile Include="BluetoothControl.cs" />
     <Compile Include="Configuration.cs" />
