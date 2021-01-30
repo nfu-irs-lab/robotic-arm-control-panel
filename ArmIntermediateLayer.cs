@@ -11,7 +11,7 @@ namespace HiwinRobot
     /// 上銀手臂 SDK 中介層介面。<br/>
     /// 此中介層 interface 用來幫助達成 Unit Test 的隔離。
     /// </summary>
-    internal interface IArmIntermediateLayer
+    public interface IArmIntermediateLayer
     {
         int clear_alarm(int robot);
 
