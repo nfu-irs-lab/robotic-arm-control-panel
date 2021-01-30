@@ -268,7 +268,6 @@ namespace HiwinRobot
         {
             get
             {
-                //int acc = HRobot.get_acc_dec_ratio(Id);
                 int acc = ArmIntermediateLayer.get_acc_dec_ratio(Id);
                 if (acc == -1)
                 {
@@ -289,7 +288,6 @@ namespace HiwinRobot
                 }
                 else
                 {
-                    //int retuenCode = HRobot.set_acc_dec_ratio(Id, value);
                     int retuenCode = ArmIntermediateLayer.set_acc_dec_ratio(Id, value);
 #if (!DISABLE_SHOW_MESSAGE)
                     //執行HRobot.set_acc_dec_ratio時會固定回傳錯誤代碼4000
@@ -303,7 +301,6 @@ namespace HiwinRobot
         {
             get
             {
-                //int speed = HRobot.get_override_ratio(Id);
                 int speed = ArmIntermediateLayer.get_override_ratio(Id);
                 if (speed == -1)
                 {
@@ -324,7 +321,6 @@ namespace HiwinRobot
                 }
                 else
                 {
-                    //int retuenCode = HRobot.set_override_ratio(Id, value);
                     int retuenCode = ArmIntermediateLayer.set_override_ratio(Id, value);
 #if (!DISABLE_SHOW_MESSAGE)
                     IsErrorAndHandler(retuenCode);
