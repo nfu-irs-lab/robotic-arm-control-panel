@@ -25,7 +25,7 @@ namespace HiwinRobot
 
         int get_current_position(int robot, double[] value);
 
-        int get_motino_state(int robot);
+        int get_motion_state(int robot);
 
         int get_motor_state(int robot);
 
@@ -78,7 +78,7 @@ namespace HiwinRobot
         public virtual int get_current_position(int robot, double[] value)
             => HRobot.get_current_position(robot, value);
 
-        public virtual int get_motino_state(int robot)
+        public virtual int get_motion_state(int robot)
             => HRobot.get_motion_state(robot);
 
         public virtual int get_motor_state(int robot)

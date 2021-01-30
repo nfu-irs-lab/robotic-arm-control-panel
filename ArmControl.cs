@@ -339,14 +339,14 @@ namespace HiwinRobot
             switch (type)
             {
                 case PositionType.Descartes:
-                    if ((HRobot.ptp_pos(Id, 1, DescartesHomePosition) >= 0) && waitForMotion)
+                    if ((ArmIntermediateLayer.ptp_pos(Id, 1, DescartesHomePosition) >= 0) && waitForMotion)
                     {
                         WaitForMotionComplete(DescartesHomePosition, type);
                     }
                     break;
 
                 case PositionType.Joint:
-                    if ((HRobot.ptp_axis(Id, 1, JointHomePosition) >= 0) && waitForMotion)
+                    if ((ArmIntermediateLayer.ptp_axis(Id, 1, JointHomePosition) >= 0) && waitForMotion)
                     {
                         WaitForMotionComplete(JointHomePosition, type);
                     }
@@ -375,11 +375,11 @@ namespace HiwinRobot
                 switch (positionType)
                 {
                     case PositionType.Descartes:
-                        retuenCode = HRobot.lin_pos(Id, (int)smoothType, smoothValue, targetPosition);
+                        retuenCode = ArmIntermediateLayer.lin_pos(Id, (int)smoothType, smoothValue, targetPosition);
                         break;
 
                     case PositionType.Joint:
-                        retuenCode = HRobot.lin_axis(Id, (int)smoothType, smoothValue, targetPosition);
+                        retuenCode = ArmIntermediateLayer.lin_axis(Id, (int)smoothType, smoothValue, targetPosition);
                         break;
 
                     default:
@@ -394,11 +394,11 @@ namespace HiwinRobot
                 switch (positionType)
                 {
                     case PositionType.Descartes:
-                        retuenCode = HRobot.lin_rel_pos(Id, (int)smoothType, smoothValue, targetPosition);
+                        retuenCode = ArmIntermediateLayer.lin_rel_pos(Id, (int)smoothType, smoothValue, targetPosition);
                         break;
 
                     case PositionType.Joint:
-                        retuenCode = HRobot.lin_rel_axis(Id, (int)smoothType, smoothValue, targetPosition);
+                        retuenCode = ArmIntermediateLayer.lin_rel_axis(Id, (int)smoothType, smoothValue, targetPosition);
                         break;
 
                     default:
@@ -417,11 +417,11 @@ namespace HiwinRobot
             switch (positionType)
             {
                 case PositionType.descartes:
-                    retuenCode = HRobot.lin_pos(DeviceID, (int)smoothType, smoothValue, targetPosition);
+                    retuenCode = ArmIntermediateLayer.lin_pos(DeviceID, (int)smoothType, smoothValue, targetPosition);
                     break;
 
                 case PositionType.joint:
-                    retuenCode = HRobot.lin_axis(DeviceID, (int)smoothType, smoothValue, targetPosition);
+                    retuenCode = ArmIntermediateLayer.lin_axis(DeviceID, (int)smoothType, smoothValue, targetPosition);
                     break;
 
                 default:
@@ -453,11 +453,11 @@ namespace HiwinRobot
                 switch (positionType)
                 {
                     case PositionType.Descartes:
-                        retuenCode = HRobot.ptp_pos(Id, smoothTypeCode, targetPosition);
+                        retuenCode = ArmIntermediateLayer.ptp_pos(Id, smoothTypeCode, targetPosition);
                         break;
 
                     case PositionType.Joint:
-                        retuenCode = HRobot.ptp_axis(Id, smoothTypeCode, targetPosition);
+                        retuenCode = ArmIntermediateLayer.ptp_axis(Id, smoothTypeCode, targetPosition);
                         break;
 
                     default:
@@ -472,11 +472,11 @@ namespace HiwinRobot
                 switch (positionType)
                 {
                     case PositionType.Descartes:
-                        retuenCode = HRobot.ptp_rel_pos(Id, smoothTypeCode, targetPosition);
+                        retuenCode = ArmIntermediateLayer.ptp_rel_pos(Id, smoothTypeCode, targetPosition);
                         break;
 
                     case PositionType.Joint:
-                        retuenCode = HRobot.ptp_rel_axis(Id, smoothTypeCode, targetPosition);
+                        retuenCode = ArmIntermediateLayer.ptp_rel_axis(Id, smoothTypeCode, targetPosition);
                         break;
 
                     default:
@@ -495,11 +495,11 @@ namespace HiwinRobot
             switch (positionType)
             {
                 case PositionType.descartes:
-                    retuenCode = HRobot.ptp_pos(DeviceID, smoothTypeCode, targetPosition);
+                    retuenCode = ArmIntermediateLayer.ptp_pos(DeviceID, smoothTypeCode, targetPosition);
                     break;
 
                 case PositionType.joint:
-                    retuenCode = HRobot.ptp_axis(DeviceID, smoothTypeCode, targetPosition);
+                    retuenCode = ArmIntermediateLayer.ptp_axis(DeviceID, smoothTypeCode, targetPosition);
                     break;
 
                 default:
@@ -545,7 +545,7 @@ namespace HiwinRobot
             while (true)
             {
                 // motion_state = 1: Idle.
-                if (HRobot.get_motion_state(Id) != 1)
+                if (ArmIntermediateLayer.get_motion_state(Id) != 1)
                 {
                     Thread.Sleep(200);
                 }
@@ -567,7 +567,7 @@ namespace HiwinRobot
                     foreach (int k in nowPosition)
                     {
                         // 取得目前的笛卡爾坐標。
-                        HRobot.get_current_position(Id, nowPosition);
+                        ArmIntermediateLayer.get_current_position(Id, nowPosition);
                     }
 
                     if (Math.Abs(targetPosition[0] - nowPosition[0]) < 0.01 &&
@@ -586,7 +586,7 @@ namespace HiwinRobot
                     foreach (int k in nowPosition)
                     {
                         // 取得目前的關節坐標。
-                        HRobot.get_current_joint(Id, nowPosition);
+                        ArmIntermediateLayer.get_current_joint(Id, nowPosition);
                     }
 
                     if (Math.Abs(targetPosition[0] - nowPosition[0]) < 0.01 &&
@@ -619,7 +619,7 @@ namespace HiwinRobot
             HRobot.CallBackFun callBack = new HRobot.CallBackFun(EventFun);
 
             //連線設定。測試連線設定:("127.0.0.1", 1, CallBack);
-            Id = HRobot.open_connection(Ip, 1, callBack);
+            Id = ArmIntermediateLayer.open_connection(Ip, 1, callBack);
             Thread.Sleep(500);
 
             //0 ~ 65535為有效裝置ID
@@ -630,7 +630,7 @@ namespace HiwinRobot
                 int connectionLevel;
 
                 //清除錯誤
-                alarmState = HRobot.clear_alarm(Id);
+                alarmState = ArmIntermediateLayer.clear_alarm(Id);
 
 #if (!DISABLE_SHOW_MESSAGE)
                 //錯誤代碼300代表沒有警報，無法清除警報
@@ -641,14 +641,14 @@ namespace HiwinRobot
 #endif
 
                 //設定控制器: 1為啟動,0為關閉
-                HRobot.set_motor_state(Id, 1);
+                ArmIntermediateLayer.set_motor_state(Id, 1);
                 Thread.Sleep(500);
 
 #if (!DISABLE_SHOW_MESSAGE)
                 //回傳控制器狀態
-                motorState = HRobot.get_motor_state(Id);
+                motorState = ArmIntermediateLayer.get_motor_state(Id);
 
-                connectionLevel = HRobot.get_connection_level(Id);
+                connectionLevel = ArmIntermediateLayer.get_connection_level(Id);
 
                 MessageBox.Show(string.Format("連線成功!\r\n" +
                                               "手臂ID: {0}\r\n" +
@@ -709,11 +709,11 @@ namespace HiwinRobot
             int motorState;
 
             //設定控制器: 1為啟動,0為關閉
-            HRobot.set_motor_state(Id, 0);
+            ArmIntermediateLayer.set_motor_state(Id, 0);
             Thread.Sleep(500);
 
             //將所有錯誤代碼清除
-            alarmState = HRobot.clear_alarm(Id);
+            alarmState = ArmIntermediateLayer.clear_alarm(Id);
 
 #if (!DISABLE_SHOW_MESSAGE)
             //錯誤代碼300代表沒有警報，無法清除警報
@@ -723,11 +723,11 @@ namespace HiwinRobot
             }
 
             //回傳控制器狀態
-            motorState = HRobot.get_motor_state(Id);
+            motorState = ArmIntermediateLayer.get_motor_state(Id);
 #endif
 
             //關閉手臂連線
-            HRobot.disconnect(Id);
+            ArmIntermediateLayer.disconnect(Id);
 
 #if (!DISABLE_SHOW_MESSAGE)
             MessageBox.Show(string.Format("斷線成功!\r\n" +
@@ -836,7 +836,7 @@ namespace HiwinRobot
 
         public void ClearAlarm()
         {
-            int retuenCode = HRobot.clear_alarm(Id);
+            int retuenCode = ArmIntermediateLayer.clear_alarm(Id);
 
 #if (!DISABLE_SHOW_MESSAGE)
             // 錯誤代碼300代表沒有警報，無法清除警報
@@ -853,11 +853,11 @@ namespace HiwinRobot
             {
                 if (type == PositionType.Descartes)
                 {
-                    retuenCode = HRobot.get_current_position(Id, position);
+                    retuenCode = ArmIntermediateLayer.get_current_position(Id, position);
                 }
                 else if (type == PositionType.Joint)
                 {
-                    retuenCode = HRobot.get_current_joint(Id, position);
+                    retuenCode = ArmIntermediateLayer.get_current_joint(Id, position);
                 }
                 else
                 {
