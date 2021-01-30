@@ -27,7 +27,7 @@ namespace HiwinRobot
         {
             InitializeComponent();
             InitControlCollection();
-            Arm = new ArmControl(Configuration.ArmIp);
+            Arm = new ArmControl(Configuration.ArmIp, new ArmIntermediateLayer());
             Bluetooth = new BluetoothControl(Configuration.BluetoothComPort);
         }
 

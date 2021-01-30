@@ -21,7 +21,11 @@ namespace HiwinRobot
         public BluetoothControl(string comPort, int armId = 0)
             : base(new SerialPort() { PortName = comPort, BaudRate = 38400 })
         {
-            Arm = new ArmControl(Configuration.ArmIp, armId);
+            Arm = new ArmControl(Configuration.ArmIp, new ArmIntermediateLayer())
+            {
+                Id = armId
+            };
+
             SerialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
 
 #if (CONNECT_BY_CONSTRUCTOR)
