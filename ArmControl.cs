@@ -607,17 +607,15 @@ namespace HiwinRobot
 
         #region - Connect and Disconnect -
 
-        private static HRobot.CallBackFun CallBack;
-
         public bool Connected { get; private set; } = false;
 
         public bool Connect()
         {
             //接收控制器回傳訊息
-            CallBack = new HRobot.CallBackFun(EventFun);
+            HRobot.CallBackFun callBack = new HRobot.CallBackFun(EventFun);
 
-            //連線設定。測試連線設定:("127.0.0.1", 1, callback);
-            Id = HRobot.open_connection(Ip, 1, CallBack);
+            //連線設定。測試連線設定:("127.0.0.1", 1, CallBack);
+            Id = HRobot.open_connection(Ip, 1, callBack);
             Thread.Sleep(500);
 
             //0 ~ 65535為有效裝置ID
