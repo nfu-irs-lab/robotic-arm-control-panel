@@ -30,7 +30,7 @@ namespace HiwinRobot
     /// </summary>
     public class BluetoothArmController : IBluetoothController
     {
-        private IArmControl Arm = null;
+        private IArmController Arm = null;
 
         //private SerialPortDevice SerialPortDevice = null;
         private ISerialPortDevice SerialPortDevice = null;
@@ -39,7 +39,7 @@ namespace HiwinRobot
         /// 記得要使用 Connect() 進行連線。
         /// </summary>
         /// <param name="comPort"></param>
-        public BluetoothArmController(string comPort, IArmControl armControl)
+        public BluetoothArmController(string comPort, IArmController armControl)
         {
             Arm = armControl;
 

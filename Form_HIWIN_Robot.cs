@@ -29,7 +29,7 @@ namespace HiwinRobot
         {
             InitializeComponent();
             InitControlCollection();
-            Arm = new ArmControl(Configuration.ArmIp, new ArmIntermediateLayer(), new ErrorMessage());
+            Arm = new ArmController(Configuration.ArmIp, new ArmIntermediateLayer(), new ErrorMessage());
             Bluetooth = new BluetoothArmController(Configuration.BluetoothComPort, Arm);
             Gripper = new GripperController(Configuration.GripperComPort);
             Message = new ErrorMessage();
@@ -40,7 +40,7 @@ namespace HiwinRobot
         /// <summary>
         /// 手臂。
         /// </summary>
-        private IArmControl Arm = null;
+        private IArmController Arm = null;
 
         #region 位置
 

@@ -107,7 +107,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArmControl.cs" />
+    <Compile Include="ArmController.cs" />
     <Compile Include="ArmIntermediateLayer.cs" />
     <Compile Include="Base.cs" />
     <Compile Include="BluetoothArmController.cs" />
