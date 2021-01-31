@@ -8,19 +8,22 @@ namespace HIWIN_Robot.UnitTests
     public class ArmControlTests
     {
         [Test]
-        public void ClearAlarm_WhenCall_Returns0()
+        public void ClearAlarm_WhenCalled_Returns0()
         {
             // Arrange.
-            IArmIntermediateLayer fakeArmIntermediateLayer = Substitute.For<IArmIntermediateLayer>();
-            fakeArmIntermediateLayer.clear_alarm(0).Returns<int>(0);
+            var fakeArmIntermediateLayer = Substitute.For<IArmIntermediateLayer>();
+            fakeArmIntermediateLayer.clear_alarm(Arg.Any<int>()).Returns(0);
+            var fakeMessage = Substitute.For<IMessage>();
 
-            ArmControl armControl = new ArmControl("", fakeArmIntermediateLayer);
+            ArmControl armControl = new ArmControl("", fakeArmIntermediateLayer, fakeMessage);
+            //var armControl = new ArmControl("", null, null);
 
             // Act.
             armControl.ClearAlarm();
 
             // Assert.
-            Assert.Pass();
+            fakeArmIntermediateLayer.Received(1).clear_alarm(Arg.Any<int>());
+            //fakeArmIntermediateLayer.DidNotReceive().clear_alarm(Arg.Any<int>());
         }
 
         /// <summary>
