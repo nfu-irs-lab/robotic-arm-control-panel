@@ -23,12 +23,15 @@ namespace HiwinRobot
     {
         private BluetoothControl Bluetooth = null;
 
+        private IMessage Message = null;
+
         public Form_HIWIN_Robot()
         {
             InitializeComponent();
             InitControlCollection();
             Arm = new ArmControl(Configuration.ArmIp, new ArmIntermediateLayer(), new ErrorMessage());
             Bluetooth = new BluetoothControl(Configuration.BluetoothComPort, Arm);
+            Message = new ErrorMessage();
         }
 
         #region - 手臂 -
@@ -83,7 +86,7 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                ShowErrorMessage(ex);
+                Message.Show("出現錯誤。", ex);
             }
             return position;
         }
@@ -104,7 +107,7 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                ShowErrorMessage(ex);
+                Message.Show("出現錯誤。", ex);
             }
             return position;
         }
@@ -158,7 +161,7 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                ShowErrorMessage(ex);
+                Message.Show("出現錯誤。", ex);
             }
         }
 
@@ -411,7 +414,7 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                ShowErrorMessage(ex);
+                Message.Show("出現錯誤。", ex);
             }
             return value;
         }
@@ -429,7 +432,7 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                ShowErrorMessage(ex);
+                Message.Show("出現錯誤。", ex);
             }
             return value;
         }
@@ -690,21 +693,6 @@ namespace HiwinRobot
                 default:
                     break;
             }
-#endif
-        }
-
-        /// <summary>
-        /// 顯示例外狀況錯誤訊息。
-        /// </summary>
-        /// <param name="ex"></param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void ShowErrorMessage(Exception ex)
-        {
-#if (!DISABLE_SHOW_MESSAGE)
-            MessageBox.Show("出現錯誤：" + ex.Message + "\r\n\r\n" + ex.StackTrace,
-                            "錯誤！",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
 #endif
         }
 
