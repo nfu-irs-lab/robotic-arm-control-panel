@@ -14,10 +14,10 @@ using System.Windows.Forms;
 namespace HiwinRobot
 {
     /// <summary>
-    /// 【 上銀機器手臂控制 範例程式 】<br/>
+    /// 【 上銀機器手臂控制程式 】<br/>
     /// HIWIN Robot Control<br/>
     /// <br/>
-    /// 最後更新日期：2021/Jan/02
+    /// 最後更新日期：2021/Jan/31
     /// </summary>
     public partial class Form_HIWIN_Robot : Form
     {
