@@ -561,6 +561,7 @@ namespace HiwinRobot
 #if (!DISABLE_KEYBOARD_CONTROL)
             switch (e.KeyCode)
             {
+                // F1: 選擇 J1/X 數字欄。
                 case Keys.F1:
                     if (TargetPositino[0].Focused)
                     {
@@ -572,6 +573,7 @@ namespace HiwinRobot
                     }
                     break;
 
+                // F2: 選擇 J2/Y 數字欄。
                 case Keys.F2:
                     if (TargetPositino[1].Focused)
                     {
@@ -583,6 +585,7 @@ namespace HiwinRobot
                     }
                     break;
 
+                // F3: 選擇 J3/Z 數字欄。
                 case Keys.F3:
                     if (TargetPositino[2].Focused)
                     {
@@ -594,19 +597,22 @@ namespace HiwinRobot
                     }
                     break;
 
+                // F4: 執行「進行動作」。
                 case Keys.F4:
                     button_arm_motion_start.PerformClick();
                     break;
 
+                // F5: 更新目前位置。
                 case Keys.F5:
                     UpdateNowPosition();
                     break;
 
+                // F6: 執行「複製目前位置到目標位置/歸零目標位置」。
                 case Keys.F6:
                     button_arm_copy_position_from_now_to_target.PerformClick();
                     break;
 
-                //case Keys.Add:
+                // PageUp: 增加數值。
                 case Keys.PageUp:
                     for (int i = 0; i < TargetPositino.Count; i++)
                     {
@@ -635,7 +641,7 @@ namespace HiwinRobot
                     }
                     break;
 
-                //case Keys.Subtract:
+                // PageDown: 減少數值。
                 case Keys.PageDown:
                     for (int i = 0; i < TargetPositino.Count; i++)
                     {
@@ -664,10 +670,12 @@ namespace HiwinRobot
                     }
                     break;
 
+                // Home: 執行「手臂回到原點」。
                 case Keys.Home:
                     button_arm_to_zero.PerformClick();
                     break;
 
+                // End: 執行「連線或斷線」。
                 case Keys.End:
                     if (Arm.Connected)
                     {
