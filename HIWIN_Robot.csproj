@@ -107,10 +107,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArmController.cs" />
-    <Compile Include="ArmIntermediateLayer.cs" />
-    <Compile Include="BasicDevices.cs" />
-    <Compile Include="BluetoothArmController.cs" />
+    <Compile Include="Arm\ArmController.cs" />
+    <Compile Include="Arm\ArmIntermediateLayer.cs" />
+    <Compile Include="Arm\HRobot.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Form_HIWIN_Robot.cs">
       <SubType>Form</SubType>
@@ -118,9 +117,10 @@
     <Compile Include="Form_HIWIN_Robot.Designer.cs">
       <DependentUpon>Form_HIWIN_Robot.cs</DependentUpon>
     </Compile>
-    <Compile Include="GripperController.cs" />
-    <Compile Include="HRobot.cs" />
-    <Compile Include="Message.cs" />
+    <Compile Include="Others\BasicDevices.cs" />
+    <Compile Include="Others\BluetoothArmController.cs" />
+    <Compile Include="Others\GripperController.cs" />
+    <Compile Include="Others\Message.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form_HIWIN_Robot.resx">
@@ -162,6 +162,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
