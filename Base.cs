@@ -44,18 +44,18 @@ namespace HiwinRobot
         bool Disconnect();
     }
 
-    public interface IErrorMessage
+    public interface IMessage
     {
         /// <summary>
-        /// Show error message.
+        /// Show message.
         /// </summary>
         /// <param name="message"></param>
         /// <param name="ex"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        void Show(string message = "Error.", Exception ex = null);
+        void Show(string message, Exception ex = null);
     }
 
-    public class ErrorMessage : IErrorMessage
+    public class ErrorMessage : IMessage
     {
         public void Show(string message = "Error.", Exception ex = null)
         {
@@ -73,7 +73,7 @@ namespace HiwinRobot
 
     public abstract class SerialPortDevice : IDevice
     {
-        protected IErrorMessage ErrorMessage = new ErrorMessage();
+        protected IMessage ErrorMessage = new ErrorMessage();
         protected SerialPort SerialPort = null;
 
         public SerialPortDevice(SerialPort serialPort)

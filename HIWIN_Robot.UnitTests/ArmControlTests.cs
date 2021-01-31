@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using NSubstitute;
 using HiwinRobot;
 
 namespace HIWIN_Robot.UnitTests
@@ -7,8 +8,18 @@ namespace HIWIN_Robot.UnitTests
     public class ArmControlTests
     {
         [Test]
-        public void Test1()
+        public void ClearAlarm_WhenCall_Returns0()
         {
+            // Arrange.
+            IArmIntermediateLayer fakeArmIntermediateLayer = Substitute.For<IArmIntermediateLayer>();
+            fakeArmIntermediateLayer.clear_alarm(0).Returns<int>(0);
+
+            ArmControl armControl = new ArmControl("", fakeArmIntermediateLayer);
+
+            // Act.
+            armControl.ClearAlarm();
+
+            // Assert.
             Assert.Pass();
         }
 
