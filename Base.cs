@@ -44,50 +44,9 @@ namespace HiwinRobot
         bool Disconnect();
     }
 
-    public interface IMessage
-    {
-        /// <summary>
-        /// Show message.
-        /// </summary>
-        /// <param name="message"></param>
-        /// <param name="ex"></param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        void Show(string message, Exception ex = null);
-    }
-
     public interface ISerialPortDevice : IDevice
     {
         SerialPort SerialPort { get; set; }
-    }
-
-    /// <summary>
-    /// 不執行任何動作的訊息處理。
-    /// </summary>
-    public class EmptyMessage : IMessage
-    {
-        public void Show(string message, Exception ex)
-        {
-            // Empty.
-        }
-    }
-
-    /// <summary>
-    /// 顯示錯誤訊息的訊息處理。
-    /// </summary>
-    public class ErrorMessage : IMessage
-    {
-        public void Show(string message = "Error.", Exception ex = null)
-        {
-            string text = $"{message} \r\n\r\n";
-
-            if (ex != null)
-            {
-                text += $"{ex.Message} \r\n\r\n" +
-                        $"{ex.StackTrace}";
-            }
-
-            MessageBox.Show(text, "錯誤！", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
     }
 
     public class SerialPortDevice : ISerialPortDevice
