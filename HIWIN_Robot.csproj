@@ -110,7 +110,7 @@
     <Compile Include="ArmControl.cs" />
     <Compile Include="ArmIntermediateLayer.cs" />
     <Compile Include="Base.cs" />
-    <Compile Include="BluetoothArmControl.cs" />
+    <Compile Include="BluetoothArmController.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Form_HIWIN_Robot.cs">
       <SubType>Form</SubType>
@@ -118,7 +118,7 @@
     <Compile Include="Form_HIWIN_Robot.Designer.cs">
       <DependentUpon>Form_HIWIN_Robot.cs</DependentUpon>
     </Compile>
-    <Compile Include="GripperControl.cs" />
+    <Compile Include="GripperController.cs" />
     <Compile Include="HRobot.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -16,7 +16,7 @@ namespace HiwinRobot
     /// <summary>
     /// 夾爪控制介面。
     /// </summary>
-    public interface IGripperControl : IDevice
+    public interface IGripperController : IDevice
     {
         string Control(int position,
                        int speed = 50,
@@ -31,7 +31,7 @@ namespace HiwinRobot
     /// <summary>
     /// 夾爪控制實作。
     /// </summary>
-    public class GripperControl : IGripperControl
+    public class GripperController : IGripperController
     {
         /// <summary>
         /// 夾爪模式：絕對位置。
@@ -42,7 +42,7 @@ namespace HiwinRobot
 
         private SerialPortDevice SerialPortDevice = null;
 
-        public GripperControl(string comPort)
+        public GripperController(string comPort)
         {
             SerialPortDevice = new SerialPortDevice(
                 new SerialPort()

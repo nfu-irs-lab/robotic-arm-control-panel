@@ -20,7 +20,7 @@ namespace HiwinRobot
     /// <summary>
     /// 藍牙手臂控制介面。
     /// </summary>
-    public interface IBluetoothControl : IDevice
+    public interface IBluetoothController : IDevice
     {
         void Send(BluetoothSendDataType dataType, double[] value);
     }
@@ -28,7 +28,7 @@ namespace HiwinRobot
     /// <summary>
     /// 藍牙手臂控制介面。
     /// </summary>
-    public class BluetoothArmControl : IBluetoothControl
+    public class BluetoothArmController : IBluetoothController
     {
         private IArmControl Arm = null;
 
@@ -38,7 +38,7 @@ namespace HiwinRobot
         /// 記得要使用 Connect() 進行連線。
         /// </summary>
         /// <param name="comPort"></param>
-        public BluetoothArmControl(string comPort, IArmControl armControl)
+        public BluetoothArmController(string comPort, IArmControl armControl)
         {
             Arm = armControl;
 

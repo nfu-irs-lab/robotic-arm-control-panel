@@ -21,7 +21,7 @@ namespace HiwinRobot
     /// </summary>
     public partial class Form_HIWIN_Robot : Form
     {
-        private IBluetoothControl Bluetooth = null;
+        private IBluetoothController Bluetooth = null;
 
         private IMessage Message = null;
 
@@ -30,8 +30,8 @@ namespace HiwinRobot
             InitializeComponent();
             InitControlCollection();
             Arm = new ArmControl(Configuration.ArmIp, new ArmIntermediateLayer(), new ErrorMessage());
-            Bluetooth = new BluetoothArmControl(Configuration.BluetoothComPort, Arm);
-            Gripper = new GripperControl(Configuration.GripperComPort);
+            Bluetooth = new BluetoothArmController(Configuration.BluetoothComPort, Arm);
+            Gripper = new GripperController(Configuration.GripperComPort);
             Message = new ErrorMessage();
         }
 
@@ -447,7 +447,7 @@ namespace HiwinRobot
         /// <summary>
         /// 夾爪控制。
         /// </summary>
-        private IGripperControl Gripper = null;
+        private IGripperController Gripper = null;
 
         /// <summary>
         /// 進行夾爪動作。
