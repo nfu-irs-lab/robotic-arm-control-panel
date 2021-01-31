@@ -88,7 +88,7 @@ namespace HiwinRobot
     public class SerialPortDevice : IDevice
     {
         public SerialPort SerialPort = null;
-        protected IMessage ErrorMessage = new ErrorMessage();
+        private IMessage ErrorMessage = new ErrorMessage();
 
         public SerialPortDevice(SerialPort serialPort)
         {
