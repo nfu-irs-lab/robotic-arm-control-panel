@@ -31,6 +31,7 @@ namespace HiwinRobot
             InitControlCollection();
             Arm = new ArmControl(Configuration.ArmIp, new ArmIntermediateLayer(), new ErrorMessage());
             Bluetooth = new BluetoothControl(Configuration.BluetoothComPort, Arm);
+            Gripper = new GripperControl(Configuration.GripperComPort);
             Message = new ErrorMessage();
         }
 
@@ -446,7 +447,7 @@ namespace HiwinRobot
         /// <summary>
         /// 夾爪控制。
         /// </summary>
-        private GripperControl Gripper = new GripperControl(Configuration.GripperComPort);
+        private GripperControl Gripper = null;
 
         /// <summary>
         /// 進行夾爪動作。
