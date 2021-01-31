@@ -16,6 +16,9 @@ using System.Windows.Forms;
 
 namespace HiwinRobot
 {
+    /// <summary>
+    /// 基本裝置介面。
+    /// </summary>
     public interface IDevice
     {
         /// <summary>
@@ -44,11 +47,17 @@ namespace HiwinRobot
         bool Disconnect();
     }
 
+    /// <summary>
+    /// 基本 Serial Port 裝置介面。
+    /// </summary>
     public interface ISerialPortDevice : IDevice
     {
         SerialPort SerialPort { get; set; }
     }
 
+    /// <summary>
+    /// 基本 Serial Port 裝置實作。
+    /// </summary>
     public class SerialPortDevice : ISerialPortDevice
     {
         private IMessage ErrorMessage = new ErrorMessage();
