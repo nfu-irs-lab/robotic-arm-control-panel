@@ -242,7 +242,6 @@ namespace HiwinRobot
             Id = 0;
 
             ArmIntermediateLayer = armIntermediateLayer;
-
             Message = message;
 
 #if (!USE_MOTION_STATE_WAIT)
