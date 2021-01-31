@@ -110,7 +110,7 @@
     <Compile Include="ArmControl.cs" />
     <Compile Include="ArmIntermediateLayer.cs" />
     <Compile Include="Base.cs" />
-    <Compile Include="BluetoothControl.cs" />
+    <Compile Include="BluetoothArmControl.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Form_HIWIN_Robot.cs">
       <SubType>Form</SubType>

@@ -85,10 +85,10 @@ namespace HiwinRobot
         }
     }
 
-    public abstract class SerialPortDevice : IDevice
+    public class SerialPortDevice : IDevice
     {
+        public SerialPort SerialPort = null;
         protected IMessage ErrorMessage = new ErrorMessage();
-        protected SerialPort SerialPort = null;
 
         public SerialPortDevice(SerialPort serialPort)
         {
@@ -101,7 +101,7 @@ namespace HiwinRobot
             SerialPort = new SerialPort(comPort);
         }
 
-        public bool Connected { get; protected set; } = false;
+        public bool Connected { get; private set; } = false;
 
         public virtual bool Connect()
         {

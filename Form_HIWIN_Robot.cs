@@ -21,7 +21,7 @@ namespace HiwinRobot
     /// </summary>
     public partial class Form_HIWIN_Robot : Form
     {
-        private BluetoothControl Bluetooth = null;
+        private IBluetoothControl Bluetooth = null;
 
         private IMessage Message = null;
 
@@ -30,7 +30,7 @@ namespace HiwinRobot
             InitializeComponent();
             InitControlCollection();
             Arm = new ArmControl(Configuration.ArmIp, new ArmIntermediateLayer(), new ErrorMessage());
-            Bluetooth = new BluetoothControl(Configuration.BluetoothComPort, Arm);
+            Bluetooth = new BluetoothArmControl(Configuration.BluetoothComPort, Arm);
             Gripper = new GripperControl(Configuration.GripperComPort);
             Message = new ErrorMessage();
         }
@@ -447,7 +447,7 @@ namespace HiwinRobot
         /// <summary>
         /// 夾爪控制。
         /// </summary>
-        private GripperControl Gripper = null;
+        private IGripperControl Gripper = null;
 
         /// <summary>
         /// 進行夾爪動作。
@@ -529,7 +529,8 @@ namespace HiwinRobot
         private void Form_HIWIN_Robot_FormClosing(object sender, FormClosingEventArgs e)
         {
 #if (!DISABLE_SHOW_MESSAGE)
-            if (Arm.Connected || Gripper.Connected)
+            //if (Arm.Connected || Gripper.Connected)
+            if (Arm.Connected)
             {
                 DialogResult dr = MessageBox.Show("手臂或夾爪似乎還在連線中。\r\n是否要斷開連線後關閉視窗？",
                                                   "關閉視窗",

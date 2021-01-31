@@ -10,34 +10,64 @@ using System.Windows.Forms;
 
 namespace HiwinRobot
 {
-    public class BluetoothControl : SerialPortDevice
+    public enum BluetoothSendDataType
+    {
+        descartesPosition,
+        jointPosition,
+        state
+    }
+
+    /// <summary>
+    /// 藍牙手臂控制介面。
+    /// </summary>
+    public interface IBluetoothControl : IDevice
+    {
+        void Send(BluetoothSendDataType dataType, double[] value);
+    }
+
+    /// <summary>
+    /// 藍牙手臂控制介面。
+    /// </summary>
+    public class BluetoothArmControl : IBluetoothControl
     {
         private IArmControl Arm = null;
+
+        private SerialPortDevice SerialPortDevice = null;
 
         /// <summary>
         /// 記得要使用 Connect() 進行連線。
         /// </summary>
         /// <param name="comPort"></param>
-        public BluetoothControl(string comPort, IArmControl armControl)
-            : base(new SerialPort() { PortName = comPort, BaudRate = 38400 })
+        public BluetoothArmControl(string comPort, IArmControl armControl)
         {
             Arm = armControl;
 
-            SerialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+            SerialPort sp = new SerialPort() { PortName = comPort, BaudRate = 38400 };
+            sp.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+
+            SerialPortDevice = new SerialPortDevice(sp);
 
 #if (CONNECT_BY_CONSTRUCTOR)
             Connect();
 #endif
         }
 
-        public enum DataType
+        public bool Connected
         {
-            descartesPosition,
-            jointPosition,
-            state
+            get => SerialPortDevice.Connected;
         }
 
-        public void Send(DataType dataType, double[] value)
+        public bool Connect()
+        {
+            return SerialPortDevice.Connect();
+        }
+
+        public bool Disconnect()
+        {
+            return SerialPortDevice.Disconnect();
+        }
+
+        public void Send(BluetoothSendDataType dataType, double[] value)
         {
             int[] newValue = new int[value.Length];
             for (int index = 0; index < value.Length; index++)
@@ -47,7 +77,7 @@ namespace HiwinRobot
 
             switch (dataType)
             {
-                case DataType.descartesPosition:
+                case BluetoothSendDataType.descartesPosition:
                     if (newValue.Length == 6)
                     {
                         var xValue = ConvertIntToByte(newValue[0]);
@@ -82,11 +112,11 @@ namespace HiwinRobot
 
                             0xff
                         };
-                        SerialPort.Write(data, 0, data.Length);
+                        SerialPortDevice.SerialPort.Write(data, 0, data.Length);
                     }
                     break;
 
-                case DataType.jointPosition:
+                case BluetoothSendDataType.jointPosition:
                     if (newValue.Length == 6)
                     {
                         var xValue = ConvertIntToByte(newValue[0]);
@@ -121,11 +151,11 @@ namespace HiwinRobot
 
                             0xff
                         };
-                        SerialPort.Write(data, 0, data.Length);
+                        SerialPortDevice.SerialPort.Write(data, 0, data.Length);
                     }
                     break;
 
-                case DataType.state:
+                case BluetoothSendDataType.state:
                     if (newValue.Length == 3)
                     {
                         var speedValue = ConvertIntToByte(newValue[0], 1);
@@ -145,18 +175,13 @@ namespace HiwinRobot
 
                             0xff
                         };
-                        SerialPort.Write(data, 0, data.Length);
+                        SerialPortDevice.SerialPort.Write(data, 0, data.Length);
                     }
                     break;
 
                 default:
                     break;
             }
-        }
-
-        public void UpdateArmID(int armID)
-        {
-            Arm.Id = armID;
         }
 
         private byte[] ConvertIntToByte(int intValue, int count = 2)
@@ -218,7 +243,7 @@ namespace HiwinRobot
                     MessageBox.Show($"Unknown date: {data}");
                     break;
             }
-            Send(DataType.descartesPosition, Arm.GetPosition(PositionType.Descartes));
+            Send(BluetoothSendDataType.descartesPosition, Arm.GetPosition(PositionType.Descartes));
         }
     }
 }
