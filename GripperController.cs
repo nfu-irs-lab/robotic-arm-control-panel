@@ -40,7 +40,7 @@ namespace HiwinRobot
 
         private IMessage Message = null;
 
-        private SerialPortDevice SerialPortDevice = null;
+        private ISerialPortDevice SerialPortDevice = null;
 
         public GripperController(string comPort)
         {

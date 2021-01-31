@@ -32,7 +32,8 @@ namespace HiwinRobot
     {
         private IArmControl Arm = null;
 
-        private SerialPortDevice SerialPortDevice = null;
+        //private SerialPortDevice SerialPortDevice = null;
+        private ISerialPortDevice SerialPortDevice = null;
 
         /// <summary>
         /// 記得要使用 Connect() 進行連線。

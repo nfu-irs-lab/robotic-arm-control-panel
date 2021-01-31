@@ -55,6 +55,11 @@ namespace HiwinRobot
         void Show(string message, Exception ex = null);
     }
 
+    public interface ISerialPortDevice : IDevice
+    {
+        SerialPort SerialPort { get; set; }
+    }
+
     /// <summary>
     /// 不執行任何動作的訊息處理。
     /// </summary>
@@ -85,9 +90,8 @@ namespace HiwinRobot
         }
     }
 
-    public class SerialPortDevice : IDevice
+    public class SerialPortDevice : ISerialPortDevice
     {
-        public SerialPort SerialPort = null;
         private IMessage ErrorMessage = new ErrorMessage();
 
         public SerialPortDevice(SerialPort serialPort)
@@ -102,6 +106,8 @@ namespace HiwinRobot
         }
 
         public bool Connected { get; private set; } = false;
+
+        public SerialPort SerialPort { get; set; }
 
         public virtual bool Connect()
         {
