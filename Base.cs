@@ -55,6 +55,20 @@ namespace HiwinRobot
         void Show(string message, Exception ex = null);
     }
 
+    /// <summary>
+    /// 不執行任何動作的訊息處理。
+    /// </summary>
+    public class EmptyMessage : IMessage
+    {
+        public void Show(string message, Exception ex)
+        {
+            // Empty.
+        }
+    }
+
+    /// <summary>
+    /// 顯示錯誤訊息的訊息處理。
+    /// </summary>
     public class ErrorMessage : IMessage
     {
         public void Show(string message = "Error.", Exception ex = null)
