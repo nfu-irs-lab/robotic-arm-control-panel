@@ -28,7 +28,7 @@ namespace HiwinRobot
             InitializeComponent();
             InitControlCollection();
             Arm = new ArmControl(Configuration.ArmIp, new ArmIntermediateLayer(), new ErrorMessage());
-            Bluetooth = new BluetoothControl(Configuration.BluetoothComPort);
+            Bluetooth = new BluetoothControl(Configuration.BluetoothComPort, Arm);
         }
 
         #region - 手臂 -
@@ -488,7 +488,7 @@ namespace HiwinRobot
         /// <param name="e"></param>
         private void button_connect_Click(object sender, EventArgs e)
         {
-            //Bluetooth.Connect();
+            Bluetooth.Connect();
 
             Arm.Connect();
             if (Arm.Connected)
@@ -497,7 +497,7 @@ namespace HiwinRobot
                 Arm.Acceleration = GetAcceleration();
                 UpdateNowPosition();
 
-                Bluetooth.UpdateArmID(Arm.Id);
+                //Bluetooth.UpdateArmID(Arm.Id);
             }
 
             //Gripper.Connect();

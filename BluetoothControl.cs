@@ -18,13 +18,10 @@ namespace HiwinRobot
         /// 記得要使用 Connect() 進行連線。
         /// </summary>
         /// <param name="comPort"></param>
-        public BluetoothControl(string comPort, int armId = 0)
+        public BluetoothControl(string comPort, IArmControl armControl)
             : base(new SerialPort() { PortName = comPort, BaudRate = 38400 })
         {
-            Arm = new ArmControl(Configuration.ArmIp, new ArmIntermediateLayer(), new ErrorMessage())
-            {
-                Id = armId
-            };
+            Arm = armControl;
 
             SerialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
 
