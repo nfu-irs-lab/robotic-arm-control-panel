@@ -109,7 +109,7 @@
   <ItemGroup>
     <Compile Include="ArmController.cs" />
     <Compile Include="ArmIntermediateLayer.cs" />
-    <Compile Include="Base.cs" />
+    <Compile Include="BasicDevices.cs" />
     <Compile Include="BluetoothArmController.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Form_HIWIN_Robot.cs">
