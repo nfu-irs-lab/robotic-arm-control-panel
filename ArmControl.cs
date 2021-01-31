@@ -234,20 +234,18 @@ namespace HiwinRobot
     public class ArmControl : IArmControl
     {
         private IArmIntermediateLayer ArmIntermediateLayer = null;
+        private IMessage Message = null;
 
-        public ArmControl(string armIp, IArmIntermediateLayer armIntermediateLayer)
+        public ArmControl(string armIp, IArmIntermediateLayer armIntermediateLayer, IMessage message)
         {
             Ip = armIp;
             Id = 0;
 
             ArmIntermediateLayer = armIntermediateLayer;
+            Message = message;
 
 #if (!USE_MOTION_STATE_WAIT)
             InitTimer();
-#endif
-
-#if (!DISABLE_SHOW_MESSAGE)
-            ErrorMessage = new ErrorMessage();
 #endif
         }
 
@@ -272,7 +270,7 @@ namespace HiwinRobot
                 if (acc == -1)
                 {
 #if (!DISABLE_SHOW_MESSAGE)
-                    ErrorMessage.Show("取得手臂加速度時出錯。");
+                    Message.Show("取得手臂加速度時出錯。");
 #endif
                 }
                 return acc;
@@ -283,7 +281,7 @@ namespace HiwinRobot
                 if (value > 100 || value < 1)
                 {
 #if (!DISABLE_SHOW_MESSAGE)
-                    ErrorMessage.Show("手臂加速度應為1% ~ 100%之間。");
+                    Message.Show("手臂加速度應為1% ~ 100%之間。");
 #endif
                 }
                 else
@@ -305,7 +303,7 @@ namespace HiwinRobot
                 if (speed == -1)
                 {
 #if (!DISABLE_SHOW_MESSAGE)
-                    ErrorMessage.Show("取得手臂速度時出錯。");
+                    Message.Show("取得手臂速度時出錯。");
 #endif
                 }
                 return speed;
@@ -316,7 +314,7 @@ namespace HiwinRobot
                 if (value > 100 || value < 1)
                 {
 #if (!DISABLE_SHOW_MESSAGE)
-                    ErrorMessage.Show("手臂速度應為1% ~ 100%之間。");
+                    Message.Show("手臂速度應為1% ~ 100%之間。");
 #endif
                 }
                 else
@@ -790,8 +788,6 @@ namespace HiwinRobot
 
         #region - Message -
 
-        private IErrorMessage ErrorMessage = null;
-
         /// <summary>
         /// 如果出現錯誤，顯示錯誤代碼。
         /// </summary>
@@ -815,7 +811,7 @@ namespace HiwinRobot
             {
                 // Not successful.
 #if (!DISABLE_SHOW_MESSAGE)
-                ErrorMessage.Show($"上銀機械手臂控制錯誤。\r\n錯誤代碼：{code}");
+                Message.Show($"上銀機械手臂控制錯誤。\r\n錯誤代碼：{code}");
 #endif
                 return true;
             }
@@ -825,7 +821,7 @@ namespace HiwinRobot
         private void ShowUnknownPositionType()
         {
 #if (!DISABLE_SHOW_MESSAGE)
-            ErrorMessage.Show($"錯誤的位置類型。\r\n" +
+            Message.Show($"錯誤的位置類型。\r\n" +
                              $"位置類型應為：{PositionType.Descartes} 或是 {PositionType.Joint}");
 #endif
         }

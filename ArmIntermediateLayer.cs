@@ -60,7 +60,7 @@ namespace HiwinRobot
     /// 上銀手臂 SDK 中介層實作。<br/>
     /// 此中介層 class 用來幫助達成 Unit Test 的隔離。透過 override 此中介層的各 virtual method，再利用依賴注入來達成隔離。
     /// </summary>
-    internal class ArmIntermediateLayer : IArmIntermediateLayer
+    public class ArmIntermediateLayer : IArmIntermediateLayer
     {
         public virtual int clear_alarm(int robot) => HRobot.clear_alarm(robot);
 

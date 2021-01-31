@@ -14,18 +14,55 @@ using System.Windows.Forms;
 namespace HiwinRobot
 {
     /// <summary>
-    /// 夾爪控制。
+    /// 夾爪控制介面。
     /// </summary>
-    public class GripperControl : SerialPortDevice
+    public interface IGripperController : IDevice
+    {
+        string Control(int position,
+                       int speed = 50,
+                       int force = 70,
+                       int CJog = 0,
+                       int PushVel = 0,
+                       int PushPosStk = 0);
+
+        void Reset();
+    }
+
+    /// <summary>
+    /// 夾爪控制實作。
+    /// </summary>
+    public class GripperController : IGripperController
     {
         /// <summary>
         /// 夾爪模式：絕對位置。
         /// </summary>
         private byte Direction = 2;
 
-        public GripperControl(string comPort)
-            : base(new SerialPort { PortName = comPort, BaudRate = 115200, DataBits = 8 })
+        private IMessage Message = null;
+
+        private ISerialPortDevice SerialPortDevice = null;
+
+        public GripperController(string comPort)
         {
+            SerialPortDevice = new SerialPortDevice(
+                new SerialPort()
+                {
+                    PortName = comPort,
+                    BaudRate = 115200,
+                    DataBits = 8
+                });
+
+            Message = new ErrorMessage();
+        }
+
+        public bool Connected
+        {
+            get => SerialPortDevice.Connected;
+        }
+
+        public bool Connect()
+        {
+            return SerialPortDevice.Connect();
         }
 
         /// <summary>
@@ -81,14 +118,19 @@ namespace HiwinRobot
                 list.Add((byte)(num & 0xffL));
                 list.Add((byte)0xfe);
                 byte[] buffer = (byte[])list.ToArray();
-                SerialPort.Write(buffer, 0, buffer.Length);
+                SerialPortDevice.SerialPort.Write(buffer, 0, buffer.Length);
                 return BitConverter.ToString(buffer).Replace("-", " ");
             }
             catch (Exception ex)
             {
-                ErrorMessage.Show("Error.", ex);
+                Message.Show("Gripper Error.", ex);
                 return "";
             }
+        }
+
+        public bool Disconnect()
+        {
+            return SerialPortDevice.Disconnect();
         }
 
         /// <summary>
@@ -96,16 +138,8 @@ namespace HiwinRobot
         /// </summary>
         public void Reset()
         {
-            SendIndexCmd(SerialPort, (byte)0x1f);
+            SendIndexCmd(SerialPortDevice.SerialPort, (byte)0x1f);
         }
-
-        //        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //        protected override void ShowErrorMessage(string message = "Error.", Exception ex = null)
-        //        {
-        //#if (!DISABLE_SHOW_MESSAGE)
-        //            base.ShowErrorMessage(message, ex);
-        //#endif
-        //        }
 
         /// <summary>
         /// 夾爪命令封包。
@@ -136,7 +170,7 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                ErrorMessage.Show("Error.", ex);
+                Message.Show("Gripper Error.", ex);
                 return "";
             }
         }

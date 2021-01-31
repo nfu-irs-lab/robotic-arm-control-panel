@@ -14,21 +14,25 @@ using System.Windows.Forms;
 namespace HiwinRobot
 {
     /// <summary>
-    /// 【 上銀機器手臂控制 範例程式 】<br/>
+    /// 【 上銀機器手臂控制程式 】<br/>
     /// HIWIN Robot Control<br/>
     /// <br/>
-    /// 最後更新日期：2021/Jan/02
+    /// 最後更新日期：2021/Jan/31
     /// </summary>
     public partial class Form_HIWIN_Robot : Form
     {
-        private BluetoothControl Bluetooth = null;
+        private IBluetoothController Bluetooth = null;
+
+        private IMessage Message = null;
 
         public Form_HIWIN_Robot()
         {
             InitializeComponent();
             InitControlCollection();
-            Arm = new ArmControl(Configuration.ArmIp, new ArmIntermediateLayer());
-            Bluetooth = new BluetoothControl(Configuration.BluetoothComPort);
+            Arm = new ArmControl(Configuration.ArmIp, new ArmIntermediateLayer(), new ErrorMessage());
+            Bluetooth = new BluetoothArmController(Configuration.BluetoothComPort, Arm);
+            Gripper = new GripperController(Configuration.GripperComPort);
+            Message = new ErrorMessage();
         }
 
         #region - 手臂 -
@@ -83,7 +87,7 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                ShowErrorMessage(ex);
+                Message.Show("出現錯誤。", ex);
             }
             return position;
         }
@@ -104,7 +108,7 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                ShowErrorMessage(ex);
+                Message.Show("出現錯誤。", ex);
             }
             return position;
         }
@@ -158,7 +162,7 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                ShowErrorMessage(ex);
+                Message.Show("出現錯誤。", ex);
             }
         }
 
@@ -411,7 +415,7 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                ShowErrorMessage(ex);
+                Message.Show("出現錯誤。", ex);
             }
             return value;
         }
@@ -429,7 +433,7 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                ShowErrorMessage(ex);
+                Message.Show("出現錯誤。", ex);
             }
             return value;
         }
@@ -443,7 +447,7 @@ namespace HiwinRobot
         /// <summary>
         /// 夾爪控制。
         /// </summary>
-        private GripperControl Gripper = new GripperControl(Configuration.GripperComPort);
+        private IGripperController Gripper = null;
 
         /// <summary>
         /// 進行夾爪動作。
@@ -488,7 +492,7 @@ namespace HiwinRobot
         /// <param name="e"></param>
         private void button_connect_Click(object sender, EventArgs e)
         {
-            //Bluetooth.Connect();
+            Bluetooth.Connect();
 
             Arm.Connect();
             if (Arm.Connected)
@@ -497,7 +501,7 @@ namespace HiwinRobot
                 Arm.Acceleration = GetAcceleration();
                 UpdateNowPosition();
 
-                Bluetooth.UpdateArmID(Arm.Id);
+                //Bluetooth.UpdateArmID(Arm.Id);
             }
 
             //Gripper.Connect();
@@ -525,7 +529,8 @@ namespace HiwinRobot
         private void Form_HIWIN_Robot_FormClosing(object sender, FormClosingEventArgs e)
         {
 #if (!DISABLE_SHOW_MESSAGE)
-            if (Arm.Connected || Gripper.Connected)
+            //if (Arm.Connected || Gripper.Connected)
+            if (Arm.Connected)
             {
                 DialogResult dr = MessageBox.Show("手臂或夾爪似乎還在連線中。\r\n是否要斷開連線後關閉視窗？",
                                                   "關閉視窗",
@@ -561,6 +566,7 @@ namespace HiwinRobot
 #if (!DISABLE_KEYBOARD_CONTROL)
             switch (e.KeyCode)
             {
+                // F1: 選擇 J1/X 數字欄。
                 case Keys.F1:
                     if (TargetPositino[0].Focused)
                     {
@@ -572,6 +578,7 @@ namespace HiwinRobot
                     }
                     break;
 
+                // F2: 選擇 J2/Y 數字欄。
                 case Keys.F2:
                     if (TargetPositino[1].Focused)
                     {
@@ -583,6 +590,7 @@ namespace HiwinRobot
                     }
                     break;
 
+                // F3: 選擇 J3/Z 數字欄。
                 case Keys.F3:
                     if (TargetPositino[2].Focused)
                     {
@@ -594,19 +602,22 @@ namespace HiwinRobot
                     }
                     break;
 
+                // F4: 執行「進行動作」。
                 case Keys.F4:
                     button_arm_motion_start.PerformClick();
                     break;
 
+                // F5: 更新目前位置。
                 case Keys.F5:
                     UpdateNowPosition();
                     break;
 
+                // F6: 執行「複製目前位置到目標位置/歸零目標位置」。
                 case Keys.F6:
                     button_arm_copy_position_from_now_to_target.PerformClick();
                     break;
 
-                //case Keys.Add:
+                // PageUp: 增加數值。
                 case Keys.PageUp:
                     for (int i = 0; i < TargetPositino.Count; i++)
                     {
@@ -635,7 +646,7 @@ namespace HiwinRobot
                     }
                     break;
 
-                //case Keys.Subtract:
+                // PageDown: 減少數值。
                 case Keys.PageDown:
                     for (int i = 0; i < TargetPositino.Count; i++)
                     {
@@ -664,10 +675,12 @@ namespace HiwinRobot
                     }
                     break;
 
+                // Home: 執行「手臂回到原點」。
                 case Keys.Home:
                     button_arm_to_zero.PerformClick();
                     break;
 
+                // End: 執行「連線或斷線」。
                 case Keys.End:
                     if (Arm.Connected)
                     {
@@ -682,21 +695,6 @@ namespace HiwinRobot
                 default:
                     break;
             }
-#endif
-        }
-
-        /// <summary>
-        /// 顯示例外狀況錯誤訊息。
-        /// </summary>
-        /// <param name="ex"></param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void ShowErrorMessage(Exception ex)
-        {
-#if (!DISABLE_SHOW_MESSAGE)
-            MessageBox.Show("出現錯誤：" + ex.Message + "\r\n\r\n" + ex.StackTrace,
-                            "錯誤！",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
 #endif
         }
 

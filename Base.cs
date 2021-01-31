@@ -44,18 +44,37 @@ namespace HiwinRobot
         bool Disconnect();
     }
 
-    public interface IErrorMessage
+    public interface IMessage
     {
         /// <summary>
-        /// Show error message.
+        /// Show message.
         /// </summary>
         /// <param name="message"></param>
         /// <param name="ex"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        void Show(string message = "Error.", Exception ex = null);
+        void Show(string message, Exception ex = null);
     }
 
-    public class ErrorMessage : IErrorMessage
+    public interface ISerialPortDevice : IDevice
+    {
+        SerialPort SerialPort { get; set; }
+    }
+
+    /// <summary>
+    /// 不執行任何動作的訊息處理。
+    /// </summary>
+    public class EmptyMessage : IMessage
+    {
+        public void Show(string message, Exception ex)
+        {
+            // Empty.
+        }
+    }
+
+    /// <summary>
+    /// 顯示錯誤訊息的訊息處理。
+    /// </summary>
+    public class ErrorMessage : IMessage
     {
         public void Show(string message = "Error.", Exception ex = null)
         {
@@ -71,10 +90,9 @@ namespace HiwinRobot
         }
     }
 
-    public abstract class SerialPortDevice : IDevice
+    public class SerialPortDevice : ISerialPortDevice
     {
-        protected IErrorMessage ErrorMessage = new ErrorMessage();
-        protected SerialPort SerialPort = null;
+        private IMessage ErrorMessage = new ErrorMessage();
 
         public SerialPortDevice(SerialPort serialPort)
         {
@@ -87,7 +105,9 @@ namespace HiwinRobot
             SerialPort = new SerialPort(comPort);
         }
 
-        public bool Connected { get; protected set; } = false;
+        public bool Connected { get; private set; } = false;
+
+        public SerialPort SerialPort { get; set; }
 
         public virtual bool Connect()
         {
