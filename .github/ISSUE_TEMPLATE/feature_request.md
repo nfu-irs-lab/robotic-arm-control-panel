@@ -1,7 +1,7 @@
 ---
 name: Feature request
 about: 建議增加的功能
-title: "[FT]"
+title: "[FT]你的標題"
 labels: ''
 assignees: ''
 
