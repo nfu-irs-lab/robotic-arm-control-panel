@@ -1,5 +1,5 @@
 ﻿//#define DISABLE_KEYBOARD_CONTROL
-#define DISABLE_SHOW_MESSAGE
+//#define DISABLE_SHOW_MESSAGE
 
 #if (DISABLE_SHOW_MESSAGE)
 #warning Message is disabled.
@@ -46,6 +46,7 @@ namespace HiwinRobot
             Message = new ErrorMessage();
 #endif
 
+            // 組織連線裝置組。若要禁用某裝置，在下方將其所屬的「 Devices.Add(目標裝置); 」註解掉即可。
             Devices.Clear();
             Devices.Add(Arm);
             Devices.Add(Gripper);
