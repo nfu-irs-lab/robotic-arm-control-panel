@@ -1,4 +1,5 @@
-﻿//#define CONNECT_BY_CONSTRUCTOR
+﻿#define CONNECT_WITH_UPDATE
+//#define CONNECT_BY_CONSTRUCTOR
 
 using System;
 using System.Collections.Generic;
@@ -60,7 +61,15 @@ namespace HiwinRobot
 
         public bool Connect()
         {
-            return SerialPortDevice.Connect();
+            bool state = SerialPortDevice.Connect();
+#if (CONNECT_WITH_UPDATE)
+            if (this.Connected && Arm.Connected)
+            {
+                Send(BluetoothSendDataType.descartesPosition,
+                     Arm.GetPosition(PositionType.Descartes));
+            }
+#endif
+            return state;
         }
 
         public bool Disconnect()
@@ -244,7 +253,8 @@ namespace HiwinRobot
                     Message.Show($"Unknown data: {data}");
                     break;
             }
-            Send(BluetoothSendDataType.descartesPosition, Arm.GetPosition(PositionType.Descartes));
+            Send(BluetoothSendDataType.descartesPosition,
+                 Arm.GetPosition(PositionType.Descartes));
         }
     }
 }
