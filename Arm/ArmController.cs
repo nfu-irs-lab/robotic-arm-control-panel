@@ -234,15 +234,13 @@ namespace HiwinRobot
     public class ArmController : IArmController
     {
         private IArmIntermediateLayer ArmIntermediateLayer = null;
-        private IMessage Message = null;
 
-        public ArmController(string armIp, IArmIntermediateLayer armIntermediateLayer, IMessage message)
+        public ArmController(string armIp, IArmIntermediateLayer armIntermediateLayer)
         {
             Ip = armIp;
             Id = 0;
 
             ArmIntermediateLayer = armIntermediateLayer;
-            Message = message;
 
 #if (!USE_MOTION_STATE_WAIT)
             InitTimer();
@@ -250,8 +248,8 @@ namespace HiwinRobot
         }
 
         public int Id { get; set; }
-
         public string Ip { get; set; }
+        public IMessage Message { get; set; } = new ErrorMessage();
 
         #region - Default Position -
 
