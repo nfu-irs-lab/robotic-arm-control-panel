@@ -210,6 +210,11 @@ namespace HiwinRobot
             return result;
         }
 
+        /// <summary>
+        /// Serial Port 接收事件。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
         {
             SerialPort serialPort = (SerialPort)sender;
