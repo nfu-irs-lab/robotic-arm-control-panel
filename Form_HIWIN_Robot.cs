@@ -75,7 +75,7 @@ namespace HiwinRobot
         private List<NumericUpDown> TargetPositino = new List<NumericUpDown>();
 
         /// <summary>
-        /// 複製目前顯示的位置到目標位置。
+        /// 複製目前顯示的位置到目標位置或歸零目標位置。
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
