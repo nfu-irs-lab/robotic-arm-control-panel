@@ -648,15 +648,17 @@ namespace HiwinRobot
 
                 connectionLevel = ArmIntermediateLayer.get_connection_level(Id);
 
-                MessageBox.Show(string.Format("連線成功!\r\n" +
-                                              "手臂ID: {0}\r\n" +
-                                              "連線等級: {1}\r\n" +
-                                              "控制器狀態: {2}\r\n" +
-                                              "錯誤代碼: {3}\r\n",
-                                              Id,
-                                              (connectionLevel == 0) ? "觀測者" : "操作者",
-                                              (motorState == 0) ? "關閉" : "開啟",
-                                              alarmState));
+                string text = string.Format("連線成功!\r\n" +
+                                            "手臂ID: {0}\r\n" +
+                                            "連線等級: {1}\r\n" +
+                                            "控制器狀態: {2}\r\n" +
+                                            "錯誤代碼: {3}\r\n",
+                                            Id,
+                                            (connectionLevel == 0) ? "觀測者" : "操作者",
+                                            (motorState == 0) ? "關閉" : "開啟",
+                                            alarmState);
+
+                Message.Show(text, "連線", MessageBoxButtons.OK, MessageBoxIcon.None);
 #endif
 
                 Connected = true;
@@ -686,14 +688,11 @@ namespace HiwinRobot
                         break;
 
                     default:
-                        message = string.Format("未知的錯誤代碼：{0}", Id);
+                        message = $"未知的錯誤代碼： {Id}";
                         break;
                 }
 
-                MessageBox.Show("無法連線!\r\n" + message,
-                                "Error",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
+                Message.Show($"無法連線!\r\n{message}");
 #endif
 
                 Connected = false;
@@ -728,11 +727,13 @@ namespace HiwinRobot
             ArmIntermediateLayer.disconnect(Id);
 
 #if (!DISABLE_SHOW_MESSAGE)
-            MessageBox.Show(string.Format("斷線成功!\r\n" +
-                                          "控制器狀態: {0}\r\n" +
-                                          "錯誤代碼: {1}\r\n",
-                                          (motorState == 0) ? "關閉" : "開啟",
-                                          alarmState));
+            string text = string.Format("斷線成功!\r\n" +
+                                        "控制器狀態: {0}\r\n" +
+                                        "錯誤代碼: {1}\r\n",
+                                        (motorState == 0) ? "關閉" : "開啟",
+                                        alarmState);
+
+            Message.Show(text, "斷線", MessageBoxButtons.OK, MessageBoxIcon.None);
 #endif
 
             Connected = false;
@@ -822,7 +823,7 @@ namespace HiwinRobot
         {
 #if (!DISABLE_SHOW_MESSAGE)
             Message.Show($"錯誤的位置類型。\r\n" +
-                             $"位置類型應為：{PositionType.Descartes} 或是 {PositionType.Joint}");
+                         $"位置類型應為：{PositionType.Descartes} 或是 {PositionType.Joint}");
 #endif
         }
 
