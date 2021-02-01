@@ -272,9 +272,7 @@ namespace HiwinRobot
                 int acc = ArmIntermediateLayer.get_acc_dec_ratio(Id);
                 if (acc == -1)
                 {
-#if (!DISABLE_SHOW_MESSAGE)
                     Message.Show("取得手臂加速度時出錯。");
-#endif
                 }
                 return acc;
             }
@@ -283,17 +281,14 @@ namespace HiwinRobot
             {
                 if (value > 100 || value < 1)
                 {
-#if (!DISABLE_SHOW_MESSAGE)
                     Message.Show("手臂加速度應為1% ~ 100%之間。");
-#endif
                 }
                 else
                 {
                     int retuenCode = ArmIntermediateLayer.set_acc_dec_ratio(Id, value);
-#if (!DISABLE_SHOW_MESSAGE)
+
                     //執行HRobot.set_acc_dec_ratio時會固定回傳錯誤代碼4000
-                    IsErrorAndHandler(retuenCode, 0, 4000);
-#endif
+                    IsErrorAndHandler(retuenCode, 4000);
                 }
             }
         }
@@ -305,9 +300,7 @@ namespace HiwinRobot
                 int speed = ArmIntermediateLayer.get_override_ratio(Id);
                 if (speed == -1)
                 {
-#if (!DISABLE_SHOW_MESSAGE)
                     Message.Show("取得手臂速度時出錯。");
-#endif
                 }
                 return speed;
             }
@@ -316,16 +309,12 @@ namespace HiwinRobot
             {
                 if (value > 100 || value < 1)
                 {
-#if (!DISABLE_SHOW_MESSAGE)
                     Message.Show("手臂速度應為1% ~ 100%之間。");
-#endif
                 }
                 else
                 {
                     int retuenCode = ArmIntermediateLayer.set_override_ratio(Id, value);
-#if (!DISABLE_SHOW_MESSAGE)
                     IsErrorAndHandler(retuenCode);
-#endif
                 }
             }
         }
@@ -354,9 +343,7 @@ namespace HiwinRobot
                     break;
 
                 default:
-#if (!DISABLE_SHOW_MESSAGE)
                     ShowUnknownPositionType();
-#endif
                     return;
             }
         }
@@ -384,9 +371,7 @@ namespace HiwinRobot
                         break;
 
                     default:
-#if (!DISABLE_SHOW_MESSAGE)
                         ShowUnknownPositionType();
-#endif
                         return;
                 }
             }
@@ -403,9 +388,7 @@ namespace HiwinRobot
                         break;
 
                     default:
-#if (!DISABLE_SHOW_MESSAGE)
                         ShowUnknownPositionType();
-#endif
                         return;
                 }
             }
@@ -426,9 +409,7 @@ namespace HiwinRobot
                     break;
 
                 default:
-#if (!DISABLE_SHOW_MESSAGE)
                     ShowUnknownPositionType();
-#endif
                     return;
             }
 #endif
@@ -462,9 +443,7 @@ namespace HiwinRobot
                         break;
 
                     default:
-#if (!DISABLE_SHOW_MESSAGE)
                         ShowUnknownPositionType();
-#endif
                         return;
                 }
             }
@@ -504,9 +483,7 @@ namespace HiwinRobot
                     break;
 
                 default:
-#if (!DISABLE_SHOW_MESSAGE)
                     ShowUnknownPositionType();
-#endif
                     retuen;
             }
 #endif
@@ -633,19 +610,16 @@ namespace HiwinRobot
                 //清除錯誤
                 alarmState = ArmIntermediateLayer.clear_alarm(Id);
 
-#if (!DISABLE_SHOW_MESSAGE)
                 //錯誤代碼300代表沒有警報，無法清除警報
                 if (alarmState == 300)
                 {
                     alarmState = 0;
                 }
-#endif
 
                 //設定控制器: 1為啟動,0為關閉
                 ArmIntermediateLayer.set_motor_state(Id, 1);
                 Thread.Sleep(500);
 
-#if (!DISABLE_SHOW_MESSAGE)
                 //回傳控制器狀態
                 motorState = ArmIntermediateLayer.get_motor_state(Id);
 
@@ -662,14 +636,12 @@ namespace HiwinRobot
                                             alarmState);
 
                 Message.Show(text, "連線", MessageBoxButtons.OK, MessageBoxIcon.None);
-#endif
 
                 Connected = true;
                 return true;
             }
             else
             {
-#if (!DISABLE_SHOW_MESSAGE)
                 string message;
 
                 switch (Id)
@@ -696,7 +668,6 @@ namespace HiwinRobot
                 }
 
                 Message.Show($"無法連線!\r\n{message}");
-#endif
 
                 Connected = false;
                 return false;
@@ -715,7 +686,6 @@ namespace HiwinRobot
             //將所有錯誤代碼清除
             alarmState = ArmIntermediateLayer.clear_alarm(Id);
 
-#if (!DISABLE_SHOW_MESSAGE)
             //錯誤代碼300代表沒有警報，無法清除警報
             if (alarmState == 300)
             {
@@ -724,12 +694,10 @@ namespace HiwinRobot
 
             //回傳控制器狀態
             motorState = ArmIntermediateLayer.get_motor_state(Id);
-#endif
 
             //關閉手臂連線
             ArmIntermediateLayer.disconnect(Id);
 
-#if (!DISABLE_SHOW_MESSAGE)
             string text = string.Format("斷線成功!\r\n" +
                                         "控制器狀態: {0}\r\n" +
                                         "錯誤代碼: {1}\r\n",
@@ -737,7 +705,6 @@ namespace HiwinRobot
                                         alarmState);
 
             Message.Show(text, "斷線", MessageBoxButtons.OK, MessageBoxIcon.None);
-#endif
 
             Connected = false;
             return true;
@@ -805,7 +772,7 @@ namespace HiwinRobot
         /// ● false：沒有出現錯誤。
         /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private bool IsErrorAndHandler(int code, int successCode = 0, int ignoreCode = 0)
+        private bool IsErrorAndHandler(int code, int ignoreCode = 0, int successCode = 0)
         {
             if (code == successCode || code == ignoreCode)
             {
@@ -815,9 +782,7 @@ namespace HiwinRobot
             else
             {
                 // Not successful.
-#if (!DISABLE_SHOW_MESSAGE)
                 Message.Show($"上銀機械手臂控制錯誤。\r\n錯誤代碼：{code}");
-#endif
                 return true;
             }
         }
@@ -825,10 +790,8 @@ namespace HiwinRobot
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void ShowUnknownPositionType()
         {
-#if (!DISABLE_SHOW_MESSAGE)
             Message.Show($"錯誤的位置類型。\r\n" +
                          $"位置類型應為：{PositionType.Descartes} 或是 {PositionType.Joint}");
-#endif
         }
 
         #endregion - Message -
@@ -839,10 +802,8 @@ namespace HiwinRobot
         {
             int retuenCode = ArmIntermediateLayer.clear_alarm(Id);
 
-#if (!DISABLE_SHOW_MESSAGE)
             // 錯誤代碼300代表沒有警報，無法清除警報
-            IsErrorAndHandler(retuenCode, 0, 300);
-#endif
+            IsErrorAndHandler(retuenCode, 300);
         }
 
         public double[] GetPosition(PositionType type = PositionType.Descartes)
@@ -862,15 +823,11 @@ namespace HiwinRobot
                 }
                 else
                 {
-#if (!DISABLE_SHOW_MESSAGE)
                     ShowUnknownPositionType();
-#endif
                     return position;
                 }
             }
-#if (!DISABLE_SHOW_MESSAGE)
             IsErrorAndHandler(retuenCode);
-#endif
             return position;
         }
 

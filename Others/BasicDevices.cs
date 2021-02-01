@@ -1,10 +1,4 @@
-﻿//#define DISABLE_SHOW_MESSAGE
-
-#if (DISABLE_SHOW_MESSAGE)
-#warning Message is disabled.
-#endif
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
