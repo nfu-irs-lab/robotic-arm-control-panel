@@ -1,5 +1,6 @@
-﻿//#define DISABLE_KEYBOARD_CONTROL
-//#define DISABLE_SHOW_MESSAGE
+﻿//#define DISABLE_SHOW_MESSAGE
+//#define DISABLE_FORM_CLOSING
+//#define DISABLE_KEYBOARD_CONTROL
 
 #if (DISABLE_SHOW_MESSAGE)
 #warning Message is disabled.
@@ -547,39 +548,33 @@ namespace HiwinRobot
         /// </summary>
         private void Form_HIWIN_Robot_FormClosing(object sender, FormClosingEventArgs e)
         {
-#if (!DISABLE_SHOW_MESSAGE)
-            bool connectState = false;
-
+#if (!DISABLE_FORM_CLOSING)
             for (int i = 0; i < Devices.Count; i++)
             {
                 if (Devices[i].Connected)
                 {
-                    connectState = true;
+                    DialogResult dr = Message.Show(
+                        "手臂或其它裝置似乎還在連線中。\r\n是否要斷開連線後關閉視窗？",
+                        "關閉視窗",
+                        MessageBoxButtons.YesNoCancel,
+                        MessageBoxIcon.Warning);
+
+                    if (dr == DialogResult.Yes)
+                    {
+                        button_disconnect.PerformClick();
+                        e.Cancel = false;
+                    }
+                    else if (dr == DialogResult.No)
+                    {
+                        e.Cancel = false;
+                    }
+                    else if (dr == DialogResult.Cancel)
+                    {
+                        // 取消視窗關閉事件。
+                        e.Cancel = true;
+                    }
+
                     break;
-                }
-            }
-
-            if (connectState)
-            {
-                DialogResult dr = Message.Show(
-                    "手臂或夾爪似乎還在連線中。\r\n是否要斷開連線後關閉視窗？",
-                    "關閉視窗",
-                    MessageBoxButtons.YesNoCancel,
-                    MessageBoxIcon.Warning);
-
-                if (dr == DialogResult.Yes)
-                {
-                    button_disconnect.PerformClick();
-                    e.Cancel = false;
-                }
-                else if (dr == DialogResult.No)
-                {
-                    e.Cancel = false;
-                }
-                else if (dr == DialogResult.Cancel)
-                {
-                    // 取消視窗關閉事件。
-                    e.Cancel = true;
                 }
             }
 #endif
