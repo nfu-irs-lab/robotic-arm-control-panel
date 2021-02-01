@@ -216,9 +216,7 @@ namespace HiwinRobot
                     break;
 
                 default:
-#if (!DISABLE_SHOW_MESSAGE)
                     Message.Show("未知的運動類型。");
-#endif
                     break;
             }
 
@@ -414,13 +412,11 @@ namespace HiwinRobot
 
             Thread.Sleep(300);
 
-#if (!DISABLE_SHOW_MESSAGE)
             Message.Show($"　目前整體速度： {Arm.Speed} % \r\n" +
                          $"目前整體加速度： {Arm.Acceleration} %",
                          "速度與加速度",
                          MessageBoxButtons.OK,
                          MessageBoxIcon.None);
-#endif
         }
 
         /// <summary>
