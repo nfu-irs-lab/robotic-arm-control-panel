@@ -569,8 +569,7 @@ namespace HiwinRobot
 
                 if (dr == DialogResult.Yes)
                 {
-                    Arm.Disconnect();
-                    Gripper.Disconnect();
+                    button_disconnect.PerformClick();
                     e.Cancel = false;
                 }
                 else if (dr == DialogResult.No)
