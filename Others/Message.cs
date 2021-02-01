@@ -17,21 +17,21 @@ namespace HiwinRobot
         /// Show message.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        void Show();
+        DialogResult Show();
 
         /// <summary>
         /// Show message.
         /// </summary>
         /// <param name="message"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        void Show(string message);
+        DialogResult Show(string message);
 
         /// <summary>
         /// Show message.
         /// </summary>
         /// <param name="ex"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        void Show(Exception ex);
+        DialogResult Show(Exception ex);
 
         /// <summary>
         /// Show message.
@@ -39,7 +39,7 @@ namespace HiwinRobot
         /// <param name="message"></param>
         /// <param name="ex"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        void Show(string message, Exception ex);
+        DialogResult Show(string message, Exception ex);
 
         /// <summary>
         /// Show message.
@@ -57,26 +57,20 @@ namespace HiwinRobot
     /// </summary>
     public class EmptyMessage : IMessage
     {
-        public void Show()
-        {
-        }
+        public DialogResult Show()
+            => DialogResult.None;
 
-        public void Show(string message)
-        {
-        }
+        public DialogResult Show(string message)
+            => DialogResult.None;
 
-        public void Show(Exception ex)
-        {
-        }
+        public DialogResult Show(Exception ex)
+            => DialogResult.None;
 
-        public void Show(string message, Exception ex)
-        {
-        }
+        public DialogResult Show(string message, Exception ex)
+            => DialogResult.None;
 
         public DialogResult Show(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon)
-        {
-            return DialogResult.None;
-        }
+            => DialogResult.None;
     }
 
     /// <summary>
@@ -84,23 +78,23 @@ namespace HiwinRobot
     /// </summary>
     public class ErrorMessage : IMessage
     {
-        public void Show()
+        public DialogResult Show()
         {
-            MessageBox.Show("出現錯誤。",
-                            "錯誤！",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+            return MessageBox.Show("出現錯誤。",
+                             "錯誤！",
+                             MessageBoxButtons.OK,
+                             MessageBoxIcon.Error);
         }
 
-        public void Show(string message)
+        public DialogResult Show(string message)
         {
-            MessageBox.Show(message,
-                            "錯誤！",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+            return MessageBox.Show(message,
+                             "錯誤！",
+                             MessageBoxButtons.OK,
+                             MessageBoxIcon.Error);
         }
 
-        public void Show(Exception ex)
+        public DialogResult Show(Exception ex)
         {
             string text = "出現錯誤。 \r\n\r\n";
 
@@ -114,13 +108,13 @@ namespace HiwinRobot
                 text += "null Exception.";
             }
 
-            MessageBox.Show(text,
-                            "錯誤！",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+            return MessageBox.Show(text,
+                               "錯誤！",
+                               MessageBoxButtons.OK,
+                               MessageBoxIcon.Error);
         }
 
-        public void Show(string message, Exception ex)
+        public DialogResult Show(string message, Exception ex)
         {
             string text = $"{message} \r\n\r\n";
 
@@ -134,7 +128,7 @@ namespace HiwinRobot
                 text += "null Exception.";
             }
 
-            MessageBox.Show(text,
+            return MessageBox.Show(text,
                             "錯誤！",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error);
@@ -151,17 +145,17 @@ namespace HiwinRobot
     /// </summary>
     public class NormalMessage : IMessage
     {
-        public void Show()
+        public DialogResult Show()
         {
-            MessageBox.Show("!!");
+            return MessageBox.Show("!!");
         }
 
-        public void Show(string message)
+        public DialogResult Show(string message)
         {
-            MessageBox.Show(message);
+            return MessageBox.Show(message);
         }
 
-        public void Show(Exception ex)
+        public DialogResult Show(Exception ex)
         {
             string text = "";
 
@@ -175,10 +169,10 @@ namespace HiwinRobot
                 text += "null Exception.";
             }
 
-            MessageBox.Show(text);
+            return MessageBox.Show(text);
         }
 
-        public void Show(string message, Exception ex)
+        public DialogResult Show(string message, Exception ex)
         {
             string text = $"{message} \r\n\r\n";
 
@@ -192,7 +186,7 @@ namespace HiwinRobot
                 text += "null Exception.";
             }
 
-            MessageBox.Show(text);
+            return MessageBox.Show(text);
         }
 
         public DialogResult Show(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon)
