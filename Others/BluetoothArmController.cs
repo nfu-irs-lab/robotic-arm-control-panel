@@ -32,7 +32,6 @@ namespace HiwinRobot
     {
         private IArmController Arm = null;
 
-        //private SerialPortDevice SerialPortDevice = null;
         private ISerialPortDevice SerialPortDevice = null;
 
         /// <summary>
@@ -45,7 +44,6 @@ namespace HiwinRobot
 
             SerialPort sp = new SerialPort() { PortName = comPort, BaudRate = 38400 };
             sp.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
-
             SerialPortDevice = new SerialPortDevice(sp);
 
 #if (CONNECT_BY_CONSTRUCTOR)
@@ -57,6 +55,8 @@ namespace HiwinRobot
         {
             get => SerialPortDevice.Connected;
         }
+
+        public IMessage Message { get; set; } = new ErrorMessage();
 
         public bool Connect()
         {
@@ -241,7 +241,7 @@ namespace HiwinRobot
                     break;
 
                 default:
-                    MessageBox.Show($"Unknown date: {data}");
+                    Message.Show($"Unknown data: {data}");
                     break;
             }
             Send(BluetoothSendDataType.descartesPosition, Arm.GetPosition(PositionType.Descartes));
