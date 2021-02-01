@@ -21,16 +21,27 @@ namespace HiwinRobot
     {
         private IBluetoothController Bluetooth = null;
 
+        /// <summary>
+        /// 連線裝置組。
+        /// </summary>
+        private List<IDevice> Devices = new List<IDevice>();
+
         private IMessage Message = null;
 
         public Form_HIWIN_Robot()
         {
             InitializeComponent();
             InitControlCollection();
+
             Arm = new ArmController(Configuration.ArmIp, new ArmIntermediateLayer());
             Bluetooth = new BluetoothArmController(Configuration.BluetoothComPort, Arm);
             Gripper = new GripperController(Configuration.GripperComPort);
             Message = new ErrorMessage();
+
+            Devices.Clear();
+            Devices.Add(Arm);
+            Devices.Add(Gripper);
+            Devices.Add(Bluetooth);
         }
 
         #region - 手臂 -
@@ -170,8 +181,6 @@ namespace HiwinRobot
         private void UpdateNowPosition()
         {
             SetNowPostion(Arm.GetPosition(GetPositinoType()));
-            //Bluetooth.Send(BluetoothControl.DataType.descartesPosition,
-            //               Arm.GetPosition(PositionType.Descartes));
         }
 
         #endregion 位置
@@ -396,10 +405,10 @@ namespace HiwinRobot
 
 #if (!DISABLE_SHOW_MESSAGE)
             Message.Show($"　目前整體速度： {Arm.Speed} % \r\n" +
-                              $"目前整體加速度： {Arm.Acceleration} %",
-                              "速度與加速度",
-                              MessageBoxButtons.OK,
-                              MessageBoxIcon.None);
+                         $"目前整體加速度： {Arm.Acceleration} %",
+                         "速度與加速度",
+                         MessageBoxButtons.OK,
+                         MessageBoxIcon.None);
 #endif
         }
 
@@ -493,19 +502,17 @@ namespace HiwinRobot
         /// <param name="e"></param>
         private void button_connect_Click(object sender, EventArgs e)
         {
-            Bluetooth.Connect();
+            for (int i = 0; i < Devices.Count; i++)
+            {
+                Devices[i].Connect();
+            }
 
-            Arm.Connect();
             if (Arm.Connected)
             {
                 Arm.Speed = GetSpeed();
                 Arm.Acceleration = GetAcceleration();
                 UpdateNowPosition();
-
-                //Bluetooth.UpdateArmID(Arm.Id);
             }
-
-            //Gripper.Connect();
         }
 
         /// <summary>
@@ -515,9 +522,10 @@ namespace HiwinRobot
         /// <param name="e"></param>
         private void button_disconnect_Click(object sender, EventArgs e)
         {
-            Arm.Disconnect();
-            Gripper.Disconnect();
-            Bluetooth.Disconnect();
+            for (int i = 0; i < Devices.Count; i++)
+            {
+                Devices[i].Disconnect();
+            }
         }
 
         #endregion - 連線與斷線 -
@@ -530,7 +538,18 @@ namespace HiwinRobot
         private void Form_HIWIN_Robot_FormClosing(object sender, FormClosingEventArgs e)
         {
 #if (!DISABLE_SHOW_MESSAGE)
-            if (Arm.Connected || Gripper.Connected)
+            bool connectState = false;
+
+            for (int i = 0; i < Devices.Count; i++)
+            {
+                if (Devices[i].Connected)
+                {
+                    connectState = true;
+                    break;
+                }
+            }
+
+            if (connectState)
             {
                 DialogResult dr = Message.Show(
                     "手臂或夾爪似乎還在連線中。\r\n是否要斷開連線後關閉視窗？",
