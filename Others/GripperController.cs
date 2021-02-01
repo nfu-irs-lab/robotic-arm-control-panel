@@ -38,8 +38,6 @@ namespace HiwinRobot
         /// </summary>
         private byte Direction = 2;
 
-        private IMessage Message = null;
-
         private ISerialPortDevice SerialPortDevice = null;
 
         public GripperController(string comPort)
@@ -51,14 +49,14 @@ namespace HiwinRobot
                     BaudRate = 115200,
                     DataBits = 8
                 });
-
-            Message = new ErrorMessage();
         }
 
         public bool Connected
         {
             get => SerialPortDevice.Connected;
         }
+
+        public IMessage Message { get; set; } = new ErrorMessage();
 
         public bool Connect()
         {
