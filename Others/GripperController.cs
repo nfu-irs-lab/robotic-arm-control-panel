@@ -18,6 +18,11 @@ namespace HiwinRobot
     /// </summary>
     public interface IGripperController : IDevice
     {
+        /// <summary>
+        /// 訊息處理器。
+        /// </summary>
+        IMessage Message { get; set; }
+
         string Control(int position,
                        int speed = 50,
                        int force = 70,
@@ -33,6 +38,8 @@ namespace HiwinRobot
     /// </summary>
     public class GripperController : IGripperController
     {
+        private IMessage _Message;
+
         /// <summary>
         /// 夾爪模式：絕對位置。
         /// </summary>
@@ -49,6 +56,8 @@ namespace HiwinRobot
                     BaudRate = 115200,
                     DataBits = 8
                 });
+
+            Message = new ErrorMessage();
         }
 
         public bool Connected
@@ -56,7 +65,18 @@ namespace HiwinRobot
             get => SerialPortDevice.Connected;
         }
 
-        public IMessage Message { get; set; } = new ErrorMessage();
+        public IMessage Message
+        {
+            get
+            {
+                return _Message;
+            }
+            set
+            {
+                _Message = value;
+                SerialPortDevice.Message = value;
+            }
+        }
 
         public bool Connect()
         {
@@ -121,7 +141,7 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                Message.Show("Gripper Error.", ex);
+                _Message.Show("Gripper Error.", ex);
                 return "";
             }
         }
@@ -168,7 +188,7 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                Message.Show("Gripper Error.", ex);
+                _Message.Show("Gripper Error.", ex);
                 return "";
             }
         }

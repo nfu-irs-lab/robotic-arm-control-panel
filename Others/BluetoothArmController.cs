@@ -23,6 +23,11 @@ namespace HiwinRobot
     /// </summary>
     public interface IBluetoothController : IDevice
     {
+        /// <summary>
+        /// 訊息處理器。
+        /// </summary>
+        IMessage Message { get; set; }
+
         void Send(BluetoothSendDataType dataType, double[] value);
     }
 
@@ -31,6 +36,7 @@ namespace HiwinRobot
     /// </summary>
     public class BluetoothArmController : IBluetoothController
     {
+        private IMessage _Message;
         private IArmController Arm = null;
 
         private ISerialPortDevice SerialPortDevice = null;
@@ -47,6 +53,8 @@ namespace HiwinRobot
             sp.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
             SerialPortDevice = new SerialPortDevice(sp);
 
+            Message = new ErrorMessage();
+
 #if (CONNECT_BY_CONSTRUCTOR)
             Connect();
 #endif
@@ -57,7 +65,18 @@ namespace HiwinRobot
             get => SerialPortDevice.Connected;
         }
 
-        public IMessage Message { get; set; } = new ErrorMessage();
+        public IMessage Message
+        {
+            get
+            {
+                return _Message;
+            }
+            set
+            {
+                _Message = value;
+                SerialPortDevice.Message = value;
+            }
+        }
 
         public bool Connect()
         {
@@ -255,7 +274,7 @@ namespace HiwinRobot
                     break;
 
                 default:
-                    Message.Show($"Unknown data: {data}");
+                    _Message.Show($"Unknown data: {data}");
                     break;
             }
             Send(BluetoothSendDataType.descartesPosition,

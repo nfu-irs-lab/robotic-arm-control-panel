@@ -128,6 +128,11 @@ namespace HiwinRobot
         /// </summary>
         string Ip { get; set; }
 
+        /// <summary>
+        /// 訊息處理器。
+        /// </summary>
+        IMessage Message { get; set; }
+
         #region - Default Position -
 
         /// <summary>
@@ -755,6 +760,7 @@ namespace HiwinRobot
                     if (rlt != 0)
                     {
 #if (!DISABLE_SHOW_MESSAGE)
+                        // XXX 此處不受訊息控制器影響。
                         MessageBox.Show("Update fail. " + rlt,
                                         "HRSS update callback",
                                         MessageBoxButtons.OK,

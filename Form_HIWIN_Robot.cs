@@ -1,5 +1,5 @@
 ﻿//#define DISABLE_KEYBOARD_CONTROL
-//#define DISABLE_SHOW_MESSAGE
+#define DISABLE_SHOW_MESSAGE
 
 #if (DISABLE_SHOW_MESSAGE)
 #warning Message is disabled.
@@ -36,7 +36,15 @@ namespace HiwinRobot
             Arm = new ArmController(Configuration.ArmIp, new ArmIntermediateLayer());
             Bluetooth = new BluetoothArmController(Configuration.BluetoothComPort, Arm);
             Gripper = new GripperController(Configuration.GripperComPort);
+
+#if (DISABLE_SHOW_MESSAGE)
+            Message = new EmptyMessage();
+            Arm.Message = new EmptyMessage();
+            Bluetooth.Message = new EmptyMessage();
+            Gripper.Message = new EmptyMessage();
+#else
             Message = new ErrorMessage();
+#endif
 
             Devices.Clear();
             Devices.Add(Arm);
