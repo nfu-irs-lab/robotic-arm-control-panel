@@ -228,7 +228,7 @@ namespace HiwinRobot
 
                 Thread.Sleep(300);
 
-                Arm.GoHome(GetPositinoType());
+                Arm.GoHome(GetPositinoType(), true);
                 UpdateNowPosition();
 
                 Arm.Speed = GetSpeed();
@@ -236,7 +236,7 @@ namespace HiwinRobot
             }
             else
             {
-                Arm.GoHome(GetPositinoType());
+                Arm.GoHome(GetPositinoType(), true);
                 UpdateNowPosition();
             }
         }
