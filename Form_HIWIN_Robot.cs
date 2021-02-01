@@ -21,7 +21,9 @@ namespace HiwinRobot
     {
         private IBluetoothController Bluetooth = null;
 
-        private IMessage Message = null;
+        private IMessage ErrorMessage = null;
+
+        private IMessage NormalMessage = null;
 
         public Form_HIWIN_Robot()
         {
@@ -30,7 +32,8 @@ namespace HiwinRobot
             Arm = new ArmController(Configuration.ArmIp, new ArmIntermediateLayer(), new ErrorMessage());
             Bluetooth = new BluetoothArmController(Configuration.BluetoothComPort, Arm);
             Gripper = new GripperController(Configuration.GripperComPort);
-            Message = new ErrorMessage();
+            ErrorMessage = new ErrorMessage();
+            NormalMessage = new NormalMessage();
         }
 
         #region - 手臂 -
@@ -85,7 +88,7 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                Message.Show("出現錯誤。", ex);
+                ErrorMessage.Show(ex);
             }
             return position;
         }
@@ -106,7 +109,7 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                Message.Show("出現錯誤。", ex);
+                ErrorMessage.Show(ex);
             }
             return position;
         }
@@ -160,7 +163,7 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                Message.Show("出現錯誤。", ex);
+                ErrorMessage.Show(ex);
             }
         }
 
@@ -197,7 +200,7 @@ namespace HiwinRobot
 
                 default:
 #if (!DISABLE_SHOW_MESSAGE)
-                    MessageBox.Show("未知的運動類型。", "錯誤！", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ErrorMessage.Show("未知的運動類型。");
 #endif
                     break;
             }
@@ -380,7 +383,7 @@ namespace HiwinRobot
 
         #endregion 動作
 
-        #region - 速度與加速度 -
+        #region 速度與加速度
 
         /// <summary>
         /// 依照設定之數值設定手臂速度與加速度。
@@ -395,8 +398,8 @@ namespace HiwinRobot
             Thread.Sleep(300);
 
 #if (!DISABLE_SHOW_MESSAGE)
-            MessageBox.Show("　目前整體速度：" + Arm.Speed.ToString() + " %\r\n" +
-                            "目前整體加速度：" + Arm.Acceleration.ToString() + " %");
+            NormalMessage.Show($"　目前整體速度： {Arm.Speed} % \r\n" +
+                               $"目前整體加速度： {Arm.Acceleration} %");
 #endif
         }
 
@@ -413,7 +416,7 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                Message.Show("出現錯誤。", ex);
+                ErrorMessage.Show(ex);
             }
             return value;
         }
@@ -431,12 +434,12 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                Message.Show("出現錯誤。", ex);
+                ErrorMessage.Show(ex);
             }
             return value;
         }
 
-        #endregion - 速度與加速度 -
+        #endregion 速度與加速度
 
         #endregion - 手臂 -
 
@@ -527,13 +530,13 @@ namespace HiwinRobot
         private void Form_HIWIN_Robot_FormClosing(object sender, FormClosingEventArgs e)
         {
 #if (!DISABLE_SHOW_MESSAGE)
-            //if (Arm.Connected || Gripper.Connected)
-            if (Arm.Connected)
+            if (Arm.Connected || Gripper.Connected)
             {
-                DialogResult dr = MessageBox.Show("手臂或夾爪似乎還在連線中。\r\n是否要斷開連線後關閉視窗？",
-                                                  "關閉視窗",
-                                                  MessageBoxButtons.YesNoCancel,
-                                                  MessageBoxIcon.Warning);
+                DialogResult dr = NormalMessage.Show(
+                    "手臂或夾爪似乎還在連線中。\r\n是否要斷開連線後關閉視窗？",
+                    "關閉視窗",
+                    MessageBoxButtons.YesNoCancel,
+                    MessageBoxIcon.Warning);
 
                 if (dr == DialogResult.Yes)
                 {

@@ -40,6 +40,16 @@ namespace HiwinRobot
         /// <param name="ex"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         void Show(string message, Exception ex);
+
+        /// <summary>
+        /// Show message.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="caption"></param>
+        /// <param name="buttons"></param>
+        /// <param name="icon"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        DialogResult Show(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon);
     }
 
     /// <summary>
@@ -61,6 +71,11 @@ namespace HiwinRobot
 
         public void Show(string message, Exception ex)
         {
+        }
+
+        public DialogResult Show(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon)
+        {
+            return DialogResult.None;
         }
     }
 
@@ -124,6 +139,11 @@ namespace HiwinRobot
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error);
         }
+
+        public DialogResult Show(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon)
+        {
+            return MessageBox.Show(text, caption, buttons, icon);
+        }
     }
 
     /// <summary>
@@ -173,6 +193,11 @@ namespace HiwinRobot
             }
 
             MessageBox.Show(text);
+        }
+
+        public DialogResult Show(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon)
+        {
+            return MessageBox.Show(text, caption, buttons, icon);
         }
     }
 }
