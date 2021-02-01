@@ -34,8 +34,8 @@ namespace HiwinRobot
             InitControlCollection();
 
             Arm = new ArmController(Configuration.ArmIp, new ArmIntermediateLayer());
-            Bluetooth = new BluetoothArmController(Configuration.BluetoothComPort, Arm);
             Gripper = new GripperController(Configuration.GripperComPort);
+            Bluetooth = new BluetoothArmController(Configuration.BluetoothComPort, Arm);
 
 #if (DISABLE_SHOW_MESSAGE)
             Message = new EmptyMessage();
@@ -46,7 +46,8 @@ namespace HiwinRobot
             Message = new ErrorMessage();
 #endif
 
-            // 組織連線裝置組。若要禁用某裝置，在下方將其所屬的「 Devices.Add(目標裝置); 」註解掉即可。
+            // 組織連線裝置組。加入的順序就是連線/斷線的順序。
+            // 若要禁用某裝置，在下方將其所屬的「 Devices.Add(目標裝置); 」註解掉即可。
             Devices.Clear();
             Devices.Add(Arm);
             Devices.Add(Gripper);
