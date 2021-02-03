@@ -51,8 +51,8 @@ namespace HiwinRobot
             // 若要禁用某裝置，在下方將其所屬的「 Devices.Add(目標裝置); 」註解掉即可。
             Devices.Clear();
             Devices.Add(Arm);
-            Devices.Add(Gripper);
-            Devices.Add(Bluetooth);
+            //Devices.Add(Gripper);
+            //Devices.Add(Bluetooth);
         }
 
         #region - 手臂 -
