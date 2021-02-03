@@ -1,5 +1,6 @@
-﻿//#define DISABLE_KEYBOARD_CONTROL
-//#define DISABLE_SHOW_MESSAGE
+﻿//#define DISABLE_SHOW_MESSAGE
+//#define DISABLE_FORM_CLOSING
+//#define DISABLE_KEYBOARD_CONTROL
 
 #if (DISABLE_SHOW_MESSAGE)
 #warning Message is disabled.
@@ -21,16 +22,37 @@ namespace HiwinRobot
     {
         private IBluetoothController Bluetooth = null;
 
+        /// <summary>
+        /// 連線裝置組。
+        /// </summary>
+        private List<IDevice> Devices = new List<IDevice>();
+
         private IMessage Message = null;
 
         public Form_HIWIN_Robot()
         {
             InitializeComponent();
             InitControlCollection();
-            Arm = new ArmController(Configuration.ArmIp, new ArmIntermediateLayer(), new ErrorMessage());
-            Bluetooth = new BluetoothArmController(Configuration.BluetoothComPort, Arm);
+
+            Arm = new ArmController(Configuration.ArmIp);
             Gripper = new GripperController(Configuration.GripperComPort);
+            Bluetooth = new BluetoothArmController(Configuration.BluetoothComPort, Arm);
+
+#if (DISABLE_SHOW_MESSAGE)
+            Message = new EmptyMessage();
+            Arm.Message = new EmptyMessage();
+            Bluetooth.Message = new EmptyMessage();
+            Gripper.Message = new EmptyMessage();
+#else
             Message = new ErrorMessage();
+#endif
+
+            // 組織連線裝置組。加入的順序就是連線/斷線的順序。
+            // 若要禁用某裝置，在下方將其所屬的「 Devices.Add(目標裝置); 」註解掉即可。
+            Devices.Clear();
+            Devices.Add(Arm);
+            Devices.Add(Gripper);
+            Devices.Add(Bluetooth);
         }
 
         #region - 手臂 -
@@ -53,7 +75,7 @@ namespace HiwinRobot
         private List<NumericUpDown> TargetPositino = new List<NumericUpDown>();
 
         /// <summary>
-        /// 複製目前顯示的位置到目標位置。
+        /// 複製目前顯示的位置到目標位置或歸零目標位置。
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -85,7 +107,7 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                Message.Show("出現錯誤。", ex);
+                Message.Show(ex);
             }
             return position;
         }
@@ -106,7 +128,7 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                Message.Show("出現錯誤。", ex);
+                Message.Show(ex);
             }
             return position;
         }
@@ -160,7 +182,7 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                Message.Show("出現錯誤。", ex);
+                Message.Show(ex);
             }
         }
 
@@ -170,8 +192,6 @@ namespace HiwinRobot
         private void UpdateNowPosition()
         {
             SetNowPostion(Arm.GetPosition(GetPositinoType()));
-            //Bluetooth.Send(BluetoothControl.DataType.descartesPosition,
-            //               Arm.GetPosition(PositionType.Descartes));
         }
 
         #endregion 位置
@@ -196,9 +216,7 @@ namespace HiwinRobot
                     break;
 
                 default:
-#if (!DISABLE_SHOW_MESSAGE)
-                    MessageBox.Show("未知的運動類型。", "錯誤！", MessageBoxButtons.OK, MessageBoxIcon.Error);
-#endif
+                    Message.Show("未知的運動類型。");
                     break;
             }
 
@@ -219,7 +237,7 @@ namespace HiwinRobot
 
                 Thread.Sleep(300);
 
-                Arm.GoHome(GetPositinoType());
+                Arm.GoHome(GetPositinoType(), true);
                 UpdateNowPosition();
 
                 Arm.Speed = GetSpeed();
@@ -227,7 +245,7 @@ namespace HiwinRobot
             }
             else
             {
-                Arm.GoHome(GetPositinoType());
+                Arm.GoHome(GetPositinoType(), true);
                 UpdateNowPosition();
             }
         }
@@ -380,7 +398,7 @@ namespace HiwinRobot
 
         #endregion 動作
 
-        #region - 速度與加速度 -
+        #region 速度與加速度
 
         /// <summary>
         /// 依照設定之數值設定手臂速度與加速度。
@@ -394,10 +412,11 @@ namespace HiwinRobot
 
             Thread.Sleep(300);
 
-#if (!DISABLE_SHOW_MESSAGE)
-            MessageBox.Show("　目前整體速度：" + Arm.Speed.ToString() + " %\r\n" +
-                            "目前整體加速度：" + Arm.Acceleration.ToString() + " %");
-#endif
+            Message.Show($"　目前整體速度： {Arm.Speed} % \r\n" +
+                         $"目前整體加速度： {Arm.Acceleration} %",
+                         "速度與加速度",
+                         MessageBoxButtons.OK,
+                         MessageBoxIcon.None);
         }
 
         /// <summary>
@@ -413,7 +432,7 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                Message.Show("出現錯誤。", ex);
+                Message.Show(ex);
             }
             return value;
         }
@@ -431,12 +450,12 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                Message.Show("出現錯誤。", ex);
+                Message.Show(ex);
             }
             return value;
         }
 
-        #endregion - 速度與加速度 -
+        #endregion 速度與加速度
 
         #endregion - 手臂 -
 
@@ -490,19 +509,17 @@ namespace HiwinRobot
         /// <param name="e"></param>
         private void button_connect_Click(object sender, EventArgs e)
         {
-            Bluetooth.Connect();
+            for (int i = 0; i < Devices.Count; i++)
+            {
+                Devices[i].Connect();
+            }
 
-            Arm.Connect();
             if (Arm.Connected)
             {
                 Arm.Speed = GetSpeed();
                 Arm.Acceleration = GetAcceleration();
                 UpdateNowPosition();
-
-                //Bluetooth.UpdateArmID(Arm.Id);
             }
-
-            //Gripper.Connect();
         }
 
         /// <summary>
@@ -512,9 +529,10 @@ namespace HiwinRobot
         /// <param name="e"></param>
         private void button_disconnect_Click(object sender, EventArgs e)
         {
-            Arm.Disconnect();
-            Gripper.Disconnect();
-            Bluetooth.Disconnect();
+            for (int i = 0; i < Devices.Count; i++)
+            {
+                Devices[i].Disconnect();
+            }
         }
 
         #endregion - 連線與斷線 -
@@ -526,29 +544,33 @@ namespace HiwinRobot
         /// </summary>
         private void Form_HIWIN_Robot_FormClosing(object sender, FormClosingEventArgs e)
         {
-#if (!DISABLE_SHOW_MESSAGE)
-            //if (Arm.Connected || Gripper.Connected)
-            if (Arm.Connected)
+#if (!DISABLE_FORM_CLOSING)
+            for (int i = 0; i < Devices.Count; i++)
             {
-                DialogResult dr = MessageBox.Show("手臂或夾爪似乎還在連線中。\r\n是否要斷開連線後關閉視窗？",
-                                                  "關閉視窗",
-                                                  MessageBoxButtons.YesNoCancel,
-                                                  MessageBoxIcon.Warning);
+                if (Devices[i].Connected)
+                {
+                    DialogResult dr = Message.Show(
+                        "手臂或其它裝置似乎還在連線中。\r\n是否要斷開連線後關閉視窗？",
+                        "關閉視窗",
+                        MessageBoxButtons.YesNoCancel,
+                        MessageBoxIcon.Warning);
 
-                if (dr == DialogResult.Yes)
-                {
-                    Arm.Disconnect();
-                    Gripper.Disconnect();
-                    e.Cancel = false;
-                }
-                else if (dr == DialogResult.No)
-                {
-                    e.Cancel = false;
-                }
-                else if (dr == DialogResult.Cancel)
-                {
-                    // 取消視窗關閉事件。
-                    e.Cancel = true;
+                    if (dr == DialogResult.Yes)
+                    {
+                        button_disconnect.PerformClick();
+                        e.Cancel = false;
+                    }
+                    else if (dr == DialogResult.No)
+                    {
+                        e.Cancel = false;
+                    }
+                    else if (dr == DialogResult.Cancel)
+                    {
+                        // 取消視窗關閉事件。
+                        e.Cancel = true;
+                    }
+
+                    break;
                 }
             }
 #endif

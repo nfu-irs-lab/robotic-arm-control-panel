@@ -1,10 +1,4 @@
-﻿//#define DISABLE_SHOW_MESSAGE
-
-#if (DISABLE_SHOW_MESSAGE)
-#warning Message is disabled.
-#endif
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
@@ -52,6 +46,11 @@ namespace HiwinRobot
     /// </summary>
     public interface ISerialPortDevice : IDevice
     {
+        /// <summary>
+        /// 訊息處理器。
+        /// </summary>
+        IMessage Message { get; set; }
+
         SerialPort SerialPort { get; set; }
     }
 
@@ -60,8 +59,6 @@ namespace HiwinRobot
     /// </summary>
     public class SerialPortDevice : ISerialPortDevice
     {
-        private IMessage ErrorMessage = new ErrorMessage();
-
         public SerialPortDevice(SerialPort serialPort)
         {
             // XXX 此處沒有使用深層複製，需注意指標(pointer)的問題。
@@ -74,6 +71,8 @@ namespace HiwinRobot
         }
 
         public bool Connected { get; private set; } = false;
+
+        public IMessage Message { get; set; } = new ErrorMessage();
 
         public SerialPort SerialPort { get; set; }
 
@@ -98,7 +97,7 @@ namespace HiwinRobot
                 }
                 catch (Exception ex)
                 {
-                    ErrorMessage.Show("無法進行連線。\r\n請檢查COM Port等設定。", ex);
+                    Message.Show("無法進行連線。\r\n請檢查COM Port等設定。", ex);
                     return false;
                 }
             }
@@ -130,7 +129,7 @@ namespace HiwinRobot
                 }
                 catch (Exception ex)
                 {
-                    ErrorMessage.Show("無法進行斷線。\r\n請檢查COM Port等設定。", ex);
+                    Message.Show("無法進行斷線。\r\n請檢查COM Port等設定。", ex);
                     return false;
                 }
             }

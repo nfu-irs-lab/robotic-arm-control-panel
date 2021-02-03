@@ -1,4 +1,5 @@
-﻿//#define CONNECT_BY_CONSTRUCTOR
+﻿#define CONNECT_WITH_UPDATE
+//#define CONNECT_BY_CONSTRUCTOR
 
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,11 @@ namespace HiwinRobot
     /// </summary>
     public interface IBluetoothController : IDevice
     {
+        /// <summary>
+        /// 訊息處理器。
+        /// </summary>
+        IMessage Message { get; set; }
+
         void Send(BluetoothSendDataType dataType, double[] value);
     }
 
@@ -30,9 +36,9 @@ namespace HiwinRobot
     /// </summary>
     public class BluetoothArmController : IBluetoothController
     {
+        private IMessage _Message;
         private IArmController Arm = null;
 
-        //private SerialPortDevice SerialPortDevice = null;
         private ISerialPortDevice SerialPortDevice = null;
 
         /// <summary>
@@ -45,8 +51,9 @@ namespace HiwinRobot
 
             SerialPort sp = new SerialPort() { PortName = comPort, BaudRate = 38400 };
             sp.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
-
             SerialPortDevice = new SerialPortDevice(sp);
+
+            Message = new ErrorMessage();
 
 #if (CONNECT_BY_CONSTRUCTOR)
             Connect();
@@ -58,9 +65,30 @@ namespace HiwinRobot
             get => SerialPortDevice.Connected;
         }
 
+        public IMessage Message
+        {
+            get
+            {
+                return _Message;
+            }
+            set
+            {
+                _Message = value;
+                SerialPortDevice.Message = value;
+            }
+        }
+
         public bool Connect()
         {
-            return SerialPortDevice.Connect();
+            bool state = SerialPortDevice.Connect();
+#if (CONNECT_WITH_UPDATE)
+            if (this.Connected && Arm.Connected)
+            {
+                Send(BluetoothSendDataType.descartesPosition,
+                     Arm.GetPosition(PositionType.Descartes));
+            }
+#endif
+            return state;
         }
 
         public bool Disconnect()
@@ -201,6 +229,11 @@ namespace HiwinRobot
             return result;
         }
 
+        /// <summary>
+        /// Serial Port 接收事件。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
         {
             SerialPort serialPort = (SerialPort)sender;
@@ -241,10 +274,11 @@ namespace HiwinRobot
                     break;
 
                 default:
-                    MessageBox.Show($"Unknown date: {data}");
+                    _Message.Show($"Unknown data: {data}");
                     break;
             }
-            Send(BluetoothSendDataType.descartesPosition, Arm.GetPosition(PositionType.Descartes));
+            Send(BluetoothSendDataType.descartesPosition,
+                 Arm.GetPosition(PositionType.Descartes));
         }
     }
 }

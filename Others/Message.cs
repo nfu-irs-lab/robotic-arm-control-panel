@@ -16,10 +16,40 @@ namespace HiwinRobot
         /// <summary>
         /// Show message.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        DialogResult Show();
+
+        /// <summary>
+        /// Show message.
+        /// </summary>
+        /// <param name="message"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        DialogResult Show(string message);
+
+        /// <summary>
+        /// Show message.
+        /// </summary>
+        /// <param name="ex"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        DialogResult Show(Exception ex);
+
+        /// <summary>
+        /// Show message.
+        /// </summary>
         /// <param name="message"></param>
         /// <param name="ex"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        void Show(string message, Exception ex = null);
+        DialogResult Show(string message, Exception ex);
+
+        /// <summary>
+        /// Show message.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="caption"></param>
+        /// <param name="buttons"></param>
+        /// <param name="icon"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        DialogResult Show(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon);
     }
 
     /// <summary>
@@ -27,10 +57,20 @@ namespace HiwinRobot
     /// </summary>
     public class EmptyMessage : IMessage
     {
-        public void Show(string message, Exception ex)
-        {
-            // Empty.
-        }
+        public DialogResult Show()
+            => DialogResult.None;
+
+        public DialogResult Show(string message)
+            => DialogResult.None;
+
+        public DialogResult Show(Exception ex)
+            => DialogResult.None;
+
+        public DialogResult Show(string message, Exception ex)
+            => DialogResult.None;
+
+        public DialogResult Show(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon)
+            => DialogResult.None;
     }
 
     /// <summary>
@@ -38,7 +78,43 @@ namespace HiwinRobot
     /// </summary>
     public class ErrorMessage : IMessage
     {
-        public void Show(string message = "Error.", Exception ex = null)
+        public DialogResult Show()
+        {
+            return MessageBox.Show("出現錯誤。",
+                             "錯誤！",
+                             MessageBoxButtons.OK,
+                             MessageBoxIcon.Error);
+        }
+
+        public DialogResult Show(string message)
+        {
+            return MessageBox.Show(message,
+                             "錯誤！",
+                             MessageBoxButtons.OK,
+                             MessageBoxIcon.Error);
+        }
+
+        public DialogResult Show(Exception ex)
+        {
+            string text = "出現錯誤。 \r\n\r\n";
+
+            if (ex != null)
+            {
+                text += $"{ex.Message} \r\n\r\n" +
+                        $"{ex.StackTrace}";
+            }
+            else
+            {
+                text += "null Exception.";
+            }
+
+            return MessageBox.Show(text,
+                               "錯誤！",
+                               MessageBoxButtons.OK,
+                               MessageBoxIcon.Error);
+        }
+
+        public DialogResult Show(string message, Exception ex)
         {
             string text = $"{message} \r\n\r\n";
 
@@ -47,8 +123,75 @@ namespace HiwinRobot
                 text += $"{ex.Message} \r\n\r\n" +
                         $"{ex.StackTrace}";
             }
+            else
+            {
+                text += "null Exception.";
+            }
 
-            MessageBox.Show(text, "錯誤！", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return MessageBox.Show(text,
+                            "錯誤！",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+        }
+
+        public DialogResult Show(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon)
+        {
+            return MessageBox.Show(text, caption, buttons, icon);
+        }
+    }
+
+    /// <summary>
+    /// 顯示一般訊息的訊息處理實作。
+    /// </summary>
+    public class NormalMessage : IMessage
+    {
+        public DialogResult Show()
+        {
+            return MessageBox.Show("!!");
+        }
+
+        public DialogResult Show(string message)
+        {
+            return MessageBox.Show(message);
+        }
+
+        public DialogResult Show(Exception ex)
+        {
+            string text = "";
+
+            if (ex != null)
+            {
+                text += $"{ex.Message} \r\n\r\n" +
+                        $"{ex.StackTrace}";
+            }
+            else
+            {
+                text += "null Exception.";
+            }
+
+            return MessageBox.Show(text);
+        }
+
+        public DialogResult Show(string message, Exception ex)
+        {
+            string text = $"{message} \r\n\r\n";
+
+            if (ex != null)
+            {
+                text += $"{ex.Message} \r\n\r\n" +
+                        $"{ex.StackTrace}";
+            }
+            else
+            {
+                text += "null Exception.";
+            }
+
+            return MessageBox.Show(text);
+        }
+
+        public DialogResult Show(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon)
+        {
+            return MessageBox.Show(text, caption, buttons, icon);
         }
     }
 }
