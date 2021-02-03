@@ -585,15 +585,20 @@ namespace HiwinRobot
 
         #region - Connect and Disconnect -
 
+        /// <summary>
+        /// 此 delegate 必須要是 static，否則手臂動作有可能會出現問題。
+        /// </summary>
+        private static HRobot.CallBackFun CallBackFun;
+
         public bool Connected { get; private set; } = false;
 
         public bool Connect()
         {
             //接收控制器回傳訊息
-            HRobot.CallBackFun callBack = new HRobot.CallBackFun(EventFun);
+            CallBackFun = new HRobot.CallBackFun(EventFun);
 
-            //連線設定。測試連線設定:("127.0.0.1", 1, CallBack);
-            Id = HRobot.open_connection(Ip, 1, callBack);
+            //連線設定。測試連線設定:("127.0.0.1", 1, CallBackFun);
+            Id = HRobot.open_connection(Ip, 1, CallBackFun);
             Thread.Sleep(500);
 
             //0 ~ 65535為有效裝置ID
