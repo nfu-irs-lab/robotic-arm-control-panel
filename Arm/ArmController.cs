@@ -322,17 +322,20 @@ namespace HiwinRobot
         public void GoHome(PositionType type = PositionType.Descartes,
                            bool waitForMotion = true)
         {
+            int returnCode;
             switch (type)
             {
                 case PositionType.Descartes:
-                    if ((HRobot.ptp_pos(Id, 1, DescartesHomePosition) >= 0) && waitForMotion)
+                    returnCode = HRobot.ptp_pos(Id, (int)SmoothType.Disable, DescartesHomePosition);
+                    if ((returnCode >= 0) && waitForMotion)
                     {
                         WaitForMotionComplete(DescartesHomePosition, type);
                     }
                     break;
 
                 case PositionType.Joint:
-                    if ((HRobot.ptp_axis(Id, 1, JointHomePosition) >= 0) && waitForMotion)
+                    returnCode = HRobot.ptp_axis(Id, (int)SmoothType.Disable, JointHomePosition);
+                    if ((returnCode >= 0) && waitForMotion)
                     {
                         WaitForMotionComplete(JointHomePosition, type);
                     }
