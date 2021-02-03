@@ -34,7 +34,7 @@ namespace HiwinRobot
             InitializeComponent();
             InitControlCollection();
 
-            Arm = new ArmController(Configuration.ArmIp, new ArmIntermediateLayer());
+            Arm = new ArmController(Configuration.ArmIp);
             Gripper = new GripperController(Configuration.GripperComPort);
             Bluetooth = new BluetoothArmController(Configuration.BluetoothComPort, Arm);
 
