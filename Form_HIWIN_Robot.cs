@@ -51,8 +51,8 @@ namespace HiwinRobot
             // 若要禁用某裝置，在下方將其所屬的「 Devices.Add(目標裝置); 」註解掉即可。
             Devices.Clear();
             Devices.Add(Arm);
-            Devices.Add(Gripper);
-            Devices.Add(Bluetooth);
+            //Devices.Add(Gripper);
+            //Devices.Add(Bluetooth);
         }
 
         #region - 手臂 -
@@ -365,11 +365,11 @@ namespace HiwinRobot
             {
                 if (radioButton_position_type_descartes.Checked)
                 {
-                    SetTargetPostion(new double[] { 0, 368, 294, 180, 0, 90 });
+                    SetTargetPostion(Arm.DescartesHomePosition);
                 }
                 else if (radioButton_position_type_joint.Checked)
                 {
-                    SetTargetPostion(new double[] { 0, 0, 0, 0, 0, 0 });
+                    SetTargetPostion(Arm.JointHomePosition);
                 }
             }
         }
