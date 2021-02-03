@@ -365,11 +365,11 @@ namespace HiwinRobot
             {
                 if (radioButton_position_type_descartes.Checked)
                 {
-                    SetTargetPostion(new double[] { 0, 368, 294, 180, 0, 90 });
+                    SetTargetPostion(Arm.DescartesHomePosition);
                 }
                 else if (radioButton_position_type_joint.Checked)
                 {
-                    SetTargetPostion(new double[] { 0, 0, 0, 0, 0, 0 });
+                    SetTargetPostion(Arm.JointHomePosition);
                 }
             }
         }
