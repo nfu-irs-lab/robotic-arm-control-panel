@@ -523,7 +523,7 @@ namespace HiwinRobot
                 UpdateNowPosition();
             }
 
-            LogHandler.Write("Connect", LoggingLevel.Trace);
+            LogHandler.Write(LoggingLevel.Trace, "Connect");
         }
 
         /// <summary>
@@ -538,7 +538,7 @@ namespace HiwinRobot
                 Devices[i].Disconnect();
             }
 
-            LogHandler.Write("Disconnect", LoggingLevel.Trace);
+            LogHandler.Write(LoggingLevel.Trace, "Disconnect");
         }
 
         #endregion - 連線與斷線 -

@@ -23,7 +23,9 @@ namespace HiwinRobot
     {
         string Path { get; set; }
 
-        void Write(string content, LoggingLevel loggingLevel);
+        void Write(LoggingLevel loggingLevel, string content);
+
+        void Write(LoggingLevel loggingLevel, Exception ex);
     }
 
     public class LogHandler : ILogHandler
@@ -44,7 +46,12 @@ namespace HiwinRobot
 
         public string Path { get; set; }
 
-        public void Write(string content, LoggingLevel loggingLevel)
+        public void Write(LoggingLevel loggingLevel, Exception ex)
+        {
+            Write(loggingLevel, $"{ex.Message}. {ex.StackTrace}");
+        }
+
+        public void Write(LoggingLevel loggingLevel, string content)
         {
             if (loggingLevel >= LoggingLevel)
             {
