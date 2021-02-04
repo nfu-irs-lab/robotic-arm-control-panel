@@ -7,11 +7,19 @@ using System.Threading.Tasks;
 
 namespace HiwinRobot
 {
+    public enum LoggingLevel
+    {
+        Trace = 0,
+        Info,
+        Warn,
+        Error
+    }
+
     public interface ILogHandler
     {
         string Path { get; set; }
 
-        void Write(string content, bool includeTimestamp = true);
+        void Write(string content, LoggingLevel loggingLevel);
     }
 
     public class LogHandler : ILogHandler
@@ -20,23 +28,30 @@ namespace HiwinRobot
 
         private string FileName;
 
-        public LogHandler(string path = "")
+        private LoggingLevel LoggingLevel;
+
+        public LogHandler(string path = "",
+                          LoggingLevel loggingLevel = LoggingLevel.Trace)
         {
             Path = path;
+            LoggingLevel = loggingLevel;
             CreateFile(DateTime.Now);
         }
 
         public string Path { get; set; }
 
-        public void Write(string content, bool includeTimestamp = true)
+        public void Write(string content, LoggingLevel loggingLevel)
         {
-            string text;
-            text = includeTimestamp ? DateTime.Now.ToString("HH:mm:ss-") : "";
-            text += content.Trim();
+            if (loggingLevel >= LoggingLevel)
+            {
+                string text = DateTime.Now.ToString("HH:mm:ss") +
+                              $"[{loggingLevel}]" +
+                              $"{content.Trim()}";
 
-            var file = MakeStreamWriter();
-            file.WriteLine(text);
-            file.Close();
+                var file = MakeStreamWriter();
+                file.WriteLine(text);
+                file.Close();
+            }
         }
 
         private void CreateFile(DateTime dateTime)
@@ -51,8 +66,10 @@ namespace HiwinRobot
             else
             {
                 FileName = targetFileName;
-                Write(dateTime.ToString("yyyy-MM-dd_HH:mm:ss\r\n---"),
-                      false);
+                var file = MakeStreamWriter();
+                file.WriteLine(
+                    dateTime.ToString("yyyy-MM-dd_HH:mm:ss\r\n---"));
+                file.Close();
             }
         }
 

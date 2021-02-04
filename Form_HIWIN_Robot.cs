@@ -38,7 +38,7 @@ namespace HiwinRobot
             Arm = new ArmController(Configuration.ArmIp);
             Gripper = new GripperController(Configuration.GripperComPort);
             Bluetooth = new BluetoothArmController(Configuration.BluetoothComPort, Arm);
-            LogHandler = new LogHandler(Configuration.LogFilePath);
+            LogHandler = new LogHandler(Configuration.LogFilePath, LoggingLevel.Trace);
 
 #if (DISABLE_SHOW_MESSAGE)
             Message = new EmptyMessage();
@@ -522,6 +522,8 @@ namespace HiwinRobot
                 Arm.Acceleration = GetAcceleration();
                 UpdateNowPosition();
             }
+
+            LogHandler.Write("Connect", LoggingLevel.Trace);
         }
 
         /// <summary>
@@ -535,6 +537,8 @@ namespace HiwinRobot
             {
                 Devices[i].Disconnect();
             }
+
+            LogHandler.Write("Disconnect", LoggingLevel.Trace);
         }
 
         #endregion - 連線與斷線 -
