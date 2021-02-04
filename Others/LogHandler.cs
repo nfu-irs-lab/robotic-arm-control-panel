@@ -17,7 +17,7 @@ namespace HiwinRobot
         Info,
         Warn,
         Error,
-        Fatal
+        Fatal = 99
     }
 
     public interface ILogHandler
