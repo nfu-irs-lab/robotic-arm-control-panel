@@ -31,7 +31,7 @@ namespace HiwinRobot
         public void Write(string content, bool includeTimestamp = true)
         {
             string text;
-            text = includeTimestamp ? DateTime.Now.ToString("HH:mm:ss") + "-" : "";
+            text = includeTimestamp ? DateTime.Now.ToString("HH:mm:ss-") : "";
             text += content.Trim();
 
             var file = MakeStreamWriter();
