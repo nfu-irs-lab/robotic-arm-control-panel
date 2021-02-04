@@ -47,10 +47,7 @@ namespace HiwinRobot
             else
             {
                 FileName = targetFileName;
-                var file = MakeStreamWriter();
-                file.WriteLine(
-                    dateTime.ToString("yyyy-MM-dd_HH:mm:ss") + "\r\n-----");
-                file.Close();
+                Write(dateTime.ToString("yyyy-MM-dd_HH:mm:ss") + "\r\n-----");
             }
         }
 
