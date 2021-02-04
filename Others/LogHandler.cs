@@ -16,7 +16,8 @@ namespace HiwinRobot
         Trace = 0,
         Info,
         Warn,
-        Error
+        Error,
+        Fatal
     }
 
     public interface ILogHandler
