@@ -79,8 +79,8 @@ namespace HiwinRobot
             {
                 FileName = targetFileName;
                 var file = MakeStreamWriter();
-                file.WriteLine(
-                    dateTime.ToString("yyyy-MM-dd_HH:mm:ss\r\n---"));
+                file.WriteLine(dateTime.ToString("yyyy-MM-dd_HH:mm:ss") +
+                               $"  LogLv: {LoggingLevel}\r\n---");
                 file.Close();
             }
         }
