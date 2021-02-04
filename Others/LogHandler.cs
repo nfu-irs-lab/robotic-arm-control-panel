@@ -51,7 +51,7 @@ namespace HiwinRobot
             else
             {
                 FileName = targetFileName;
-                Write(dateTime.ToString("yyyy-MM-dd_HH:mm:ss") + "\r\n-----",
+                Write(dateTime.ToString("yyyy-MM-dd_HH:mm:ss\r\n---"),
                       false);
             }
         }
