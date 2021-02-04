@@ -269,10 +269,19 @@ namespace HiwinRobot
         {
             get
             {
-                int acc = HRobot.get_acc_dec_ratio(Id);
-                if (acc == -1)
+                int acc;
+                if (Connected)
                 {
-                    Message.Show("取得手臂加速度時出錯。", LoggingLevel.Error);
+                    acc = HRobot.get_acc_dec_ratio(Id);
+                    if (acc == -1)
+                    {
+                        Message.Show("取得手臂加速度時出錯。", LoggingLevel.Error);
+                    }
+                }
+                else
+                {
+                    acc = -1;
+                    Message.Show("手臂未連線。", LoggingLevel.Info);
                 }
                 return acc;
             }
@@ -285,10 +294,17 @@ namespace HiwinRobot
                 }
                 else
                 {
-                    int retuenCode = HRobot.set_acc_dec_ratio(Id, value);
+                    if (Connected)
+                    {
+                        int retuenCode = HRobot.set_acc_dec_ratio(Id, value);
 
-                    //執行HRobot.set_acc_dec_ratio時會固定回傳錯誤代碼4000
-                    IsErrorAndHandler(retuenCode, 4000);
+                        //執行HRobot.set_acc_dec_ratio時會固定回傳錯誤代碼4000
+                        IsErrorAndHandler(retuenCode, 4000);
+                    }
+                    else
+                    {
+                        Message.Show("手臂未連線。", LoggingLevel.Info);
+                    }
                 }
             }
         }
@@ -297,10 +313,19 @@ namespace HiwinRobot
         {
             get
             {
-                int speed = HRobot.get_override_ratio(Id);
-                if (speed == -1)
+                int speed;
+                if (Connected)
                 {
-                    Message.Show("取得手臂速度時出錯。", LoggingLevel.Error);
+                    speed = HRobot.get_override_ratio(Id);
+                    if (speed == -1)
+                    {
+                        Message.Show("取得手臂速度時出錯。", LoggingLevel.Error);
+                    }
+                }
+                else
+                {
+                    speed = -1;
+                    Message.Show("手臂未連線。", LoggingLevel.Info);
                 }
                 return speed;
             }
@@ -313,8 +338,15 @@ namespace HiwinRobot
                 }
                 else
                 {
-                    int retuenCode = HRobot.set_override_ratio(Id, value);
-                    IsErrorAndHandler(retuenCode);
+                    if (Connected)
+                    {
+                        int retuenCode = HRobot.set_override_ratio(Id, value);
+                        IsErrorAndHandler(retuenCode);
+                    }
+                    else
+                    {
+                        Message.Show("手臂未連線。", LoggingLevel.Info);
+                    }
                 }
             }
         }
