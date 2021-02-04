@@ -11,7 +11,7 @@ namespace HiwinRobot
     {
         string Path { get; set; }
 
-        void Write(string content);
+        void Write(string content, bool includeTimestamp = true);
     }
 
     public class LogHandler : ILogHandler
@@ -28,10 +28,14 @@ namespace HiwinRobot
 
         public string Path { get; set; }
 
-        public void Write(string content)
+        public void Write(string content, bool includeTimestamp = true)
         {
+            string text;
+            text = includeTimestamp ? DateTime.Now.ToString("HH:mm:ss") + "-" : "";
+            text += content.Trim();
+
             var file = MakeStreamWriter();
-            file.WriteLine(content.Trim());
+            file.WriteLine(text);
             file.Close();
         }
 
@@ -47,7 +51,8 @@ namespace HiwinRobot
             else
             {
                 FileName = targetFileName;
-                Write(dateTime.ToString("yyyy-MM-dd_HH:mm:ss") + "\r\n-----");
+                Write(dateTime.ToString("yyyy-MM-dd_HH:mm:ss") + "\r\n-----",
+                      false);
             }
         }
 
