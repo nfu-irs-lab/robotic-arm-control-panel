@@ -251,21 +251,21 @@ namespace HiwinRobot
             {
                 case "xr":
                     value = Convert.ToDouble(data.Split('r')[1]);
-                    Arm.MotionLinear(new double[] { value, 0, 0, 0, 0, 0 },
+                    Arm.MoveLinear(new double[] { value, 0, 0, 0, 0, 0 },
                                         PositionType.Descartes,
                                         CoordinateType.Relative);
                     break;
 
                 case "yr":
                     value = Convert.ToDouble(data.Split('r')[1]);
-                    Arm.MotionLinear(new double[] { 0, value, 0, 0, 0, 0 },
+                    Arm.MoveLinear(new double[] { 0, value, 0, 0, 0, 0 },
                                         PositionType.Descartes,
                                         CoordinateType.Relative);
                     break;
 
                 case "zr":
                     value = Convert.ToDouble(data.Split('r')[1]);
-                    Arm.MotionLinear(new double[] { 0, 0, value, 0, 0, 0 },
+                    Arm.MoveLinear(new double[] { 0, 0, value, 0, 0, 0 },
                                         PositionType.Descartes,
                                         CoordinateType.Relative);
                     break;

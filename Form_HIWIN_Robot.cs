@@ -230,11 +230,11 @@ namespace HiwinRobot
             switch (GetMotionType())
             {
                 case MotionType.Linear:
-                    Arm.MotionLinear(GetTargetPostion(), GetPositinoType(), GetCoordinateType());
+                    Arm.MoveLinear(GetTargetPostion(), GetPositinoType(), GetCoordinateType());
                     break;
 
                 case MotionType.PointToPoint:
-                    Arm.MotionPointToPoint(GetTargetPostion(), GetPositinoType(), GetCoordinateType());
+                    Arm.MovePointToPoint(GetTargetPostion(), GetPositinoType(), GetCoordinateType());
                     break;
 
                 default:
@@ -259,7 +259,7 @@ namespace HiwinRobot
 
                 Thread.Sleep(300);
 
-                Arm.GoHome(GetPositinoType(), true);
+                Arm.Homing(GetPositinoType(), true);
                 UpdateNowPosition();
 
                 Arm.Speed = GetSpeed();
@@ -267,7 +267,7 @@ namespace HiwinRobot
             }
             else
             {
-                Arm.GoHome(GetPositinoType(), true);
+                Arm.Homing(GetPositinoType(), true);
                 UpdateNowPosition();
             }
         }

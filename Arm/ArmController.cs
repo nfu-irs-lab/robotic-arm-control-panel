@@ -169,7 +169,7 @@ namespace HiwinRobot
         /// 回到指定座標系的原點。預設爲笛卡爾。
         /// </summary>
         /// <param name="positionType"></param>
-        void GoHome(PositionType positionType = PositionType.Descartes,
+        void Homing(PositionType positionType = PositionType.Descartes,
                     bool waitForMotion = true);
 
         /// <summary>
@@ -187,7 +187,7 @@ namespace HiwinRobot
         /// <param name="smoothType"></param>
         /// <param name="smoothValue"></param>
         /// <param name="waitForMotion"></param>
-        void MotionLinear(double[] targetPosition,
+        void MoveLinear(double[] targetPosition,
                           PositionType positionType = PositionType.Descartes,
                           CoordinateType coordinateType = CoordinateType.Absolute,
                           SmoothType smoothType = SmoothType.TwoLinesSpeedSmooth,
@@ -207,7 +207,7 @@ namespace HiwinRobot
         /// <param name="coordinateType"></param>
         /// <param name="smoothType"></param>
         /// <param name="waitForMotion"></param>
-        void MotionPointToPoint(double[] targetPosition,
+        void MovePointToPoint(double[] targetPosition,
                                 PositionType positionType = PositionType.Descartes,
                                 CoordinateType coordinateType = CoordinateType.Absolute,
                                 SmoothType smoothType = SmoothType.TwoLinesSpeedSmooth,
@@ -355,7 +355,7 @@ namespace HiwinRobot
 
         #region - Motion -
 
-        public void GoHome(PositionType type = PositionType.Descartes,
+        public void Homing(PositionType type = PositionType.Descartes,
                            bool waitForMotion = true)
         {
             LogHandler.Write(LoggingLevel.Trace, "Arm-Homing");
@@ -384,8 +384,8 @@ namespace HiwinRobot
             }
         }
 
-        public void MotionLinear(double[] targetPosition,
-                                 PositionType positionType = PositionType.Descartes,
+        public void MoveLinear(double[] targetPosition,
+                                         PositionType positionType = PositionType.Descartes,
                                  CoordinateType coordinateType = CoordinateType.Absolute,
                                  SmoothType smoothType = SmoothType.TwoLinesSpeedSmooth,
                                  double smoothValue = 50,
@@ -457,8 +457,8 @@ namespace HiwinRobot
             }
         }
 
-        public void MotionPointToPoint(double[] targetPosition,
-                                       PositionType positionType = PositionType.Descartes,
+        public void MovePointToPoint(double[] targetPosition,
+                                               PositionType positionType = PositionType.Descartes,
                                        CoordinateType coordinateType = CoordinateType.Absolute,
                                        SmoothType smoothType = SmoothType.TwoLinesSpeedSmooth,
                                        bool waitForMotion = true)
