@@ -355,18 +355,18 @@ namespace HiwinRobot
 
         #region - Motion -
 
-        public void Homing(PositionType type = PositionType.Descartes,
+        public void Homing(PositionType positionType = PositionType.Descartes,
                            bool waitForMotion = true)
         {
-            LogHandler.Write(LoggingLevel.Trace, "Arm-Homing");
+            LogHandler.Write(LoggingLevel.Trace, $"Arm-Homing, {positionType}");
             int returnCode;
-            switch (type)
+            switch (positionType)
             {
                 case PositionType.Descartes:
                     returnCode = HRobot.ptp_pos(Id, (int)SmoothType.Disable, DescartesHomePosition);
                     if ((returnCode >= 0) && waitForMotion)
                     {
-                        WaitForMotionComplete(DescartesHomePosition, type);
+                        WaitForMotionComplete(DescartesHomePosition, positionType);
                     }
                     break;
 
@@ -374,7 +374,7 @@ namespace HiwinRobot
                     returnCode = HRobot.ptp_axis(Id, (int)SmoothType.Disable, JointHomePosition);
                     if ((returnCode >= 0) && waitForMotion)
                     {
-                        WaitForMotionComplete(JointHomePosition, type);
+                        WaitForMotionComplete(JointHomePosition, positionType);
                     }
                     break;
 
@@ -391,7 +391,8 @@ namespace HiwinRobot
                                  double smoothValue = 50,
                                  bool waitForMotion = true)
         {
-            LogHandler.Write(LoggingLevel.Trace, $"Arm-Linear: {GetTextPositin(targetPosition)}");
+            LogHandler.Write(LoggingLevel.Trace,
+                             $"Arm-Linear: {GetTextPositin(targetPosition)}, {positionType}");
             int retuenCode = 0;
 
 #if (USE_SDK_RELATIVE)
@@ -463,7 +464,8 @@ namespace HiwinRobot
                                        SmoothType smoothType = SmoothType.TwoLinesSpeedSmooth,
                                        bool waitForMotion = true)
         {
-            LogHandler.Write(LoggingLevel.Trace, $"Arm-PointToPoint: {GetTextPositin(targetPosition)}");
+            LogHandler.Write(LoggingLevel.Trace,
+                             $"Arm-PointToPoint: {GetTextPositin(targetPosition)}, {positionType}");
             int retuenCode = 0;
             int smoothTypeCode = (smoothType == SmoothType.TwoLinesSpeedSmooth) ? 1 : 0;
 
