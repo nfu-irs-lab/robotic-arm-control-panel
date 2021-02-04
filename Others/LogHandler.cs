@@ -91,7 +91,15 @@ namespace HiwinRobot
         /// <returns></returns>
         private StreamWriter MakeStreamWriter()
         {
-            return File.AppendText(Path + FileName);
+            try
+            {
+                return File.AppendText(Path + FileName);
+            }
+            catch (DirectoryNotFoundException)
+            {
+                Directory.CreateDirectory(Path);
+                return File.AppendText(Path + FileName);
+            }
         }
     }
 }
