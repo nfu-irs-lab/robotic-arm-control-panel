@@ -55,6 +55,8 @@ namespace HiwinRobot
             Devices.Add(Arm);
             //Devices.Add(Gripper);
             //Devices.Add(Bluetooth);
+
+            SetButtonsState(false);
         }
 
         #region - 手臂 -
@@ -166,6 +168,13 @@ namespace HiwinRobot
             NowPosition.Add(this.textBox_arm_now_position_j4a);
             NowPosition.Add(this.textBox_arm_now_position_j5b);
             NowPosition.Add(this.textBox_arm_now_position_j6c);
+
+            Buttons.Clear();
+            Buttons.Add(this.button_arm_to_zero);
+            Buttons.Add(this.button_arm_clear_alarm);
+            Buttons.Add(this.button_update_now_position);
+            Buttons.Add(this.button_arm_motion_start);
+            Buttons.Add(this.button_set_speed_acceleration);
         }
 
         /// <summary>
@@ -534,6 +543,8 @@ namespace HiwinRobot
                 Arm.Speed = GetSpeed();
                 Arm.Acceleration = GetAcceleration();
                 UpdateNowPosition();
+
+                SetButtonsState(true);
             }
         }
 
@@ -550,11 +561,18 @@ namespace HiwinRobot
             {
                 Devices[i].Disconnect();
             }
+
+            SetButtonsState(false);
         }
 
         #endregion - 連線與斷線 -
 
         #region - 其它 -
+
+        /// <summary>
+        /// 未連線時禁用的按鈕組。
+        /// </summary>
+        private List<Button> Buttons = new List<Button>();
 
         /// <summary>
         /// 視窗關閉事件。
@@ -734,6 +752,14 @@ namespace HiwinRobot
                     break;
             }
 #endif
+        }
+
+        private void SetButtonsState(bool enableButtons)
+        {
+            for (int i = 0; i < Buttons.Count; i++)
+            {
+                Buttons[i].Enabled = enableButtons;
+            }
         }
 
         #endregion - 其它 -
