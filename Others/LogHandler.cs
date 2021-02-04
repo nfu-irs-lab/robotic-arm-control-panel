@@ -57,7 +57,7 @@ namespace HiwinRobot
             {
                 string text = DateTime.Now.ToString("HH:mm:ss") +
                               $"[{loggingLevel}]" +
-                              $"{content.Trim()}";
+                              $"{content.Replace("\r", "").Replace("\n", "").Trim()}";
 
                 var file = MakeStreamWriter();
                 file.WriteLine(text);
