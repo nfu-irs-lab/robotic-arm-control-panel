@@ -36,6 +36,10 @@ namespace HiwinRobot
 #elif (CONFIG_2)
             "COM3";
 
+#else
+            "COM2";
+#endif
+
         /// <summary>
         /// 夾爪連線COM Port。<br/>
         /// 設定錯誤將會無法連線。
@@ -45,6 +49,10 @@ namespace HiwinRobot
             "COM12";
 #elif (CONFIG_2)
             "COM12";
+
+#else
+            "COM1";
+#endif
 
         /// <summary>
         /// Log 檔案儲存路徑。
@@ -57,12 +65,6 @@ namespace HiwinRobot
 
 #else
             "";
-#endif
-#else
-            "COM2";
-#endif
-#else
-            "COM1";
 #endif
     }
 }
