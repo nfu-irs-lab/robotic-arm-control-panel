@@ -358,7 +358,7 @@ namespace HiwinRobot
         public void GoHome(PositionType type = PositionType.Descartes,
                            bool waitForMotion = true)
         {
-            LogHandler.Write(LoggingLevel.Trace, "GoHome");
+            LogHandler.Write(LoggingLevel.Trace, "Arm-Homing");
             int returnCode;
             switch (type)
             {
