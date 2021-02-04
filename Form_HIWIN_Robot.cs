@@ -27,6 +27,7 @@ namespace HiwinRobot
         /// </summary>
         private List<IDevice> Devices = new List<IDevice>();
 
+        private ILogHandler LogHandler = null;
         private IMessage Message = null;
 
         public Form_HIWIN_Robot()
@@ -37,7 +38,7 @@ namespace HiwinRobot
             Arm = new ArmController(Configuration.ArmIp);
             Gripper = new GripperController(Configuration.GripperComPort);
             Bluetooth = new BluetoothArmController(Configuration.BluetoothComPort, Arm);
-            ILogHandler logHandler = new LogHandler();
+            LogHandler = new LogHandler();
 
 #if (DISABLE_SHOW_MESSAGE)
             Message = new EmptyMessage();
