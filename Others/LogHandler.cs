@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace HiwinRobot
 {
+    /// <summary>
+    /// 日誌等級。<br/>
+    /// 數值越大表示越嚴重。
+    /// </summary>
     public enum LoggingLevel
     {
         Trace = 0,
