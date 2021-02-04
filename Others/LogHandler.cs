@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HiwinRobot.Others
+namespace HiwinRobot
 {
     public interface ILogHandler
     {
@@ -20,16 +20,10 @@ namespace HiwinRobot.Others
 
         private string FileName;
 
-        public LogHandler()
-        {
-            Path = "";
-            CreateFile(new DateTime());
-        }
-
-        public LogHandler(string path)
+        public LogHandler(string path = "")
         {
             Path = path;
-            CreateFile(new DateTime());
+            CreateFile(DateTime.Now);
         }
 
         public string Path { get; set; }
@@ -43,7 +37,7 @@ namespace HiwinRobot.Others
 
         private void CreateFile(DateTime dateTime)
         {
-            string targetFileName = $"{dateTime.ToString("MMM")}{dateTime.Date}_{Count}.log";
+            string targetFileName = $"{dateTime.ToString("MMMdd")}_{Count}.log";
 
             if (File.Exists(Path + targetFileName))
             {
