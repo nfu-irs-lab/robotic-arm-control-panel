@@ -45,6 +45,11 @@ namespace HiwinRobot
             CreateFile(DateTime.Now);
         }
 
+        ~LogHandler()
+        {
+            Write(LoggingLevel.Trace, "LogHandler Destruct.");
+        }
+
         public string Path { get; set; }
 
         public void Write(LoggingLevel loggingLevel, Exception ex)
