@@ -358,7 +358,7 @@ namespace HiwinRobot
         public void Homing(PositionType positionType = PositionType.Descartes,
                            bool waitForMotion = true)
         {
-            LogHandler.Write(LoggingLevel.Trace, $"Arm-Homing, {positionType}");
+            LogHandler.Write(LoggingLevel.Trace, $"Arm-Homing. {positionType}");
             int returnCode;
             switch (positionType)
             {
@@ -392,7 +392,7 @@ namespace HiwinRobot
                                  bool waitForMotion = true)
         {
             LogHandler.Write(LoggingLevel.Trace,
-                             $"Arm-Linear: {GetTextPositin(targetPosition)}, {positionType}");
+                             $"Arm-Linear: {GetTextPositin(targetPosition)}. {positionType}");
             int retuenCode = 0;
 
 #if (USE_SDK_RELATIVE)
@@ -465,7 +465,7 @@ namespace HiwinRobot
                                        bool waitForMotion = true)
         {
             LogHandler.Write(LoggingLevel.Trace,
-                             $"Arm-PointToPoint: {GetTextPositin(targetPosition)}, {positionType}");
+                             $"Arm-PointToPoint: {GetTextPositin(targetPosition)}. {positionType}");
             int retuenCode = 0;
             int smoothTypeCode = (smoothType == SmoothType.TwoLinesSpeedSmooth) ? 1 : 0;
 
@@ -554,12 +554,14 @@ namespace HiwinRobot
 
         private string GetTextPositin(double[] position)
         {
-            string stringPos = "";
+            string stringPos = "\"";
             foreach (double val in position)
             {
-                stringPos += val.ToString() + " , ";
+                stringPos += val.ToString() + ",";
             }
-            return stringPos.TrimEnd(new char[] { ' ', ',' });
+            stringPos = stringPos.TrimEnd(new char[] { ' ', ',' });
+            stringPos += "\"";
+            return stringPos;
         }
 
         /// <summary>
