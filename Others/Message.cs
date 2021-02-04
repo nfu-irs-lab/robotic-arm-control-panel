@@ -147,6 +147,7 @@ namespace HiwinRobot
 
         public DialogResult Show(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon)
         {
+            LogHandler.Write(LoggingLevel.Trace, $"{caption}: {text}");
             return MessageBox.Show(text, caption, buttons, icon);
         }
     }
