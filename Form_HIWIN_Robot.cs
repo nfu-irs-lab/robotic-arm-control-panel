@@ -107,6 +107,17 @@ namespace HiwinRobot
                     position[i] = Convert.ToDouble(NowPosition[i].Text);
                 }
             }
+            catch (FormatException)
+            {
+                if (GetPositinoType() == PositionType.Descartes)
+                {
+                    position = Arm.DescartesHomePosition;
+                }
+                else
+                {
+                    position = Arm.JointHomePosition;
+                }
+            }
             catch (Exception ex)
             {
                 Message.Show(ex, LoggingLevel.Error);
