@@ -238,10 +238,14 @@ namespace HiwinRobot
     /// </summary>
     public class ArmController : IArmController
     {
-        public ArmController(string armIp)
+        private ILogHandler LogHandler = null;
+
+        public ArmController(string armIp, ILogHandler logHandler)
         {
             Ip = armIp;
             Id = 0;
+            LogHandler = logHandler;
+            Message = new ErrorMessage(logHandler);
 
 #if (!USE_MOTION_STATE_WAIT)
             InitTimer();
@@ -250,7 +254,7 @@ namespace HiwinRobot
 
         public int Id { get; set; }
         public string Ip { get; set; }
-        public IMessage Message { get; set; } = new ErrorMessage();
+        public IMessage Message { get; set; }
 
         #region - Default Position -
 

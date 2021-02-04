@@ -78,8 +78,16 @@ namespace HiwinRobot
     /// </summary>
     public class ErrorMessage : IMessage
     {
+        private ILogHandler LogHandler = null;
+
+        public ErrorMessage(ILogHandler logHandler)
+        {
+            LogHandler = logHandler;
+        }
+
         public DialogResult Show()
         {
+            LogHandler.Write(LoggingLevel.Trace, "出現錯誤");
             return MessageBox.Show("出現錯誤。",
                              "錯誤！",
                              MessageBoxButtons.OK,
@@ -88,6 +96,7 @@ namespace HiwinRobot
 
         public DialogResult Show(string message)
         {
+            LogHandler.Write(LoggingLevel.Trace, message);
             return MessageBox.Show(message,
                              "錯誤！",
                              MessageBoxButtons.OK,
@@ -108,6 +117,7 @@ namespace HiwinRobot
                 text += "null Exception.";
             }
 
+            LogHandler.Write(LoggingLevel.Trace, text);
             return MessageBox.Show(text,
                                "錯誤！",
                                MessageBoxButtons.OK,
@@ -128,6 +138,7 @@ namespace HiwinRobot
                 text += "null Exception.";
             }
 
+            LogHandler.Write(LoggingLevel.Trace, text);
             return MessageBox.Show(text,
                             "錯誤！",
                             MessageBoxButtons.OK,

@@ -35,10 +35,10 @@ namespace HiwinRobot
             InitializeComponent();
             InitControlCollection();
 
-            Arm = new ArmController(Configuration.ArmIp);
-            Gripper = new GripperController(Configuration.GripperComPort);
-            Bluetooth = new BluetoothArmController(Configuration.BluetoothComPort, Arm);
             LogHandler = new LogHandler(Configuration.LogFilePath, LoggingLevel.Trace);
+            Arm = new ArmController(Configuration.ArmIp, LogHandler);
+            Gripper = new GripperController(Configuration.GripperComPort, LogHandler);
+            Bluetooth = new BluetoothArmController(Configuration.BluetoothComPort, Arm, LogHandler);
 
 #if (DISABLE_SHOW_MESSAGE)
             Message = new EmptyMessage();
@@ -46,7 +46,7 @@ namespace HiwinRobot
             Bluetooth.Message = new EmptyMessage();
             Gripper.Message = new EmptyMessage();
 #else
-            Message = new ErrorMessage();
+            Message = new ErrorMessage(LogHandler);
 #endif
 
             // 組織連線裝置組。加入的順序就是連線/斷線的順序。

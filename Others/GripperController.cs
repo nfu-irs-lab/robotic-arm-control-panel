@@ -41,7 +41,7 @@ namespace HiwinRobot
 
         private ISerialPortDevice SerialPortDevice = null;
 
-        public GripperController(string comPort)
+        public GripperController(string comPort, ILogHandler logHandler)
         {
             SerialPortDevice = new SerialPortDevice(
                 new SerialPort()
@@ -49,9 +49,10 @@ namespace HiwinRobot
                     PortName = comPort,
                     BaudRate = 115200,
                     DataBits = 8
-                });
+                },
+                logHandler);
 
-            Message = new ErrorMessage();
+            Message = new ErrorMessage(logHandler);
         }
 
         public bool Connected
