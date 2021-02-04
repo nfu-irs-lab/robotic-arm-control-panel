@@ -326,6 +326,7 @@ namespace HiwinRobot
         public void GoHome(PositionType type = PositionType.Descartes,
                            bool waitForMotion = true)
         {
+            LogHandler.Write(LoggingLevel.Trace, "GoHome");
             int returnCode;
             switch (type)
             {
@@ -358,6 +359,7 @@ namespace HiwinRobot
                                  double smoothValue = 50,
                                  bool waitForMotion = true)
         {
+            LogHandler.Write(LoggingLevel.Trace, $"Arm-Linear: {targetPosition}");
             int retuenCode = 0;
 
 #if (USE_SDK_RELATIVE)
@@ -429,6 +431,7 @@ namespace HiwinRobot
                                        SmoothType smoothType = SmoothType.TwoLinesSpeedSmooth,
                                        bool waitForMotion = true)
         {
+            LogHandler.Write(LoggingLevel.Trace, $"Arm-PointToPoint: {targetPosition}");
             int retuenCode = 0;
             int smoothTypeCode = (smoothType == SmoothType.TwoLinesSpeedSmooth) ? 1 : 0;
 
