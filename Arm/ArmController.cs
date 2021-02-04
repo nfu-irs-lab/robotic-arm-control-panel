@@ -391,7 +391,7 @@ namespace HiwinRobot
                                  double smoothValue = 50,
                                  bool waitForMotion = true)
         {
-            LogHandler.Write(LoggingLevel.Trace, $"Arm-Linear: {targetPosition.GetValue(6)}");
+            LogHandler.Write(LoggingLevel.Trace, $"Arm-Linear: {GetTextPositin(targetPosition)}");
             int retuenCode = 0;
 
 #if (USE_SDK_RELATIVE)
@@ -557,8 +557,7 @@ namespace HiwinRobot
             {
                 stringPos += val.ToString() + " , ";
             }
-            stringPos.Remove((stringPos.Length - 3), 3);
-            return stringPos;
+            return stringPos.TrimEnd(new char[] { ' ', ',' });
         }
 
         /// <summary>
