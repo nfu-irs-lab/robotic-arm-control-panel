@@ -46,7 +46,7 @@ namespace HiwinRobot
             Bluetooth.Message = new EmptyMessage();
             Gripper.Message = new EmptyMessage();
 #else
-            Message = new ErrorMessage(LogHandler);
+            Message = new NormalMessage(LogHandler);
 #endif
 
             // 組織連線裝置組。加入的順序就是連線/斷線的順序。
@@ -109,7 +109,7 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                Message.Show(ex);
+                Message.Show(ex, LoggingLevel.Error);
             }
             return position;
         }
@@ -130,7 +130,7 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                Message.Show(ex);
+                Message.Show(ex, LoggingLevel.Error);
             }
             return position;
         }
@@ -184,7 +184,7 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                Message.Show(ex);
+                Message.Show(ex, LoggingLevel.Error);
             }
         }
 
@@ -218,7 +218,7 @@ namespace HiwinRobot
                     break;
 
                 default:
-                    Message.Show("未知的運動類型。");
+                    Message.Show("未知的運動類型。", LoggingLevel.Warn);
                     break;
             }
 
@@ -434,7 +434,7 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                Message.Show(ex);
+                Message.Show(ex, LoggingLevel.Error);
             }
             return value;
         }
@@ -452,7 +452,7 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                Message.Show(ex);
+                Message.Show(ex, LoggingLevel.Error);
             }
             return value;
         }
@@ -511,6 +511,8 @@ namespace HiwinRobot
         /// <param name="e"></param>
         private void button_connect_Click(object sender, EventArgs e)
         {
+            LogHandler.Write(LoggingLevel.Trace, "Connect");
+
             for (int i = 0; i < Devices.Count; i++)
             {
                 Devices[i].Connect();
@@ -522,8 +524,6 @@ namespace HiwinRobot
                 Arm.Acceleration = GetAcceleration();
                 UpdateNowPosition();
             }
-
-            LogHandler.Write(LoggingLevel.Trace, "Connect");
         }
 
         /// <summary>
@@ -533,12 +533,12 @@ namespace HiwinRobot
         /// <param name="e"></param>
         private void button_disconnect_Click(object sender, EventArgs e)
         {
+            LogHandler.Write(LoggingLevel.Trace, "Disconnect");
+
             for (int i = 0; i < Devices.Count; i++)
             {
                 Devices[i].Disconnect();
             }
-
-            LogHandler.Write(LoggingLevel.Trace, "Disconnect");
         }
 
         #endregion - 連線與斷線 -
@@ -559,7 +559,8 @@ namespace HiwinRobot
                         "手臂或其它裝置似乎還在連線中。\r\n是否要斷開連線後關閉視窗？",
                         "關閉視窗",
                         MessageBoxButtons.YesNoCancel,
-                        MessageBoxIcon.Warning);
+                        MessageBoxIcon.Warning,
+                        LoggingLevel.Warn);
 
                     if (dr == DialogResult.Yes)
                     {

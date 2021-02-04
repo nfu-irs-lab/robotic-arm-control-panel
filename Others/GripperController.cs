@@ -52,7 +52,7 @@ namespace HiwinRobot
                 },
                 logHandler);
 
-            Message = new ErrorMessage(logHandler);
+            Message = new NormalMessage(logHandler);
         }
 
         public bool Connected
@@ -136,7 +136,7 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                _Message.Show("Gripper Error.", ex);
+                _Message.Show("Gripper Error.", ex, LoggingLevel.Error);
                 return "";
             }
         }
@@ -183,7 +183,7 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                _Message.Show("Gripper Error.", ex);
+                _Message.Show("Gripper Error.", ex, LoggingLevel.Error);
                 return "";
             }
         }

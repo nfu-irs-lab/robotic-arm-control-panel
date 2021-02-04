@@ -16,22 +16,18 @@ namespace HiwinRobot
         /// <summary>
         /// Show message.
         /// </summary>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        DialogResult Show();
-
-        /// <summary>
-        /// Show message.
-        /// </summary>
         /// <param name="message"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        DialogResult Show(string message);
+        DialogResult Show(string message,
+                          LoggingLevel loggingLevel = LoggingLevel.Trace);
 
         /// <summary>
         /// Show message.
         /// </summary>
         /// <param name="ex"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        DialogResult Show(Exception ex);
+        DialogResult Show(Exception ex,
+                          LoggingLevel loggingLevel = LoggingLevel.Trace);
 
         /// <summary>
         /// Show message.
@@ -39,7 +35,9 @@ namespace HiwinRobot
         /// <param name="message"></param>
         /// <param name="ex"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        DialogResult Show(string message, Exception ex);
+        DialogResult Show(string message,
+                          Exception ex,
+                          LoggingLevel loggingLevel = LoggingLevel.Trace);
 
         /// <summary>
         /// Show message.
@@ -49,7 +47,11 @@ namespace HiwinRobot
         /// <param name="buttons"></param>
         /// <param name="icon"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        DialogResult Show(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon);
+        DialogResult Show(string text,
+                          string caption,
+                          MessageBoxButtons buttons,
+                          MessageBoxIcon icon,
+                          LoggingLevel loggingLevel = LoggingLevel.Trace);
     }
 
     /// <summary>
@@ -57,55 +59,45 @@ namespace HiwinRobot
     /// </summary>
     public class EmptyMessage : IMessage
     {
-        public DialogResult Show()
+        public DialogResult Show(string message, LoggingLevel loggingLevel = LoggingLevel.Trace)
             => DialogResult.None;
 
-        public DialogResult Show(string message)
+        public DialogResult Show(Exception ex, LoggingLevel loggingLevel = LoggingLevel.Trace)
             => DialogResult.None;
 
-        public DialogResult Show(Exception ex)
+        public DialogResult Show(string message, Exception ex, LoggingLevel loggingLevel = LoggingLevel.Trace)
             => DialogResult.None;
 
-        public DialogResult Show(string message, Exception ex)
-            => DialogResult.None;
-
-        public DialogResult Show(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon)
+        public DialogResult Show(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon, LoggingLevel loggingLevel = LoggingLevel.Trace)
             => DialogResult.None;
     }
 
     /// <summary>
-    /// 顯示錯誤訊息的訊息處理實作。
+    /// 顯示訊息及記錄 Log 檔案的訊息處理實作。
     /// </summary>
-    public class ErrorMessage : IMessage
+    public class NormalMessage : IMessage
     {
         private ILogHandler LogHandler = null;
 
-        public ErrorMessage(ILogHandler logHandler)
+        public NormalMessage(ILogHandler logHandler)
         {
             LogHandler = logHandler;
         }
 
-        public DialogResult Show()
+        public DialogResult Show(string message,
+                                 LoggingLevel loggingLevel = LoggingLevel.Trace)
         {
-            LogHandler.Write(LoggingLevel.Trace, "出現錯誤");
-            return MessageBox.Show("出現錯誤。",
-                             "錯誤！",
-                             MessageBoxButtons.OK,
-                             MessageBoxIcon.Error);
-        }
-
-        public DialogResult Show(string message)
-        {
-            LogHandler.Write(LoggingLevel.Trace, message);
+            LogHandler.Write(loggingLevel, message);
             return MessageBox.Show(message,
-                             "錯誤！",
-                             MessageBoxButtons.OK,
-                             MessageBoxIcon.Error);
+                                   loggingLevel.ToString(),
+                                   MessageBoxButtons.OK,
+                                   ConvertLoggingLevelToMessageBoxIcon(loggingLevel));
         }
 
-        public DialogResult Show(Exception ex)
+        public DialogResult Show(Exception ex,
+                                 LoggingLevel loggingLevel = LoggingLevel.Trace)
         {
-            string text = "出現錯誤。 \r\n\r\n";
+            string text = "未處理的例外。 \r\n\r\n";
 
             if (ex != null)
             {
@@ -117,14 +109,16 @@ namespace HiwinRobot
                 text += "null Exception.";
             }
 
-            LogHandler.Write(LoggingLevel.Trace, text);
+            LogHandler.Write(loggingLevel, text);
             return MessageBox.Show(text,
-                               "錯誤！",
-                               MessageBoxButtons.OK,
-                               MessageBoxIcon.Error);
+                                   loggingLevel.ToString(),
+                                   MessageBoxButtons.OK,
+                                   ConvertLoggingLevelToMessageBoxIcon(loggingLevel));
         }
 
-        public DialogResult Show(string message, Exception ex)
+        public DialogResult Show(string message,
+                                 Exception ex,
+                                 LoggingLevel loggingLevel = LoggingLevel.Trace)
         {
             string text = $"{message} \r\n\r\n";
 
@@ -138,72 +132,53 @@ namespace HiwinRobot
                 text += "null Exception.";
             }
 
-            LogHandler.Write(LoggingLevel.Trace, text);
+            LogHandler.Write(loggingLevel, text);
             return MessageBox.Show(text,
-                            "錯誤！",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                                   loggingLevel.ToString(),
+                                   MessageBoxButtons.OK,
+                                   ConvertLoggingLevelToMessageBoxIcon(loggingLevel));
         }
 
-        public DialogResult Show(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon)
+        public DialogResult Show(string text,
+                                 string caption,
+                                 MessageBoxButtons buttons,
+                                 MessageBoxIcon icon,
+                                 LoggingLevel loggingLevel = LoggingLevel.Trace)
         {
-            LogHandler.Write(LoggingLevel.Trace, $"{caption}: {text}");
+            LogHandler.Write(loggingLevel, $"{caption}: {text}");
             return MessageBox.Show(text, caption, buttons, icon);
         }
-    }
 
-    /// <summary>
-    /// 顯示一般訊息的訊息處理實作。
-    /// </summary>
-    public class NormalMessage : IMessage
-    {
-        public DialogResult Show()
+        private MessageBoxIcon ConvertLoggingLevelToMessageBoxIcon(LoggingLevel loggingLevel)
         {
-            return MessageBox.Show("!!");
-        }
-
-        public DialogResult Show(string message)
-        {
-            return MessageBox.Show(message);
-        }
-
-        public DialogResult Show(Exception ex)
-        {
-            string text = "";
-
-            if (ex != null)
+            MessageBoxIcon messageBoxIcon;
+            switch (loggingLevel)
             {
-                text += $"{ex.Message} \r\n\r\n" +
-                        $"{ex.StackTrace}";
+                case LoggingLevel.Trace:
+                    messageBoxIcon = MessageBoxIcon.None;
+                    break;
+
+                case LoggingLevel.Info:
+                    messageBoxIcon = MessageBoxIcon.Information;
+                    break;
+
+                case LoggingLevel.Warn:
+                    messageBoxIcon = MessageBoxIcon.Warning;
+                    break;
+
+                case LoggingLevel.Error:
+                    messageBoxIcon = MessageBoxIcon.Error;
+                    break;
+
+                case LoggingLevel.Fatal:
+                    messageBoxIcon = MessageBoxIcon.Error;
+                    break;
+
+                default:
+                    messageBoxIcon = MessageBoxIcon.None;
+                    break;
             }
-            else
-            {
-                text += "null Exception.";
-            }
-
-            return MessageBox.Show(text);
-        }
-
-        public DialogResult Show(string message, Exception ex)
-        {
-            string text = $"{message} \r\n\r\n";
-
-            if (ex != null)
-            {
-                text += $"{ex.Message} \r\n\r\n" +
-                        $"{ex.StackTrace}";
-            }
-            else
-            {
-                text += "null Exception.";
-            }
-
-            return MessageBox.Show(text);
-        }
-
-        public DialogResult Show(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon)
-        {
-            return MessageBox.Show(text, caption, buttons, icon);
+            return messageBoxIcon;
         }
     }
 }

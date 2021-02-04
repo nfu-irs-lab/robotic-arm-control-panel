@@ -53,7 +53,7 @@ namespace HiwinRobot
             sp.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
             SerialPortDevice = new SerialPortDevice(sp, logHandler);
 
-            Message = new ErrorMessage(logHandler);
+            Message = new NormalMessage(logHandler);
 
 #if (CONNECT_BY_CONSTRUCTOR)
             Connect();
@@ -274,7 +274,7 @@ namespace HiwinRobot
                     break;
 
                 default:
-                    _Message.Show($"Unknown data: {data}");
+                    _Message.Show($"Unknown data: {data}", LoggingLevel.Error);
                     break;
             }
             Send(BluetoothSendDataType.descartesPosition,

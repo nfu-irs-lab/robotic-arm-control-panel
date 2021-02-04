@@ -245,7 +245,7 @@ namespace HiwinRobot
             Ip = armIp;
             Id = 0;
             LogHandler = logHandler;
-            Message = new ErrorMessage(logHandler);
+            Message = new NormalMessage(logHandler);
 
 #if (!USE_MOTION_STATE_WAIT)
             InitTimer();
@@ -272,7 +272,7 @@ namespace HiwinRobot
                 int acc = HRobot.get_acc_dec_ratio(Id);
                 if (acc == -1)
                 {
-                    Message.Show("取得手臂加速度時出錯。");
+                    Message.Show("取得手臂加速度時出錯。", LoggingLevel.Error);
                 }
                 return acc;
             }
@@ -281,7 +281,7 @@ namespace HiwinRobot
             {
                 if (value > 100 || value < 1)
                 {
-                    Message.Show("手臂加速度應為1% ~ 100%之間。");
+                    Message.Show("手臂加速度應為1% ~ 100%之間。", LoggingLevel.Info);
                 }
                 else
                 {
@@ -300,7 +300,7 @@ namespace HiwinRobot
                 int speed = HRobot.get_override_ratio(Id);
                 if (speed == -1)
                 {
-                    Message.Show("取得手臂速度時出錯。");
+                    Message.Show("取得手臂速度時出錯。", LoggingLevel.Error);
                 }
                 return speed;
             }
@@ -309,7 +309,7 @@ namespace HiwinRobot
             {
                 if (value > 100 || value < 1)
                 {
-                    Message.Show("手臂速度應為1% ~ 100%之間。");
+                    Message.Show("手臂速度應為1% ~ 100%之間。", LoggingLevel.Info);
                 }
                 else
                 {
@@ -678,7 +678,7 @@ namespace HiwinRobot
                         break;
                 }
 
-                Message.Show($"無法連線!\r\n{message}");
+                Message.Show($"無法連線!\r\n{message}", LoggingLevel.Error);
 
                 Connected = false;
                 return false;
@@ -793,7 +793,7 @@ namespace HiwinRobot
             else
             {
                 // Not successful.
-                Message.Show($"上銀機械手臂控制錯誤。\r\n錯誤代碼：{code}");
+                Message.Show($"上銀機械手臂控制錯誤。\r\n錯誤代碼：{code}", LoggingLevel.Error);
                 return true;
             }
         }
@@ -802,7 +802,7 @@ namespace HiwinRobot
         private void ShowUnknownPositionType()
         {
             Message.Show($"錯誤的位置類型。\r\n" +
-                         $"位置類型應為：{PositionType.Descartes} 或是 {PositionType.Joint}");
+                         $"位置類型應為：{PositionType.Descartes} 或是 {PositionType.Joint}", LoggingLevel.Warn);
         }
 
         #endregion - Message -
