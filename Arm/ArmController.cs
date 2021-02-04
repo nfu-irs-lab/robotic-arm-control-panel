@@ -391,7 +391,7 @@ namespace HiwinRobot
                                  double smoothValue = 50,
                                  bool waitForMotion = true)
         {
-            LogHandler.Write(LoggingLevel.Trace, $"Arm-Linear: {targetPosition}");
+            LogHandler.Write(LoggingLevel.Trace, $"Arm-Linear: {targetPosition.GetValue(6)}");
             int retuenCode = 0;
 
 #if (USE_SDK_RELATIVE)
@@ -463,7 +463,7 @@ namespace HiwinRobot
                                        SmoothType smoothType = SmoothType.TwoLinesSpeedSmooth,
                                        bool waitForMotion = true)
         {
-            LogHandler.Write(LoggingLevel.Trace, $"Arm-PointToPoint: {targetPosition}");
+            LogHandler.Write(LoggingLevel.Trace, $"Arm-PointToPoint: {GetTextPositin(targetPosition)}");
             int retuenCode = 0;
             int smoothTypeCode = (smoothType == SmoothType.TwoLinesSpeedSmooth) ? 1 : 0;
 
@@ -548,6 +548,17 @@ namespace HiwinRobot
                 position[i] += relativePosition[i];
             }
             return position;
+        }
+
+        private string GetTextPositin(double[] position)
+        {
+            string stringPos = "";
+            foreach (double val in position)
+            {
+                stringPos += val.ToString() + " , ";
+            }
+            stringPos.Remove((stringPos.Length - 3), 3);
+            return stringPos;
         }
 
         /// <summary>
