@@ -53,5 +53,18 @@ namespace HiwinRobot
 #else
             "COM1";
 #endif
+
+        /// <summary>
+        /// Log 檔案儲存路徑。
+        /// </summary>
+        public const string LogFilePath =
+#if (CONFIG_1)
+            "../../../log/";
+#elif (CONFIG_2)
+            "../../../log/";
+
+#else
+            "";
+#endif
     }
 }

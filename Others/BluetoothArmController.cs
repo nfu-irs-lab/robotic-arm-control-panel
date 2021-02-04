@@ -45,15 +45,15 @@ namespace HiwinRobot
         /// 記得要使用 Connect() 進行連線。
         /// </summary>
         /// <param name="comPort"></param>
-        public BluetoothArmController(string comPort, IArmController armControl)
+        public BluetoothArmController(string comPort, IArmController armControl, ILogHandler logHandler)
         {
             Arm = armControl;
 
             SerialPort sp = new SerialPort() { PortName = comPort, BaudRate = 38400 };
             sp.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
-            SerialPortDevice = new SerialPortDevice(sp);
+            SerialPortDevice = new SerialPortDevice(sp, logHandler);
 
-            Message = new ErrorMessage();
+            Message = new NormalMessage(logHandler);
 
 #if (CONNECT_BY_CONSTRUCTOR)
             Connect();
@@ -251,21 +251,21 @@ namespace HiwinRobot
             {
                 case "xr":
                     value = Convert.ToDouble(data.Split('r')[1]);
-                    Arm.MotionLinear(new double[] { value, 0, 0, 0, 0, 0 },
+                    Arm.MoveLinear(new double[] { value, 0, 0, 0, 0, 0 },
                                         PositionType.Descartes,
                                         CoordinateType.Relative);
                     break;
 
                 case "yr":
                     value = Convert.ToDouble(data.Split('r')[1]);
-                    Arm.MotionLinear(new double[] { 0, value, 0, 0, 0, 0 },
+                    Arm.MoveLinear(new double[] { 0, value, 0, 0, 0, 0 },
                                         PositionType.Descartes,
                                         CoordinateType.Relative);
                     break;
 
                 case "zr":
                     value = Convert.ToDouble(data.Split('r')[1]);
-                    Arm.MotionLinear(new double[] { 0, 0, value, 0, 0, 0 },
+                    Arm.MoveLinear(new double[] { 0, 0, value, 0, 0, 0 },
                                         PositionType.Descartes,
                                         CoordinateType.Relative);
                     break;
@@ -274,7 +274,7 @@ namespace HiwinRobot
                     break;
 
                 default:
-                    _Message.Show($"Unknown data: {data}");
+                    _Message.Show($"Unknown data: {data}", LoggingLevel.Error);
                     break;
             }
             Send(BluetoothSendDataType.descartesPosition,

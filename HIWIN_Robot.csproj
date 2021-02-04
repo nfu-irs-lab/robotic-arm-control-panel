@@ -120,6 +120,7 @@
     <Compile Include="Others\BasicDevices.cs" />
     <Compile Include="Others\BluetoothArmController.cs" />
     <Compile Include="Others\GripperController.cs" />
+    <Compile Include="Others\LogHandler.cs" />
     <Compile Include="Others\Message.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

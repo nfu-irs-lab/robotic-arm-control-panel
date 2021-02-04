@@ -169,7 +169,7 @@ namespace HiwinRobot
         /// 回到指定座標系的原點。預設爲笛卡爾。
         /// </summary>
         /// <param name="positionType"></param>
-        void GoHome(PositionType positionType = PositionType.Descartes,
+        void Homing(PositionType positionType = PositionType.Descartes,
                     bool waitForMotion = true);
 
         /// <summary>
@@ -187,7 +187,7 @@ namespace HiwinRobot
         /// <param name="smoothType"></param>
         /// <param name="smoothValue"></param>
         /// <param name="waitForMotion"></param>
-        void MotionLinear(double[] targetPosition,
+        void MoveLinear(double[] targetPosition,
                           PositionType positionType = PositionType.Descartes,
                           CoordinateType coordinateType = CoordinateType.Absolute,
                           SmoothType smoothType = SmoothType.TwoLinesSpeedSmooth,
@@ -207,7 +207,7 @@ namespace HiwinRobot
         /// <param name="coordinateType"></param>
         /// <param name="smoothType"></param>
         /// <param name="waitForMotion"></param>
-        void MotionPointToPoint(double[] targetPosition,
+        void MovePointToPoint(double[] targetPosition,
                                 PositionType positionType = PositionType.Descartes,
                                 CoordinateType coordinateType = CoordinateType.Absolute,
                                 SmoothType smoothType = SmoothType.TwoLinesSpeedSmooth,
@@ -238,10 +238,14 @@ namespace HiwinRobot
     /// </summary>
     public class ArmController : IArmController
     {
-        public ArmController(string armIp)
+        private ILogHandler LogHandler = null;
+
+        public ArmController(string armIp, ILogHandler logHandler)
         {
             Ip = armIp;
             Id = 0;
+            LogHandler = logHandler;
+            Message = new NormalMessage(logHandler);
 
 #if (!USE_MOTION_STATE_WAIT)
             InitTimer();
@@ -250,7 +254,7 @@ namespace HiwinRobot
 
         public int Id { get; set; }
         public string Ip { get; set; }
-        public IMessage Message { get; set; } = new ErrorMessage();
+        public IMessage Message { get; set; }
 
         #region - Default Position -
 
@@ -265,10 +269,19 @@ namespace HiwinRobot
         {
             get
             {
-                int acc = HRobot.get_acc_dec_ratio(Id);
-                if (acc == -1)
+                int acc;
+                if (Connected)
                 {
-                    Message.Show("取得手臂加速度時出錯。");
+                    acc = HRobot.get_acc_dec_ratio(Id);
+                    if (acc == -1)
+                    {
+                        Message.Show("取得手臂加速度時出錯。", LoggingLevel.Error);
+                    }
+                }
+                else
+                {
+                    acc = -1;
+                    Message.Show("手臂未連線。", LoggingLevel.Info);
                 }
                 return acc;
             }
@@ -277,14 +290,21 @@ namespace HiwinRobot
             {
                 if (value > 100 || value < 1)
                 {
-                    Message.Show("手臂加速度應為1% ~ 100%之間。");
+                    Message.Show("手臂加速度應為1% ~ 100%之間。", LoggingLevel.Info);
                 }
                 else
                 {
-                    int retuenCode = HRobot.set_acc_dec_ratio(Id, value);
+                    if (Connected)
+                    {
+                        int retuenCode = HRobot.set_acc_dec_ratio(Id, value);
 
-                    //執行HRobot.set_acc_dec_ratio時會固定回傳錯誤代碼4000
-                    IsErrorAndHandler(retuenCode, 4000);
+                        //執行HRobot.set_acc_dec_ratio時會固定回傳錯誤代碼4000
+                        IsErrorAndHandler(retuenCode, 4000);
+                    }
+                    else
+                    {
+                        Message.Show("手臂未連線。", LoggingLevel.Info);
+                    }
                 }
             }
         }
@@ -293,10 +313,19 @@ namespace HiwinRobot
         {
             get
             {
-                int speed = HRobot.get_override_ratio(Id);
-                if (speed == -1)
+                int speed;
+                if (Connected)
                 {
-                    Message.Show("取得手臂速度時出錯。");
+                    speed = HRobot.get_override_ratio(Id);
+                    if (speed == -1)
+                    {
+                        Message.Show("取得手臂速度時出錯。", LoggingLevel.Error);
+                    }
+                }
+                else
+                {
+                    speed = -1;
+                    Message.Show("手臂未連線。", LoggingLevel.Info);
                 }
                 return speed;
             }
@@ -305,12 +334,19 @@ namespace HiwinRobot
             {
                 if (value > 100 || value < 1)
                 {
-                    Message.Show("手臂速度應為1% ~ 100%之間。");
+                    Message.Show("手臂速度應為1% ~ 100%之間。", LoggingLevel.Info);
                 }
                 else
                 {
-                    int retuenCode = HRobot.set_override_ratio(Id, value);
-                    IsErrorAndHandler(retuenCode);
+                    if (Connected)
+                    {
+                        int retuenCode = HRobot.set_override_ratio(Id, value);
+                        IsErrorAndHandler(retuenCode);
+                    }
+                    else
+                    {
+                        Message.Show("手臂未連線。", LoggingLevel.Info);
+                    }
                 }
             }
         }
@@ -319,17 +355,18 @@ namespace HiwinRobot
 
         #region - Motion -
 
-        public void GoHome(PositionType type = PositionType.Descartes,
+        public void Homing(PositionType positionType = PositionType.Descartes,
                            bool waitForMotion = true)
         {
+            LogHandler.Write(LoggingLevel.Trace, $"Arm-Homing. {positionType}");
             int returnCode;
-            switch (type)
+            switch (positionType)
             {
                 case PositionType.Descartes:
                     returnCode = HRobot.ptp_pos(Id, (int)SmoothType.Disable, DescartesHomePosition);
                     if ((returnCode >= 0) && waitForMotion)
                     {
-                        WaitForMotionComplete(DescartesHomePosition, type);
+                        WaitForMotionComplete(DescartesHomePosition, positionType);
                     }
                     break;
 
@@ -337,7 +374,7 @@ namespace HiwinRobot
                     returnCode = HRobot.ptp_axis(Id, (int)SmoothType.Disable, JointHomePosition);
                     if ((returnCode >= 0) && waitForMotion)
                     {
-                        WaitForMotionComplete(JointHomePosition, type);
+                        WaitForMotionComplete(JointHomePosition, positionType);
                     }
                     break;
 
@@ -347,13 +384,15 @@ namespace HiwinRobot
             }
         }
 
-        public void MotionLinear(double[] targetPosition,
-                                 PositionType positionType = PositionType.Descartes,
+        public void MoveLinear(double[] targetPosition,
+                                         PositionType positionType = PositionType.Descartes,
                                  CoordinateType coordinateType = CoordinateType.Absolute,
                                  SmoothType smoothType = SmoothType.TwoLinesSpeedSmooth,
                                  double smoothValue = 50,
                                  bool waitForMotion = true)
         {
+            LogHandler.Write(LoggingLevel.Trace,
+                             $"Arm-Linear: {GetTextPositin(targetPosition)}. {positionType}");
             int retuenCode = 0;
 
 #if (USE_SDK_RELATIVE)
@@ -419,12 +458,14 @@ namespace HiwinRobot
             }
         }
 
-        public void MotionPointToPoint(double[] targetPosition,
-                                       PositionType positionType = PositionType.Descartes,
+        public void MovePointToPoint(double[] targetPosition,
+                                               PositionType positionType = PositionType.Descartes,
                                        CoordinateType coordinateType = CoordinateType.Absolute,
                                        SmoothType smoothType = SmoothType.TwoLinesSpeedSmooth,
                                        bool waitForMotion = true)
         {
+            LogHandler.Write(LoggingLevel.Trace,
+                             $"Arm-PointToPoint: {GetTextPositin(targetPosition)}. {positionType}");
             int retuenCode = 0;
             int smoothTypeCode = (smoothType == SmoothType.TwoLinesSpeedSmooth) ? 1 : 0;
 
@@ -509,6 +550,18 @@ namespace HiwinRobot
                 position[i] += relativePosition[i];
             }
             return position;
+        }
+
+        private string GetTextPositin(double[] position)
+        {
+            string stringPos = "\"";
+            foreach (double val in position)
+            {
+                stringPos += val.ToString() + ",";
+            }
+            stringPos = stringPos.TrimEnd(new char[] { ' ', ',' });
+            stringPos += "\"";
+            return stringPos;
         }
 
         /// <summary>
@@ -671,7 +724,7 @@ namespace HiwinRobot
                         break;
                 }
 
-                Message.Show($"無法連線!\r\n{message}");
+                Message.Show($"無法連線!\r\n{message}", LoggingLevel.Error);
 
                 Connected = false;
                 return false;
@@ -786,7 +839,7 @@ namespace HiwinRobot
             else
             {
                 // Not successful.
-                Message.Show($"上銀機械手臂控制錯誤。\r\n錯誤代碼：{code}");
+                Message.Show($"上銀機械手臂控制錯誤。\r\n錯誤代碼：{code}", LoggingLevel.Error);
                 return true;
             }
         }
@@ -795,7 +848,7 @@ namespace HiwinRobot
         private void ShowUnknownPositionType()
         {
             Message.Show($"錯誤的位置類型。\r\n" +
-                         $"位置類型應為：{PositionType.Descartes} 或是 {PositionType.Joint}");
+                         $"位置類型應為：{PositionType.Descartes} 或是 {PositionType.Joint}", LoggingLevel.Warn);
         }
 
         #endregion - Message -

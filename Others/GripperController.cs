@@ -41,7 +41,7 @@ namespace HiwinRobot
 
         private ISerialPortDevice SerialPortDevice = null;
 
-        public GripperController(string comPort)
+        public GripperController(string comPort, ILogHandler logHandler)
         {
             SerialPortDevice = new SerialPortDevice(
                 new SerialPort()
@@ -49,9 +49,10 @@ namespace HiwinRobot
                     PortName = comPort,
                     BaudRate = 115200,
                     DataBits = 8
-                });
+                },
+                logHandler);
 
-            Message = new ErrorMessage();
+            Message = new NormalMessage(logHandler);
         }
 
         public bool Connected
@@ -135,7 +136,7 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                _Message.Show("Gripper Error.", ex);
+                _Message.Show("Gripper Error.", ex, LoggingLevel.Error);
                 return "";
             }
         }
@@ -182,7 +183,7 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                _Message.Show("Gripper Error.", ex);
+                _Message.Show("Gripper Error.", ex, LoggingLevel.Error);
                 return "";
             }
         }

@@ -59,20 +59,22 @@ namespace HiwinRobot
     /// </summary>
     public class SerialPortDevice : ISerialPortDevice
     {
-        public SerialPortDevice(SerialPort serialPort)
+        public SerialPortDevice(SerialPort serialPort, ILogHandler logHandler)
         {
             // XXX 此處沒有使用深層複製，需注意指標(pointer)的問題。
             SerialPort = serialPort;
+            Message = new NormalMessage(logHandler);
         }
 
-        public SerialPortDevice(string comPort)
+        public SerialPortDevice(string comPort, ILogHandler logHandler)
         {
             SerialPort = new SerialPort(comPort);
+            Message = new NormalMessage(logHandler);
         }
 
         public bool Connected { get; private set; } = false;
 
-        public IMessage Message { get; set; } = new ErrorMessage();
+        public IMessage Message { get; set; }
 
         public SerialPort SerialPort { get; set; }
 
@@ -97,7 +99,7 @@ namespace HiwinRobot
                 }
                 catch (Exception ex)
                 {
-                    Message.Show("無法進行連線。\r\n請檢查COM Port等設定。", ex);
+                    Message.Show("無法進行連線。\r\n請檢查COM Port等設定。", ex, LoggingLevel.Error);
                     return false;
                 }
             }
@@ -129,7 +131,7 @@ namespace HiwinRobot
                 }
                 catch (Exception ex)
                 {
-                    Message.Show("無法進行斷線。\r\n請檢查COM Port等設定。", ex);
+                    Message.Show("無法進行斷線。\r\n請檢查COM Port等設定。", ex, LoggingLevel.Error);
                     return false;
                 }
             }

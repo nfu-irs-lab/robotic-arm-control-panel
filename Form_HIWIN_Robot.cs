@@ -27,6 +27,7 @@ namespace HiwinRobot
         /// </summary>
         private List<IDevice> Devices = new List<IDevice>();
 
+        private ILogHandler LogHandler = null;
         private IMessage Message = null;
 
         public Form_HIWIN_Robot()
@@ -34,9 +35,10 @@ namespace HiwinRobot
             InitializeComponent();
             InitControlCollection();
 
-            Arm = new ArmController(Configuration.ArmIp);
-            Gripper = new GripperController(Configuration.GripperComPort);
-            Bluetooth = new BluetoothArmController(Configuration.BluetoothComPort, Arm);
+            LogHandler = new LogHandler(Configuration.LogFilePath, LoggingLevel.Trace);
+            Arm = new ArmController(Configuration.ArmIp, LogHandler);
+            Gripper = new GripperController(Configuration.GripperComPort, LogHandler);
+            Bluetooth = new BluetoothArmController(Configuration.BluetoothComPort, Arm, LogHandler);
 
 #if (DISABLE_SHOW_MESSAGE)
             Message = new EmptyMessage();
@@ -44,7 +46,7 @@ namespace HiwinRobot
             Bluetooth.Message = new EmptyMessage();
             Gripper.Message = new EmptyMessage();
 #else
-            Message = new ErrorMessage();
+            Message = new NormalMessage(LogHandler);
 #endif
 
             // 組織連線裝置組。加入的順序就是連線/斷線的順序。
@@ -53,6 +55,8 @@ namespace HiwinRobot
             Devices.Add(Arm);
             //Devices.Add(Gripper);
             //Devices.Add(Bluetooth);
+
+            SetButtonsState(false);
         }
 
         #region - 手臂 -
@@ -105,9 +109,20 @@ namespace HiwinRobot
                     position[i] = Convert.ToDouble(NowPosition[i].Text);
                 }
             }
+            catch (FormatException)
+            {
+                if (GetPositinoType() == PositionType.Descartes)
+                {
+                    position = Arm.DescartesHomePosition;
+                }
+                else
+                {
+                    position = Arm.JointHomePosition;
+                }
+            }
             catch (Exception ex)
             {
-                Message.Show(ex);
+                Message.Show(ex, LoggingLevel.Error);
             }
             return position;
         }
@@ -128,7 +143,7 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                Message.Show(ex);
+                Message.Show(ex, LoggingLevel.Error);
             }
             return position;
         }
@@ -153,6 +168,13 @@ namespace HiwinRobot
             NowPosition.Add(this.textBox_arm_now_position_j4a);
             NowPosition.Add(this.textBox_arm_now_position_j5b);
             NowPosition.Add(this.textBox_arm_now_position_j6c);
+
+            Buttons.Clear();
+            Buttons.Add(this.button_arm_to_zero);
+            Buttons.Add(this.button_arm_clear_alarm);
+            Buttons.Add(this.button_update_now_position);
+            Buttons.Add(this.button_arm_motion_start);
+            Buttons.Add(this.button_set_speed_acceleration);
         }
 
         /// <summary>
@@ -182,7 +204,7 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                Message.Show(ex);
+                Message.Show(ex, LoggingLevel.Error);
             }
         }
 
@@ -208,15 +230,15 @@ namespace HiwinRobot
             switch (GetMotionType())
             {
                 case MotionType.Linear:
-                    Arm.MotionLinear(GetTargetPostion(), GetPositinoType(), GetCoordinateType());
+                    Arm.MoveLinear(GetTargetPostion(), GetPositinoType(), GetCoordinateType());
                     break;
 
                 case MotionType.PointToPoint:
-                    Arm.MotionPointToPoint(GetTargetPostion(), GetPositinoType(), GetCoordinateType());
+                    Arm.MovePointToPoint(GetTargetPostion(), GetPositinoType(), GetCoordinateType());
                     break;
 
                 default:
-                    Message.Show("未知的運動類型。");
+                    Message.Show("未知的運動類型。", LoggingLevel.Warn);
                     break;
             }
 
@@ -237,7 +259,7 @@ namespace HiwinRobot
 
                 Thread.Sleep(300);
 
-                Arm.GoHome(GetPositinoType(), true);
+                Arm.Homing(GetPositinoType(), true);
                 UpdateNowPosition();
 
                 Arm.Speed = GetSpeed();
@@ -245,7 +267,7 @@ namespace HiwinRobot
             }
             else
             {
-                Arm.GoHome(GetPositinoType(), true);
+                Arm.Homing(GetPositinoType(), true);
                 UpdateNowPosition();
             }
         }
@@ -432,7 +454,7 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                Message.Show(ex);
+                Message.Show(ex, LoggingLevel.Error);
             }
             return value;
         }
@@ -450,7 +472,7 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                Message.Show(ex);
+                Message.Show(ex, LoggingLevel.Error);
             }
             return value;
         }
@@ -509,6 +531,8 @@ namespace HiwinRobot
         /// <param name="e"></param>
         private void button_connect_Click(object sender, EventArgs e)
         {
+            LogHandler.Write(LoggingLevel.Trace, "Connect");
+
             for (int i = 0; i < Devices.Count; i++)
             {
                 Devices[i].Connect();
@@ -519,6 +543,8 @@ namespace HiwinRobot
                 Arm.Speed = GetSpeed();
                 Arm.Acceleration = GetAcceleration();
                 UpdateNowPosition();
+
+                SetButtonsState(true);
             }
         }
 
@@ -529,15 +555,24 @@ namespace HiwinRobot
         /// <param name="e"></param>
         private void button_disconnect_Click(object sender, EventArgs e)
         {
+            LogHandler.Write(LoggingLevel.Trace, "Disconnect");
+
             for (int i = 0; i < Devices.Count; i++)
             {
                 Devices[i].Disconnect();
             }
+
+            SetButtonsState(false);
         }
 
         #endregion - 連線與斷線 -
 
         #region - 其它 -
+
+        /// <summary>
+        /// 未連線時禁用的按鈕組。
+        /// </summary>
+        private List<Button> Buttons = new List<Button>();
 
         /// <summary>
         /// 視窗關閉事件。
@@ -553,7 +588,8 @@ namespace HiwinRobot
                         "手臂或其它裝置似乎還在連線中。\r\n是否要斷開連線後關閉視窗？",
                         "關閉視窗",
                         MessageBoxButtons.YesNoCancel,
-                        MessageBoxIcon.Warning);
+                        MessageBoxIcon.Warning,
+                        LoggingLevel.Warn);
 
                     if (dr == DialogResult.Yes)
                     {
@@ -716,6 +752,14 @@ namespace HiwinRobot
                     break;
             }
 #endif
+        }
+
+        private void SetButtonsState(bool enableButtons)
+        {
+            for (int i = 0; i < Buttons.Count; i++)
+            {
+                Buttons[i].Enabled = enableButtons;
+            }
         }
 
         #endregion - 其它 -
