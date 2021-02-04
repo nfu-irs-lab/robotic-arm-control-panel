@@ -37,7 +37,7 @@ namespace HiwinRobot
 
         private void CreateFile(DateTime dateTime)
         {
-            string targetFileName = $"{dateTime.ToString("MMMdd")}_{Count}.log";
+            string targetFileName = $"{dateTime:MMMdd}_{Count}.log";
 
             if (File.Exists(Path + targetFileName))
             {
