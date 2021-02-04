@@ -36,10 +36,6 @@ namespace HiwinRobot
 #elif (CONFIG_2)
             "COM3";
 
-#else
-            "COM2";
-#endif
-
         /// <summary>
         /// 夾爪連線COM Port。<br/>
         /// 設定錯誤將會無法連線。
@@ -50,6 +46,21 @@ namespace HiwinRobot
 #elif (CONFIG_2)
             "COM12";
 
+        /// <summary>
+        /// Log 檔案儲存路徑。
+        /// </summary>
+        public const string LogFilePath =
+#if (CONFIG_1)
+            "../../../log/";
+#elif (CONFIG_2)
+            "../../../log/";
+
+#else
+            "";
+#endif
+#else
+            "COM2";
+#endif
 #else
             "COM1";
 #endif

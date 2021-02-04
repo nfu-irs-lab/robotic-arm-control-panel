@@ -38,7 +38,7 @@ namespace HiwinRobot
             Arm = new ArmController(Configuration.ArmIp);
             Gripper = new GripperController(Configuration.GripperComPort);
             Bluetooth = new BluetoothArmController(Configuration.BluetoothComPort, Arm);
-            LogHandler = new LogHandler();
+            LogHandler = new LogHandler(Configuration.LogFilePath);
 
 #if (DISABLE_SHOW_MESSAGE)
             Message = new EmptyMessage();
