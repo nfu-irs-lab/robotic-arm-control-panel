@@ -87,7 +87,7 @@ namespace HiwinRobot
         {
             if (GetCoordinateType() == CoordinateType.Absolute)
             {
-                SetTargetPostion(GetNowPostion());
+                SetTargetPostion(GetNowUiPostion());
             }
             else if (GetCoordinateType() == CoordinateType.Relative)
             {
@@ -99,7 +99,7 @@ namespace HiwinRobot
         /// 取得目前顯示的位置。
         /// </summary>
         /// <returns>目前顯示的位置。</returns>
-        private double[] GetNowPostion()
+        private double[] GetNowUiPostion()
         {
             double[] position = new double[6];
             try
@@ -292,7 +292,7 @@ namespace HiwinRobot
             if (radioButton_coordinate_type_absolute.Checked)
             {
                 button_arm_copy_position_from_now_to_target.Text = "複製";
-                SetTargetPostion(GetNowPostion());
+                SetTargetPostion(GetNowUiPostion());
             }
             else if (radioButton_coordinate_type_relative.Checked)
             {
