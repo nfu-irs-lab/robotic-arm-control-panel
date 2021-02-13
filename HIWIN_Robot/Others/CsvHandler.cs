@@ -31,11 +31,20 @@ namespace HiwinRobot
 
     public class CsvHandler : ICsvHandler
     {
-        public string Path { get; set; } = "";
+        public CsvHandler(string path,
+                          char symbolSeparated = ',',
+                          char symbolStringDelimiter = '\"')
+        {
+            Path = path;
+            SymbolSeparated = symbolSeparated;
+            SymbolStringDelimiter = symbolStringDelimiter;
+        }
 
-        public char SymbolSeparated { get; set; } = ',';
+        public string Path { get; set; }
 
-        public char SymbolStringDelimiter { get; set; } = '\"';
+        public char SymbolSeparated { get; set; }
+
+        public char SymbolStringDelimiter { get; set; }
 
         public void Write(string filenameWithExtension,
                           List<List<string>> rowColumnData,
