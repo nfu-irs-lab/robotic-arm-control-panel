@@ -123,6 +123,7 @@
     <Compile Include="Others\GripperController.cs" />
     <Compile Include="Others\LogHandler.cs" />
     <Compile Include="Others\Message.cs" />
+    <Compile Include="Others\PositionHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form_HIWIN_Robot.resx">
