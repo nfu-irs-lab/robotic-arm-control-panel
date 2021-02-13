@@ -77,6 +77,7 @@ namespace HiwinRobot
 
             if (File.Exists(Path + targetFileName))
             {
+                // TODO: 改善目標檔名已經存在時，更新檔名的寫法。目前的方式是一個一個找。
                 Count++;
                 CreateFile(dateTime);
             }
