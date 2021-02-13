@@ -20,63 +20,29 @@ namespace HiwinRobot
     /// </summary>
     public partial class Form_HIWIN_Robot : Form
     {
-        private IBluetoothController Bluetooth = null;
-
-        /// <summary>
-        /// 連線裝置組。
-        /// </summary>
-        private List<IDevice> Devices = new List<IDevice>();
-
-        private ILogHandler LogHandler = null;
-        private IMessage Message = null;
-
         public Form_HIWIN_Robot()
         {
             InitializeComponent();
-            InitControlCollection();
+            Init();
 
-            LogHandler = new LogHandler(Configuration.LogFilePath, LoggingLevel.Trace);
-            Arm = new ArmController(Configuration.ArmIp, LogHandler);
-            Gripper = new GripperController(Configuration.GripperComPort, LogHandler);
-            Bluetooth = new BluetoothArmController(Configuration.BluetoothComPort, Arm, LogHandler);
-
-#if (DISABLE_SHOW_MESSAGE)
-            Message = new EmptyMessage();
-            Arm.Message = new EmptyMessage();
-            Bluetooth.Message = new EmptyMessage();
-            Gripper.Message = new EmptyMessage();
-#else
-            Message = new NormalMessage(LogHandler);
-#endif
-
-            // 組織連線裝置組。加入的順序就是連線/斷線的順序。
-            // 若要禁用某裝置，在下方將其所屬的「 Devices.Add(目標裝置); 」註解掉即可。
+            /*
+             * 組織連線裝置組。加入的順序就是連線/斷線的順序。
+             * 若要禁用某裝置，在下方將其所屬的「 Devices.Add(裝置); 」註解掉即可。
+             */
             Devices.Clear();
             Devices.Add(Arm);
             //Devices.Add(Gripper);
             //Devices.Add(Bluetooth);
-
-            SetButtonsState(false);
         }
 
         #region - 手臂 -
 
         /// <summary>
-        /// 手臂。
+        /// 手臂控制器。
         /// </summary>
         private IArmController Arm = null;
 
         #region 位置
-
-        /// <summary>
-        /// 目前顯示位置的控制項陣列。
-        /// </summary>
-        private List<TextBox> NowPosition = new List<TextBox>();
-
-        /// <summary>
-        /// 目標位置的控制項陣列。
-        /// </summary>
-        private List<NumericUpDown> TargetPositino = new List<NumericUpDown>();
 
         /// <summary>
         /// 複製目前顯示的位置到目標位置或歸零目標位置。
@@ -93,6 +59,16 @@ namespace HiwinRobot
             {
                 SetTargetPostion(new double[] { 0, 0, 0, 0, 0, 0 });
             }
+        }
+
+        /// <summary>
+        /// 更新顯示目前的動作。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button_update_now_position_Click(object sender, EventArgs e)
+        {
+            UpdateNowPosition();
         }
 
         /// <summary>
@@ -149,36 +125,7 @@ namespace HiwinRobot
         }
 
         /// <summary>
-        /// 初始化控制項集合。
-        /// </summary>
-        private void InitControlCollection()
-        {
-            TargetPositino.Clear();
-            TargetPositino.Add(this.numericUpDown_arm_target_position_j1x);
-            TargetPositino.Add(this.numericUpDown_arm_target_position_j2y);
-            TargetPositino.Add(this.numericUpDown_arm_target_position_j3z);
-            TargetPositino.Add(this.numericUpDown_arm_target_position_j4a);
-            TargetPositino.Add(this.numericUpDown_arm_target_position_j5b);
-            TargetPositino.Add(this.numericUpDown_arm_target_position_j6c);
-
-            NowPosition.Clear();
-            NowPosition.Add(this.textBox_arm_now_position_j1x);
-            NowPosition.Add(this.textBox_arm_now_position_j2y);
-            NowPosition.Add(this.textBox_arm_now_position_j3z);
-            NowPosition.Add(this.textBox_arm_now_position_j4a);
-            NowPosition.Add(this.textBox_arm_now_position_j5b);
-            NowPosition.Add(this.textBox_arm_now_position_j6c);
-
-            Buttons.Clear();
-            Buttons.Add(this.button_arm_to_zero);
-            Buttons.Add(this.button_arm_clear_alarm);
-            Buttons.Add(this.button_update_now_position);
-            Buttons.Add(this.button_arm_motion_start);
-            Buttons.Add(this.button_set_speed_acceleration);
-        }
-
-        /// <summary>
-        /// 設定目前顯示的位置。
+        /// 設定目前 UI 顯示的位置。
         /// </summary>
         /// <param name="position"></param>
         private void SetNowPostion(double[] position)
@@ -209,7 +156,7 @@ namespace HiwinRobot
         }
 
         /// <summary>
-        /// 更新目前顯示的位置。
+        /// 更新目前 UI 顯示的位置。
         /// </summary>
         private void UpdateNowPosition()
         {
@@ -219,6 +166,33 @@ namespace HiwinRobot
         #endregion 位置
 
         #region 動作
+
+        /// <summary>
+        /// 手臂回到原點。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button_arm_homing_Click(object sender, EventArgs e)
+        {
+            if (checkBox_arm_to_zero_slow.Checked)
+            {
+                Arm.Speed = 5;
+                Arm.Acceleration = 10;
+
+                Thread.Sleep(300);
+
+                Arm.Homing(GetPositinoType(), true);
+                UpdateNowPosition();
+
+                Arm.Speed = GetUiSpeed();
+                Arm.Acceleration = GetUiAcceleration();
+            }
+            else
+            {
+                Arm.Homing(GetPositinoType(), true);
+                UpdateNowPosition();
+            }
+        }
 
         /// <summary>
         /// 依照目前所選之設定進行手臂動作。
@@ -245,42 +219,7 @@ namespace HiwinRobot
             UpdateNowPosition();
         }
 
-        /// <summary>
-        /// 手臂回到原點。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void button_arm_to_zero_Click(object sender, EventArgs e)
-        {
-            if (checkBox_arm_to_zero_slow.Checked)
-            {
-                Arm.Speed = 5;
-                Arm.Acceleration = 10;
-
-                Thread.Sleep(300);
-
-                Arm.Homing(GetPositinoType(), true);
-                UpdateNowPosition();
-
-                Arm.Speed = GetSpeed();
-                Arm.Acceleration = GetAcceleration();
-            }
-            else
-            {
-                Arm.Homing(GetPositinoType(), true);
-                UpdateNowPosition();
-            }
-        }
-
-        /// <summary>
-        /// 更新顯示目前的動作。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void button_update_now_position_Click(object sender, EventArgs e)
-        {
-            UpdateNowPosition();
-        }
+        #endregion 動作
 
         #region 位置、坐標、動作類型
 
@@ -418,19 +357,17 @@ namespace HiwinRobot
 
         #endregion 位置、坐標、動作類型
 
-        #endregion 動作
-
         #region 速度與加速度
 
         /// <summary>
-        /// 依照設定之數值設定手臂速度與加速度。
+        /// 依照 UI 之數值設定手臂速度與加速度。
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void button_set_speed_acceleration_Click(object sender, EventArgs e)
         {
-            Arm.Speed = GetSpeed();
-            Arm.Acceleration = GetAcceleration();
+            Arm.Speed = GetUiSpeed();
+            Arm.Acceleration = GetUiAcceleration();
 
             Thread.Sleep(300);
 
@@ -442,10 +379,10 @@ namespace HiwinRobot
         }
 
         /// <summary>
-        /// 取得所顯示的手臂加速度。
+        /// 取得 UI 所顯示的手臂加速度。
         /// </summary>
         /// <returns>目前所顯示的手臂加速度。</returns>
-        private int GetAcceleration()
+        private int GetUiAcceleration()
         {
             int value = -1;
             try
@@ -460,10 +397,10 @@ namespace HiwinRobot
         }
 
         /// <summary>
-        /// 取得目前所顯示的手臂速度。
+        /// 取得 UI 所顯示的手臂速度。
         /// </summary>
         /// <returns>目前所顯示的手臂速度。</returns>
-        private int GetSpeed()
+        private int GetUiSpeed()
         {
             int value = -1;
             try
@@ -479,12 +416,26 @@ namespace HiwinRobot
 
         #endregion 速度與加速度
 
+        #region - Others -
+
+        /// <summary>
+        /// 清除手臂錯誤訊息。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button_arm_clear_alarm_Click(object sender, EventArgs e)
+        {
+            Arm.ClearAlarm();
+        }
+
+        #endregion - Others -
+
         #endregion - 手臂 -
 
         #region - 夾爪 -
 
         /// <summary>
-        /// 夾爪控制。
+        /// 夾爪控制器。
         /// </summary>
         private IGripperController Gripper = null;
 
@@ -515,16 +466,6 @@ namespace HiwinRobot
         #region - 連線與斷線 -
 
         /// <summary>
-        /// 清除手臂錯誤訊息。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void button_arm_clear_alarm_Click(object sender, EventArgs e)
-        {
-            Arm.ClearAlarm();
-        }
-
-        /// <summary>
         /// 進行連線。
         /// </summary>
         /// <param name="sender"></param>
@@ -540,8 +481,8 @@ namespace HiwinRobot
 
             if (Arm.Connected)
             {
-                Arm.Speed = GetSpeed();
-                Arm.Acceleration = GetAcceleration();
+                Arm.Speed = GetUiSpeed();
+                Arm.Acceleration = GetUiAcceleration();
                 UpdateNowPosition();
 
                 SetButtonsState(true);
@@ -570,9 +511,39 @@ namespace HiwinRobot
         #region - 其它 -
 
         /// <summary>
+        /// 手臂藍牙控制器。
+        /// </summary>
+        private IBluetoothController Bluetooth = null;
+
+        /// <summary>
         /// 未連線時禁用的按鈕組。
         /// </summary>
         private List<Button> Buttons = new List<Button>();
+
+        /// <summary>
+        /// 連線裝置組。
+        /// </summary>
+        private List<IDevice> Devices = new List<IDevice>();
+
+        /// <summary>
+        /// Log 檔處理器。
+        /// </summary>
+        private ILogHandler LogHandler = null;
+
+        /// <summary>
+        /// 訊息處理器。
+        /// </summary>
+        private IMessage Message = null;
+
+        /// <summary>
+        /// UI 目前顯示位置的控制項陣列。
+        /// </summary>
+        private List<TextBox> NowPosition = new List<TextBox>();
+
+        /// <summary>
+        /// UI 目標位置的控制項陣列。
+        /// </summary>
+        private List<NumericUpDown> TargetPositino = new List<NumericUpDown>();
 
         /// <summary>
         /// 視窗關閉事件。
@@ -733,7 +704,7 @@ namespace HiwinRobot
 
                 // Home: 執行「手臂回到原點」。
                 case Keys.Home:
-                    button_arm_to_zero.PerformClick();
+                    button_arm_homing.PerformClick();
                     break;
 
                 // End: 執行「連線或斷線」。
@@ -752,6 +723,56 @@ namespace HiwinRobot
                     break;
             }
 #endif
+        }
+
+        /// <summary>
+        /// 基本初始化。
+        /// </summary>
+        private void Init()
+        {
+            // 目標位置控制項集合。
+            TargetPositino.Clear();
+            TargetPositino.Add(this.numericUpDown_arm_target_position_j1x);
+            TargetPositino.Add(this.numericUpDown_arm_target_position_j2y);
+            TargetPositino.Add(this.numericUpDown_arm_target_position_j3z);
+            TargetPositino.Add(this.numericUpDown_arm_target_position_j4a);
+            TargetPositino.Add(this.numericUpDown_arm_target_position_j5b);
+            TargetPositino.Add(this.numericUpDown_arm_target_position_j6c);
+
+            // 目前位置控制項集合。
+            NowPosition.Clear();
+            NowPosition.Add(this.textBox_arm_now_position_j1x);
+            NowPosition.Add(this.textBox_arm_now_position_j2y);
+            NowPosition.Add(this.textBox_arm_now_position_j3z);
+            NowPosition.Add(this.textBox_arm_now_position_j4a);
+            NowPosition.Add(this.textBox_arm_now_position_j5b);
+            NowPosition.Add(this.textBox_arm_now_position_j6c);
+
+            // 未連線時禁用之按鈕集合。
+            Buttons.Clear();
+            Buttons.Add(this.button_arm_homing);
+            Buttons.Add(this.button_arm_clear_alarm);
+            Buttons.Add(this.button_update_now_position);
+            Buttons.Add(this.button_arm_motion_start);
+            Buttons.Add(this.button_set_speed_acceleration);
+
+            // 產生物件，依賴注入。
+            LogHandler = new LogHandler(Configuration.LogFilePath, LoggingLevel.Trace);
+            Arm = new ArmController(Configuration.ArmIp, LogHandler);
+            Gripper = new GripperController(Configuration.GripperComPort, LogHandler);
+            Bluetooth = new BluetoothArmController(Configuration.BluetoothComPort, Arm, LogHandler);
+
+#if (DISABLE_SHOW_MESSAGE)
+            Message = new EmptyMessage();
+            Arm.Message = new EmptyMessage();
+            Bluetooth.Message = new EmptyMessage();
+            Gripper.Message = new EmptyMessage();
+#else
+            Message = new NormalMessage(LogHandler);
+#endif
+
+            // 未與手臂連線，禁用部分按鈕。
+            SetButtonsState(false);
         }
 
         private void SetButtonsState(bool enableButtons)

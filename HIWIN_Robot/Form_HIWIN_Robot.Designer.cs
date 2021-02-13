@@ -48,7 +48,7 @@
             this.button_update_now_position = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.checkBox_arm_to_zero_slow = new System.Windows.Forms.CheckBox();
-            this.button_arm_to_zero = new System.Windows.Forms.Button();
+            this.button_arm_homing = new System.Windows.Forms.Button();
             this.groupBox_arm_position = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label_arm_now_positin = new System.Windows.Forms.Label();
@@ -125,9 +125,10 @@
             // button_connect
             // 
             this.button_connect.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_connect.Location = new System.Drawing.Point(3, 3);
+            this.button_connect.Location = new System.Drawing.Point(6, 6);
+            this.button_connect.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.button_connect.Name = "button_connect";
-            this.button_connect.Size = new System.Drawing.Size(102, 58);
+            this.button_connect.Size = new System.Drawing.Size(204, 99);
             this.button_connect.TabIndex = 0;
             this.button_connect.Text = "Connect";
             this.button_connect.UseVisualStyleBackColor = true;
@@ -136,9 +137,10 @@
             // button_disconnect
             // 
             this.button_disconnect.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_disconnect.Location = new System.Drawing.Point(111, 3);
+            this.button_disconnect.Location = new System.Drawing.Point(222, 6);
+            this.button_disconnect.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.button_disconnect.Name = "button_disconnect";
-            this.button_disconnect.Size = new System.Drawing.Size(102, 58);
+            this.button_disconnect.Size = new System.Drawing.Size(204, 99);
             this.button_disconnect.TabIndex = 1;
             this.button_disconnect.Text = "Disconnect";
             this.button_disconnect.UseVisualStyleBackColor = true;
@@ -147,9 +149,10 @@
             // button_arm_motion_start
             // 
             this.button_arm_motion_start.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button_arm_motion_start.Location = new System.Drawing.Point(18, 3);
+            this.button_arm_motion_start.Location = new System.Drawing.Point(35, 6);
+            this.button_arm_motion_start.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.button_arm_motion_start.Name = "button_arm_motion_start";
-            this.button_arm_motion_start.Size = new System.Drawing.Size(91, 42);
+            this.button_arm_motion_start.Size = new System.Drawing.Size(182, 64);
             this.button_arm_motion_start.TabIndex = 2;
             this.button_arm_motion_start.Text = "進行動作";
             this.button_arm_motion_start.UseVisualStyleBackColor = true;
@@ -158,9 +161,11 @@
             // groupBox_connect_disconnect
             // 
             this.groupBox_connect_disconnect.Controls.Add(this.tableLayoutPanel1);
-            this.groupBox_connect_disconnect.Location = new System.Drawing.Point(12, 13);
+            this.groupBox_connect_disconnect.Location = new System.Drawing.Point(24, 24);
+            this.groupBox_connect_disconnect.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.groupBox_connect_disconnect.Name = "groupBox_connect_disconnect";
-            this.groupBox_connect_disconnect.Size = new System.Drawing.Size(330, 85);
+            this.groupBox_connect_disconnect.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupBox_connect_disconnect.Size = new System.Drawing.Size(660, 159);
             this.groupBox_connect_disconnect.TabIndex = 3;
             this.groupBox_connect_disconnect.TabStop = false;
             this.groupBox_connect_disconnect.Text = "連線與斷線";
@@ -175,19 +180,21 @@
             this.tableLayoutPanel1.Controls.Add(this.button_disconnect, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.button_arm_clear_alarm, 2, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 18);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(6, 42);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(324, 64);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(648, 111);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // button_arm_clear_alarm
             // 
             this.button_arm_clear_alarm.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_arm_clear_alarm.Location = new System.Drawing.Point(219, 3);
+            this.button_arm_clear_alarm.Location = new System.Drawing.Point(438, 6);
+            this.button_arm_clear_alarm.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.button_arm_clear_alarm.Name = "button_arm_clear_alarm";
-            this.button_arm_clear_alarm.Size = new System.Drawing.Size(102, 58);
+            this.button_arm_clear_alarm.Size = new System.Drawing.Size(204, 99);
             this.button_arm_clear_alarm.TabIndex = 2;
             this.button_arm_clear_alarm.Text = "Clear Alarm";
             this.button_arm_clear_alarm.UseVisualStyleBackColor = true;
@@ -199,7 +206,7 @@
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel3.Controls.Add(this.groupBox3, 2, 0);
@@ -208,11 +215,12 @@
             this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel4, 4, 0);
             this.tableLayoutPanel3.Controls.Add(this.groupBox4, 5, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 18);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(6, 42);
+            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(695, 108);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(1386, 194);
             this.tableLayoutPanel3.TabIndex = 5;
             // 
             // groupBox3
@@ -220,9 +228,11 @@
             this.groupBox3.Controls.Add(this.radioButton_position_type_descartes);
             this.groupBox3.Controls.Add(this.radioButton_position_type_joint);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.Location = new System.Drawing.Point(269, 3);
+            this.groupBox3.Location = new System.Drawing.Point(536, 6);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(127, 102);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupBox3.Size = new System.Drawing.Size(253, 182);
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "位置類型";
@@ -231,9 +241,10 @@
             // 
             this.radioButton_position_type_descartes.AutoSize = true;
             this.radioButton_position_type_descartes.Checked = true;
-            this.radioButton_position_type_descartes.Location = new System.Drawing.Point(6, 23);
+            this.radioButton_position_type_descartes.Location = new System.Drawing.Point(12, 43);
+            this.radioButton_position_type_descartes.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.radioButton_position_type_descartes.Name = "radioButton_position_type_descartes";
-            this.radioButton_position_type_descartes.Size = new System.Drawing.Size(71, 21);
+            this.radioButton_position_type_descartes.Size = new System.Drawing.Size(140, 34);
             this.radioButton_position_type_descartes.TabIndex = 0;
             this.radioButton_position_type_descartes.TabStop = true;
             this.radioButton_position_type_descartes.Text = "笛卡爾";
@@ -243,9 +254,10 @@
             // radioButton_position_type_joint
             // 
             this.radioButton_position_type_joint.AutoSize = true;
-            this.radioButton_position_type_joint.Location = new System.Drawing.Point(6, 52);
+            this.radioButton_position_type_joint.Location = new System.Drawing.Point(12, 98);
+            this.radioButton_position_type_joint.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.radioButton_position_type_joint.Name = "radioButton_position_type_joint";
-            this.radioButton_position_type_joint.Size = new System.Drawing.Size(57, 21);
+            this.radioButton_position_type_joint.Size = new System.Drawing.Size(110, 34);
             this.radioButton_position_type_joint.TabIndex = 0;
             this.radioButton_position_type_joint.Text = "關節";
             this.radioButton_position_type_joint.UseVisualStyleBackColor = true;
@@ -256,9 +268,11 @@
             this.groupBox1.Controls.Add(this.radioButton_motion_type_point_to_point);
             this.groupBox1.Controls.Add(this.radioButton_motion_type_linear);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(3, 3);
+            this.groupBox1.Location = new System.Drawing.Point(6, 6);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(127, 102);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupBox1.Size = new System.Drawing.Size(253, 182);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "運動類型";
@@ -267,9 +281,10 @@
             // 
             this.radioButton_motion_type_point_to_point.AutoSize = true;
             this.radioButton_motion_type_point_to_point.Checked = true;
-            this.radioButton_motion_type_point_to_point.Location = new System.Drawing.Point(6, 26);
+            this.radioButton_motion_type_point_to_point.Location = new System.Drawing.Point(12, 49);
+            this.radioButton_motion_type_point_to_point.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.radioButton_motion_type_point_to_point.Name = "radioButton_motion_type_point_to_point";
-            this.radioButton_motion_type_point_to_point.Size = new System.Drawing.Size(99, 21);
+            this.radioButton_motion_type_point_to_point.Size = new System.Drawing.Size(200, 34);
             this.radioButton_motion_type_point_to_point.TabIndex = 0;
             this.radioButton_motion_type_point_to_point.TabStop = true;
             this.radioButton_motion_type_point_to_point.Text = "點到點運動";
@@ -278,9 +293,10 @@
             // radioButton_motion_type_linear
             // 
             this.radioButton_motion_type_linear.AutoSize = true;
-            this.radioButton_motion_type_linear.Location = new System.Drawing.Point(6, 52);
+            this.radioButton_motion_type_linear.Location = new System.Drawing.Point(12, 98);
+            this.radioButton_motion_type_linear.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.radioButton_motion_type_linear.Name = "radioButton_motion_type_linear";
-            this.radioButton_motion_type_linear.Size = new System.Drawing.Size(85, 21);
+            this.radioButton_motion_type_linear.Size = new System.Drawing.Size(170, 34);
             this.radioButton_motion_type_linear.TabIndex = 0;
             this.radioButton_motion_type_linear.Text = "直線運動";
             this.radioButton_motion_type_linear.UseVisualStyleBackColor = true;
@@ -290,9 +306,11 @@
             this.groupBox2.Controls.Add(this.radioButton_coordinate_type_absolute);
             this.groupBox2.Controls.Add(this.radioButton_coordinate_type_relative);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(136, 3);
+            this.groupBox2.Location = new System.Drawing.Point(271, 6);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(127, 102);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupBox2.Size = new System.Drawing.Size(253, 182);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "坐標類型";
@@ -301,9 +319,10 @@
             // 
             this.radioButton_coordinate_type_absolute.AutoSize = true;
             this.radioButton_coordinate_type_absolute.Checked = true;
-            this.radioButton_coordinate_type_absolute.Location = new System.Drawing.Point(6, 23);
+            this.radioButton_coordinate_type_absolute.Location = new System.Drawing.Point(12, 43);
+            this.radioButton_coordinate_type_absolute.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.radioButton_coordinate_type_absolute.Name = "radioButton_coordinate_type_absolute";
-            this.radioButton_coordinate_type_absolute.Size = new System.Drawing.Size(82, 21);
+            this.radioButton_coordinate_type_absolute.Size = new System.Drawing.Size(170, 34);
             this.radioButton_coordinate_type_absolute.TabIndex = 0;
             this.radioButton_coordinate_type_absolute.TabStop = true;
             this.radioButton_coordinate_type_absolute.Text = "絕對坐標";
@@ -313,9 +332,10 @@
             // radioButton_coordinate_type_relative
             // 
             this.radioButton_coordinate_type_relative.AutoSize = true;
-            this.radioButton_coordinate_type_relative.Location = new System.Drawing.Point(6, 52);
+            this.radioButton_coordinate_type_relative.Location = new System.Drawing.Point(12, 98);
+            this.radioButton_coordinate_type_relative.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.radioButton_coordinate_type_relative.Name = "radioButton_coordinate_type_relative";
-            this.radioButton_coordinate_type_relative.Size = new System.Drawing.Size(85, 21);
+            this.radioButton_coordinate_type_relative.Size = new System.Drawing.Size(170, 34);
             this.radioButton_coordinate_type_relative.TabIndex = 0;
             this.radioButton_coordinate_type_relative.Text = "相對坐標";
             this.radioButton_coordinate_type_relative.UseVisualStyleBackColor = true;
@@ -327,20 +347,22 @@
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.Controls.Add(this.button_arm_motion_start, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.button_update_now_position, 0, 1);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(432, 3);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(861, 6);
+            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 2;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(127, 97);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(253, 152);
             this.tableLayoutPanel4.TabIndex = 2;
             // 
             // button_update_now_position
             // 
             this.button_update_now_position.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button_update_now_position.Location = new System.Drawing.Point(18, 51);
+            this.button_update_now_position.Location = new System.Drawing.Point(35, 82);
+            this.button_update_now_position.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.button_update_now_position.Name = "button_update_now_position";
-            this.button_update_now_position.Size = new System.Drawing.Size(91, 42);
+            this.button_update_now_position.Size = new System.Drawing.Size(182, 64);
             this.button_update_now_position.TabIndex = 3;
             this.button_update_now_position.Text = "更新位置";
             this.button_update_now_position.UseVisualStyleBackColor = true;
@@ -349,11 +371,13 @@
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.checkBox_arm_to_zero_slow);
-            this.groupBox4.Controls.Add(this.button_arm_to_zero);
+            this.groupBox4.Controls.Add(this.button_arm_homing);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox4.Location = new System.Drawing.Point(565, 3);
+            this.groupBox4.Location = new System.Drawing.Point(1126, 6);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(127, 102);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupBox4.Size = new System.Drawing.Size(254, 182);
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "原點";
@@ -363,30 +387,34 @@
             this.checkBox_arm_to_zero_slow.AutoSize = true;
             this.checkBox_arm_to_zero_slow.Checked = true;
             this.checkBox_arm_to_zero_slow.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox_arm_to_zero_slow.Location = new System.Drawing.Point(19, 64);
+            this.checkBox_arm_to_zero_slow.Location = new System.Drawing.Point(38, 120);
+            this.checkBox_arm_to_zero_slow.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.checkBox_arm_to_zero_slow.Name = "checkBox_arm_to_zero_slow";
-            this.checkBox_arm_to_zero_slow.Size = new System.Drawing.Size(92, 21);
+            this.checkBox_arm_to_zero_slow.Size = new System.Drawing.Size(178, 34);
             this.checkBox_arm_to_zero_slow.TabIndex = 1;
             this.checkBox_arm_to_zero_slow.Text = "以5%速度";
             this.checkBox_arm_to_zero_slow.UseVisualStyleBackColor = true;
             // 
-            // button_arm_to_zero
+            // button_arm_homing
             // 
-            this.button_arm_to_zero.Location = new System.Drawing.Point(19, 23);
-            this.button_arm_to_zero.Name = "button_arm_to_zero";
-            this.button_arm_to_zero.Size = new System.Drawing.Size(93, 34);
-            this.button_arm_to_zero.TabIndex = 0;
-            this.button_arm_to_zero.Text = "回到原點";
-            this.button_arm_to_zero.UseVisualStyleBackColor = true;
-            this.button_arm_to_zero.Click += new System.EventHandler(this.button_arm_to_zero_Click);
+            this.button_arm_homing.Location = new System.Drawing.Point(38, 43);
+            this.button_arm_homing.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.button_arm_homing.Name = "button_arm_homing";
+            this.button_arm_homing.Size = new System.Drawing.Size(186, 64);
+            this.button_arm_homing.TabIndex = 0;
+            this.button_arm_homing.Text = "回到原點";
+            this.button_arm_homing.UseVisualStyleBackColor = true;
+            this.button_arm_homing.Click += new System.EventHandler(this.button_arm_homing_Click);
             // 
             // groupBox_arm_position
             // 
             this.groupBox_arm_position.Controls.Add(this.tableLayoutPanel2);
             this.groupBox_arm_position.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox_arm_position.Location = new System.Drawing.Point(3, 3);
+            this.groupBox_arm_position.Location = new System.Drawing.Point(6, 6);
+            this.groupBox_arm_position.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.groupBox_arm_position.Name = "groupBox_arm_position";
-            this.groupBox_arm_position.Size = new System.Drawing.Size(701, 190);
+            this.groupBox_arm_position.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupBox_arm_position.Size = new System.Drawing.Size(1398, 356);
             this.groupBox_arm_position.TabIndex = 0;
             this.groupBox_arm_position.TabStop = false;
             this.groupBox_arm_position.Text = "位置";
@@ -423,22 +451,24 @@
             this.tableLayoutPanel2.Controls.Add(this.numericUpDown_arm_target_position_j6c, 6, 2);
             this.tableLayoutPanel2.Controls.Add(this.button_arm_copy_position_from_now_to_target, 0, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 18);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(6, 42);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 3;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 37F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 69F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(695, 169);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1386, 308);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // label_arm_now_positin
             // 
             this.label_arm_now_positin.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label_arm_now_positin.AutoSize = true;
-            this.label_arm_now_positin.Location = new System.Drawing.Point(23, 24);
+            this.label_arm_now_positin.Location = new System.Drawing.Point(29, 44);
+            this.label_arm_now_positin.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label_arm_now_positin.Name = "label_arm_now_positin";
-            this.label_arm_now_positin.Size = new System.Drawing.Size(43, 17);
+            this.label_arm_now_positin.Size = new System.Drawing.Size(103, 30);
             this.label_arm_now_positin.TabIndex = 0;
             this.label_arm_now_positin.Text = "目前：";
             // 
@@ -446,9 +476,10 @@
             // 
             this.label_arm_target_position.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label_arm_target_position.AutoSize = true;
-            this.label_arm_target_position.Location = new System.Drawing.Point(23, 127);
+            this.label_arm_target_position.Location = new System.Drawing.Point(29, 233);
+            this.label_arm_target_position.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label_arm_target_position.Name = "label_arm_target_position";
-            this.label_arm_target_position.Size = new System.Drawing.Size(43, 17);
+            this.label_arm_target_position.Size = new System.Drawing.Size(103, 30);
             this.label_arm_target_position.TabIndex = 0;
             this.label_arm_target_position.Text = "目標：";
             // 
@@ -456,9 +487,10 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(103, 76);
+            this.label1.Location = new System.Drawing.Point(208, 138);
+            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(36, 17);
+            this.label1.Size = new System.Drawing.Size(66, 30);
             this.label1.TabIndex = 1;
             this.label1.Text = "J1/X";
             // 
@@ -466,9 +498,10 @@
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(207, 76);
+            this.label2.Location = new System.Drawing.Point(415, 138);
+            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(36, 17);
+            this.label2.Size = new System.Drawing.Size(66, 30);
             this.label2.TabIndex = 1;
             this.label2.Text = "J2/Y";
             // 
@@ -476,9 +509,10 @@
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(311, 76);
+            this.label3.Location = new System.Drawing.Point(624, 138);
+            this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(36, 17);
+            this.label3.Size = new System.Drawing.Size(63, 30);
             this.label3.TabIndex = 1;
             this.label3.Text = "J3/Z";
             // 
@@ -486,9 +520,10 @@
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(415, 76);
+            this.label4.Location = new System.Drawing.Point(829, 138);
+            this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(36, 17);
+            this.label4.Size = new System.Drawing.Size(66, 30);
             this.label4.TabIndex = 1;
             this.label4.Text = "J4/A";
             // 
@@ -496,9 +531,10 @@
             // 
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(519, 76);
+            this.label5.Location = new System.Drawing.Point(1037, 138);
+            this.label5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(36, 17);
+            this.label5.Size = new System.Drawing.Size(65, 30);
             this.label5.TabIndex = 1;
             this.label5.Text = "J5/B";
             // 
@@ -506,63 +542,70 @@
             // 
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(624, 76);
+            this.label6.Location = new System.Drawing.Point(1247, 138);
+            this.label6.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(36, 17);
+            this.label6.Size = new System.Drawing.Size(65, 30);
             this.label6.TabIndex = 1;
             this.label6.Text = "J6/C";
             // 
             // textBox_arm_now_position_j1x
             // 
             this.textBox_arm_now_position_j1x.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_arm_now_position_j1x.Location = new System.Drawing.Point(72, 22);
+            this.textBox_arm_now_position_j1x.Location = new System.Drawing.Point(144, 38);
+            this.textBox_arm_now_position_j1x.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.textBox_arm_now_position_j1x.Name = "textBox_arm_now_position_j1x";
-            this.textBox_arm_now_position_j1x.Size = new System.Drawing.Size(98, 22);
+            this.textBox_arm_now_position_j1x.Size = new System.Drawing.Size(195, 43);
             this.textBox_arm_now_position_j1x.TabIndex = 2;
             this.textBox_arm_now_position_j1x.Text = "--";
             // 
             // textBox_arm_now_position_j2y
             // 
             this.textBox_arm_now_position_j2y.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_arm_now_position_j2y.Location = new System.Drawing.Point(176, 22);
+            this.textBox_arm_now_position_j2y.Location = new System.Drawing.Point(351, 38);
+            this.textBox_arm_now_position_j2y.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.textBox_arm_now_position_j2y.Name = "textBox_arm_now_position_j2y";
-            this.textBox_arm_now_position_j2y.Size = new System.Drawing.Size(98, 22);
+            this.textBox_arm_now_position_j2y.Size = new System.Drawing.Size(195, 43);
             this.textBox_arm_now_position_j2y.TabIndex = 2;
             this.textBox_arm_now_position_j2y.Text = "--";
             // 
             // textBox_arm_now_position_j3z
             // 
             this.textBox_arm_now_position_j3z.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_arm_now_position_j3z.Location = new System.Drawing.Point(280, 22);
+            this.textBox_arm_now_position_j3z.Location = new System.Drawing.Point(558, 38);
+            this.textBox_arm_now_position_j3z.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.textBox_arm_now_position_j3z.Name = "textBox_arm_now_position_j3z";
-            this.textBox_arm_now_position_j3z.Size = new System.Drawing.Size(98, 22);
+            this.textBox_arm_now_position_j3z.Size = new System.Drawing.Size(195, 43);
             this.textBox_arm_now_position_j3z.TabIndex = 2;
             this.textBox_arm_now_position_j3z.Text = "--";
             // 
             // textBox_arm_now_position_j4a
             // 
             this.textBox_arm_now_position_j4a.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_arm_now_position_j4a.Location = new System.Drawing.Point(384, 22);
+            this.textBox_arm_now_position_j4a.Location = new System.Drawing.Point(765, 38);
+            this.textBox_arm_now_position_j4a.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.textBox_arm_now_position_j4a.Name = "textBox_arm_now_position_j4a";
-            this.textBox_arm_now_position_j4a.Size = new System.Drawing.Size(98, 22);
+            this.textBox_arm_now_position_j4a.Size = new System.Drawing.Size(195, 43);
             this.textBox_arm_now_position_j4a.TabIndex = 2;
             this.textBox_arm_now_position_j4a.Text = "--";
             // 
             // textBox_arm_now_position_j5b
             // 
             this.textBox_arm_now_position_j5b.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_arm_now_position_j5b.Location = new System.Drawing.Point(488, 22);
+            this.textBox_arm_now_position_j5b.Location = new System.Drawing.Point(972, 38);
+            this.textBox_arm_now_position_j5b.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.textBox_arm_now_position_j5b.Name = "textBox_arm_now_position_j5b";
-            this.textBox_arm_now_position_j5b.Size = new System.Drawing.Size(98, 22);
+            this.textBox_arm_now_position_j5b.Size = new System.Drawing.Size(195, 43);
             this.textBox_arm_now_position_j5b.TabIndex = 2;
             this.textBox_arm_now_position_j5b.Text = "--";
             // 
             // textBox_arm_now_position_j6c
             // 
             this.textBox_arm_now_position_j6c.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_arm_now_position_j6c.Location = new System.Drawing.Point(592, 22);
+            this.textBox_arm_now_position_j6c.Location = new System.Drawing.Point(1179, 38);
+            this.textBox_arm_now_position_j6c.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.textBox_arm_now_position_j6c.Name = "textBox_arm_now_position_j6c";
-            this.textBox_arm_now_position_j6c.Size = new System.Drawing.Size(100, 22);
+            this.textBox_arm_now_position_j6c.Size = new System.Drawing.Size(201, 43);
             this.textBox_arm_now_position_j6c.TabIndex = 2;
             this.textBox_arm_now_position_j6c.Text = "--";
             // 
@@ -575,7 +618,8 @@
             0,
             0,
             0});
-            this.numericUpDown_arm_target_position_j1x.Location = new System.Drawing.Point(72, 125);
+            this.numericUpDown_arm_target_position_j1x.Location = new System.Drawing.Point(144, 226);
+            this.numericUpDown_arm_target_position_j1x.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.numericUpDown_arm_target_position_j1x.Maximum = new decimal(new int[] {
             700,
             0,
@@ -587,7 +631,7 @@
             0,
             -2147483648});
             this.numericUpDown_arm_target_position_j1x.Name = "numericUpDown_arm_target_position_j1x";
-            this.numericUpDown_arm_target_position_j1x.Size = new System.Drawing.Size(98, 22);
+            this.numericUpDown_arm_target_position_j1x.Size = new System.Drawing.Size(195, 43);
             this.numericUpDown_arm_target_position_j1x.TabIndex = 3;
             // 
             // numericUpDown_arm_target_position_j2y
@@ -599,7 +643,8 @@
             0,
             0,
             0});
-            this.numericUpDown_arm_target_position_j2y.Location = new System.Drawing.Point(176, 125);
+            this.numericUpDown_arm_target_position_j2y.Location = new System.Drawing.Point(351, 226);
+            this.numericUpDown_arm_target_position_j2y.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.numericUpDown_arm_target_position_j2y.Maximum = new decimal(new int[] {
             700,
             0,
@@ -611,7 +656,7 @@
             0,
             -2147483648});
             this.numericUpDown_arm_target_position_j2y.Name = "numericUpDown_arm_target_position_j2y";
-            this.numericUpDown_arm_target_position_j2y.Size = new System.Drawing.Size(98, 22);
+            this.numericUpDown_arm_target_position_j2y.Size = new System.Drawing.Size(195, 43);
             this.numericUpDown_arm_target_position_j2y.TabIndex = 3;
             this.numericUpDown_arm_target_position_j2y.Value = new decimal(new int[] {
             368,
@@ -628,7 +673,8 @@
             0,
             0,
             0});
-            this.numericUpDown_arm_target_position_j3z.Location = new System.Drawing.Point(280, 125);
+            this.numericUpDown_arm_target_position_j3z.Location = new System.Drawing.Point(558, 226);
+            this.numericUpDown_arm_target_position_j3z.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.numericUpDown_arm_target_position_j3z.Maximum = new decimal(new int[] {
             500,
             0,
@@ -640,7 +686,7 @@
             0,
             -2147483648});
             this.numericUpDown_arm_target_position_j3z.Name = "numericUpDown_arm_target_position_j3z";
-            this.numericUpDown_arm_target_position_j3z.Size = new System.Drawing.Size(98, 22);
+            this.numericUpDown_arm_target_position_j3z.Size = new System.Drawing.Size(195, 43);
             this.numericUpDown_arm_target_position_j3z.TabIndex = 3;
             this.numericUpDown_arm_target_position_j3z.Value = new decimal(new int[] {
             294,
@@ -657,7 +703,8 @@
             0,
             0,
             0});
-            this.numericUpDown_arm_target_position_j4a.Location = new System.Drawing.Point(384, 125);
+            this.numericUpDown_arm_target_position_j4a.Location = new System.Drawing.Point(765, 226);
+            this.numericUpDown_arm_target_position_j4a.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.numericUpDown_arm_target_position_j4a.Maximum = new decimal(new int[] {
             700,
             0,
@@ -669,7 +716,7 @@
             0,
             -2147483648});
             this.numericUpDown_arm_target_position_j4a.Name = "numericUpDown_arm_target_position_j4a";
-            this.numericUpDown_arm_target_position_j4a.Size = new System.Drawing.Size(98, 22);
+            this.numericUpDown_arm_target_position_j4a.Size = new System.Drawing.Size(195, 43);
             this.numericUpDown_arm_target_position_j4a.TabIndex = 3;
             this.numericUpDown_arm_target_position_j4a.Value = new decimal(new int[] {
             180,
@@ -686,7 +733,8 @@
             0,
             0,
             0});
-            this.numericUpDown_arm_target_position_j5b.Location = new System.Drawing.Point(488, 125);
+            this.numericUpDown_arm_target_position_j5b.Location = new System.Drawing.Point(972, 226);
+            this.numericUpDown_arm_target_position_j5b.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.numericUpDown_arm_target_position_j5b.Maximum = new decimal(new int[] {
             700,
             0,
@@ -698,7 +746,7 @@
             0,
             -2147483648});
             this.numericUpDown_arm_target_position_j5b.Name = "numericUpDown_arm_target_position_j5b";
-            this.numericUpDown_arm_target_position_j5b.Size = new System.Drawing.Size(98, 22);
+            this.numericUpDown_arm_target_position_j5b.Size = new System.Drawing.Size(195, 43);
             this.numericUpDown_arm_target_position_j5b.TabIndex = 3;
             // 
             // numericUpDown_arm_target_position_j6c
@@ -710,7 +758,8 @@
             0,
             0,
             0});
-            this.numericUpDown_arm_target_position_j6c.Location = new System.Drawing.Point(592, 125);
+            this.numericUpDown_arm_target_position_j6c.Location = new System.Drawing.Point(1179, 226);
+            this.numericUpDown_arm_target_position_j6c.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.numericUpDown_arm_target_position_j6c.Maximum = new decimal(new int[] {
             700,
             0,
@@ -722,7 +771,7 @@
             0,
             -2147483648});
             this.numericUpDown_arm_target_position_j6c.Name = "numericUpDown_arm_target_position_j6c";
-            this.numericUpDown_arm_target_position_j6c.Size = new System.Drawing.Size(100, 22);
+            this.numericUpDown_arm_target_position_j6c.Size = new System.Drawing.Size(201, 43);
             this.numericUpDown_arm_target_position_j6c.TabIndex = 3;
             this.numericUpDown_arm_target_position_j6c.Value = new decimal(new int[] {
             90,
@@ -733,9 +782,10 @@
             // button_arm_copy_position_from_now_to_target
             // 
             this.button_arm_copy_position_from_now_to_target.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.button_arm_copy_position_from_now_to_target.Location = new System.Drawing.Point(3, 69);
+            this.button_arm_copy_position_from_now_to_target.Location = new System.Drawing.Point(6, 125);
+            this.button_arm_copy_position_from_now_to_target.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.button_arm_copy_position_from_now_to_target.Name = "button_arm_copy_position_from_now_to_target";
-            this.button_arm_copy_position_from_now_to_target.Size = new System.Drawing.Size(63, 31);
+            this.button_arm_copy_position_from_now_to_target.Size = new System.Drawing.Size(126, 57);
             this.button_arm_copy_position_from_now_to_target.TabIndex = 4;
             this.button_arm_copy_position_from_now_to_target.Text = "複製";
             this.button_arm_copy_position_from_now_to_target.UseVisualStyleBackColor = true;
@@ -745,9 +795,11 @@
             // 
             this.groupBox5.Controls.Add(this.tableLayoutPanel5);
             this.groupBox5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox5.Location = new System.Drawing.Point(3, 322);
+            this.groupBox5.Location = new System.Drawing.Point(6, 604);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(701, 107);
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupBox5.Size = new System.Drawing.Size(1398, 201);
             this.groupBox5.TabIndex = 6;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "速度與加速度";
@@ -759,20 +811,21 @@
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel5.Controls.Add(this.numericUpDown_arm_speed, 1, 0);
             this.tableLayoutPanel5.Controls.Add(this.button_set_speed_acceleration, 5, 0);
             this.tableLayoutPanel5.Controls.Add(this.label7, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.label8, 2, 0);
             this.tableLayoutPanel5.Controls.Add(this.numericUpDown_arm_acceleration, 3, 0);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 18);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(6, 42);
+            this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(695, 86);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(1386, 153);
             this.tableLayoutPanel5.TabIndex = 0;
             // 
             // numericUpDown_arm_speed
@@ -783,14 +836,15 @@
             0,
             0,
             0});
-            this.numericUpDown_arm_speed.Location = new System.Drawing.Point(138, 32);
+            this.numericUpDown_arm_speed.Location = new System.Drawing.Point(275, 55);
+            this.numericUpDown_arm_speed.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.numericUpDown_arm_speed.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.numericUpDown_arm_speed.Name = "numericUpDown_arm_speed";
-            this.numericUpDown_arm_speed.Size = new System.Drawing.Size(129, 22);
+            this.numericUpDown_arm_speed.Size = new System.Drawing.Size(257, 43);
             this.numericUpDown_arm_speed.TabIndex = 0;
             this.numericUpDown_arm_speed.Value = new decimal(new int[] {
             5,
@@ -801,9 +855,10 @@
             // button_set_speed_acceleration
             // 
             this.button_set_speed_acceleration.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_set_speed_acceleration.Location = new System.Drawing.Point(563, 30);
+            this.button_set_speed_acceleration.Location = new System.Drawing.Point(1122, 53);
+            this.button_set_speed_acceleration.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.button_set_speed_acceleration.Name = "button_set_speed_acceleration";
-            this.button_set_speed_acceleration.Size = new System.Drawing.Size(129, 25);
+            this.button_set_speed_acceleration.Size = new System.Drawing.Size(258, 47);
             this.button_set_speed_acceleration.TabIndex = 1;
             this.button_set_speed_acceleration.Text = "設定";
             this.button_set_speed_acceleration.UseVisualStyleBackColor = true;
@@ -813,9 +868,10 @@
             // 
             this.label7.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(89, 34);
+            this.label7.Location = new System.Drawing.Point(160, 61);
+            this.label7.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(43, 17);
+            this.label7.Size = new System.Drawing.Size(103, 30);
             this.label7.TabIndex = 1;
             this.label7.Text = "速度：";
             // 
@@ -823,9 +879,10 @@
             // 
             this.label8.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(345, 34);
+            this.label8.Location = new System.Drawing.Point(668, 61);
+            this.label8.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(57, 17);
+            this.label8.Size = new System.Drawing.Size(133, 30);
             this.label8.TabIndex = 1;
             this.label8.Text = "加速度：";
             // 
@@ -837,14 +894,15 @@
             0,
             0,
             0});
-            this.numericUpDown_arm_acceleration.Location = new System.Drawing.Point(408, 32);
+            this.numericUpDown_arm_acceleration.Location = new System.Drawing.Point(813, 55);
+            this.numericUpDown_arm_acceleration.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.numericUpDown_arm_acceleration.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.numericUpDown_arm_acceleration.Name = "numericUpDown_arm_acceleration";
-            this.numericUpDown_arm_acceleration.Size = new System.Drawing.Size(129, 22);
+            this.numericUpDown_arm_acceleration.Size = new System.Drawing.Size(257, 43);
             this.numericUpDown_arm_acceleration.TabIndex = 0;
             this.numericUpDown_arm_acceleration.Value = new decimal(new int[] {
             10,
@@ -856,9 +914,11 @@
             // 
             this.groupBox6.Controls.Add(this.tableLayoutPanel3);
             this.groupBox6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox6.Location = new System.Drawing.Point(3, 193);
+            this.groupBox6.Location = new System.Drawing.Point(6, 362);
+            this.groupBox6.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(701, 129);
+            this.groupBox6.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupBox6.Size = new System.Drawing.Size(1398, 242);
             this.groupBox6.TabIndex = 5;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "動作";
@@ -867,10 +927,11 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(12, 105);
+            this.tabControl1.Location = new System.Drawing.Point(24, 197);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(715, 503);
+            this.tabControl1.Size = new System.Drawing.Size(1430, 943);
             this.tabControl1.TabIndex = 5;
             // 
             // tabPage1
@@ -878,10 +939,11 @@
             this.tabPage1.Controls.Add(this.groupBox5);
             this.tabPage1.Controls.Add(this.groupBox6);
             this.tabPage1.Controls.Add(this.groupBox_arm_position);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Location = new System.Drawing.Point(10, 48);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(707, 474);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.tabPage1.Size = new System.Drawing.Size(1410, 885);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "手臂";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -889,10 +951,11 @@
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.tableLayoutPanel6);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Location = new System.Drawing.Point(10, 48);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(707, 474);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.tabPage2.Size = new System.Drawing.Size(1410, 885);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "夾爪";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -910,22 +973,24 @@
             this.tableLayoutPanel6.Controls.Add(this.label11, 0, 3);
             this.tableLayoutPanel6.Controls.Add(this.numericUpDown_gripper_speed, 1, 2);
             this.tableLayoutPanel6.Controls.Add(this.numericUpDown_gripper_force, 1, 3);
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(37, 47);
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(74, 88);
+            this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 4;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(253, 260);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(506, 488);
             this.tableLayoutPanel6.TabIndex = 2;
             // 
             // button_gripper_action
             // 
             this.button_gripper_action.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button_gripper_action.Location = new System.Drawing.Point(152, 20);
+            this.button_gripper_action.Location = new System.Drawing.Point(304, 37);
+            this.button_gripper_action.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.button_gripper_action.Name = "button_gripper_action";
-            this.button_gripper_action.Size = new System.Drawing.Size(75, 25);
+            this.button_gripper_action.Size = new System.Drawing.Size(150, 47);
             this.button_gripper_action.TabIndex = 3;
             this.button_gripper_action.Text = "進行動作";
             this.button_gripper_action.UseVisualStyleBackColor = true;
@@ -939,14 +1004,15 @@
             0,
             0,
             0});
-            this.numericUpDown_gripper_position.Location = new System.Drawing.Point(129, 86);
+            this.numericUpDown_gripper_position.Location = new System.Drawing.Point(259, 161);
+            this.numericUpDown_gripper_position.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.numericUpDown_gripper_position.Maximum = new decimal(new int[] {
             3200,
             0,
             0,
             0});
             this.numericUpDown_gripper_position.Name = "numericUpDown_gripper_position";
-            this.numericUpDown_gripper_position.Size = new System.Drawing.Size(121, 22);
+            this.numericUpDown_gripper_position.Size = new System.Drawing.Size(241, 43);
             this.numericUpDown_gripper_position.TabIndex = 1;
             this.numericUpDown_gripper_position.Value = new decimal(new int[] {
             2000,
@@ -957,9 +1023,10 @@
             // button_gripper_reset
             // 
             this.button_gripper_reset.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button_gripper_reset.Location = new System.Drawing.Point(25, 20);
+            this.button_gripper_reset.Location = new System.Drawing.Point(51, 37);
+            this.button_gripper_reset.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.button_gripper_reset.Name = "button_gripper_reset";
-            this.button_gripper_reset.Size = new System.Drawing.Size(75, 25);
+            this.button_gripper_reset.Size = new System.Drawing.Size(150, 47);
             this.button_gripper_reset.TabIndex = 0;
             this.button_gripper_reset.Text = "重置";
             this.button_gripper_reset.UseVisualStyleBackColor = true;
@@ -969,9 +1036,10 @@
             // 
             this.label9.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(80, 89);
+            this.label9.Location = new System.Drawing.Point(144, 168);
+            this.label9.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(43, 17);
+            this.label9.Size = new System.Drawing.Size(103, 30);
             this.label9.TabIndex = 4;
             this.label9.Text = "距離：";
             // 
@@ -979,9 +1047,10 @@
             // 
             this.label10.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(80, 154);
+            this.label10.Location = new System.Drawing.Point(144, 290);
+            this.label10.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(43, 17);
+            this.label10.Size = new System.Drawing.Size(103, 30);
             this.label10.TabIndex = 4;
             this.label10.Text = "速度：";
             // 
@@ -989,9 +1058,10 @@
             // 
             this.label11.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(80, 219);
+            this.label11.Location = new System.Drawing.Point(144, 412);
+            this.label11.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(43, 17);
+            this.label11.Size = new System.Drawing.Size(103, 30);
             this.label11.TabIndex = 4;
             this.label11.Text = "力量：";
             // 
@@ -1003,7 +1073,8 @@
             0,
             0,
             0});
-            this.numericUpDown_gripper_speed.Location = new System.Drawing.Point(129, 151);
+            this.numericUpDown_gripper_speed.Location = new System.Drawing.Point(259, 283);
+            this.numericUpDown_gripper_speed.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.numericUpDown_gripper_speed.Maximum = new decimal(new int[] {
             80,
             0,
@@ -1015,7 +1086,7 @@
             0,
             0});
             this.numericUpDown_gripper_speed.Name = "numericUpDown_gripper_speed";
-            this.numericUpDown_gripper_speed.Size = new System.Drawing.Size(121, 22);
+            this.numericUpDown_gripper_speed.Size = new System.Drawing.Size(241, 43);
             this.numericUpDown_gripper_speed.TabIndex = 1;
             this.numericUpDown_gripper_speed.Value = new decimal(new int[] {
             50,
@@ -1031,9 +1102,10 @@
             0,
             0,
             0});
-            this.numericUpDown_gripper_force.Location = new System.Drawing.Point(129, 216);
+            this.numericUpDown_gripper_force.Location = new System.Drawing.Point(259, 405);
+            this.numericUpDown_gripper_force.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.numericUpDown_gripper_force.Name = "numericUpDown_gripper_force";
-            this.numericUpDown_gripper_force.Size = new System.Drawing.Size(121, 22);
+            this.numericUpDown_gripper_force.Size = new System.Drawing.Size(241, 43);
             this.numericUpDown_gripper_force.TabIndex = 1;
             this.numericUpDown_gripper_force.Value = new decimal(new int[] {
             70,
@@ -1043,12 +1115,13 @@
             // 
             // Form_HIWIN_Robot
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 30F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1252, 714);
+            this.ClientSize = new System.Drawing.Size(2504, 1339);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.groupBox_connect_disconnect);
             this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "Form_HIWIN_Robot";
             this.Text = "HIWIN Robot";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_HIWIN_Robot_FormClosing);
@@ -1136,7 +1209,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.CheckBox checkBox_arm_to_zero_slow;
-        private System.Windows.Forms.Button button_arm_to_zero;
+        private System.Windows.Forms.Button button_arm_homing;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.NumericUpDown numericUpDown_arm_speed;
