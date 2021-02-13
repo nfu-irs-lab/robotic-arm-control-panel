@@ -775,6 +775,10 @@ namespace HiwinRobot
             SetButtonsState(false);
         }
 
+        /// <summary>
+        /// 設定手臂未連線時禁用的按鈕啓用狀態。
+        /// </summary>
+        /// <param name="enableButtons"></param>
         private void SetButtonsState(bool enableButtons)
         {
             for (int i = 0; i < Buttons.Count; i++)
