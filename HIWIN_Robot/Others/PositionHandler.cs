@@ -52,7 +52,7 @@ namespace HiwinRobot
                            string comment = "--")
         {
             string filename = "[position_record]" +
-                              DateTime.Now.ToString("yyyy-MM-dd") +
+                              DateTime.Now.ToString("MMMdd") +
                               ".csv";
 
             List<List<string>> csvContent = new List<List<string>>()
