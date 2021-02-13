@@ -24,6 +24,19 @@ namespace HiwinRobot
         /// </summary>
         char SymbolStringDelimiter { get; set; }
 
+        /// <summary>
+        /// 讀取 CSV 檔案。其格式爲[row][column]。
+        /// </summary>
+        /// <param name="filenameWithExtension"></param>
+        /// <returns></returns>
+        List<List<string>> Read(string filenameWithExtension);
+
+        /// <summary>
+        /// 寫入 CSV 檔案。其格式爲[row][column]。
+        /// </summary>
+        /// <param name="filenameWithExtension"></param>
+        /// <param name="rowColumnData"></param>
+        /// <param name="columnName"></param>
         void Write(string filenameWithExtension,
                    List<List<string>> rowColumnData,
                    List<string> columnName = null);
@@ -46,8 +59,34 @@ namespace HiwinRobot
 
         public char SymbolStringDelimiter { get; set; }
 
+        public List<List<string>> Read(string filenameWithExtension)
+        {
+            List<List<string>> csvContent = new List<List<string>>();
+
+            if (File.Exists(Path + filenameWithExtension))
+            {
+                using (var reader = new StreamReader(Path + filenameWithExtension))
+                {
+                    while (!reader.EndOfStream)
+                    {
+                        var row = new List<string>();
+                        var line = reader.ReadLine();
+                        var values = line.Split(SymbolSeparated);
+                        for (int i = 0; i < values.Length; i++)
+                        {
+                            row.Add(values[i].Trim().Trim(SymbolStringDelimiter).Trim());
+                        }
+                        csvContent.Add(row);
+                    }
+                    reader.Close();
+                }
+            }
+
+            return csvContent;
+        }
+
         public void Write(string filenameWithExtension,
-                          List<List<string>> rowColumnData,
+                                  List<List<string>> rowColumnData,
                           List<string> columnName = null)
         {
             bool fileAlreadyExists = false;
