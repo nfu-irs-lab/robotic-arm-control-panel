@@ -1175,6 +1175,7 @@
             this.button_position_recode.TabIndex = 1;
             this.button_position_recode.Text = "儲存";
             this.button_position_recode.UseVisualStyleBackColor = true;
+            this.button_position_recode.Click += new System.EventHandler(this.button_position_recode_Click);
             // 
             // tableLayoutPanel7
             // 

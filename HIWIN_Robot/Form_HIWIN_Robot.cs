@@ -508,6 +508,23 @@ namespace HiwinRobot
 
         #endregion - 連線與斷線 -
 
+        #region - 位置記錄 -
+
+        /// <summary>
+        /// 位置記錄。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button_position_recode_Click(object sender, EventArgs e)
+        {
+            PositionHandler.Record(textBox_position_record_name.Text,
+                                   GetPositinoType(),
+                                   GetNowUiPostion(),
+                                   textBox_position_record_comment.Text);
+        }
+
+        #endregion - 位置記錄 -
+
         #region - 其它 -
 
         /// <summary>
@@ -519,6 +536,11 @@ namespace HiwinRobot
         /// 未連線時禁用的按鈕組。
         /// </summary>
         private List<Button> Buttons = new List<Button>();
+
+        /// <summary>
+        /// CSV 檔處理器。
+        /// </summary>
+        private ICsvHandler CsvHandler = null;
 
         /// <summary>
         /// 連線裝置組。
@@ -539,6 +561,11 @@ namespace HiwinRobot
         /// UI 目前顯示位置的控制項陣列。
         /// </summary>
         private List<TextBox> NowPosition = new List<TextBox>();
+
+        /// <summary>
+        /// 位置記錄處理器。
+        /// </summary>
+        private IPositionHandler PositionHandler = null;
 
         /// <summary>
         /// UI 目標位置的控制項陣列。
@@ -761,6 +788,8 @@ namespace HiwinRobot
             Arm = new ArmController(Configuration.ArmIp, LogHandler);
             Gripper = new GripperController(Configuration.GripperComPort, LogHandler);
             Bluetooth = new BluetoothArmController(Configuration.BluetoothComPort, Arm, LogHandler);
+            CsvHandler = new CsvHandler(Configuration.CsvFilePath);
+            PositionHandler = new PositionHandler(CsvHandler);
 
 #if (DISABLE_SHOW_MESSAGE)
             Message = new EmptyMessage();
