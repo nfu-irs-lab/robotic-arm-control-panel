@@ -172,9 +172,17 @@ namespace HiwinRobot
             FileList.Items.Clear();
 
             DirectoryInfo directoryInfo = new DirectoryInfo(CsvHandler.Path);
-            foreach (var fi in directoryInfo.GetFiles("*.csv"))
+            try
             {
-                FileList.Items.Add(fi.Name);
+                foreach (var fi in directoryInfo.GetFiles("*.csv"))
+                {
+                    FileList.Items.Add(fi.Name);
+                }
+            }
+            catch (DirectoryNotFoundException)
+            {
+                Directory.CreateDirectory(CsvHandler.Path);
+                UpdateFileList();
             }
 
             if (FileList.Items.Count > 0)
