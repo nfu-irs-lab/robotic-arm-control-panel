@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace HiwinRobot
 {
@@ -92,6 +93,11 @@ namespace HiwinRobot
 
             CsvHandler.Write(filename, csvContent, CsvColumnName);
             SerialNumber++;
+        }
+
+        public void UpdateList(string filenameWithExtension, ListView listView)
+        {
+            listView.Clear();
         }
     }
 }

@@ -101,6 +101,18 @@
             this.textBox_position_record_comment = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
+            this.listView_position_record = new System.Windows.Forms.ListView();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox_connect_disconnect.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -133,6 +145,7 @@
             this.tabPage_sub_position_record.SuspendLayout();
             this.groupBox_position_record.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
+            this.groupBox7.SuspendLayout();
             this.SuspendLayout();
             // 
             // button_connect
@@ -1137,6 +1150,7 @@
             // 
             // tabPage_sub_position_record
             // 
+            this.tabPage_sub_position_record.Controls.Add(this.groupBox7);
             this.tabPage_sub_position_record.Controls.Add(this.groupBox_position_record);
             this.tabPage_sub_position_record.Location = new System.Drawing.Point(10, 48);
             this.tabPage_sub_position_record.Name = "tabPage_sub_position_record";
@@ -1226,6 +1240,40 @@
             this.label13.TabIndex = 3;
             this.label13.Text = "名稱：";
             // 
+            // listView_position_record
+            // 
+            this.listView_position_record.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4,
+            this.columnHeader5,
+            this.columnHeader6,
+            this.columnHeader7,
+            this.columnHeader8,
+            this.columnHeader9,
+            this.columnHeader10});
+            this.listView_position_record.FullRowSelect = true;
+            this.listView_position_record.GridLines = true;
+            this.listView_position_record.HideSelection = false;
+            this.listView_position_record.Location = new System.Drawing.Point(48, 83);
+            this.listView_position_record.Name = "listView_position_record";
+            this.listView_position_record.Size = new System.Drawing.Size(1200, 527);
+            this.listView_position_record.TabIndex = 2;
+            this.listView_position_record.UseCompatibleStateImageBehavior = false;
+            this.listView_position_record.View = System.Windows.Forms.View.Details;
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.listView_position_record);
+            this.groupBox7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox7.Location = new System.Drawing.Point(3, 3);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(1305, 724);
+            this.groupBox7.TabIndex = 3;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "讀取";
+            // 
             // Form_HIWIN_Robot
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 30F);
@@ -1280,6 +1328,7 @@
             this.groupBox_position_record.ResumeLayout(false);
             this.tableLayoutPanel7.ResumeLayout(false);
             this.tableLayoutPanel7.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1359,6 +1408,18 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox textBox_position_record_comment;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.ListView listView_position_record;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ColumnHeader columnHeader6;
+        private System.Windows.Forms.ColumnHeader columnHeader7;
+        private System.Windows.Forms.ColumnHeader columnHeader8;
+        private System.Windows.Forms.ColumnHeader columnHeader9;
+        private System.Windows.Forms.ColumnHeader columnHeader10;
     }
 }
 
