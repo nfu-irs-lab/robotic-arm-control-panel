@@ -181,7 +181,7 @@
             // button_arm_motion_start
             // 
             this.button_arm_motion_start.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button_arm_motion_start.Location = new System.Drawing.Point(35, 6);
+            this.button_arm_motion_start.Location = new System.Drawing.Point(35, 13);
             this.button_arm_motion_start.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.button_arm_motion_start.Name = "button_arm_motion_start";
             this.button_arm_motion_start.Size = new System.Drawing.Size(182, 64);
@@ -379,22 +379,23 @@
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.Controls.Add(this.button_arm_motion_start, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.button_update_now_position, 0, 1);
+            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(861, 6);
             this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 2;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(253, 152);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(253, 182);
             this.tableLayoutPanel4.TabIndex = 2;
             // 
             // button_update_now_position
             // 
             this.button_update_now_position.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button_update_now_position.Location = new System.Drawing.Point(35, 82);
+            this.button_update_now_position.Location = new System.Drawing.Point(35, 103);
             this.button_update_now_position.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.button_update_now_position.Name = "button_update_now_position";
-            this.button_update_now_position.Size = new System.Drawing.Size(182, 64);
+            this.button_update_now_position.Size = new System.Drawing.Size(182, 66);
             this.button_update_now_position.TabIndex = 3;
             this.button_update_now_position.Text = "更新位置";
             this.button_update_now_position.UseVisualStyleBackColor = true;
