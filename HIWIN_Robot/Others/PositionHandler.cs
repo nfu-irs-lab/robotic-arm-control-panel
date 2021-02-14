@@ -54,6 +54,7 @@ namespace HiwinRobot
 
             // 取得該enum的成員數量。https://stackoverflow.com/questions/856154/total-number-of-items-defined-in-an-enum
             var enumCount = Enum.GetNames(typeof(PositionDataFormat)).Length;
+
             for (int i = 0; i < enumCount; i++)
             {
                 // 依照引索來取得enum的項目。https://stackoverflow.com/a/31452191/12005882

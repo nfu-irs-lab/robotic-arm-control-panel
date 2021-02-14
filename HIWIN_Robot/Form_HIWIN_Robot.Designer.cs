@@ -92,6 +92,8 @@
             this.label11 = new System.Windows.Forms.Label();
             this.numericUpDown_gripper_speed = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown_gripper_force = new System.Windows.Forms.NumericUpDown();
+            this.tabControl_sub = new System.Windows.Forms.TabControl();
+            this.tabPage_sub_position_record = new System.Windows.Forms.TabPage();
             this.groupBox_connect_disconnect.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -120,6 +122,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_gripper_position)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_gripper_speed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_gripper_force)).BeginInit();
+            this.tabControl_sub.SuspendLayout();
             this.SuspendLayout();
             // 
             // button_connect
@@ -1113,11 +1116,31 @@
             0,
             0});
             // 
+            // tabControl_sub
+            // 
+            this.tabControl_sub.Controls.Add(this.tabPage_sub_position_record);
+            this.tabControl_sub.Location = new System.Drawing.Point(1489, 197);
+            this.tabControl_sub.Name = "tabControl_sub";
+            this.tabControl_sub.SelectedIndex = 0;
+            this.tabControl_sub.Size = new System.Drawing.Size(1331, 943);
+            this.tabControl_sub.TabIndex = 6;
+            // 
+            // tabPage_sub_position_record
+            // 
+            this.tabPage_sub_position_record.Location = new System.Drawing.Point(10, 48);
+            this.tabPage_sub_position_record.Name = "tabPage_sub_position_record";
+            this.tabPage_sub_position_record.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_sub_position_record.Size = new System.Drawing.Size(1311, 885);
+            this.tabPage_sub_position_record.TabIndex = 0;
+            this.tabPage_sub_position_record.Text = "位置記錄";
+            this.tabPage_sub_position_record.UseVisualStyleBackColor = true;
+            // 
             // Form_HIWIN_Robot
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 30F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(2504, 1339);
+            this.ClientSize = new System.Drawing.Size(2916, 1339);
+            this.Controls.Add(this.tabControl_sub);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.groupBox_connect_disconnect);
             this.KeyPreview = true;
@@ -1161,6 +1184,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_gripper_position)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_gripper_speed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_gripper_force)).EndInit();
+            this.tabControl_sub.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1231,6 +1255,8 @@
         private System.Windows.Forms.NumericUpDown numericUpDown_gripper_speed;
         private System.Windows.Forms.NumericUpDown numericUpDown_gripper_force;
         private System.Windows.Forms.Button button_update_now_position;
+        private System.Windows.Forms.TabControl tabControl_sub;
+        private System.Windows.Forms.TabPage tabPage_sub_position_record;
     }
 }
 
