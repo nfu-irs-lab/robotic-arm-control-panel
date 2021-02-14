@@ -6,6 +6,23 @@ using System.Threading.Tasks;
 
 namespace HiwinRobot
 {
+    /// <summary>
+    /// CSV 位置資料格式。
+    /// </summary>
+    public enum PositionDataFormat
+    {
+        Id = 0,
+        Name,
+        Type,
+        J1X,
+        J2Y,
+        J3Z,
+        J4A,
+        J5B,
+        J6C,
+        Comment
+    }
+
     public interface IPositionHandler
     {
         /// <summary>
@@ -23,19 +40,7 @@ namespace HiwinRobot
 
     public class PositionHandler : IPositionHandler
     {
-        private readonly List<string> CsvColumnName = new List<string>()
-        {
-            "id",
-            "name",
-            "type",
-            "j1x",
-            "j2y",
-            "j3z",
-            "j4a",
-            "j5b",
-            "j6c",
-            "comment"
-        };
+        private readonly List<string> CsvColumnName = new List<string>();
 
         private ICsvHandler CsvHandler = null;
 
@@ -44,6 +49,18 @@ namespace HiwinRobot
         public PositionHandler(ICsvHandler csvHandler)
         {
             CsvHandler = csvHandler;
+
+            CsvColumnName.Clear();
+
+            // 取得該enum的成員數量。https://stackoverflow.com/questions/856154/total-number-of-items-defined-in-an-enum
+            var enumCount = Enum.GetNames(typeof(PositionDataFormat)).Length;
+            for (int i = 0; i < enumCount; i++)
+            {
+                // 依照引索來取得enum的項目。https://stackoverflow.com/a/31452191/12005882
+                var e = new PositionDataFormat();
+                var col = (PositionDataFormat)(Enum.GetValues(e.GetType())).GetValue(i);
+                CsvColumnName.Add(col.ToString());
+            }
         }
 
         public void Record(string name,
