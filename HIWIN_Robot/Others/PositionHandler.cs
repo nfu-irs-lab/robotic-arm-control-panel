@@ -43,7 +43,7 @@ namespace HiwinRobot
         /// </summary>
         /// <param name="filenameWithExtension"></param>
         /// <param name="listView"></param>
-        void UpdateList(string filenameWithExtension, ListView listView);
+        void UpdateList(string filenameWithExtension);
     }
 
     public class PositionHandler : IPositionHandler
@@ -52,11 +52,13 @@ namespace HiwinRobot
 
         private ICsvHandler CsvHandler = null;
 
+        private ListView ListView = null;
         private int SerialNumber = 0;
 
-        public PositionHandler(ICsvHandler csvHandler)
+        public PositionHandler(ICsvHandler csvHandler, ListView listView)
         {
             CsvHandler = csvHandler;
+            ListView = listView;
 
             CsvColumnName.Clear();
 
@@ -70,6 +72,9 @@ namespace HiwinRobot
                 var col = (PositionDataFormat)(Enum.GetValues(e.GetType())).GetValue(i);
                 CsvColumnName.Add(col.ToString());
             }
+
+            UpdateListColumnName();
+            ResizeListColumnWide();
         }
 
         public void Record(string name,
@@ -102,11 +107,11 @@ namespace HiwinRobot
             SerialNumber++;
         }
 
-        public void UpdateList(string filenameWithExtension, ListView listView)
+        public void UpdateList(string filenameWithExtension)
         {
             var csvData = CsvHandler.Read(filenameWithExtension);
 
-            listView.Items.Clear();
+            ListView.Items.Clear();
             for (int row = 1; row < csvData.Count; row++)
             {
                 ListViewItem item = new ListViewItem();
@@ -120,19 +125,35 @@ namespace HiwinRobot
                 item.SubItems.Add(csvData[row][(int)PositionDataFormat.J5B]);
                 item.SubItems.Add(csvData[row][(int)PositionDataFormat.J6C]);
                 item.SubItems.Add(csvData[row][(int)PositionDataFormat.Comment]);
-                listView.Items.Add(item);
-            }
-
-            // 調整寬度。
-            for (int col = 0; col < listView.Columns.Count; col++)
-            {
-                listView.Columns[col].Width = -2;
+                ListView.Items.Add(item);
             }
 
             // Selected the first item.
-            if (listView.Items.Count > 0)
+            if (ListView.Items.Count > 0)
             {
-                listView.Items[0].Selected = true;
+                ListView.Items[0].Selected = true;
+            }
+
+            ResizeListColumnWide();
+        }
+
+        private void ResizeListColumnWide()
+        {
+            // 調整寬度。
+            for (int col = 0; col < ListView.Columns.Count; col++)
+            {
+                ListView.Columns[col].Width = -2;
+            }
+        }
+
+        private void UpdateListColumnName()
+        {
+            for (int col = 0; col < ListView.Columns.Count; col++)
+            {
+                // 依照引索來取得enum的項目。https://stackoverflow.com/a/31452191/12005882
+                var e = new PositionDataFormat();
+                var type = (PositionDataFormat)(Enum.GetValues(e.GetType())).GetValue(col);
+                ListView.Columns[col].Text = type.ToString();
             }
         }
     }

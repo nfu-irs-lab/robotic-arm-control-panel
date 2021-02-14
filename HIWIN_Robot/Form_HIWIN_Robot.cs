@@ -789,7 +789,7 @@ namespace HiwinRobot
             Gripper = new GripperController(Configuration.GripperComPort, LogHandler);
             Bluetooth = new BluetoothArmController(Configuration.BluetoothComPort, Arm, LogHandler);
             CsvHandler = new CsvHandler(Configuration.CsvFilePath);
-            PositionHandler = new PositionHandler(CsvHandler);
+            PositionHandler = new PositionHandler(CsvHandler, listView_position_record);
 
 #if (DISABLE_SHOW_MESSAGE)
             Message = new EmptyMessage();
