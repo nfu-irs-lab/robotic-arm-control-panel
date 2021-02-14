@@ -523,6 +523,25 @@ namespace HiwinRobot
                                    textBox_position_record_comment.Text);
         }
 
+        private void button_position_record_read_Click(object sender, EventArgs e)
+        {
+            var type = PositionHandler.GetPositionType();
+            if (type == PositionType.Descartes)
+            {
+                radioButton_position_type_descartes.Checked = true;
+            }
+            else if (type == PositionType.Joint)
+            {
+                radioButton_position_type_joint.Checked = true;
+            }
+            else
+            {
+                Message.Show("錯誤的位置類型。", LoggingLevel.Error);
+            }
+
+            SetTargetPostion(PositionHandler.GetPosition());
+        }
+
         private void button_position_record_update_list_Click(object sender, EventArgs e)
         {
             PositionHandler.UpdateFileList();

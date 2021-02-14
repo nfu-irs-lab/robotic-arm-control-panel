@@ -1264,6 +1264,7 @@
             this.listView_position_record.GridLines = true;
             this.listView_position_record.HideSelection = false;
             this.listView_position_record.Location = new System.Drawing.Point(3, 39);
+            this.listView_position_record.MultiSelect = false;
             this.listView_position_record.Name = "listView_position_record";
             this.listView_position_record.Size = new System.Drawing.Size(1299, 580);
             this.listView_position_record.TabIndex = 2;
@@ -1311,6 +1312,7 @@
             this.button_position_record_read.TabIndex = 0;
             this.button_position_record_read.Text = "讀取";
             this.button_position_record_read.UseVisualStyleBackColor = true;
+            this.button_position_record_read.Click += new System.EventHandler(this.button_position_record_read_Click);
             // 
             // button_position_record_update_list
             // 

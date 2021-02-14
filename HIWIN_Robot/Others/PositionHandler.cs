@@ -27,6 +27,10 @@ namespace HiwinRobot
 
     public interface IPositionHandler
     {
+        double[] GetPosition();
+
+        PositionType GetPositionType();
+
         /// <summary>
         /// 記錄位置資訊到 CSV 檔案。
         /// </summary>
@@ -58,15 +62,14 @@ namespace HiwinRobot
 
         private ICsvHandler CsvHandler = null;
 
+        private ListView DataListView = null;
         private ComboBox FileList = null;
-
-        private ListView ListView = null;
         private int SerialNumber = 0;
 
         public PositionHandler(ICsvHandler csvHandler, ListView listView, ComboBox comboBox)
         {
             CsvHandler = csvHandler;
-            ListView = listView;
+            DataListView = listView;
             FileList = comboBox;
 
             CsvColumnName.Clear();
@@ -84,6 +87,46 @@ namespace HiwinRobot
 
             UpdateListColumnName();
             ResizeListColumnWidth();
+        }
+
+        public double[] GetPosition()
+        {
+            double[] position = new double[6];
+            for (int i = (int)PositionDataFormat.J1X; i <= (int)PositionDataFormat.J6C; i++)
+            {
+                try
+                {
+                    var value = Convert.ToDouble(DataListView.SelectedItems[0].SubItems[i].Text);
+                    position[i - (int)PositionDataFormat.J1X] = value;
+                }
+                catch
+                {
+                    position = null;
+                    break;
+                }
+            }
+            return position;
+        }
+
+        public PositionType GetPositionType()
+        {
+            PositionType positionType;
+            var type = DataListView.SelectedItems[0].SubItems[(int)PositionDataFormat.Type].Text;
+
+            if (type.Equals(PositionType.Descartes.ToString()))
+            {
+                positionType = PositionType.Descartes;
+            }
+            else if (type.Equals(PositionType.Joint.ToString()))
+            {
+                positionType = PositionType.Joint;
+            }
+            else
+            {
+                positionType = PositionType.Unknown;
+            }
+
+            return positionType;
         }
 
         public void Record(string name,
@@ -136,7 +179,7 @@ namespace HiwinRobot
         {
             var csvData = CsvHandler.Read(filenameWithExtension);
 
-            ListView.Items.Clear();
+            DataListView.Items.Clear();
             for (int row = 1; row < csvData.Count; row++)
             {
                 ListViewItem item = new ListViewItem();
@@ -150,13 +193,13 @@ namespace HiwinRobot
                 item.SubItems.Add(csvData[row][(int)PositionDataFormat.J5B]);
                 item.SubItems.Add(csvData[row][(int)PositionDataFormat.J6C]);
                 item.SubItems.Add(csvData[row][(int)PositionDataFormat.Comment]);
-                ListView.Items.Add(item);
+                DataListView.Items.Add(item);
             }
 
             // Selected the first item.
-            if (ListView.Items.Count > 0)
+            if (DataListView.Items.Count > 0)
             {
-                ListView.Items[0].Selected = true;
+                DataListView.Items[0].Selected = true;
             }
 
             ResizeListColumnWidth();
@@ -166,20 +209,20 @@ namespace HiwinRobot
         {
             // 若要調整資料行中最長專案的寬度，請將 Width 屬性設定為-1。
             // 若要自動調整為數據行標題的寬度，請將 Width 屬性設定為-2。
-            for (int col = 0; col < ListView.Columns.Count; col++)
+            for (int col = 0; col < DataListView.Columns.Count; col++)
             {
-                ListView.Columns[col].Width = -2;
+                DataListView.Columns[col].Width = -2;
             }
         }
 
         private void UpdateListColumnName()
         {
-            for (int col = 0; col < ListView.Columns.Count; col++)
+            for (int col = 0; col < DataListView.Columns.Count; col++)
             {
                 // 依照引索來取得enum的項目。https://stackoverflow.com/a/31452191/12005882
                 var e = new PositionDataFormat();
                 var type = (PositionDataFormat)(Enum.GetValues(e.GetType())).GetValue(col);
-                ListView.Columns[col].Text = type.ToString();
+                DataListView.Columns[col].Text = type.ToString();
             }
         }
     }
