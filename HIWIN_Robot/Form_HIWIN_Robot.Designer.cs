@@ -113,6 +113,11 @@
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
+            this.button_position_record_read = new System.Windows.Forms.Button();
+            this.button_position_record_update_list = new System.Windows.Forms.Button();
+            this.comboBox_position_record_file_list = new System.Windows.Forms.ComboBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.groupBox_connect_disconnect.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -146,6 +151,7 @@
             this.groupBox_position_record.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
             this.groupBox7.SuspendLayout();
+            this.tableLayoutPanel8.SuspendLayout();
             this.SuspendLayout();
             // 
             // button_connect
@@ -1253,18 +1259,20 @@
             this.columnHeader8,
             this.columnHeader9,
             this.columnHeader10});
+            this.listView_position_record.Dock = System.Windows.Forms.DockStyle.Top;
             this.listView_position_record.FullRowSelect = true;
             this.listView_position_record.GridLines = true;
             this.listView_position_record.HideSelection = false;
-            this.listView_position_record.Location = new System.Drawing.Point(48, 83);
+            this.listView_position_record.Location = new System.Drawing.Point(3, 39);
             this.listView_position_record.Name = "listView_position_record";
-            this.listView_position_record.Size = new System.Drawing.Size(1200, 527);
+            this.listView_position_record.Size = new System.Drawing.Size(1299, 580);
             this.listView_position_record.TabIndex = 2;
             this.listView_position_record.UseCompatibleStateImageBehavior = false;
             this.listView_position_record.View = System.Windows.Forms.View.Details;
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.tableLayoutPanel8);
             this.groupBox7.Controls.Add(this.listView_position_record);
             this.groupBox7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox7.Location = new System.Drawing.Point(3, 3);
@@ -1273,6 +1281,65 @@
             this.groupBox7.TabIndex = 3;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "讀取";
+            // 
+            // tableLayoutPanel8
+            // 
+            this.tableLayoutPanel8.ColumnCount = 4;
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel8.Controls.Add(this.button_position_record_read, 3, 0);
+            this.tableLayoutPanel8.Controls.Add(this.button_position_record_update_list, 2, 0);
+            this.tableLayoutPanel8.Controls.Add(this.comboBox_position_record_file_list, 1, 0);
+            this.tableLayoutPanel8.Controls.Add(this.label14, 0, 0);
+            this.tableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tableLayoutPanel8.Location = new System.Drawing.Point(3, 625);
+            this.tableLayoutPanel8.Name = "tableLayoutPanel8";
+            this.tableLayoutPanel8.RowCount = 1;
+            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(1299, 96);
+            this.tableLayoutPanel8.TabIndex = 7;
+            // 
+            // button_position_record_read
+            // 
+            this.button_position_record_read.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.button_position_record_read.Location = new System.Drawing.Point(1062, 12);
+            this.button_position_record_read.Name = "button_position_record_read";
+            this.button_position_record_read.Size = new System.Drawing.Size(146, 72);
+            this.button_position_record_read.TabIndex = 0;
+            this.button_position_record_read.Text = "讀取";
+            this.button_position_record_read.UseVisualStyleBackColor = true;
+            // 
+            // button_position_record_update_list
+            // 
+            this.button_position_record_update_list.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.button_position_record_update_list.Location = new System.Drawing.Point(737, 12);
+            this.button_position_record_update_list.Name = "button_position_record_update_list";
+            this.button_position_record_update_list.Size = new System.Drawing.Size(146, 72);
+            this.button_position_record_update_list.TabIndex = 0;
+            this.button_position_record_update_list.Text = "更新";
+            this.button_position_record_update_list.UseVisualStyleBackColor = true;
+            // 
+            // comboBox_position_record_file_list
+            // 
+            this.comboBox_position_record_file_list.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox_position_record_file_list.FormattingEnabled = true;
+            this.comboBox_position_record_file_list.Location = new System.Drawing.Point(327, 29);
+            this.comboBox_position_record_file_list.Name = "comboBox_position_record_file_list";
+            this.comboBox_position_record_file_list.Size = new System.Drawing.Size(318, 38);
+            this.comboBox_position_record_file_list.TabIndex = 1;
+            // 
+            // label14
+            // 
+            this.label14.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(158, 33);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(163, 30);
+            this.label14.TabIndex = 2;
+            this.label14.Text = "檔案清單：";
             // 
             // Form_HIWIN_Robot
             // 
@@ -1329,6 +1396,8 @@
             this.tableLayoutPanel7.ResumeLayout(false);
             this.tableLayoutPanel7.PerformLayout();
             this.groupBox7.ResumeLayout(false);
+            this.tableLayoutPanel8.ResumeLayout(false);
+            this.tableLayoutPanel8.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1420,6 +1489,11 @@
         private System.Windows.Forms.ColumnHeader columnHeader8;
         private System.Windows.Forms.ColumnHeader columnHeader9;
         private System.Windows.Forms.ColumnHeader columnHeader10;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
+        private System.Windows.Forms.Button button_position_record_read;
+        private System.Windows.Forms.Button button_position_record_update_list;
+        private System.Windows.Forms.ComboBox comboBox_position_record_file_list;
+        private System.Windows.Forms.Label label14;
     }
 }
 
