@@ -74,7 +74,7 @@ namespace HiwinRobot
             }
 
             UpdateListColumnName();
-            ResizeListColumnWide();
+            ResizeListColumnWidth();
         }
 
         public void Record(string name,
@@ -134,12 +134,13 @@ namespace HiwinRobot
                 ListView.Items[0].Selected = true;
             }
 
-            ResizeListColumnWide();
+            ResizeListColumnWidth();
         }
 
-        private void ResizeListColumnWide()
+        private void ResizeListColumnWidth()
         {
-            // 調整寬度。
+            // 若要調整資料行中最長專案的寬度，請將 Width 屬性設定為-1。
+            // 若要自動調整為數據行標題的寬度，請將 Width 屬性設定為-2。
             for (int col = 0; col < ListView.Columns.Count; col++)
             {
                 ListView.Columns[col].Width = -2;
