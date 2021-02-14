@@ -37,6 +37,13 @@ namespace HiwinRobot
                     PositionType positionType,
                     double[] position,
                     string comment = "--");
+
+        /// <summary>
+        /// 更新清單。
+        /// </summary>
+        /// <param name="filenameWithExtension"></param>
+        /// <param name="listView"></param>
+        void UpdateList(string filenameWithExtension, ListView listView);
     }
 
     public class PositionHandler : IPositionHandler
@@ -97,7 +104,36 @@ namespace HiwinRobot
 
         public void UpdateList(string filenameWithExtension, ListView listView)
         {
-            listView.Clear();
+            var csvData = CsvHandler.Read(filenameWithExtension);
+
+            listView.Items.Clear();
+            for (int row = 1; row < csvData.Count; row++)
+            {
+                ListViewItem item = new ListViewItem();
+                item.SubItems[0].Text = csvData[row][(int)PositionDataFormat.Id];
+                item.SubItems.Add(csvData[row][(int)PositionDataFormat.Name]);
+                item.SubItems.Add(csvData[row][(int)PositionDataFormat.Type]);
+                item.SubItems.Add(csvData[row][(int)PositionDataFormat.J1X]);
+                item.SubItems.Add(csvData[row][(int)PositionDataFormat.J2Y]);
+                item.SubItems.Add(csvData[row][(int)PositionDataFormat.J3Z]);
+                item.SubItems.Add(csvData[row][(int)PositionDataFormat.J4A]);
+                item.SubItems.Add(csvData[row][(int)PositionDataFormat.J5B]);
+                item.SubItems.Add(csvData[row][(int)PositionDataFormat.J6C]);
+                item.SubItems.Add(csvData[row][(int)PositionDataFormat.Comment]);
+                listView.Items.Add(item);
+            }
+
+            // 調整寬度。
+            for (int col = 0; col < listView.Columns.Count; col++)
+            {
+                listView.Columns[col].Width = -2;
+            }
+
+            // Selected the first item.
+            if (listView.Items.Count > 0)
+            {
+                listView.Items[0].Selected = true;
+            }
         }
     }
 }
