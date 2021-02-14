@@ -27,8 +27,16 @@ namespace HiwinRobot
 
     public interface IPositionHandler
     {
+        /// <summary>
+        /// 取得目前所選取的位置座標。
+        /// </summary>
+        /// <returns></returns>
         double[] GetPosition();
 
+        /// <summary>
+        /// 取得目前所選取的位置類型。
+        /// </summary>
+        /// <returns></returns>
         PositionType GetPositionType();
 
         /// <summary>
