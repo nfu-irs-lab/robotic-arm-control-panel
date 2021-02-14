@@ -41,6 +41,15 @@ namespace HiwinRobot
 #endif
 
         /// <summary>
+        /// CSV 檔案儲存路徑。
+        /// </summary>
+        public const string CsvFilePath =
+#if (CONFIG_1)
+            "../../../csv/";
+#elif (CONFIG_2)
+            "../../../csv/";
+
+        /// <summary>
         /// 夾爪連線COM Port。<br/>
         /// 設定錯誤將會無法連線。
         /// </summary>
@@ -63,6 +72,9 @@ namespace HiwinRobot
 #elif (CONFIG_2)
             "../../../log/";
 
+#else
+            "";
+#endif
 #else
             "";
 #endif
