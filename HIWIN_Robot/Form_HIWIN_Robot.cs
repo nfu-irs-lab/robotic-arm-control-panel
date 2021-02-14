@@ -333,6 +333,7 @@ namespace HiwinRobot
                     SetTargetPostion(Arm.JointHomePosition);
                 }
             }
+            SetNowPostion(GetTargetPostion());
         }
 
         private void radioButton_coordinate_type_absolute_CheckedChanged(object sender, EventArgs e)
