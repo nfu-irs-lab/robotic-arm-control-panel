@@ -523,6 +523,16 @@ namespace HiwinRobot
                                    textBox_position_record_comment.Text);
         }
 
+        private void button_position_record_update_list_Click(object sender, EventArgs e)
+        {
+            PositionHandler.UpdateFileList();
+        }
+
+        private void comboBox_position_record_file_list_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            PositionHandler.UpdateListData(comboBox_position_record_file_list.SelectedItem.ToString());
+        }
+
         #endregion - 位置記錄 -
 
         #region - 其它 -
@@ -789,7 +799,7 @@ namespace HiwinRobot
             Gripper = new GripperController(Configuration.GripperComPort, LogHandler);
             Bluetooth = new BluetoothArmController(Configuration.BluetoothComPort, Arm, LogHandler);
             CsvHandler = new CsvHandler(Configuration.CsvFilePath);
-            PositionHandler = new PositionHandler(CsvHandler, listView_position_record);
+            PositionHandler = new PositionHandler(CsvHandler, listView_position_record, comboBox_position_record_file_list);
 
 #if (DISABLE_SHOW_MESSAGE)
             Message = new EmptyMessage();
@@ -802,6 +812,8 @@ namespace HiwinRobot
 
             // 未與手臂連線，禁用部分按鈕。
             SetButtonsState(false);
+
+            PositionHandler.UpdateFileList();
         }
 
         /// <summary>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,11 +40,16 @@ namespace HiwinRobot
                     string comment = "--");
 
         /// <summary>
-        /// 更新清單。
+        /// 更新檔案清單。
+        /// </summary>
+        void UpdateFileList();
+
+        /// <summary>
+        /// 更新清單資料。
         /// </summary>
         /// <param name="filenameWithExtension"></param>
         /// <param name="listView"></param>
-        void UpdateList(string filenameWithExtension);
+        void UpdateListData(string filenameWithExtension);
     }
 
     public class PositionHandler : IPositionHandler
@@ -52,13 +58,16 @@ namespace HiwinRobot
 
         private ICsvHandler CsvHandler = null;
 
+        private ComboBox FileList = null;
+
         private ListView ListView = null;
         private int SerialNumber = 0;
 
-        public PositionHandler(ICsvHandler csvHandler, ListView listView)
+        public PositionHandler(ICsvHandler csvHandler, ListView listView, ComboBox comboBox)
         {
             CsvHandler = csvHandler;
             ListView = listView;
+            FileList = comboBox;
 
             CsvColumnName.Clear();
 
@@ -107,7 +116,23 @@ namespace HiwinRobot
             SerialNumber++;
         }
 
-        public void UpdateList(string filenameWithExtension)
+        public void UpdateFileList()
+        {
+            FileList.Items.Clear();
+
+            DirectoryInfo directoryInfo = new DirectoryInfo(CsvHandler.Path);
+            foreach (var fi in directoryInfo.GetFiles("*.csv"))
+            {
+                FileList.Items.Add(fi.Name);
+            }
+
+            if (FileList.Items.Count > 0)
+            {
+                FileList.SelectedIndex = 0;
+            }
+        }
+
+        public void UpdateListData(string filenameWithExtension)
         {
             var csvData = CsvHandler.Read(filenameWithExtension);
 

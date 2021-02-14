@@ -1321,6 +1321,7 @@
             this.button_position_record_update_list.TabIndex = 0;
             this.button_position_record_update_list.Text = "更新";
             this.button_position_record_update_list.UseVisualStyleBackColor = true;
+            this.button_position_record_update_list.Click += new System.EventHandler(this.button_position_record_update_list_Click);
             // 
             // comboBox_position_record_file_list
             // 
@@ -1330,6 +1331,7 @@
             this.comboBox_position_record_file_list.Name = "comboBox_position_record_file_list";
             this.comboBox_position_record_file_list.Size = new System.Drawing.Size(318, 38);
             this.comboBox_position_record_file_list.TabIndex = 1;
+            this.comboBox_position_record_file_list.SelectedIndexChanged += new System.EventHandler(this.comboBox_position_record_file_list_SelectedIndexChanged);
             // 
             // label14
             // 
