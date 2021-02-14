@@ -541,6 +541,7 @@ namespace HiwinRobot
             }
 
             SetTargetPostion(PositionHandler.GetPosition());
+            radioButton_coordinate_type_absolute.Checked = true;
         }
 
         private void button_position_record_update_list_Click(object sender, EventArgs e)
