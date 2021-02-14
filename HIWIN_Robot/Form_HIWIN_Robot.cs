@@ -311,7 +311,11 @@ namespace HiwinRobot
         /// </summary>
         private void PositionTypeChange()
         {
-            if (Arm.Connected)
+            if (radioButton_coordinate_type_relative.Checked)
+            {
+                SetTargetPostion(new double[] { 0, 0, 0, 0, 0, 0 });
+            }
+            else if (Arm.Connected)
             {
                 if (radioButton_position_type_descartes.Checked)
                 {
@@ -321,6 +325,7 @@ namespace HiwinRobot
                 {
                     SetTargetPostion(Arm.GetPosition(PositionType.Joint));
                 }
+                SetNowPostion(GetTargetPostion());
             }
             else
             {
@@ -332,8 +337,8 @@ namespace HiwinRobot
                 {
                     SetTargetPostion(Arm.JointHomePosition);
                 }
+                SetNowPostion(GetTargetPostion());
             }
-            SetNowPostion(GetTargetPostion());
         }
 
         private void radioButton_coordinate_type_absolute_CheckedChanged(object sender, EventArgs e)
