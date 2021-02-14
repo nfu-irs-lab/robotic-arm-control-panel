@@ -94,6 +94,13 @@
             this.numericUpDown_gripper_force = new System.Windows.Forms.NumericUpDown();
             this.tabControl_sub = new System.Windows.Forms.TabControl();
             this.tabPage_sub_position_record = new System.Windows.Forms.TabPage();
+            this.textBox_position_record_name = new System.Windows.Forms.TextBox();
+            this.groupBox_position_record = new System.Windows.Forms.GroupBox();
+            this.button_position_recode = new System.Windows.Forms.Button();
+            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
+            this.textBox_position_record_comment = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
             this.groupBox_connect_disconnect.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -123,6 +130,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_gripper_speed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_gripper_force)).BeginInit();
             this.tabControl_sub.SuspendLayout();
+            this.tabPage_sub_position_record.SuspendLayout();
+            this.groupBox_position_record.SuspendLayout();
+            this.tableLayoutPanel7.SuspendLayout();
             this.SuspendLayout();
             // 
             // button_connect
@@ -1127,6 +1137,7 @@
             // 
             // tabPage_sub_position_record
             // 
+            this.tabPage_sub_position_record.Controls.Add(this.groupBox_position_record);
             this.tabPage_sub_position_record.Location = new System.Drawing.Point(10, 48);
             this.tabPage_sub_position_record.Name = "tabPage_sub_position_record";
             this.tabPage_sub_position_record.Padding = new System.Windows.Forms.Padding(3);
@@ -1134,6 +1145,85 @@
             this.tabPage_sub_position_record.TabIndex = 0;
             this.tabPage_sub_position_record.Text = "位置記錄";
             this.tabPage_sub_position_record.UseVisualStyleBackColor = true;
+            // 
+            // textBox_position_record_name
+            // 
+            this.textBox_position_record_name.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox_position_record_name.Location = new System.Drawing.Point(132, 35);
+            this.textBox_position_record_name.Name = "textBox_position_record_name";
+            this.textBox_position_record_name.Size = new System.Drawing.Size(383, 43);
+            this.textBox_position_record_name.TabIndex = 0;
+            this.textBox_position_record_name.Text = "位置記錄";
+            // 
+            // groupBox_position_record
+            // 
+            this.groupBox_position_record.Controls.Add(this.tableLayoutPanel7);
+            this.groupBox_position_record.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.groupBox_position_record.Location = new System.Drawing.Point(3, 727);
+            this.groupBox_position_record.Name = "groupBox_position_record";
+            this.groupBox_position_record.Size = new System.Drawing.Size(1305, 155);
+            this.groupBox_position_record.TabIndex = 1;
+            this.groupBox_position_record.TabStop = false;
+            this.groupBox_position_record.Text = "記錄";
+            // 
+            // button_position_recode
+            // 
+            this.button_position_recode.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.button_position_recode.Location = new System.Drawing.Point(1169, 27);
+            this.button_position_recode.Name = "button_position_recode";
+            this.button_position_recode.Size = new System.Drawing.Size(127, 59);
+            this.button_position_recode.TabIndex = 1;
+            this.button_position_recode.Text = "儲存";
+            this.button_position_recode.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel7
+            // 
+            this.tableLayoutPanel7.ColumnCount = 5;
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel7.Controls.Add(this.button_position_recode, 4, 0);
+            this.tableLayoutPanel7.Controls.Add(this.label12, 2, 0);
+            this.tableLayoutPanel7.Controls.Add(this.label13, 0, 0);
+            this.tableLayoutPanel7.Controls.Add(this.textBox_position_record_name, 1, 0);
+            this.tableLayoutPanel7.Controls.Add(this.textBox_position_record_comment, 3, 0);
+            this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(3, 39);
+            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
+            this.tableLayoutPanel7.RowCount = 1;
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(1299, 113);
+            this.tableLayoutPanel7.TabIndex = 2;
+            // 
+            // textBox_position_record_comment
+            // 
+            this.textBox_position_record_comment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox_position_record_comment.Location = new System.Drawing.Point(650, 35);
+            this.textBox_position_record_comment.Name = "textBox_position_record_comment";
+            this.textBox_position_record_comment.Size = new System.Drawing.Size(513, 43);
+            this.textBox_position_record_comment.TabIndex = 2;
+            // 
+            // label12
+            // 
+            this.label12.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(541, 41);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(103, 30);
+            this.label12.TabIndex = 3;
+            this.label12.Text = "備註：";
+            // 
+            // label13
+            // 
+            this.label13.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(23, 41);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(103, 30);
+            this.label13.TabIndex = 3;
+            this.label13.Text = "名稱：";
             // 
             // Form_HIWIN_Robot
             // 
@@ -1185,6 +1275,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_gripper_speed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_gripper_force)).EndInit();
             this.tabControl_sub.ResumeLayout(false);
+            this.tabPage_sub_position_record.ResumeLayout(false);
+            this.groupBox_position_record.ResumeLayout(false);
+            this.tableLayoutPanel7.ResumeLayout(false);
+            this.tableLayoutPanel7.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1257,6 +1351,13 @@
         private System.Windows.Forms.Button button_update_now_position;
         private System.Windows.Forms.TabControl tabControl_sub;
         private System.Windows.Forms.TabPage tabPage_sub_position_record;
+        private System.Windows.Forms.GroupBox groupBox_position_record;
+        private System.Windows.Forms.TextBox textBox_position_record_name;
+        private System.Windows.Forms.Button button_position_recode;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox textBox_position_record_comment;
     }
 }
 
