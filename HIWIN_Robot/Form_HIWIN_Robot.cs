@@ -337,7 +337,11 @@ namespace HiwinRobot
                 {
                     SetTargetPostion(Arm.JointHomePosition);
                 }
-                SetNowPostion(GetTargetPostion());
+
+                for (int i = 0; i < NowPosition.Count; i++)
+                {
+                    NowPosition[i].Text = "--";
+                }
             }
         }
 
