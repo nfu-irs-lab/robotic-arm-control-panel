@@ -165,6 +165,11 @@ namespace HiwinRobot
 
             CsvHandler.Write(filename, csvContent, CsvColumnName);
             SerialNumber++;
+
+            if (filename == FileList.SelectedItem.ToString())
+            {
+                UpdateListData(filename);
+            }
         }
 
         public void UpdateFileList()
