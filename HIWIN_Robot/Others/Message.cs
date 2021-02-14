@@ -14,6 +14,22 @@ namespace HiwinRobot
     public interface IMessage
     {
         /// <summary>
+        /// Log.
+        /// </summary>
+        /// <param name="loggingLevel"></param>
+        /// <param name="content"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        void Log(LoggingLevel loggingLevel, string content);
+
+        /// <summary>
+        /// Log.
+        /// </summary>
+        /// <param name="loggingLevel"></param>
+        /// <param name="ex"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        void Log(LoggingLevel loggingLevel, Exception ex);
+
+        /// <summary>
         /// Show message.
         /// </summary>
         /// <param name="message"></param>
@@ -59,8 +75,14 @@ namespace HiwinRobot
     /// </summary>
     public class EmptyMessage : IMessage
     {
+        public void Log(LoggingLevel loggingLevel, string content)
+        { }
+
+        public void Log(LoggingLevel loggingLevel, Exception ex)
+        { }
+
         public DialogResult Show(string message, LoggingLevel loggingLevel = LoggingLevel.Trace)
-            => DialogResult.None;
+                            => DialogResult.None;
 
         public DialogResult Show(Exception ex, LoggingLevel loggingLevel = LoggingLevel.Trace)
             => DialogResult.None;
@@ -82,6 +104,16 @@ namespace HiwinRobot
         public NormalMessage(ILogHandler logHandler)
         {
             LogHandler = logHandler;
+        }
+
+        public void Log(LoggingLevel loggingLevel, string content)
+        {
+            LogHandler.Write(loggingLevel, content);
+        }
+
+        public void Log(LoggingLevel loggingLevel, Exception ex)
+        {
+            LogHandler.Write(loggingLevel, ex);
         }
 
         public DialogResult Show(string message,
