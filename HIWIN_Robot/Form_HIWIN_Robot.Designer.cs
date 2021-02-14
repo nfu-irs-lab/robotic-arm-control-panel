@@ -1287,8 +1287,8 @@
             // tableLayoutPanel8
             // 
             this.tableLayoutPanel8.ColumnCount = 4;
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel8.Controls.Add(this.button_position_record_read, 3, 0);
@@ -1300,7 +1300,6 @@
             this.tableLayoutPanel8.Name = "tableLayoutPanel8";
             this.tableLayoutPanel8.RowCount = 1;
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel8.Size = new System.Drawing.Size(1299, 96);
             this.tableLayoutPanel8.TabIndex = 7;
             // 
@@ -1330,9 +1329,9 @@
             // 
             this.comboBox_position_record_file_list.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox_position_record_file_list.FormattingEnabled = true;
-            this.comboBox_position_record_file_list.Location = new System.Drawing.Point(327, 29);
+            this.comboBox_position_record_file_list.Location = new System.Drawing.Point(197, 29);
             this.comboBox_position_record_file_list.Name = "comboBox_position_record_file_list";
-            this.comboBox_position_record_file_list.Size = new System.Drawing.Size(318, 38);
+            this.comboBox_position_record_file_list.Size = new System.Drawing.Size(448, 38);
             this.comboBox_position_record_file_list.TabIndex = 1;
             this.comboBox_position_record_file_list.SelectedIndexChanged += new System.EventHandler(this.comboBox_position_record_file_list_SelectedIndexChanged);
             // 
@@ -1340,7 +1339,7 @@
             // 
             this.label14.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(158, 33);
+            this.label14.Location = new System.Drawing.Point(28, 33);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(163, 30);
             this.label14.TabIndex = 2;
