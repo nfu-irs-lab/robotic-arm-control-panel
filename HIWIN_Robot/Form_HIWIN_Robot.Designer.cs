@@ -1339,7 +1339,7 @@
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(163, 30);
             this.label14.TabIndex = 2;
-            this.label14.Text = "檔案清單：";
+            this.label14.Text = "選擇檔案：";
             // 
             // Form_HIWIN_Robot
             // 
