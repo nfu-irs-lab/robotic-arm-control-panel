@@ -86,7 +86,7 @@ namespace HiwinRobot
                     position[3].ToString(),
                     position[4].ToString(),
                     position[5].ToString(),
-                    comment.Trim()
+                    $"{comment.Trim()}[{DateTime.Now:yyyy-MM-dd_HH:mm:ss}]"
                 }
             };
 
