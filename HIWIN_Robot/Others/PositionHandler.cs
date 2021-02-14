@@ -175,6 +175,13 @@ namespace HiwinRobot
 
         public void UpdateFileList()
         {
+            // 記錄最後選擇的項目。
+            string lastSelectedItem = "";
+            if (FileList.SelectedItem != null)
+            {
+                lastSelectedItem = FileList.SelectedItem.ToString();
+            }
+
             FileList.Items.Clear();
 
             DirectoryInfo directoryInfo = new DirectoryInfo(CsvHandler.Path);
@@ -193,7 +200,15 @@ namespace HiwinRobot
 
             if (FileList.Items.Count > 0)
             {
-                FileList.SelectedIndex = 0;
+                var index = FileList.Items.IndexOf(lastSelectedItem);
+                if (index != -1 && lastSelectedItem != "")
+                {
+                    FileList.SelectedIndex = index;
+                }
+                else
+                {
+                    FileList.SelectedIndex = 0;
+                }
             }
         }
 
