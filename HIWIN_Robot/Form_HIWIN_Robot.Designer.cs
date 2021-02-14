@@ -1193,7 +1193,7 @@
             this.button_position_recode.Name = "button_position_recode";
             this.button_position_recode.Size = new System.Drawing.Size(127, 59);
             this.button_position_recode.TabIndex = 1;
-            this.button_position_recode.Text = "儲存";
+            this.button_position_recode.Text = "記錄";
             this.button_position_recode.UseVisualStyleBackColor = true;
             this.button_position_recode.Click += new System.EventHandler(this.button_position_recode_Click);
             // 
