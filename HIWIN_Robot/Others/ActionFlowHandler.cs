@@ -16,20 +16,15 @@ namespace HiwinRobot
 
     public class ActionFlowHandler
     {
+        public List<ActionStruce> Actions = new List<ActionStruce>();
         public bool ShowMessageBoforeAction = true;
-        private List<ActionStruce> Actions = null;
-
         private IMessage Message = null;
 
-        public ActionFlowHandler(List<ActionStruce> actionStruces, IMessage message)
+        public ActionFlowHandler(IMessage message)
         {
-            Actions = actionStruces;
-            ActionsCount = Actions.Count;
-
             Message = message;
         }
 
-        public int ActionsCount { get; private set; }
         public int LastActionIndex { get; private set; } = 0;
 
         public int Do(int actionIndex)
@@ -67,7 +62,8 @@ namespace HiwinRobot
         public int Do(string actionName)
         {
             // TODO: Use LINQ.
-            for (int i = 0; i < ActionsCount; i++)
+            int actCount = Actions.Count;
+            for (int i = 0; i < actCount; i++)
             {
                 if (Actions[i].Name.Equals(actionName))
                 {
@@ -89,7 +85,8 @@ namespace HiwinRobot
 
         public int DoEach()
         {
-            for (int i = 0; i < ActionsCount; i++)
+            int actCount = Actions.Count;
+            for (int i = 0; i < actCount; i++)
             {
                 var act = Actions[i];
                 if (ShowActionMessageAndContinue(i, act))
