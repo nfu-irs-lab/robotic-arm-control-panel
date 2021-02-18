@@ -117,6 +117,7 @@
     <Compile Include="Form_HIWIN_Robot.Designer.cs">
       <DependentUpon>Form_HIWIN_Robot.cs</DependentUpon>
     </Compile>
+    <Compile Include="Others\ActionFlow.cs" />
     <Compile Include="Others\BasicDevices.cs" />
     <Compile Include="Others\BluetoothArmController.cs" />
     <Compile Include="Others\CsvHandler.cs" />
