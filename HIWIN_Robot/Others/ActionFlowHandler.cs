@@ -59,6 +59,11 @@ namespace HiwinRobot
         /// </summary>
         /// <returns>最後一個執行的動作索引值。</returns>
         int DoEach();
+
+        /// <summary>
+        /// 更新清單。
+        /// </summary>
+        void UpdateListView();
     }
 
     public struct ActionStruce
@@ -73,10 +78,12 @@ namespace HiwinRobot
     public class ActionFlowHandler : IActionFlowHandler
     {
         private readonly IMessage Message = null;
+        private ListView ActionListView = null;
         private List<ActionStruce> Actions = new List<ActionStruce>();
 
-        public ActionFlowHandler(IMessage message)
+        public ActionFlowHandler(ListView actionListView, IMessage message)
         {
+            ActionListView = actionListView;
             Message = message;
         }
 
@@ -85,6 +92,7 @@ namespace HiwinRobot
 
         public void Add(string name, Action action, string comment = "--")
         {
+            // Add to Actions.
             ActionStruce actionStruce = new ActionStruce()
             {
                 Action = action,
@@ -92,6 +100,18 @@ namespace HiwinRobot
                 Comment = comment
             };
             Actions.Add(actionStruce);
+
+            // Update ListView.
+            ListViewItem item = new ListViewItem();
+            item.SubItems[0].Text = Convert.ToString(Actions.Count - 1);
+            item.SubItems.Add(name);
+            item.SubItems.Add(comment);
+            ActionListView.Items.Add(item);
+
+            if (!ActionListView.Items[0].Selected)
+            {
+                ActionListView.Items[0].Selected = true;
+            }
         }
 
         public void Clear()
@@ -172,6 +192,37 @@ namespace HiwinRobot
                 }
             }
             return LastActionIndex;
+        }
+
+        public void UpdateListView()
+        {
+            int actCount = Actions.Count;
+            ActionListView.Items.Clear();
+            for (int i = 0; i < actCount; i++)
+            {
+                ListViewItem item = new ListViewItem();
+                item.SubItems[0].Text = i.ToString();
+                item.SubItems.Add(Actions[i].Name);
+                item.SubItems.Add(Actions[i].Comment);
+                ActionListView.Items.Add(item);
+            }
+
+            if (ActionListView.Items.Count > 0)
+            {
+                ActionListView.Items[0].Selected = true;
+            }
+
+            ResizeListColumnWidth();
+        }
+
+        private void ResizeListColumnWidth()
+        {
+            // 若要調整資料行中最長專案的寬度，請將 Width 屬性設定為-1。
+            // 若要自動調整為數據行標題的寬度，請將 Width 屬性設定為-2。
+            for (int col = 0; col < ActionListView.Columns.Count; col++)
+            {
+                ActionListView.Columns[col].Width = -2;
+            }
         }
 
         /// <summary>
