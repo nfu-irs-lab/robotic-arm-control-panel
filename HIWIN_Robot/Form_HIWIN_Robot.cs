@@ -819,24 +819,19 @@ namespace HiwinRobot
 
             // 產生物件，依賴注入。
             LogHandler = new LogHandler(Configuration.LogFilePath, LoggingLevel.Trace);
-            Arm = new ArmController(Configuration.ArmIp, LogHandler);
-            Gripper = new GripperController(Configuration.GripperComPort, LogHandler);
-            Bluetooth = new BluetoothArmController(Configuration.BluetoothComPort, Arm, LogHandler);
-            CsvHandler = new CsvHandler(Configuration.CsvFilePath);
-            PositionHandler = new PositionHandler(CsvHandler,
-                                                  LogHandler,
-                                                  listView_position_record,
-                                                  comboBox_position_record_file_list);
-
 #if (DISABLE_SHOW_MESSAGE)
             Message = new EmptyMessage();
-            Arm.Message = new EmptyMessage();
-            Bluetooth.Message = new EmptyMessage();
-            Gripper.Message = new EmptyMessage();
-            PositionHandler.Message = new EmptyMessage();
 #else
             Message = new NormalMessage(LogHandler);
 #endif
+            Arm = new ArmController(Configuration.ArmIp, Message);
+            Gripper = new GripperController(Configuration.GripperComPort, Message);
+            Bluetooth = new BluetoothArmController(Configuration.BluetoothComPort, Arm, Message);
+            CsvHandler = new CsvHandler(Configuration.CsvFilePath);
+            PositionHandler = new PositionHandler(listView_position_record,
+                                                  comboBox_position_record_file_list,
+                                                  CsvHandler,
+                                                  Message);
 
             // 未與手臂連線，禁用部分按鈕。
             SetButtonsState(false);

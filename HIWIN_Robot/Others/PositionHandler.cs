@@ -28,11 +28,6 @@ namespace HiwinRobot
     public interface IPositionHandler
     {
         /// <summary>
-        /// 訊息處理。
-        /// </summary>
-        IMessage Message { get; set; }
-
-        /// <summary>
         /// 取得目前所選取的位置座標。
         /// </summary>
         /// <returns></returns>
@@ -77,15 +72,15 @@ namespace HiwinRobot
         private ComboBox FileList = null;
         private int SerialNumber = 0;
 
-        public PositionHandler(ICsvHandler csvHandler,
-                               ILogHandler logHandler,
-                               ListView listView,
-                               ComboBox comboBox)
+        public PositionHandler(ListView dataListView,
+                               ComboBox fileListComboBox,
+                               ICsvHandler csvHandler,
+                               IMessage message)
         {
+            DataListView = dataListView;
+            FileList = fileListComboBox;
             CsvHandler = csvHandler;
-            DataListView = listView;
-            FileList = comboBox;
-            Message = new NormalMessage(logHandler);
+            Message = message;
 
             CsvColumnName.Clear();
 
@@ -104,7 +99,7 @@ namespace HiwinRobot
             ResizeListColumnWidth();
         }
 
-        public IMessage Message { get; set; }
+        private IMessage Message { get; set; }
 
         public double[] GetPosition()
         {

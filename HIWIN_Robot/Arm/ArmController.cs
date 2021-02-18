@@ -128,11 +128,6 @@ namespace HiwinRobot
         /// </summary>
         string Ip { get; set; }
 
-        /// <summary>
-        /// 訊息處理器。
-        /// </summary>
-        IMessage Message { get; set; }
-
         #region - Default Position -
 
         /// <summary>
@@ -238,14 +233,11 @@ namespace HiwinRobot
     /// </summary>
     public class ArmController : IArmController
     {
-        private ILogHandler LogHandler = null;
-
-        public ArmController(string armIp, ILogHandler logHandler)
+        public ArmController(string armIp, IMessage message)
         {
             Ip = armIp;
             Id = 0;
-            LogHandler = logHandler;
-            Message = new NormalMessage(logHandler);
+            Message = message;
 
 #if (!USE_MOTION_STATE_WAIT)
             InitTimer();
@@ -254,7 +246,6 @@ namespace HiwinRobot
 
         public int Id { get; set; }
         public string Ip { get; set; }
-        public IMessage Message { get; set; }
 
         #region - Default Position -
 
@@ -358,7 +349,7 @@ namespace HiwinRobot
         public void Homing(PositionType positionType = PositionType.Descartes,
                            bool waitForMotion = true)
         {
-            LogHandler.Write(LoggingLevel.Trace, $"Arm-Homing. {positionType}");
+            Message.Log(LoggingLevel.Trace, $"Arm-Homing. {positionType}");
             int returnCode;
             switch (positionType)
             {
@@ -391,7 +382,7 @@ namespace HiwinRobot
                                  double smoothValue = 50,
                                  bool waitForMotion = true)
         {
-            LogHandler.Write(LoggingLevel.Trace,
+            Message.Log(LoggingLevel.Trace,
                              $"Arm-Linear: {GetTextPositin(targetPosition)}. {positionType}");
             int retuenCode = 0;
 
@@ -464,7 +455,7 @@ namespace HiwinRobot
                                        SmoothType smoothType = SmoothType.TwoLinesSpeedSmooth,
                                        bool waitForMotion = true)
         {
-            LogHandler.Write(LoggingLevel.Trace,
+            Message.Log(LoggingLevel.Trace,
                              $"Arm-PointToPoint: {GetTextPositin(targetPosition)}. {positionType}");
             int retuenCode = 0;
             int smoothTypeCode = (smoothType == SmoothType.TwoLinesSpeedSmooth) ? 1 : 0;
@@ -816,6 +807,8 @@ namespace HiwinRobot
         #endregion - Timer -
 
         #region - Message -
+
+        private IMessage Message { get; set; }
 
         /// <summary>
         /// 如果出現錯誤，顯示錯誤代碼。

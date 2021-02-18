@@ -23,11 +23,6 @@ namespace HiwinRobot
     /// </summary>
     public interface IBluetoothController : IDevice
     {
-        /// <summary>
-        /// 訊息處理器。
-        /// </summary>
-        IMessage Message { get; set; }
-
         void Send(BluetoothSendDataType dataType, double[] value);
     }
 
@@ -36,24 +31,22 @@ namespace HiwinRobot
     /// </summary>
     public class BluetoothArmController : IBluetoothController
     {
-        private IMessage _Message;
         private IArmController Arm = null;
-
+        private IMessage Message;
         private ISerialPortDevice SerialPortDevice = null;
 
         /// <summary>
         /// 記得要使用 Connect() 進行連線。
         /// </summary>
         /// <param name="comPort"></param>
-        public BluetoothArmController(string comPort, IArmController armControl, ILogHandler logHandler)
+        public BluetoothArmController(string comPort, IArmController armControl, IMessage message)
         {
             Arm = armControl;
+            Message = message;
 
             SerialPort sp = new SerialPort() { PortName = comPort, BaudRate = 38400 };
             sp.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
-            SerialPortDevice = new SerialPortDevice(sp, logHandler);
-
-            Message = new NormalMessage(logHandler);
+            SerialPortDevice = new SerialPortDevice(sp, message);
 
 #if (CONNECT_BY_CONSTRUCTOR)
             Connect();
@@ -63,19 +56,6 @@ namespace HiwinRobot
         public bool Connected
         {
             get => SerialPortDevice.Connected;
-        }
-
-        public IMessage Message
-        {
-            get
-            {
-                return _Message;
-            }
-            set
-            {
-                _Message = value;
-                SerialPortDevice.Message = value;
-            }
         }
 
         public bool Connect()
@@ -274,7 +254,7 @@ namespace HiwinRobot
                     break;
 
                 default:
-                    _Message.Show($"Unknown data: {data}", LoggingLevel.Error);
+                    Message.Show($"Unknown data: {data}", LoggingLevel.Error);
                     break;
             }
             Send(BluetoothSendDataType.descartesPosition,
