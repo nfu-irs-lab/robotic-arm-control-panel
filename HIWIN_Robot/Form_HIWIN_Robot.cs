@@ -476,7 +476,7 @@ namespace HiwinRobot
         /// <param name="e"></param>
         private void button_connect_Click(object sender, EventArgs e)
         {
-            LogHandler.Write(LoggingLevel.Trace, "Connect");
+            LogHandler.Write("Connect", LoggingLevel.Trace);
 
             for (int i = 0; i < Devices.Count; i++)
             {
@@ -500,7 +500,7 @@ namespace HiwinRobot
         /// <param name="e"></param>
         private void button_disconnect_Click(object sender, EventArgs e)
         {
-            LogHandler.Write(LoggingLevel.Trace, "Disconnect");
+            LogHandler.Write("Disconnect", LoggingLevel.Trace);
 
             for (int i = 0; i < Devices.Count; i++)
             {

@@ -103,7 +103,7 @@ namespace HiwinRobot
 
         public double[] GetPosition()
         {
-            Message.Log(LoggingLevel.Trace, "PositionHandler:Get position.");
+            Message.Log("PositionHandler:Get position.", LoggingLevel.Trace);
 
             double[] position = new double[6];
             for (int i = (int)PositionDataFormat.J1X; i <= (int)PositionDataFormat.J6C; i++)
@@ -124,7 +124,7 @@ namespace HiwinRobot
 
         public PositionType GetPositionType()
         {
-            Message.Log(LoggingLevel.Trace, "PositionHandler:Get position type.");
+            Message.Log("PositionHandler:Get position type.", LoggingLevel.Trace);
 
             PositionType positionType;
             var type = DataListView.SelectedItems[0].SubItems[(int)PositionDataFormat.Type].Text;
@@ -150,7 +150,7 @@ namespace HiwinRobot
                            double[] position,
                            string comment = "--")
         {
-            Message.Log(LoggingLevel.Trace, "PositionHandler:Record.");
+            Message.Log("PositionHandler:Record.", LoggingLevel.Trace);
 
             string filename = "[position_record]" +
                               DateTime.Now.ToString("MMMdd") +
@@ -185,7 +185,7 @@ namespace HiwinRobot
 
         public void UpdateFileList()
         {
-            Message.Log(LoggingLevel.Trace, "PositionHandler:Update file list.");
+            Message.Log("PositionHandler:Update file list.", LoggingLevel.Trace);
 
             // 記錄最後選擇的項目。
             string lastSelectedItem = "";
@@ -226,7 +226,7 @@ namespace HiwinRobot
 
         public void UpdateListData(string filenameWithExtension)
         {
-            Message.Log(LoggingLevel.Trace, "PositionHandler:Update list data.");
+            Message.Log("PositionHandler:Update list data.", LoggingLevel.Trace);
 
             var csvData = CsvHandler.Read(filenameWithExtension);
 

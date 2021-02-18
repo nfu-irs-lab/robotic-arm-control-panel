@@ -349,7 +349,7 @@ namespace HiwinRobot
         public void Homing(PositionType positionType = PositionType.Descartes,
                            bool waitForMotion = true)
         {
-            Message.Log(LoggingLevel.Trace, $"Arm-Homing. {positionType}");
+            Message.Log($"Arm-Homing. {positionType}", LoggingLevel.Trace);
             int returnCode;
             switch (positionType)
             {
@@ -382,8 +382,8 @@ namespace HiwinRobot
                                  double smoothValue = 50,
                                  bool waitForMotion = true)
         {
-            Message.Log(LoggingLevel.Trace,
-                             $"Arm-Linear: {GetTextPositin(targetPosition)}. {positionType}");
+            Message.Log($"Arm-Linear: {GetTextPositin(targetPosition)}. {positionType}",
+                        LoggingLevel.Trace);
             int retuenCode = 0;
 
 #if (USE_SDK_RELATIVE)
@@ -455,8 +455,8 @@ namespace HiwinRobot
                                        SmoothType smoothType = SmoothType.TwoLinesSpeedSmooth,
                                        bool waitForMotion = true)
         {
-            Message.Log(LoggingLevel.Trace,
-                             $"Arm-PointToPoint: {GetTextPositin(targetPosition)}. {positionType}");
+            Message.Log($"Arm-PointToPoint: {GetTextPositin(targetPosition)}. {positionType}",
+                        LoggingLevel.Trace);
             int retuenCode = 0;
             int smoothTypeCode = (smoothType == SmoothType.TwoLinesSpeedSmooth) ? 1 : 0;
 

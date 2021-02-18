@@ -17,9 +17,9 @@ namespace HiwinRobot
         /// Log.
         /// </summary>
         /// <param name="loggingLevel"></param>
-        /// <param name="content"></param>
+        /// <param name="message"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        void Log(LoggingLevel loggingLevel, string content);
+        void Log(string message, LoggingLevel loggingLevel1);
 
         /// <summary>
         /// Log.
@@ -27,7 +27,7 @@ namespace HiwinRobot
         /// <param name="loggingLevel"></param>
         /// <param name="ex"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        void Log(LoggingLevel loggingLevel, Exception ex);
+        void Log(Exception ex, LoggingLevel loggingLevel);
 
         /// <summary>
         /// Show message.
@@ -75,14 +75,14 @@ namespace HiwinRobot
     /// </summary>
     public class EmptyMessage : IMessage
     {
-        public void Log(LoggingLevel loggingLevel, string content)
+        public void Log(string content, LoggingLevel loggingLevel)
         { }
 
-        public void Log(LoggingLevel loggingLevel, Exception ex)
+        public void Log(Exception ex, LoggingLevel loggingLevel)
         { }
 
         public DialogResult Show(string message, LoggingLevel loggingLevel = LoggingLevel.Trace)
-                            => DialogResult.None;
+            => DialogResult.None;
 
         public DialogResult Show(Exception ex, LoggingLevel loggingLevel = LoggingLevel.Trace)
             => DialogResult.None;
@@ -106,20 +106,20 @@ namespace HiwinRobot
             LogHandler = logHandler;
         }
 
-        public void Log(LoggingLevel loggingLevel, string content)
+        public void Log(string message, LoggingLevel loggingLevel)
         {
-            LogHandler.Write(loggingLevel, content);
+            LogHandler.Write(message, loggingLevel);
         }
 
-        public void Log(LoggingLevel loggingLevel, Exception ex)
+        public void Log(Exception ex, LoggingLevel loggingLevel)
         {
-            LogHandler.Write(loggingLevel, ex);
+            LogHandler.Write(ex, loggingLevel);
         }
 
         public DialogResult Show(string message,
                                  LoggingLevel loggingLevel = LoggingLevel.Trace)
         {
-            LogHandler.Write(loggingLevel, message);
+            LogHandler.Write(message, loggingLevel);
             return MessageBox.Show(message,
                                    loggingLevel.ToString(),
                                    MessageBoxButtons.OK,
@@ -141,7 +141,7 @@ namespace HiwinRobot
                 text += "null Exception.";
             }
 
-            LogHandler.Write(loggingLevel, text);
+            LogHandler.Write(text, loggingLevel);
             return MessageBox.Show(text,
                                    loggingLevel.ToString(),
                                    MessageBoxButtons.OK,
@@ -164,7 +164,7 @@ namespace HiwinRobot
                 text += "null Exception.";
             }
 
-            LogHandler.Write(loggingLevel, text);
+            LogHandler.Write(text, loggingLevel);
             return MessageBox.Show(text,
                                    loggingLevel.ToString(),
                                    MessageBoxButtons.OK,
@@ -177,7 +177,7 @@ namespace HiwinRobot
                                  MessageBoxIcon icon,
                                  LoggingLevel loggingLevel = LoggingLevel.Trace)
         {
-            LogHandler.Write(loggingLevel, $"{caption}: {text}");
+            LogHandler.Write($"{caption}: {text}", loggingLevel);
             return MessageBox.Show(text, caption, buttons, icon);
         }
 
