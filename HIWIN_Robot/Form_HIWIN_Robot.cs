@@ -51,11 +51,12 @@ namespace HiwinRobot
         /// <param name="e"></param>
         private void button_arm_copy_position_from_now_to_target_Click(object sender, EventArgs e)
         {
-            if (GetCoordinateType() == CoordinateType.Absolute)
+            var type = GetCoordinateType();
+            if (type == CoordinateType.Absolute)
             {
                 SetTargetPostion(GetNowUiPostion());
             }
-            else if (GetCoordinateType() == CoordinateType.Relative)
+            else if (type == CoordinateType.Relative)
             {
                 SetTargetPostion(new double[] { 0, 0, 0, 0, 0, 0 });
             }
