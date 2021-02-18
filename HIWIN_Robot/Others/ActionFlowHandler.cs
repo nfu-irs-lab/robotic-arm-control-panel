@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace HiwinRobot
 {
@@ -15,6 +16,7 @@ namespace HiwinRobot
 
     public class ActionFlowHandler
     {
+        public bool ShowMessageBoforeAction = true;
         private List<ActionStruce> Actions = null;
 
         private IMessage Message = null;
@@ -32,8 +34,12 @@ namespace HiwinRobot
 
         public int Do(int actionIndex)
         {
-            Actions[actionIndex].Action();
-            LastActionIndex = actionIndex;
+            var act = Actions[actionIndex];
+            if (ShowActionMessageAndContinue(actionIndex, act))
+            {
+                act.Action();
+                LastActionIndex = actionIndex;
+            }
             return LastActionIndex;
         }
 
@@ -43,8 +49,16 @@ namespace HiwinRobot
             {
                 for (int i = startActionIndex; i <= endActionIndex; i++)
                 {
-                    Actions[i].Action();
-                    LastActionIndex = i;
+                    var act = Actions[i];
+                    if (ShowActionMessageAndContinue(i, act))
+                    {
+                        act.Action();
+                        LastActionIndex = i;
+                    }
+                    else
+                    {
+                        return LastActionIndex;
+                    }
                 }
             }
             return LastActionIndex;
@@ -57,8 +71,16 @@ namespace HiwinRobot
             {
                 if (Actions[i].Name.Equals(actionName))
                 {
-                    Actions[i].Action();
-                    LastActionIndex = i;
+                    var act = Actions[i];
+                    if (ShowActionMessageAndContinue(i, act))
+                    {
+                        act.Action();
+                        LastActionIndex = i;
+                    }
+                    else
+                    {
+                        return LastActionIndex;
+                    }
                     break;
                 }
             }
@@ -69,10 +91,45 @@ namespace HiwinRobot
         {
             for (int i = 0; i < ActionsCount; i++)
             {
-                Actions[i].Action();
-                LastActionIndex = i;
+                var act = Actions[i];
+                if (ShowActionMessageAndContinue(i, act))
+                {
+                    act.Action();
+                    LastActionIndex = i;
+                }
+                else
+                {
+                    return LastActionIndex;
+                }
             }
             return LastActionIndex;
+        }
+
+        /// <summary>
+        /// Show action messgae if enable, and return continue or not.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="actionStruce"></param>
+        /// <returns>true: Continue; false: Not continue.</returns>
+        private bool ShowActionMessageAndContinue(int index, ActionStruce actionStruce)
+        {
+            if (ShowMessageBoforeAction)
+            {
+                var text = $"•Index: {index}\r\n" +
+                           $"•Name: {actionStruce.Name}\r\n" +
+                           $"•Comment: {actionStruce.Comment}";
+
+                var result = Message.Show(text,
+                                          "Next Action",
+                                          MessageBoxButtons.OKCancel,
+                                          MessageBoxIcon.None);
+
+                if (result == DialogResult.Cancel)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }
