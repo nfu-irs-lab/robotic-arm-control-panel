@@ -61,7 +61,6 @@ namespace HiwinRobot
     {
         public SerialPortDevice(SerialPort serialPort, ILogHandler logHandler)
         {
-            // XXX 此處沒有使用深層複製，需注意指標(pointer)的問題。
             SerialPort = serialPort;
             Message = new NormalMessage(logHandler);
         }
