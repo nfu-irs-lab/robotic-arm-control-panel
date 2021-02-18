@@ -119,13 +119,14 @@
             this.textBox_position_record_name = new System.Windows.Forms.TextBox();
             this.textBox_position_record_comment = new System.Windows.Forms.TextBox();
             this.tabPage_sub_actionflow = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
+            this.button_actionflow_do_selected = new System.Windows.Forms.Button();
             this.listView_actionflow_actions = new System.Windows.Forms.ListView();
             this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
+            this.button_actionflow_do_all = new System.Windows.Forms.Button();
             this.groupBox_connect_disconnect.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -161,8 +162,8 @@
             this.groupBox_position_record.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
             this.tabPage_sub_actionflow.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.tableLayoutPanel9.SuspendLayout();
+            this.tableLayoutPanel10.SuspendLayout();
             this.SuspendLayout();
             // 
             // button_connect
@@ -1367,29 +1368,12 @@
             this.tabPage_sub_actionflow.Text = "動作流程";
             this.tabPage_sub_actionflow.UseVisualStyleBackColor = true;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(197, 42);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(188, 102);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Location = new System.Drawing.Point(3, 755);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(718, 127);
-            this.panel1.TabIndex = 1;
-            // 
             // tableLayoutPanel9
             // 
             this.tableLayoutPanel9.ColumnCount = 1;
             this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel9.Controls.Add(this.panel1, 0, 1);
             this.tableLayoutPanel9.Controls.Add(this.listView_actionflow_actions, 0, 0);
+            this.tableLayoutPanel9.Controls.Add(this.tableLayoutPanel10, 0, 1);
             this.tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel9.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel9.Name = "tableLayoutPanel9";
@@ -1398,6 +1382,16 @@
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
             this.tableLayoutPanel9.Size = new System.Drawing.Size(1311, 885);
             this.tableLayoutPanel9.TabIndex = 2;
+            // 
+            // button_actionflow_do_selected
+            // 
+            this.button_actionflow_do_selected.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.button_actionflow_do_selected.Location = new System.Drawing.Point(232, 12);
+            this.button_actionflow_do_selected.Name = "button_actionflow_do_selected";
+            this.button_actionflow_do_selected.Size = new System.Drawing.Size(188, 102);
+            this.button_actionflow_do_selected.TabIndex = 0;
+            this.button_actionflow_do_selected.Text = "執行一次";
+            this.button_actionflow_do_selected.UseVisualStyleBackColor = true;
             // 
             // listView_actionflow_actions
             // 
@@ -1430,6 +1424,32 @@
             // 
             this.columnHeader13.Text = "Comment";
             this.columnHeader13.Width = 1145;
+            // 
+            // tableLayoutPanel10
+            // 
+            this.tableLayoutPanel10.ColumnCount = 2;
+            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel10.Controls.Add(this.button_actionflow_do_all, 1, 0);
+            this.tableLayoutPanel10.Controls.Add(this.button_actionflow_do_selected, 0, 0);
+            this.tableLayoutPanel10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel10.Location = new System.Drawing.Point(3, 755);
+            this.tableLayoutPanel10.Name = "tableLayoutPanel10";
+            this.tableLayoutPanel10.RowCount = 1;
+            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(1305, 127);
+            this.tableLayoutPanel10.TabIndex = 3;
+            // 
+            // button_actionflow_do_all
+            // 
+            this.button_actionflow_do_all.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.button_actionflow_do_all.Location = new System.Drawing.Point(884, 12);
+            this.button_actionflow_do_all.Name = "button_actionflow_do_all";
+            this.button_actionflow_do_all.Size = new System.Drawing.Size(188, 102);
+            this.button_actionflow_do_all.TabIndex = 0;
+            this.button_actionflow_do_all.Text = "執行全部";
+            this.button_actionflow_do_all.UseVisualStyleBackColor = true;
             // 
             // Form_HIWIN_Robot
             // 
@@ -1489,8 +1509,8 @@
             this.tableLayoutPanel7.ResumeLayout(false);
             this.tableLayoutPanel7.PerformLayout();
             this.tabPage_sub_actionflow.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
             this.tableLayoutPanel9.ResumeLayout(false);
+            this.tableLayoutPanel10.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1589,12 +1609,13 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TabPage tabPage_sub_actionflow;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button_actionflow_do_selected;
         private System.Windows.Forms.ListView listView_actionflow_actions;
         private System.Windows.Forms.ColumnHeader columnHeader11;
         private System.Windows.Forms.ColumnHeader columnHeader12;
         private System.Windows.Forms.ColumnHeader columnHeader13;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel10;
+        private System.Windows.Forms.Button button_actionflow_do_all;
     }
 }
 
