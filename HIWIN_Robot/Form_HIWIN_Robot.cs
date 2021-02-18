@@ -23,7 +23,8 @@ namespace HiwinRobot
         public Form_HIWIN_Robot()
         {
             InitializeComponent();
-            Init();
+            InitBasic();
+            InitAction();
 
             // 組織連線裝置組。加入的順序就是連線/斷線的順序。
             // 若要禁用某裝置，在下方將其所屬的「 Devices.Add(裝置); 」註解掉即可。
@@ -559,6 +560,36 @@ namespace HiwinRobot
 
         #endregion - 位置記錄 -
 
+        #region - 動作流程 -
+
+        /// <summary>
+        /// 動作流程。
+        /// </summary>
+        private IActionFlowHandler ActionFlow = null;
+
+        private void button_actionflow_do_all_Click(object sender, EventArgs e)
+        {
+            ActionFlow.DoEach();
+        }
+
+        private void button_actionflow_do_selected_Click(object sender, EventArgs e)
+        {
+            int index = listView_actionflow_actions.SelectedItems[0].Index;
+            ActionFlow.Do(index);
+        }
+
+        /// <summary>
+        /// 初始化動作流程。
+        /// </summary>
+        private void InitAction()
+        {
+            // 在此加入動作流程。
+            ActionFlow.Add("Start", () => MessageBox.Show("Action flow start."));
+            ActionFlow.Add("End", () => MessageBox.Show("Action flow end."));
+        }
+
+        #endregion - 動作流程 -
+
         #region - 其它 -
 
         /// <summary>
@@ -789,7 +820,7 @@ namespace HiwinRobot
         /// <summary>
         /// 基本初始化。
         /// </summary>
-        private void Init()
+        private void InitBasic()
         {
             // 目標位置控制項集合。
             TargetPositino.Clear();
@@ -828,6 +859,7 @@ namespace HiwinRobot
             Gripper = new GripperController(Configuration.GripperComPort, Message);
             Bluetooth = new BluetoothArmController(Configuration.BluetoothComPort, Arm, Message);
             CsvHandler = new CsvHandler(Configuration.CsvFilePath);
+            ActionFlow = new ActionFlowHandler(listView_actionflow_actions, Message);
             PositionHandler = new PositionHandler(listView_position_record,
                                                   comboBox_position_record_file_list,
                                                   CsvHandler,
