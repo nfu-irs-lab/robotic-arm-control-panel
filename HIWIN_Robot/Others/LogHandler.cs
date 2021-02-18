@@ -13,10 +13,29 @@ namespace HiwinRobot
     /// </summary>
     public enum LoggingLevel
     {
+        /// <summary>
+        /// 蹤跡。
+        /// </summary>
         Trace = 0,
+
+        /// <summary>
+        /// 資訊。
+        /// </summary>
         Info,
+
+        /// <summary>
+        /// 警告。
+        /// </summary>
         Warn,
+
+        /// <summary>
+        /// 錯誤。
+        /// </summary>
         Error,
+
+        /// <summary>
+        /// 致命。
+        /// </summary>
         Fatal = 99
     }
 
