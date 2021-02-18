@@ -20,7 +20,9 @@ namespace HiwinRobot
         bool ShowMessageBoforeAction { get; set; }
 
         /// <summary>
-        /// 增加動作。增加的順序就是索引、執行的順序。
+        /// 增加動作。增加的順序就是索引、執行的順序。<br/>
+        /// 可以使用 Lambda 運算子達成匿名委派，用法示範：<br/>
+        /// <c>Add("Example", () => MessageBox.Show("Hi"), "Comment here.");</c>
         /// </summary>
         /// <param name="name"></param>
         /// <param name="action"></param>
