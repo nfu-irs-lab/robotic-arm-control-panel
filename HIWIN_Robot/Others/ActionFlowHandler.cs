@@ -17,10 +17,14 @@ namespace HiwinRobot
     {
         private List<ActionStruce> Actions = null;
 
-        public ActionFlowHandler(List<ActionStruce> actionStruces)
+        private IMessage Message = null;
+
+        public ActionFlowHandler(List<ActionStruce> actionStruces, IMessage message)
         {
             Actions = actionStruces;
             ActionsCount = Actions.Count;
+
+            Message = message;
         }
 
         public int ActionsCount { get; private set; }
