@@ -247,7 +247,7 @@ namespace HiwinRobot
         /// <returns>目前所選的坐標類型。</returns>
         private CoordinateType GetCoordinateType()
         {
-            CoordinateType type = CoordinateType.Unknown;
+            CoordinateType type;
             if (radioButton_coordinate_type_absolute.Checked)
             {
                 type = CoordinateType.Absolute;
@@ -269,7 +269,7 @@ namespace HiwinRobot
         /// <returns>目前所選的運動類型。</returns>
         private MotionType GetMotionType()
         {
-            MotionType type = MotionType.Unknown;
+            MotionType type;
             if (radioButton_motion_type_linear.Checked)
             {
                 type = MotionType.Linear;
@@ -291,7 +291,7 @@ namespace HiwinRobot
         /// <returns>目前所選的位置類型。</returns>
         private PositionType GetPositinoType()
         {
-            PositionType type = PositionType.Unknown;
+            PositionType type;
             if (radioButton_position_type_descartes.Checked)
             {
                 type = PositionType.Descartes;
