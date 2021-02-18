@@ -11,22 +11,41 @@ namespace HiwinRobot
     /// 日誌等級。<br/>
     /// 數值越大表示越嚴重。
     /// </summary>
-    public enum LoggingLevel
+    public enum LoggingLevel : byte
     {
+        /// <summary>
+        /// 蹤跡。
+        /// </summary>
         Trace = 0,
+
+        /// <summary>
+        /// 資訊。
+        /// </summary>
         Info,
+
+        /// <summary>
+        /// 警告。
+        /// </summary>
         Warn,
+
+        /// <summary>
+        /// 錯誤。
+        /// </summary>
         Error,
-        Fatal = 99
+
+        /// <summary>
+        /// 致命。
+        /// </summary>
+        Fatal = byte.MaxValue
     }
 
     public interface ILogHandler
     {
         string Path { get; set; }
 
-        void Write(LoggingLevel loggingLevel, string content);
+        void Write(string message, LoggingLevel loggingLevel);
 
-        void Write(LoggingLevel loggingLevel, Exception ex);
+        void Write(Exception ex, LoggingLevel loggingLevel);
     }
 
     public class LogHandler : ILogHandler
@@ -47,23 +66,23 @@ namespace HiwinRobot
 
         ~LogHandler()
         {
-            Write(LoggingLevel.Trace, "LogHandler Destruct.");
+            Write("LogHandler Destruct.", LoggingLevel.Fatal);
         }
 
         public string Path { get; set; }
 
-        public void Write(LoggingLevel loggingLevel, Exception ex)
+        public void Write(Exception ex, LoggingLevel loggingLevel)
         {
-            Write(loggingLevel, $"{ex.Message}. {ex.StackTrace}");
+            Write($"{ex.Message}. {ex.StackTrace}", loggingLevel);
         }
 
-        public void Write(LoggingLevel loggingLevel, string content)
+        public void Write(string message, LoggingLevel loggingLevel)
         {
             if (loggingLevel >= LoggingLevel)
             {
                 string text = DateTime.Now.ToString("HH:mm:ss") +
                               $"[{loggingLevel}]" +
-                              $"{content.Replace("\r", "").Replace("\n", ";").Trim()}";
+                              $"{message.Replace("\r", "").Replace("\n", ";").Trim()}";
 
                 var file = MakeStreamWriter();
                 file.WriteLine(text);

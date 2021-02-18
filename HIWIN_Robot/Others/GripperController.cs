@@ -12,11 +12,6 @@ namespace HiwinRobot
     /// </summary>
     public interface IGripperController : IDevice
     {
-        /// <summary>
-        /// 訊息處理器。
-        /// </summary>
-        IMessage Message { get; set; }
-
         string Control(int position,
                        int speed = 50,
                        int force = 70,
@@ -32,16 +27,15 @@ namespace HiwinRobot
     /// </summary>
     public class GripperController : IGripperController
     {
-        private IMessage _Message;
-
         /// <summary>
         /// 夾爪模式：絕對位置。
         /// </summary>
         private byte Direction = 2;
 
+        private IMessage Message;
         private ISerialPortDevice SerialPortDevice = null;
 
-        public GripperController(string comPort, ILogHandler logHandler)
+        public GripperController(string comPort, IMessage message)
         {
             SerialPortDevice = new SerialPortDevice(
                 new SerialPort()
@@ -50,27 +44,14 @@ namespace HiwinRobot
                     BaudRate = 115200,
                     DataBits = 8
                 },
-                logHandler);
+                message);
 
-            Message = new NormalMessage(logHandler);
+            Message = message;
         }
 
         public bool Connected
         {
             get => SerialPortDevice.Connected;
-        }
-
-        public IMessage Message
-        {
-            get
-            {
-                return _Message;
-            }
-            set
-            {
-                _Message = value;
-                SerialPortDevice.Message = value;
-            }
         }
 
         public bool Connect()
@@ -136,7 +117,7 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                _Message.Show("Gripper Error.", ex, LoggingLevel.Error);
+                Message.Show("Gripper Error.", ex, LoggingLevel.Error);
                 return "";
             }
         }
@@ -183,7 +164,7 @@ namespace HiwinRobot
             }
             catch (Exception ex)
             {
-                _Message.Show("Gripper Error.", ex, LoggingLevel.Error);
+                Message.Show("Gripper Error.", ex, LoggingLevel.Error);
                 return "";
             }
         }

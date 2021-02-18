@@ -46,11 +46,6 @@ namespace HiwinRobot
     /// </summary>
     public interface ISerialPortDevice : IDevice
     {
-        /// <summary>
-        /// 訊息處理器。
-        /// </summary>
-        IMessage Message { get; set; }
-
         SerialPort SerialPort { get; set; }
     }
 
@@ -59,24 +54,22 @@ namespace HiwinRobot
     /// </summary>
     public class SerialPortDevice : ISerialPortDevice
     {
-        public SerialPortDevice(SerialPort serialPort, ILogHandler logHandler)
+        public SerialPortDevice(SerialPort serialPort, IMessage message)
         {
-            // XXX 此處沒有使用深層複製，需注意指標(pointer)的問題。
             SerialPort = serialPort;
-            Message = new NormalMessage(logHandler);
+            Message = message;
         }
 
-        public SerialPortDevice(string comPort, ILogHandler logHandler)
+        public SerialPortDevice(string comPort, IMessage message)
         {
             SerialPort = new SerialPort(comPort);
-            Message = new NormalMessage(logHandler);
+            Message = message;
         }
 
         public bool Connected { get; private set; } = false;
 
-        public IMessage Message { get; set; }
-
         public SerialPort SerialPort { get; set; }
+        private IMessage Message { get; set; }
 
         public virtual bool Connect()
         {

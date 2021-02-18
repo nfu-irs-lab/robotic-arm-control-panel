@@ -25,10 +25,8 @@ namespace HiwinRobot
             InitializeComponent();
             Init();
 
-            /*
-             * 組織連線裝置組。加入的順序就是連線/斷線的順序。
-             * 若要禁用某裝置，在下方將其所屬的「 Devices.Add(裝置); 」註解掉即可。
-             */
+            // 組織連線裝置組。加入的順序就是連線/斷線的順序。
+            // 若要禁用某裝置，在下方將其所屬的「 Devices.Add(裝置); 」註解掉即可。
             Devices.Clear();
             Devices.Add(Arm);
             //Devices.Add(Gripper);
@@ -51,11 +49,12 @@ namespace HiwinRobot
         /// <param name="e"></param>
         private void button_arm_copy_position_from_now_to_target_Click(object sender, EventArgs e)
         {
-            if (GetCoordinateType() == CoordinateType.Absolute)
+            var type = GetCoordinateType();
+            if (type == CoordinateType.Absolute)
             {
                 SetTargetPostion(GetNowUiPostion());
             }
-            else if (GetCoordinateType() == CoordinateType.Relative)
+            else if (type == CoordinateType.Relative)
             {
                 SetTargetPostion(new double[] { 0, 0, 0, 0, 0, 0 });
             }
@@ -246,7 +245,7 @@ namespace HiwinRobot
         /// <returns>目前所選的坐標類型。</returns>
         private CoordinateType GetCoordinateType()
         {
-            CoordinateType type = CoordinateType.Unknown;
+            CoordinateType type;
             if (radioButton_coordinate_type_absolute.Checked)
             {
                 type = CoordinateType.Absolute;
@@ -268,7 +267,7 @@ namespace HiwinRobot
         /// <returns>目前所選的運動類型。</returns>
         private MotionType GetMotionType()
         {
-            MotionType type = MotionType.Unknown;
+            MotionType type;
             if (radioButton_motion_type_linear.Checked)
             {
                 type = MotionType.Linear;
@@ -290,7 +289,7 @@ namespace HiwinRobot
         /// <returns>目前所選的位置類型。</returns>
         private PositionType GetPositinoType()
         {
-            PositionType type = PositionType.Unknown;
+            PositionType type;
             if (radioButton_position_type_descartes.Checked)
             {
                 type = PositionType.Descartes;
@@ -317,14 +316,9 @@ namespace HiwinRobot
             }
             else if (Arm.Connected)
             {
-                if (radioButton_position_type_descartes.Checked)
-                {
-                    SetTargetPostion(Arm.GetPosition(PositionType.Descartes));
-                }
-                else if (radioButton_position_type_joint.Checked)
-                {
-                    SetTargetPostion(Arm.GetPosition(PositionType.Joint));
-                }
+                var positionType = GetPositinoType();
+                var nowPosition = Arm.GetPosition(positionType);
+                SetTargetPostion(nowPosition);
                 SetNowPostion(GetTargetPostion());
             }
             else
@@ -482,7 +476,7 @@ namespace HiwinRobot
         /// <param name="e"></param>
         private void button_connect_Click(object sender, EventArgs e)
         {
-            LogHandler.Write(LoggingLevel.Trace, "Connect");
+            LogHandler.Write("Connect", LoggingLevel.Trace);
 
             for (int i = 0; i < Devices.Count; i++)
             {
@@ -506,7 +500,7 @@ namespace HiwinRobot
         /// <param name="e"></param>
         private void button_disconnect_Click(object sender, EventArgs e)
         {
-            LogHandler.Write(LoggingLevel.Trace, "Disconnect");
+            LogHandler.Write("Disconnect", LoggingLevel.Trace);
 
             for (int i = 0; i < Devices.Count; i++)
             {
@@ -825,24 +819,19 @@ namespace HiwinRobot
 
             // 產生物件，依賴注入。
             LogHandler = new LogHandler(Configuration.LogFilePath, LoggingLevel.Trace);
-            Arm = new ArmController(Configuration.ArmIp, LogHandler);
-            Gripper = new GripperController(Configuration.GripperComPort, LogHandler);
-            Bluetooth = new BluetoothArmController(Configuration.BluetoothComPort, Arm, LogHandler);
-            CsvHandler = new CsvHandler(Configuration.CsvFilePath);
-            PositionHandler = new PositionHandler(CsvHandler,
-                                                  LogHandler,
-                                                  listView_position_record,
-                                                  comboBox_position_record_file_list);
-
 #if (DISABLE_SHOW_MESSAGE)
             Message = new EmptyMessage();
-            Arm.Message = new EmptyMessage();
-            Bluetooth.Message = new EmptyMessage();
-            Gripper.Message = new EmptyMessage();
-            PositionHandler.Message = new EmptyMessage();
 #else
             Message = new NormalMessage(LogHandler);
 #endif
+            Arm = new ArmController(Configuration.ArmIp, Message);
+            Gripper = new GripperController(Configuration.GripperComPort, Message);
+            Bluetooth = new BluetoothArmController(Configuration.BluetoothComPort, Arm, Message);
+            CsvHandler = new CsvHandler(Configuration.CsvFilePath);
+            PositionHandler = new PositionHandler(listView_position_record,
+                                                  comboBox_position_record_file_list,
+                                                  CsvHandler,
+                                                  Message);
 
             // 未與手臂連線，禁用部分按鈕。
             SetButtonsState(false);
