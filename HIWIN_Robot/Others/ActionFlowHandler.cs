@@ -15,11 +15,16 @@ namespace HiwinRobot.Others
 
     public class ActionFlowHandler
     {
-        public List<ActionStruce> Actions;
+        private List<ActionStruce> Actions;
 
         public ActionFlowHandler()
         {
             Actions = new List<ActionStruce>();
+        }
+
+        public ActionFlowHandler(List<ActionStruce> actionStruces)
+        {
+            Actions = actionStruces;
         }
     }
 }
