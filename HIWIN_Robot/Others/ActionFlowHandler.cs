@@ -7,6 +7,60 @@ using System.Windows.Forms;
 
 namespace HiwinRobot
 {
+    public interface IActionFlowHandler
+    {
+        /// <summary>
+        /// 最後一個執行的動作索引值。
+        /// </summary>
+        int LastActionIndex { get; }
+
+        /// <summary>
+        /// 是否在每一個動作之前顯示確認訊息。
+        /// </summary>
+        bool ShowMessageBoforeAction { get; set; }
+
+        /// <summary>
+        /// 增加動作。增加的順序就是索引、執行的順序。
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="action"></param>
+        /// <param name="comment"></param>
+        void Add(string name, Action action, string comment = "--");
+
+        /// <summary>
+        /// 清空所有動作。
+        /// </summary>
+        void Clear();
+
+        /// <summary>
+        /// 執行動作。
+        /// </summary>
+        /// <param name="actionIndex"></param>
+        /// <returns>最後一個執行的動作索引值。</returns>
+        int Do(int actionIndex);
+
+        /// <summary>
+        /// 執行動作。
+        /// </summary>
+        /// <param name="startActionIndex"></param>
+        /// <param name="endActionIndex"></param>
+        /// <returns>最後一個執行的動作索引值。</returns>
+        int Do(int startActionIndex, int endActionIndex);
+
+        /// <summary>
+        /// 執行動作。
+        /// </summary>
+        /// <param name="actionName"></param>
+        /// <returns>最後一個執行的動作索引值。</returns>
+        int Do(string actionName);
+
+        /// <summary>
+        /// 執行所有動作。
+        /// </summary>
+        /// <returns>最後一個執行的動作索引值。</returns>
+        int DoEach();
+    }
+
     public struct ActionStruce
     {
         public Action Action;
@@ -16,10 +70,10 @@ namespace HiwinRobot
         public string Name;
     }
 
-    public class ActionFlowHandler
+    public class ActionFlowHandler : IActionFlowHandler
     {
+        private readonly IMessage Message = null;
         private List<ActionStruce> Actions = new List<ActionStruce>();
-        private IMessage Message = null;
 
         public ActionFlowHandler(IMessage message)
         {
