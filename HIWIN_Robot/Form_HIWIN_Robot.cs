@@ -318,14 +318,9 @@ namespace HiwinRobot
             }
             else if (Arm.Connected)
             {
-                if (radioButton_position_type_descartes.Checked)
-                {
-                    SetTargetPostion(Arm.GetPosition(PositionType.Descartes));
-                }
-                else if (radioButton_position_type_joint.Checked)
-                {
-                    SetTargetPostion(Arm.GetPosition(PositionType.Joint));
-                }
+                var positionType = GetPositinoType();
+                var nowPosition = Arm.GetPosition(positionType);
+                SetTargetPostion(nowPosition);
                 SetNowPostion(GetTargetPostion());
             }
             else
