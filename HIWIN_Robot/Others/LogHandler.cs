@@ -11,7 +11,7 @@ namespace HiwinRobot
     /// 日誌等級。<br/>
     /// 數值越大表示越嚴重。
     /// </summary>
-    public enum LoggingLevel
+    public enum LoggingLevel : byte
     {
         /// <summary>
         /// 蹤跡。
@@ -36,7 +36,7 @@ namespace HiwinRobot
         /// <summary>
         /// 致命。
         /// </summary>
-        Fatal = 99
+        Fatal = byte.MaxValue
     }
 
     public interface ILogHandler
