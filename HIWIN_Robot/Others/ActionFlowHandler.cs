@@ -10,14 +10,15 @@ namespace HiwinRobot
     public struct ActionStruce
     {
         public Action Action;
+
         public string Comment;
+
         public string Name;
     }
 
     public class ActionFlowHandler
     {
-        public List<ActionStruce> Actions = new List<ActionStruce>();
-        public bool ShowMessageBoforeAction = true;
+        private List<ActionStruce> Actions = new List<ActionStruce>();
         private IMessage Message = null;
 
         public ActionFlowHandler(IMessage message)
@@ -26,6 +27,23 @@ namespace HiwinRobot
         }
 
         public int LastActionIndex { get; private set; } = 0;
+        public bool ShowMessageBoforeAction { get; set; } = true;
+
+        public void Add(string name, Action action, string comment = "--")
+        {
+            ActionStruce actionStruce = new ActionStruce()
+            {
+                Action = action,
+                Name = name,
+                Comment = comment
+            };
+            Actions.Add(actionStruce);
+        }
+
+        public void Clear()
+        {
+            Actions.Clear();
+        }
 
         public int Do(int actionIndex)
         {
