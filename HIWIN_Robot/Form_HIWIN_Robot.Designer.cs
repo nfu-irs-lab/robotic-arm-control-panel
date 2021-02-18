@@ -122,6 +122,10 @@
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
+            this.listView_actionflow_actions = new System.Windows.Forms.ListView();
+            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox_connect_disconnect.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -1375,9 +1379,9 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.button1);
-            this.panel1.Location = new System.Drawing.Point(3, 711);
+            this.panel1.Location = new System.Drawing.Point(3, 755);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(718, 171);
+            this.panel1.Size = new System.Drawing.Size(718, 127);
             this.panel1.TabIndex = 1;
             // 
             // tableLayoutPanel9
@@ -1385,14 +1389,47 @@
             this.tableLayoutPanel9.ColumnCount = 1;
             this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel9.Controls.Add(this.panel1, 0, 1);
+            this.tableLayoutPanel9.Controls.Add(this.listView_actionflow_actions, 0, 0);
             this.tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel9.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel9.Name = "tableLayoutPanel9";
             this.tableLayoutPanel9.RowCount = 2;
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80F));
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 85F));
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
             this.tableLayoutPanel9.Size = new System.Drawing.Size(1311, 885);
             this.tableLayoutPanel9.TabIndex = 2;
+            // 
+            // listView_actionflow_actions
+            // 
+            this.listView_actionflow_actions.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader11,
+            this.columnHeader12,
+            this.columnHeader13});
+            this.listView_actionflow_actions.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView_actionflow_actions.FullRowSelect = true;
+            this.listView_actionflow_actions.GridLines = true;
+            this.listView_actionflow_actions.HideSelection = false;
+            this.listView_actionflow_actions.Location = new System.Drawing.Point(3, 3);
+            this.listView_actionflow_actions.Name = "listView_actionflow_actions";
+            this.listView_actionflow_actions.Size = new System.Drawing.Size(1305, 746);
+            this.listView_actionflow_actions.TabIndex = 2;
+            this.listView_actionflow_actions.UseCompatibleStateImageBehavior = false;
+            this.listView_actionflow_actions.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader11
+            // 
+            this.columnHeader11.Text = "Index";
+            this.columnHeader11.Width = 76;
+            // 
+            // columnHeader12
+            // 
+            this.columnHeader12.Text = "Name";
+            this.columnHeader12.Width = 80;
+            // 
+            // columnHeader13
+            // 
+            this.columnHeader13.Text = "Comment";
+            this.columnHeader13.Width = 1145;
             // 
             // Form_HIWIN_Robot
             // 
@@ -1554,6 +1591,10 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ListView listView_actionflow_actions;
+        private System.Windows.Forms.ColumnHeader columnHeader11;
+        private System.Windows.Forms.ColumnHeader columnHeader12;
+        private System.Windows.Forms.ColumnHeader columnHeader13;
     }
 }
 
