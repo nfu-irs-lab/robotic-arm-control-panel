@@ -20,8 +20,10 @@ namespace HiwinRobot
         public ActionFlowHandler(List<ActionStruce> actionStruces)
         {
             Actions = actionStruces;
+            ActionsCount = Actions.Count;
         }
 
+        public int ActionsCount { get; private set; }
         public int LastActionIndex { get; private set; } = 0;
 
         public int Do(int actionIndex)
@@ -47,8 +49,7 @@ namespace HiwinRobot
         public int Do(string actionName)
         {
             // TODO: Use LINQ.
-            int num = Actions.Count;
-            for (int i = 0; i < num; i++)
+            for (int i = 0; i < ActionsCount; i++)
             {
                 if (Actions[i].Name.Equals(actionName))
                 {
@@ -62,8 +63,7 @@ namespace HiwinRobot
 
         public int DoEach()
         {
-            int num = Actions.Count;
-            for (int i = 0; i < num; i++)
+            for (int i = 0; i < ActionsCount; i++)
             {
                 Actions[i].Action();
                 LastActionIndex = i;
