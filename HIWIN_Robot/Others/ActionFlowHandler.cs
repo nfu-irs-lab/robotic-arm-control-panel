@@ -10,6 +10,11 @@ namespace HiwinRobot
     public interface IActionFlowHandler
     {
         /// <summary>
+        /// 執行完動作後自動選擇下一個動作。
+        /// </summary>
+        bool AutoNextAction { get; set; }
+
+        /// <summary>
         /// 最後一個執行的動作索引值。
         /// </summary>
         int LastActionIndex { get; }
@@ -89,6 +94,7 @@ namespace HiwinRobot
             Message = message;
         }
 
+        public bool AutoNextAction { get; set; } = true;
         public int LastActionIndex { get; private set; } = 0;
         public bool ShowMessageBoforeAction { get; set; } = true;
 
@@ -128,6 +134,7 @@ namespace HiwinRobot
             {
                 act.Action();
                 LastActionIndex = actionIndex;
+                AutoSelectedNextAction();
             }
             return LastActionIndex;
         }
@@ -150,6 +157,7 @@ namespace HiwinRobot
                     }
                 }
             }
+            AutoSelectedNextAction();
             return LastActionIndex;
         }
 
@@ -166,6 +174,7 @@ namespace HiwinRobot
                     {
                         act.Action();
                         LastActionIndex = i;
+                        AutoSelectedNextAction();
                     }
                     else
                     {
@@ -215,6 +224,18 @@ namespace HiwinRobot
             }
 
             ResizeListColumnWidth();
+        }
+
+        private void AutoSelectedNextAction()
+        {
+            if (AutoNextAction)
+            {
+                int nowIndex = ActionListView.SelectedItems[0].Index;
+                if (nowIndex < (Actions.Count - 1))
+                {
+                    ActionListView.Items[++nowIndex].Selected = true;
+                }
+            }
         }
 
         private void ResizeListColumnWidth()

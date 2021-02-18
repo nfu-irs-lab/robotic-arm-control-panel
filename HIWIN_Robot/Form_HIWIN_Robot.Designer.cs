@@ -1392,6 +1392,7 @@
             this.button_actionflow_do_selected.TabIndex = 0;
             this.button_actionflow_do_selected.Text = "執行一次";
             this.button_actionflow_do_selected.UseVisualStyleBackColor = true;
+            this.button_actionflow_do_selected.Click += new System.EventHandler(this.button_actionflow_do_selected_Click);
             // 
             // listView_actionflow_actions
             // 
@@ -1404,6 +1405,7 @@
             this.listView_actionflow_actions.GridLines = true;
             this.listView_actionflow_actions.HideSelection = false;
             this.listView_actionflow_actions.Location = new System.Drawing.Point(3, 3);
+            this.listView_actionflow_actions.MultiSelect = false;
             this.listView_actionflow_actions.Name = "listView_actionflow_actions";
             this.listView_actionflow_actions.Size = new System.Drawing.Size(1305, 746);
             this.listView_actionflow_actions.TabIndex = 2;
@@ -1450,6 +1452,7 @@
             this.button_actionflow_do_all.TabIndex = 0;
             this.button_actionflow_do_all.Text = "執行全部";
             this.button_actionflow_do_all.UseVisualStyleBackColor = true;
+            this.button_actionflow_do_all.Click += new System.EventHandler(this.button_actionflow_do_all_Click);
             // 
             // Form_HIWIN_Robot
             // 
