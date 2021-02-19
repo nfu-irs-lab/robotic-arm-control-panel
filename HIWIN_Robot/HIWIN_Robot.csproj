@@ -160,6 +160,10 @@
       <Project>{fd85d268-f97e-46cf-8df6-b6a4b102439b}</Project>
       <Name>Contest</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Features\Features.csproj">
+      <Project>{23165e8b-d3d9-465a-98b3-ad90e97909c3}</Project>
+      <Name>Features</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

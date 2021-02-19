@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
+using Features;
 
 namespace HiwinRobot
 {
