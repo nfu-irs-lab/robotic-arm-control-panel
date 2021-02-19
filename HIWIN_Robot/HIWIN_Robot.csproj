@@ -107,9 +107,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Arm\ArmController.cs" />
-    <Compile Include="Arm\ArmIntermediateLayer.cs" />
-    <Compile Include="Arm\HRobot.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Form_HIWIN_Robot.cs">
       <SubType>Form</SubType>
@@ -117,14 +114,6 @@
     <Compile Include="Form_HIWIN_Robot.Designer.cs">
       <DependentUpon>Form_HIWIN_Robot.cs</DependentUpon>
     </Compile>
-    <Compile Include="Others\ActionFlowHandler.cs" />
-    <Compile Include="Others\BasicDevices.cs" />
-    <Compile Include="Others\BluetoothArmController.cs" />
-    <Compile Include="Others\CsvHandler.cs" />
-    <Compile Include="Others\GripperController.cs" />
-    <Compile Include="Others\LogHandler.cs" />
-    <Compile Include="Others\Message.cs" />
-    <Compile Include="Others\PositionHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form_HIWIN_Robot.resx">
