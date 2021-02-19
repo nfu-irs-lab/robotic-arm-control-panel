@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Behavior.cs" />
     <Compile Include="Configuration.cs" />
+    <Compile Include="Dependency.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
