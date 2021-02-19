@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30225.117
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HIWIN_Robot", "HIWIN_Robot\HIWIN_Robot.csproj", "{95C2DDF6-1FD1-42AE-BF56-EF1391DA6D5D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MainForm", "HIWIN_Robot\MainForm.csproj", "{95C2DDF6-1FD1-42AE-BF56-EF1391DA6D5D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contest", "Contest\Contest.csproj", "{FD85D268-F97E-46CF-8DF6-B6A4B102439B}"
 EndProject
