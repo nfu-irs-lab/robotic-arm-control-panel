@@ -14,7 +14,7 @@ using System.Windows.Forms;
 using Features;
 using Contest;
 
-namespace HiwinRobot
+namespace MainForm
 {
     /// <summary>
     /// 【 上銀機器手臂控制程式 】<br/>

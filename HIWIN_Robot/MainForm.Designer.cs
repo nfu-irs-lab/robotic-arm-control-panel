@@ -1,4 +1,4 @@
-﻿namespace HiwinRobot
+﻿namespace MainForm
 {
     partial class MainForm
     {
