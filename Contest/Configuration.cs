@@ -5,7 +5,7 @@
 #undef CONFIG_2
 #endif
 
-namespace HiwinRobot
+namespace Contest
 {
     /// <summary>
     /// 可調整之設定。
