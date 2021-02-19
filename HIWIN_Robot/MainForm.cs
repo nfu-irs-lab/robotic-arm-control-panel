@@ -20,9 +20,9 @@ namespace HiwinRobot
     /// 【 上銀機器手臂控制程式 】<br/>
     /// HIWIN Robot Control
     /// </summary>
-    public partial class Form_HIWIN_Robot : Form
+    public partial class MainForm : Form
     {
-        public Form_HIWIN_Robot()
+        public MainForm()
         {
             InitializeComponent();
             InitBasic();

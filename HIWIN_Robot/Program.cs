@@ -13,7 +13,7 @@ namespace HiwinRobot
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form_HIWIN_Robot());
+            Application.Run(new MainForm());
         }
     }
 }

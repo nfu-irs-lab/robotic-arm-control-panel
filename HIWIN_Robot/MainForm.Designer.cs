@@ -1,6 +1,6 @@
 ﻿namespace HiwinRobot
 {
-    partial class Form_HIWIN_Robot
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
