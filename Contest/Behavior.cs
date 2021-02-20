@@ -9,7 +9,7 @@ namespace Contest
 {
     public class Behavior
     {
-        #region - Properties -
+        #region - Others -
 
         private IActionFlowHandler ActionFlow = null;
 
@@ -18,15 +18,12 @@ namespace Contest
         private IBluetoothController BluetoothController = null;
 
         private List<IDevice> Devices = null;
+
         private IGripperController Gripper = null;
 
         private IMessage Message = null;
 
         private IPositionHandler PositionHandler = null;
-
-        #endregion - Properties -
-
-        #region - Constructor -
 
         public Behavior(MainFormDependency mainFormDependency)
         {
@@ -45,13 +42,13 @@ namespace Contest
 
             // 初始化動作流程。
             ActionFlow.Clear();
-            ActionFlow.Add("Start", () => Message.Show("Action-Flow start."));
+            ActionFlow.Add("Start", () => { }, "The start of Action-Flow. (Empty)");
             OrganizeActionFlow();
-            ActionFlow.Add("Finish", () => Message.Show("Action-Flow finished."));
+            ActionFlow.Add("End", () => { }, "The end of Action-Flow. (Empty)");
             ActionFlow.UpdateListView();
         }
 
-        #endregion - Constructor -
+        #endregion - Others -
 
         /// <summary>
         /// 組織動作流程。
