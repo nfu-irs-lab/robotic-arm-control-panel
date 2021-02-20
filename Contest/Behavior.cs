@@ -26,6 +26,8 @@ namespace Contest
 
         #endregion - Properties -
 
+        #region - Constructor -
+
         public Behavior(MainFormDependency mainFormDependency)
         {
             // 依賴注入。
@@ -40,6 +42,8 @@ namespace Contest
             InitConnectableDevices();
             InitActionFlow();
         }
+
+        #endregion - Constructor -
 
         /// <summary>
         /// 初始化動作流程。
