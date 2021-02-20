@@ -5,7 +5,7 @@
 #undef CONFIG_2
 #endif
 
-namespace HiwinRobot
+namespace Contest
 {
     /// <summary>
     /// 可調整之設定。
@@ -45,9 +45,9 @@ namespace HiwinRobot
         /// </summary>
         public const string CsvFilePath =
 #if (CONFIG_1)
-            "../../../csv/";
+            "../../../../csv/";
 #elif (CONFIG_2)
-            "../../../csv/";
+            "../../../../csv/";
 
         /// <summary>
         /// 夾爪連線COM Port。<br/>
@@ -68,9 +68,9 @@ namespace HiwinRobot
         /// </summary>
         public const string LogFilePath =
 #if (CONFIG_1)
-            "../../../log/";
+            "../../../../log/";
 #elif (CONFIG_2)
-            "../../../log/";
+            "../../../../log/";
 
 #else
             "";

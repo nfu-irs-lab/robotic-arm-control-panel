@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HiwinRobot
+namespace Features
 {
     /// <summary>
     /// 日誌等級。<br/>

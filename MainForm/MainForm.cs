@@ -11,27 +11,21 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
+using Features;
+using Contest;
 
-namespace HiwinRobot
+namespace MainForm
 {
     /// <summary>
     /// 【 上銀機器手臂控制程式 】<br/>
     /// HIWIN Robot Control
     /// </summary>
-    public partial class Form_HIWIN_Robot : Form
+    public partial class MainForm : Form
     {
-        public Form_HIWIN_Robot()
+        public MainForm()
         {
             InitializeComponent();
             InitBasic();
-            InitAction();
-
-            // 組織連線裝置組。加入的順序就是連線/斷線的順序。
-            // 若要禁用某裝置，在下方將其所屬的「 Devices.Add(裝置); 」註解掉即可。
-            Devices.Clear();
-            Devices.Add(Arm);
-            //Devices.Add(Gripper);
-            //Devices.Add(Bluetooth);
         }
 
         #region - 手臂 -
@@ -578,19 +572,11 @@ namespace HiwinRobot
             ActionFlow.Do(index);
         }
 
-        /// <summary>
-        /// 初始化動作流程。
-        /// </summary>
-        private void InitAction()
-        {
-            // 在此加入動作流程。
-            ActionFlow.Add("Start", () => MessageBox.Show("Action flow start."));
-            ActionFlow.Add("End", () => MessageBox.Show("Action flow end."));
-        }
-
         #endregion - 動作流程 -
 
         #region - 其它 -
+
+        private Behavior Behavior = null;
 
         /// <summary>
         /// 手臂藍牙控制器。
@@ -848,13 +834,9 @@ namespace HiwinRobot
             Buttons.Add(this.button_arm_motion_start);
             Buttons.Add(this.button_set_speed_acceleration);
 
-            // 產生物件，依賴注入。
+            // 物件具象化，依賴注入。
             LogHandler = new LogHandler(Configuration.LogFilePath, LoggingLevel.Trace);
-#if (DISABLE_SHOW_MESSAGE)
-            Message = new EmptyMessage();
-#else
             Message = new NormalMessage(LogHandler);
-#endif
             Arm = new ArmController(Configuration.ArmIp, Message);
             Gripper = new GripperController(Configuration.GripperComPort, Message);
             Bluetooth = new BluetoothArmController(Configuration.BluetoothComPort, Arm, Message);
@@ -864,6 +846,17 @@ namespace HiwinRobot
                                                   comboBox_position_record_file_list,
                                                   CsvHandler,
                                                   Message);
+            Behavior = new Behavior(
+                new MainFormDependency()
+                {
+                    PositionHandler = PositionHandler,
+                    ActionFlowHandler = ActionFlow,
+                    ArmController = Arm,
+                    GripperController = Gripper,
+                    BluetoothController = Bluetooth,
+                    Message = Message,
+                    Devices = Devices
+                });
 
             // 未與手臂連線，禁用部分按鈕。
             SetButtonsState(false);
