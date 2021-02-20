@@ -9,15 +9,22 @@ namespace Contest
 {
     public class Behavior
     {
+        #region - Properties -
+
         private IActionFlowHandler ActionFlow = null;
 
         private IArmController Arm = null;
 
         private IBluetoothController BluetoothController = null;
+
+        private List<IDevice> Devices = null;
         private IGripperController Gripper = null;
 
         private IMessage Message = null;
+
         private IPositionHandler PositionHandler = null;
+
+        #endregion - Properties -
 
         public Behavior(MainFormDependency mainFormDependency)
         {
@@ -28,7 +35,9 @@ namespace Contest
             Gripper = mainFormDependency.GripperController;
             Message = mainFormDependency.Message;
             BluetoothController = mainFormDependency.BluetoothController;
+            Devices = mainFormDependency.Devices;
 
+            InitConnectableDevices();
             InitActionFlow();
         }
 
@@ -42,6 +51,19 @@ namespace Contest
             ActionFlow.Add("Start", () => Message.Show("Action flow start."), "Start.");
             ActionFlow.Add("End", () => Message.Show("Action flow end."), "End.");
             ActionFlow.UpdateListView();
+        }
+
+        /// <summary>
+        /// 初始化可連線裝置組。
+        /// </summary>
+        private void InitConnectableDevices()
+        {
+            // 組織連線裝置組。加入的順序就是連線/斷線的順序。
+            // 若要禁用某裝置，在下方將其所屬的「 Devices.Add(裝置); 」註解掉即可。
+            Devices.Clear();
+            Devices.Add(Arm);
+            //Devices.Add(Gripper);
+            //Devices.Add(BluetoothController);
         }
     }
 }

@@ -26,13 +26,6 @@ namespace MainForm
         {
             InitializeComponent();
             InitBasic();
-
-            // 組織連線裝置組。加入的順序就是連線/斷線的順序。
-            // 若要禁用某裝置，在下方將其所屬的「 Devices.Add(裝置); 」註解掉即可。
-            Devices.Clear();
-            Devices.Add(Arm);
-            //Devices.Add(Gripper);
-            //Devices.Add(Bluetooth);
         }
 
         #region - 手臂 -
@@ -861,7 +854,8 @@ namespace MainForm
                     ArmController = Arm,
                     GripperController = Gripper,
                     BluetoothController = Bluetooth,
-                    Message = Message
+                    Message = Message,
+                    Devices = Devices
                 });
 
             // 未與手臂連線，禁用部分按鈕。
