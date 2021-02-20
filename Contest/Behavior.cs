@@ -14,10 +14,8 @@ namespace Contest
         private IArmController Arm = null;
 
         private IBluetoothController BluetoothController = null;
-        private ICsvHandler CsvHandler = null;
         private IGripperController Gripper = null;
 
-        private ILogHandler LogHandler = null;
         private IMessage Message = null;
         private IPositionHandler PositionHandler = null;
 
@@ -27,7 +25,6 @@ namespace Contest
             PositionHandler = mainFormDependency.PositionHandler;
             Arm = mainFormDependency.ArmController;
             ActionFlow = mainFormDependency.ActionFlowHandler;
-            CsvHandler = mainFormDependency.CsvHandler;
             Gripper = mainFormDependency.GripperController;
             Message = mainFormDependency.Message;
             BluetoothController = mainFormDependency.BluetoothController;

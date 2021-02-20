@@ -12,7 +12,6 @@ namespace Contest
         public IActionFlowHandler ActionFlowHandler;
         public IArmController ArmController;
         public IBluetoothController BluetoothController;
-        public ICsvHandler CsvHandler;
         public IGripperController GripperController;
         public IMessage Message;
         public IPositionHandler PositionHandler;

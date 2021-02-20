@@ -860,7 +860,6 @@ namespace MainForm
                     ActionFlowHandler = ActionFlow,
                     ArmController = Arm,
                     GripperController = Gripper,
-                    CsvHandler = CsvHandler,
                     BluetoothController = Bluetooth,
                     Message = Message
                 });
