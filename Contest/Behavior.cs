@@ -31,10 +31,20 @@ namespace Contest
             Gripper = mainFormDependency.GripperController;
             Message = mainFormDependency.Message;
             BluetoothController = mainFormDependency.BluetoothController;
+
+            InitActionFlow();
         }
 
+        /// <summary>
+        /// 初始化動作流程。
+        /// </summary>
         private void InitActionFlow()
         {
+            ActionFlow.Clear();
+            // 在此加入動作流程。
+            ActionFlow.Add("Start", () => Message.Show("Action flow start."), "Start.");
+            ActionFlow.Add("End", () => Message.Show("Action flow end."), "End.");
+            ActionFlow.UpdateListView();
         }
     }
 }

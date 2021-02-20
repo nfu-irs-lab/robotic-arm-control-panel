@@ -26,7 +26,6 @@ namespace MainForm
         {
             InitializeComponent();
             InitBasic();
-            InitAction();
 
             // 組織連線裝置組。加入的順序就是連線/斷線的順序。
             // 若要禁用某裝置，在下方將其所屬的「 Devices.Add(裝置); 」註解掉即可。
@@ -578,16 +577,6 @@ namespace MainForm
         {
             int index = listView_actionflow_actions.SelectedItems[0].Index;
             ActionFlow.Do(index);
-        }
-
-        /// <summary>
-        /// 初始化動作流程。
-        /// </summary>
-        private void InitAction()
-        {
-            // 在此加入動作流程。
-            ActionFlow.Add("Start", () => MessageBox.Show("Action flow start."));
-            ActionFlow.Add("End", () => MessageBox.Show("Action flow end."));
         }
 
         #endregion - 動作流程 -
