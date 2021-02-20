@@ -7,7 +7,7 @@
 ## 目錄
 - [整體架構](#整體架構)
 - [使用方法](#使用方法)
-  - [HRSDK.dll](#HRSDK.dll)
+  - [HRSDK.dll](#HRSDKdll)
   - [NuGet Packages](#NuGet-Packages)
   - [連線及檔案設定](#連線及檔案設定)
 - [版本及兼容性](#版本及兼容性)
