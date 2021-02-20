@@ -120,13 +120,13 @@
             this.textBox_position_record_comment = new System.Windows.Forms.TextBox();
             this.tabPage_sub_actionflow = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
-            this.button_actionflow_do_selected = new System.Windows.Forms.Button();
             this.listView_actionflow_actions = new System.Windows.Forms.ListView();
             this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
             this.button_actionflow_do_all = new System.Windows.Forms.Button();
+            this.button_actionflow_do_selected = new System.Windows.Forms.Button();
             this.groupBox_connect_disconnect.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -1160,8 +1160,8 @@
             // 
             // tabControl_sub
             // 
-            this.tabControl_sub.Controls.Add(this.tabPage_sub_position_record);
             this.tabControl_sub.Controls.Add(this.tabPage_sub_actionflow);
+            this.tabControl_sub.Controls.Add(this.tabPage_sub_position_record);
             this.tabControl_sub.Location = new System.Drawing.Point(1489, 197);
             this.tabControl_sub.Name = "tabControl_sub";
             this.tabControl_sub.SelectedIndex = 0;
@@ -1383,17 +1383,6 @@
             this.tableLayoutPanel9.Size = new System.Drawing.Size(1311, 885);
             this.tableLayoutPanel9.TabIndex = 2;
             // 
-            // button_actionflow_do_selected
-            // 
-            this.button_actionflow_do_selected.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button_actionflow_do_selected.Location = new System.Drawing.Point(232, 12);
-            this.button_actionflow_do_selected.Name = "button_actionflow_do_selected";
-            this.button_actionflow_do_selected.Size = new System.Drawing.Size(188, 102);
-            this.button_actionflow_do_selected.TabIndex = 0;
-            this.button_actionflow_do_selected.Text = "執行一次";
-            this.button_actionflow_do_selected.UseVisualStyleBackColor = true;
-            this.button_actionflow_do_selected.Click += new System.EventHandler(this.button_actionflow_do_selected_Click);
-            // 
             // listView_actionflow_actions
             // 
             this.listView_actionflow_actions.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -1454,7 +1443,18 @@
             this.button_actionflow_do_all.UseVisualStyleBackColor = true;
             this.button_actionflow_do_all.Click += new System.EventHandler(this.button_actionflow_do_all_Click);
             // 
-            // Form_HIWIN_Robot
+            // button_actionflow_do_selected
+            // 
+            this.button_actionflow_do_selected.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.button_actionflow_do_selected.Location = new System.Drawing.Point(232, 12);
+            this.button_actionflow_do_selected.Name = "button_actionflow_do_selected";
+            this.button_actionflow_do_selected.Size = new System.Drawing.Size(188, 102);
+            this.button_actionflow_do_selected.TabIndex = 0;
+            this.button_actionflow_do_selected.Text = "執行一次";
+            this.button_actionflow_do_selected.UseVisualStyleBackColor = true;
+            this.button_actionflow_do_selected.Click += new System.EventHandler(this.button_actionflow_do_selected_Click);
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 30F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -1464,7 +1464,7 @@
             this.Controls.Add(this.groupBox_connect_disconnect);
             this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(6);
-            this.Name = "Form_HIWIN_Robot";
+            this.Name = "MainForm";
             this.Text = "HIWIN Robot";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_HIWIN_Robot_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_HIWIN_Robot_KeyDown);
