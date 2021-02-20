@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace HiwinRobot
+namespace Features
 {
     /// <summary>
     /// 基本裝置介面。

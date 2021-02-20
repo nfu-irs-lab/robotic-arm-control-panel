@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace HiwinRobot
+namespace MainForm
 {
     internal static class Program
     {
@@ -13,7 +13,7 @@ namespace HiwinRobot
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form_HIWIN_Robot());
+            Application.Run(new MainForm());
         }
     }
 }

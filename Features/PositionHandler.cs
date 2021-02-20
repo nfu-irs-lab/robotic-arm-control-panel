@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace HiwinRobot
+namespace Features
 {
     /// <summary>
     /// CSV 位置資料格式。
