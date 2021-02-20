@@ -5,7 +5,7 @@ using System.IO.Ports;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
-namespace HiwinRobot
+namespace Features
 {
     /// <summary>
     /// 夾爪控制介面。
