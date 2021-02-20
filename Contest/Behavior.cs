@@ -57,7 +57,7 @@ namespace Contest
         {
             // 在此依照順序加入動作流程。
             ActionFlow.Add("Example-1", () => Message.Show("Example message-1."), "Example comment-1 (optional).");
-            ActionFlow.Add("Example-2", () => Message.Show("Example message-2."), "Example comment-2 (optional).");
+            ActionFlow.Add("Example-2", () => Message.Show("Example message-2."));
         }
 
         /// <summary>
