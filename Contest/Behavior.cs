@@ -63,7 +63,7 @@ namespace Contest
         /// </summary>
         private void OrganizeConnectableDevices()
         {
-            // 組織連線裝置組。加入的順序就是連線/斷線的順序。
+            // 加入的順序就是連線/斷線的順序。
             // 若要禁用某裝置，在下方將其所屬的「 Devices.Add(裝置); 」註解掉即可。
             Devices.Add(Arm);
             //Devices.Add(Gripper);
