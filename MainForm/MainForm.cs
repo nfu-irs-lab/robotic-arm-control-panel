@@ -594,6 +594,8 @@ namespace MainForm
 
         #region - 其它 -
 
+        private Behavior Behavior = null;
+
         /// <summary>
         /// 手臂藍牙控制器。
         /// </summary>
@@ -850,13 +852,9 @@ namespace MainForm
             Buttons.Add(this.button_arm_motion_start);
             Buttons.Add(this.button_set_speed_acceleration);
 
-            // 產生物件，依賴注入。
+            // 物件具象化，依賴注入。
             LogHandler = new LogHandler(Configuration.LogFilePath, LoggingLevel.Trace);
-#if (DISABLE_SHOW_MESSAGE)
-            Message = new EmptyMessage();
-#else
             Message = new NormalMessage(LogHandler);
-#endif
             Arm = new ArmController(Configuration.ArmIp, Message);
             Gripper = new GripperController(Configuration.GripperComPort, Message);
             Bluetooth = new BluetoothArmController(Configuration.BluetoothComPort, Arm, Message);
@@ -866,6 +864,17 @@ namespace MainForm
                                                   comboBox_position_record_file_list,
                                                   CsvHandler,
                                                   Message);
+            Behavior = new Behavior(
+                new MainFormDependency()
+                {
+                    PositionHandler = PositionHandler,
+                    ActionFlowHandler = ActionFlow,
+                    ArmController = Arm,
+                    GripperController = Gripper,
+                    CsvHandler = CsvHandler,
+                    BluetoothController = Bluetooth,
+                    Message = Message
+                });
 
             // 未與手臂連線，禁用部分按鈕。
             SetButtonsState(false);
