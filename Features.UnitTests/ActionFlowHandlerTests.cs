@@ -1,77 +1,173 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using NSubstitute;
+using NSubstitute.Core.Arguments;
 
 namespace Features.UnitTests
 {
     [TestFixture]
     public class ActionFlowHandlerTests
     {
-        public interface ITestClass
-        {
-            void TestMethodA();
-
-            void TestMethodB();
-        }
-
-        [Test]
-        public void Add_InputName_ExistInListView()
+        [TestCase("name")]
+        [TestCase("NAME")]
+        [TestCase("")]
+        [TestCase("1")]
+        [TestCase("0")]
+        [TestCase("\r")]
+        // [TestCase(null)]
+        public void Add_InputName_ExistInListView(string actionName)
         {
             // Arrange.
-            System.Windows.Forms.ListView listView = new System.Windows.Forms.ListView();
-            IMessage message = new EmptyMessage();
-            IActionFlowHandler actionFlow = new ActionFlowHandler(listView, message);
-
-            string name = "Test";
+            var listView = new System.Windows.Forms.ListView();
+            var message = new EmptyMessage();
+            var actionFlow = new ActionFlowHandler(listView, message);
 
             // Act.
             actionFlow.Clear();
-            actionFlow.Add(name, () => { });
+            actionFlow.Add(actionName, () => { });
 
             // Assert.
-            Assert.AreEqual(name, listView.Items[0].SubItems[1].Text);
+            Assert.AreEqual(actionName, listView.Items[0].SubItems[1].Text);
         }
 
-        [Test]
-        public void Add_InputName_TheFirstItemInListViewSelected()
+        [TestCase(1)]
+        [TestCase(3)]
+        [TestCase(5)]
+        public void Add_InputName_TheFirstItemInListViewSelected(int actionNumber)
         {
             // Arrange.
-            System.Windows.Forms.ListView listView = new System.Windows.Forms.ListView();
-            IMessage message = new EmptyMessage();
-            IActionFlowHandler actionFlow = new ActionFlowHandler(listView, message);
-
-            string name = "Test";
+            var listView = new System.Windows.Forms.ListView();
+            var message = new EmptyMessage();
+            var actionFlow = new ActionFlowHandler(listView, message);
 
             // Act.
             actionFlow.Clear();
-            actionFlow.Add(name, () => { });
-            actionFlow.Add(name, () => { });
-            actionFlow.Add(name, () => { });
+            for (var i = 0; i < actionNumber; i++)
+            {
+                actionFlow.Add("test", () => { });
+            }
 
             // Assert.
             Assert.IsTrue(listView.Items[0].Selected);
+            for (var i = 1; i < actionNumber; i++)
+            {
+                Assert.IsFalse(listView.Items[i].Selected);
+            }
+        }
+
+        [TestCase(3,0)]
+        [TestCase(3,1)]
+        [TestCase(3,2)]
+        [TestCase(9,0)]
+        [TestCase(9,8)]
+        [TestCase(1,0)]
+        // [TestCase(1,1)]
+        public void Do_InputIndex_CallSpecifyMethod(int actionNumber, int targetActionIndex)
+        {
+            // Arrange.
+            var listView = new System.Windows.Forms.ListView();
+            var message = new EmptyMessage();
+            var actionFlow = new ActionFlowHandler(listView, message)
+            {
+                ShowMessageBoforeAction = false,
+                AutoNextAction = false
+            };
+
+            int actual = -1;
+
+            // Act.
+            actionFlow.Clear();
+            for (var i = 0; i < actionNumber; i++)
+            {
+                var temp = i;
+                actionFlow.Add("name", () => actual = temp);
+            }
+            actionFlow.Do(targetActionIndex);
+
+            // Assert.
+            Assert.AreEqual(targetActionIndex, actual);
         }
 
         [Test]
-        [Ignore("There is a problem with this test.")]
-        public void Do_InputIndex_CallSpecifyMethod()
+        [Ignore("ArgumentOutOfRangeException")]
+        public void Do_DoAction_AutoNextAction()
         {
             // Arrange.
-            ITestClass testClass = Substitute.For<ITestClass>();
-            IActionFlowHandler actionFlow = Substitute.For<IActionFlowHandler>();
-
-            actionFlow.ShowMessageBoforeAction = false;
-            actionFlow.AutoNextAction = false;
-
-            actionFlow.Clear();
-            actionFlow.Add("a", () => testClass.TestMethodA());
-            actionFlow.Add("b", () => { });
-            actionFlow.Add("c", () => { });
+            var listView = new System.Windows.Forms.ListView()
+            {
+                MultiSelect = false
+            };
+            var message = new EmptyMessage();
+            var actionFlow = new ActionFlowHandler(listView, message)
+            {
+                ShowMessageBoforeAction = false,
+                AutoNextAction = true 
+            };
 
             // Act.
+            actionFlow.Clear();
+            actionFlow.Add("test",()=>{});
+            actionFlow.Add("test",()=>{});
+            actionFlow.Add("test",()=>{});
+            listView.Items[0].Selected = true;
             actionFlow.Do(0);
 
             // Assert.
-            testClass.Received().TestMethodA();
+            Assert.IsTrue(listView.Items[1].Selected);
+        }
+
+        [TestCase(1)]
+        [TestCase(3)]
+        [TestCase(5)]
+        public void DoEach_WhenCalled_CallEachMethod(int actionNumber)
+        {
+            // Arrange.
+            var listView = new System.Windows.Forms.ListView();
+            var message = new EmptyMessage();
+            var actionFlow = new ActionFlowHandler(listView, message)
+            {
+                ShowMessageBoforeAction = false,
+                AutoNextAction = false
+            };
+
+            var actual = 0;
+            var expected = actual + actionNumber;
+
+            // Act.
+            actionFlow.Clear();
+            for (var i = 0; i < actionNumber; i++)
+            {
+                actionFlow.Add("a", () => ++actual);
+            }
+            actionFlow.DoEach();
+
+            // Assert.
+            Assert.AreEqual(expected,actual);
+        }
+
+        [Test]
+        public void UpdateListView_WhenCalled_UpdateListView()
+        {
+            // Arrange.
+            var listView = new System.Windows.Forms.ListView();
+            var message = new EmptyMessage();
+            var actionFlow = new ActionFlowHandler(listView, message);
+
+            var name0 = "action0";
+            var name1 = "action1";
+            var name2 = "action2";
+            
+            // Act.
+            actionFlow.Clear();
+            actionFlow.Add(name0,()=>{});
+            actionFlow.Add(name1,()=>{});
+            actionFlow.Add(name2,()=>{});
+            actionFlow.UpdateListView();
+            
+            // Assert.
+            Assert.AreEqual(name0,listView.Items[0].SubItems[1].Text);
+            Assert.AreEqual(name1,listView.Items[1].SubItems[1].Text);
+            Assert.AreEqual(name2,listView.Items[2].SubItems[1].Text);
         }
     }
 }
