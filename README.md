@@ -32,7 +32,7 @@
 首次執行前，請執行以下步驟：
 1. 以 Visual Studio 開啓 Solution 檔 「[HIWIN_Robot.sln](/HIWIN_Robot.sln)」。
 2. 在 Visual Studio 的「Solution Explorer」中，對本 Solution「Solution 'HIWIN_Robot'」點擊滑鼠右鍵。
-3. 點選右鍵清單中的「Restore NuGet Packages」，等待其完成。
+3. 點選右鍵清單中的「Restore NuGet Packages」，並等待其完成。
 4. 確認資料夾「packages」及其內容已經於 Solution 路徑下自動產生。
 
 ## 連線及檔案設定
