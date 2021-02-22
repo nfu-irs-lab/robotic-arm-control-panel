@@ -81,17 +81,17 @@ namespace Features
         public void Log(Exception ex, LoggingLevel loggingLevel)
         { }
 
-        public DialogResult Show(string message, LoggingLevel loggingLevel = LoggingLevel.Trace)
-            => DialogResult.None;
+        public DialogResult Show(string message, LoggingLevel loggingLevel = LoggingLevel.Trace) => DialogResult.None;
 
-        public DialogResult Show(Exception ex, LoggingLevel loggingLevel = LoggingLevel.Trace)
-            => DialogResult.None;
+        public DialogResult Show(Exception ex, LoggingLevel loggingLevel = LoggingLevel.Trace) => DialogResult.None;
 
-        public DialogResult Show(string message, Exception ex, LoggingLevel loggingLevel = LoggingLevel.Trace)
-            => DialogResult.None;
+        public DialogResult Show(string message, Exception ex, LoggingLevel loggingLevel = LoggingLevel.Trace) => DialogResult.None;
 
-        public DialogResult Show(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon, LoggingLevel loggingLevel = LoggingLevel.Trace)
-            => DialogResult.None;
+        public DialogResult Show(string text,
+                                 string caption,
+                                 MessageBoxButtons buttons,
+                                 MessageBoxIcon icon,
+                                 LoggingLevel loggingLevel = LoggingLevel.Trace) => DialogResult.None;
     }
 
     /// <summary>

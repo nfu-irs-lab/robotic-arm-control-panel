@@ -230,7 +230,7 @@ namespace Features
         {
             if (AutoNextAction)
             {
-                int nowIndex = ActionListView.SelectedItems[0].Index;
+                int nowIndex = ActionListView.SelectedIndices[0];
                 if (nowIndex < (Actions.Count - 1))
                 {
                     ActionListView.Items[++nowIndex].Selected = true;

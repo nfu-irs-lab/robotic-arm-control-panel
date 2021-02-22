@@ -62,7 +62,7 @@ namespace Features
         {
             bool state = SerialPortDevice.Connect();
 #if (CONNECT_WITH_UPDATE)
-            if (this.Connected && Arm.Connected)
+            if (Connected && Arm.Connected)
             {
                 Send(BluetoothSendDataType.descartesPosition,
                      Arm.GetPosition(PositionType.Descartes));
@@ -232,22 +232,22 @@ namespace Features
                 case "xr":
                     value = Convert.ToDouble(data.Split('r')[1]);
                     Arm.MoveLinear(new double[] { value, 0, 0, 0, 0, 0 },
-                                        PositionType.Descartes,
-                                        CoordinateType.Relative);
+                                   PositionType.Descartes,
+                                   CoordinateType.Relative);
                     break;
 
                 case "yr":
                     value = Convert.ToDouble(data.Split('r')[1]);
                     Arm.MoveLinear(new double[] { 0, value, 0, 0, 0, 0 },
-                                        PositionType.Descartes,
-                                        CoordinateType.Relative);
+                                   PositionType.Descartes,
+                                   CoordinateType.Relative);
                     break;
 
                 case "zr":
                     value = Convert.ToDouble(data.Split('r')[1]);
                     Arm.MoveLinear(new double[] { 0, 0, value, 0, 0, 0 },
-                                        PositionType.Descartes,
-                                        CoordinateType.Relative);
+                                   PositionType.Descartes,
+                                   CoordinateType.Relative);
                     break;
 
                 case "ud":

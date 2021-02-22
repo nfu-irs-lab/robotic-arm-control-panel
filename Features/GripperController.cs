@@ -37,14 +37,13 @@ namespace Features
 
         public GripperController(string comPort, IMessage message)
         {
-            SerialPortDevice = new SerialPortDevice(
-                new SerialPort()
-                {
-                    PortName = comPort,
-                    BaudRate = 115200,
-                    DataBits = 8
-                },
-                message);
+            SerialPortDevice = new SerialPortDevice(new SerialPort()
+                                                    {
+                                                        PortName = comPort,
+                                                        BaudRate = 115200,
+                                                        DataBits = 8
+                                                    },
+                                                    message);
 
             Message = message;
         }
