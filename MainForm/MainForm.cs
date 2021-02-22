@@ -810,29 +810,29 @@ namespace MainForm
         {
             // 目標位置控制項集合。
             TargetPositino.Clear();
-            TargetPositino.Add(this.numericUpDown_arm_target_position_j1x);
-            TargetPositino.Add(this.numericUpDown_arm_target_position_j2y);
-            TargetPositino.Add(this.numericUpDown_arm_target_position_j3z);
-            TargetPositino.Add(this.numericUpDown_arm_target_position_j4a);
-            TargetPositino.Add(this.numericUpDown_arm_target_position_j5b);
-            TargetPositino.Add(this.numericUpDown_arm_target_position_j6c);
+            TargetPositino.Add(numericUpDown_arm_target_position_j1x);
+            TargetPositino.Add(numericUpDown_arm_target_position_j2y);
+            TargetPositino.Add(numericUpDown_arm_target_position_j3z);
+            TargetPositino.Add(numericUpDown_arm_target_position_j4a);
+            TargetPositino.Add(numericUpDown_arm_target_position_j5b);
+            TargetPositino.Add(numericUpDown_arm_target_position_j6c);
 
             // 目前位置控制項集合。
             NowPosition.Clear();
-            NowPosition.Add(this.textBox_arm_now_position_j1x);
-            NowPosition.Add(this.textBox_arm_now_position_j2y);
-            NowPosition.Add(this.textBox_arm_now_position_j3z);
-            NowPosition.Add(this.textBox_arm_now_position_j4a);
-            NowPosition.Add(this.textBox_arm_now_position_j5b);
-            NowPosition.Add(this.textBox_arm_now_position_j6c);
+            NowPosition.Add(textBox_arm_now_position_j1x);
+            NowPosition.Add(textBox_arm_now_position_j2y);
+            NowPosition.Add(textBox_arm_now_position_j3z);
+            NowPosition.Add(textBox_arm_now_position_j4a);
+            NowPosition.Add(textBox_arm_now_position_j5b);
+            NowPosition.Add(textBox_arm_now_position_j6c);
 
             // 未連線時禁用之按鈕集合。
             Buttons.Clear();
-            Buttons.Add(this.button_arm_homing);
-            Buttons.Add(this.button_arm_clear_alarm);
-            Buttons.Add(this.button_update_now_position);
-            Buttons.Add(this.button_arm_motion_start);
-            Buttons.Add(this.button_set_speed_acceleration);
+            Buttons.Add(button_arm_homing);
+            Buttons.Add(button_arm_clear_alarm);
+            Buttons.Add(button_update_now_position);
+            Buttons.Add(button_arm_motion_start);
+            Buttons.Add(button_set_speed_acceleration);
 
             // 物件具象化，依賴注入。
             LogHandler = new LogHandler(Configuration.LogFilePath, LoggingLevel.Trace);

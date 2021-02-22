@@ -86,13 +86,6 @@ namespace SDKHrobot
 
     public class Global
     {
-        private static readonly object Mutex = new object();
-        private static volatile Global _instance;
-
-        private Global()
-        {
-        }
-
         public enum File_text_type
         {
             folder = -1,
@@ -124,6 +117,12 @@ namespace SDKHrobot
             SetConnected,
             SetAll,
         };
+
+        private static readonly object Mutex = new object();
+        private static volatile Global _instance;
+
+        private Global()
+        { }
 
         public static Global Instance
         {
@@ -243,7 +242,13 @@ namespace SDKHrobot
         public static extern int get_connection_level(int a);
 
         [DllImport("HRSDK.dll")]
-        public static extern int get_controller_time(int robot, ref int year, ref int month, ref int day, ref int hour, ref int minute, ref int second);
+        public static extern int get_controller_time(int robot,
+                                                     ref int year,
+                                                     ref int month,
+                                                     ref int day,
+                                                     ref int hour,
+                                                     ref int minute,
+                                                     ref int second);
 
         [DllImport("HRSDK.dll")]
         public static extern int get_counter(int robot, int index);
@@ -294,13 +299,31 @@ namespace SDKHrobot
         public static extern int get_execute_file_name(int robot, StringBuilder file_name);
 
         [DllImport("HRSDK.dll")]
-        public static extern int get_ext_axis_setting(int robot, int index, ref bool enable, ref int mode, ref double high_limit, ref double low_limit);
+        public static extern int get_ext_axis_setting(int robot,
+                                                      int index,
+                                                      ref bool enable,
+                                                      ref int mode,
+                                                      ref double high_limit,
+                                                      ref double low_limit);
 
         [DllImport("HRSDK.dll")]
-        public static extern int get_ext_axis_setting_advanced(int robot, int index, ref int type, ref bool couple, ref bool continuous, int[] int_data, double[] double_data);
+        public static extern int get_ext_axis_setting_advanced(int robot,
+                                                               int index,
+                                                               ref int type,
+                                                               ref bool couple,
+                                                               ref bool continuous,
+                                                               int[] int_data,
+                                                               double[] double_data);
 
         [DllImport("HRSDK.dll")]
-        public static extern int get_ext_driver_limit(int robot, int index, ref bool enable, ref bool inverse, ref bool negative_num, ref bool positive_num, ref bool N_light, ref bool P_light);
+        public static extern int get_ext_driver_limit(int robot,
+                                                      int index,
+                                                      ref bool enable,
+                                                      ref bool inverse,
+                                                      ref bool negative_num,
+                                                      ref bool positive_num,
+                                                      ref bool N_light,
+                                                      ref bool P_light);
 
         [DllImport("HRSDK.dll")]
         public static extern int get_ext_encoder(int robot, Int32[] EncCount);
@@ -339,10 +362,25 @@ namespace SDKHrobot
         public static extern int get_mileage(int robot, [In, Out] double[] value);
 
         [DllImport("HRSDK.dll")]
-        public static extern int get_module_input_config(int robot, int index, ref bool sim, ref bool value, ref int type, ref int start, ref int end, UInt16[] comment, int arr_size);
+        public static extern int get_module_input_config(int robot,
+                                                         int index,
+                                                         ref bool sim,
+                                                         ref bool value,
+                                                         ref int type,
+                                                         ref int start,
+                                                         ref int end,
+                                                         UInt16[] comment,
+                                                         int arr_size);
 
         [DllImport("HRSDK.dll")]
-        public static extern int get_module_output_config(int robot, int index, ref bool value, ref int type, ref int start, ref int end, UInt16[] comment, int arr_size);
+        public static extern int get_module_output_config(int robot,
+                                                          int index,
+                                                          ref bool value,
+                                                          ref int type,
+                                                          ref int start,
+                                                          ref int end,
+                                                          UInt16[] comment,
+                                                          int arr_size);
 
         [DllImport("HRSDK.dll")]
         public static extern int get_motion_state(int robot);
@@ -354,7 +392,13 @@ namespace SDKHrobot
         public static extern int get_motor_torque(int robot, [In, Out] double[] value);
 
         [DllImport("HRSDK.dll")]
-        public static extern int get_network_config(int robot, [In, Out] ref int connect_type, StringBuilder ip_addr, [In, Out] ref int port, [In, Out] ref int bracket, [In, Out] ref int separator, [In, Out] ref bool is_format);
+        public static extern int get_network_config(int robot,
+                                                    [In, Out] ref int connect_type,
+                                                    StringBuilder ip_addr,
+                                                    [In, Out] ref int port,
+                                                    [In, Out] ref int bracket,
+                                                    [In, Out] ref int separator,
+                                                    [In, Out] ref bool is_format);
 
         [DllImport("HRSDK.dll")]
         public static extern int get_network_show_msg(int robot, ref int flag);
@@ -375,7 +419,12 @@ namespace SDKHrobot
         public static extern int get_payload_config(int robot, int index, double[] value, StringBuilder comment);
 
         [DllImport("HRSDK.dll")]
-        public static extern int get_pr(int robot, int pr_num, ref int pr_type, [In, Out] double[] coor, ref int tool, ref int _base);
+        public static extern int get_pr(int robot,
+                                        int pr_num,
+                                        ref int pr_type,
+                                        [In, Out] double[] coor,
+                                        ref int tool,
+                                        ref int _base);
 
         [DllImport("HRSDK.dll")]
         public static extern int get_pr_comment(int robot, int index, UInt16[] comment, int arr_size);
@@ -408,7 +457,12 @@ namespace SDKHrobot
         public static extern int get_robot_id(int robot, StringBuilder value);
 
         [DllImport("HRSDK.dll")]
-        public static extern int get_robot_info(int robot, int page_sel, int tool_num, int base_num, StringBuilder info, bool is_ready);
+        public static extern int get_robot_info(int robot,
+                                                int page_sel,
+                                                int tool_num,
+                                                int base_num,
+                                                StringBuilder info,
+                                                bool is_ready);
 
         [DllImport("HRSDK.dll")]
         public static extern int get_robot_input(int robot, int index);
@@ -588,13 +642,29 @@ namespace SDKHrobot
         public static extern int set_digital_setting(int robot, int[] index, StringBuilder text);
 
         [DllImport("HRSDK.dll")]
-        public static extern int set_ext_axis_setting(int robot, int index, bool enable, int mode, double high_limit, double low_limit);
+        public static extern int set_ext_axis_setting(int robot,
+                                                      int index,
+                                                      bool enable,
+                                                      int mode,
+                                                      double high_limit,
+                                                      double low_limit);
 
         [DllImport("HRSDK.dll")]
-        public static extern int set_ext_axis_setting_advanced(int robot, int index, int type, bool couple, bool continuous, int[] int_data, double[] double_data);
+        public static extern int set_ext_axis_setting_advanced(int robot,
+                                                               int index,
+                                                               int type,
+                                                               bool couple,
+                                                               bool continuous,
+                                                               int[] int_data,
+                                                               double[] double_data);
 
         [DllImport("HRSDK.dll")]
-        public static extern int set_ext_driver_limit(int robot, int index, bool enable, bool inverse, int negative_num, int positive_num);
+        public static extern int set_ext_driver_limit(int robot,
+                                                      int index,
+                                                      bool enable,
+                                                      bool inverse,
+                                                      int negative_num,
+                                                      int positive_num);
 
         [DllImport("HRSDK.dll")]
         public static extern int set_ext_home_point(int robot, double[] ext_pos);
@@ -651,7 +721,13 @@ namespace SDKHrobot
         public static extern int set_motor_state(int robot, int onOff);
 
         [DllImport("HRSDK.dll")]
-        public static extern int set_network_config(int robot, [In] int connect_type, StringBuilder ip_addr, [In] int port, [In] int bracket, [In] int separator, [In] bool is_format);
+        public static extern int set_network_config(int robot,
+                                                    [In] int connect_type,
+                                                    StringBuilder ip_addr,
+                                                    [In] int port,
+                                                    [In] int bracket,
+                                                    [In] int separator,
+                                                    [In] bool is_format);
 
         [DllImport("HRSDK.dll")]
         public static extern int set_network_show_msg(int robot, int enable);
@@ -669,7 +745,12 @@ namespace SDKHrobot
         public static extern int set_payload_config(int robot, int index, double[] value, StringBuilder comment);
 
         [DllImport("HRSDK.dll")]
-        public static extern int set_pr(int robot, int pr_num, int pr_type, [In, Out] double[] coor, int tool, int _base);
+        public static extern int set_pr(int robot,
+                                        int pr_num,
+                                        int pr_type,
+                                        [In, Out] double[] coor,
+                                        int tool,
+                                        int _base);
 
         [DllImport("HRSDK.dll")]
         public static extern int set_pr_comment(int robot, int index, UInt16[] comment);
@@ -720,7 +801,13 @@ namespace SDKHrobot
         public static extern int set_valve_output(int robot, int index, bool On_Off);
 
         [DllImport("HRSDK.dll")]
-        public static extern int SyncOutput(int robot, int type, int id, int on_off, int synMode, int delay, int distance);
+        public static extern int SyncOutput(int robot,
+                                            int type,
+                                            int id,
+                                            int on_off,
+                                            int synMode,
+                                            int delay,
+                                            int distance);
 
         [DllImport("HRSDK.dll")]
         public static extern int task_abort(int robot);

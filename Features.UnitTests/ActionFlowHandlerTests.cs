@@ -40,11 +40,45 @@ namespace Features.UnitTests
 
             // Act.
             actionFlow.Clear();
-            for (var i = 0; i < actionNumber; i++) actionFlow.Add("test", () => { });
+            for (var i = 0; i < actionNumber; i++)
+            {
+                actionFlow.Add("test", () => { });
+            }
 
             // Assert.
             Assert.IsTrue(listView.Items[0].Selected);
-            for (var i = 1; i < actionNumber; i++) Assert.IsFalse(listView.Items[i].Selected);
+            for (var i = 1; i < actionNumber; i++)
+            {
+                Assert.IsFalse(listView.Items[i].Selected);
+            }
+        }
+
+        [Test]
+        [Ignore("ArgumentOutOfRangeException")]
+        public void Do_DoAction_AutoNextAction()
+        {
+            // Arrange.
+            var listView = new ListView
+            {
+                MultiSelect = false
+            };
+            var message = new EmptyMessage();
+            var actionFlow = new ActionFlowHandler(listView, message)
+            {
+                ShowMessageBoforeAction = false,
+                AutoNextAction = true
+            };
+
+            // Act.
+            actionFlow.Clear();
+            actionFlow.Add("test", () => { });
+            actionFlow.Add("test", () => { });
+            actionFlow.Add("test", () => { });
+            listView.Items[0].Selected = true;
+            actionFlow.Do(0);
+
+            // Assert.
+            Assert.IsTrue(listView.Items[1].Selected);
         }
 
         [TestCase(3, 0)]
@@ -81,34 +115,6 @@ namespace Features.UnitTests
             Assert.AreEqual(targetActionIndex, actual);
         }
 
-        [Test]
-        [Ignore("ArgumentOutOfRangeException")]
-        public void Do_DoAction_AutoNextAction()
-        {
-            // Arrange.
-            var listView = new ListView
-            {
-                MultiSelect = false
-            };
-            var message = new EmptyMessage();
-            var actionFlow = new ActionFlowHandler(listView, message)
-            {
-                ShowMessageBoforeAction = false,
-                AutoNextAction = true
-            };
-
-            // Act.
-            actionFlow.Clear();
-            actionFlow.Add("test", () => { });
-            actionFlow.Add("test", () => { });
-            actionFlow.Add("test", () => { });
-            listView.Items[0].Selected = true;
-            actionFlow.Do(0);
-
-            // Assert.
-            Assert.IsTrue(listView.Items[1].Selected);
-        }
-
         [TestCase(1)]
         [TestCase(3)]
         [TestCase(5)]
@@ -128,7 +134,10 @@ namespace Features.UnitTests
 
             // Act.
             actionFlow.Clear();
-            for (var i = 0; i < actionNumber; i++) actionFlow.Add("a", () => ++actual);
+            for (var i = 0; i < actionNumber; i++)
+            {
+                actionFlow.Add("a", () => ++actual);
+            }
             actionFlow.DoEach();
 
             // Assert.
