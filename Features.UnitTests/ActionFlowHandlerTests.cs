@@ -53,7 +53,7 @@ namespace Features.UnitTests
 
         [Test]
         [Ignore("There is a problem with this test.")]
-        public void Do_InputIndex_CallSpecifyMethoe()
+        public void Do_InputIndex_CallSpecifyMethod()
         {
             // Arrange.
             ITestClass testClass = Substitute.For<ITestClass>();
