@@ -183,11 +183,11 @@ namespace Features
         /// <param name="smoothValue"></param>
         /// <param name="waitForMotion"></param>
         void MoveLinear(double[] targetPosition,
-                          PositionType positionType = PositionType.Descartes,
-                          CoordinateType coordinateType = CoordinateType.Absolute,
-                          SmoothType smoothType = SmoothType.TwoLinesSpeedSmooth,
-                          double smoothValue = 50,
-                          bool waitForMotion = true);
+                        PositionType positionType = PositionType.Descartes,
+                        CoordinateType coordinateType = CoordinateType.Absolute,
+                        SmoothType smoothType = SmoothType.TwoLinesSpeedSmooth,
+                        double smoothValue = 50,
+                        bool waitForMotion = true);
 
         /// <summary>
         /// 進行點對點運動。<br/>
@@ -203,10 +203,10 @@ namespace Features
         /// <param name="smoothType"></param>
         /// <param name="waitForMotion"></param>
         void MovePointToPoint(double[] targetPosition,
-                                PositionType positionType = PositionType.Descartes,
-                                CoordinateType coordinateType = CoordinateType.Absolute,
-                                SmoothType smoothType = SmoothType.TwoLinesSpeedSmooth,
-                                bool waitForMotion = true);
+                              PositionType positionType = PositionType.Descartes,
+                              CoordinateType coordinateType = CoordinateType.Absolute,
+                              SmoothType smoothType = SmoothType.TwoLinesSpeedSmooth,
+                              bool waitForMotion = true);
 
         #endregion - Motion -
 
@@ -376,11 +376,11 @@ namespace Features
         }
 
         public void MoveLinear(double[] targetPosition,
-                                         PositionType positionType = PositionType.Descartes,
-                                 CoordinateType coordinateType = CoordinateType.Absolute,
-                                 SmoothType smoothType = SmoothType.TwoLinesSpeedSmooth,
-                                 double smoothValue = 50,
-                                 bool waitForMotion = true)
+                               PositionType positionType = PositionType.Descartes,
+                               CoordinateType coordinateType = CoordinateType.Absolute,
+                               SmoothType smoothType = SmoothType.TwoLinesSpeedSmooth,
+                               double smoothValue = 50,
+                               bool waitForMotion = true)
         {
             Message.Log($"Arm-Linear: {GetTextPositin(targetPosition)}. {positionType}",
                         LoggingLevel.Trace);
@@ -450,10 +450,10 @@ namespace Features
         }
 
         public void MovePointToPoint(double[] targetPosition,
-                                               PositionType positionType = PositionType.Descartes,
-                                       CoordinateType coordinateType = CoordinateType.Absolute,
-                                       SmoothType smoothType = SmoothType.TwoLinesSpeedSmooth,
-                                       bool waitForMotion = true)
+                                     PositionType positionType = PositionType.Descartes,
+                                     CoordinateType coordinateType = CoordinateType.Absolute,
+                                     SmoothType smoothType = SmoothType.TwoLinesSpeedSmooth,
+                                     bool waitForMotion = true)
         {
             Message.Log($"Arm-PointToPoint: {GetTextPositin(targetPosition)}. {positionType}",
                         LoggingLevel.Trace);
@@ -841,7 +841,8 @@ namespace Features
         private void ShowUnknownPositionType()
         {
             Message.Show($"錯誤的位置類型。\r\n" +
-                         $"位置類型應為：{PositionType.Descartes} 或是 {PositionType.Joint}", LoggingLevel.Warn);
+                         $"位置類型應為：{PositionType.Descartes} 或是 {PositionType.Joint}",
+                         LoggingLevel.Warn);
         }
 
         #endregion - Message -

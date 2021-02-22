@@ -1,32 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Features;
 
 namespace Contest
 {
     public class Behavior
     {
-        #region - Properties -
+        /// <summary>
+        /// 組織動作流程。
+        /// </summary>
+        private void OrganizeActionFlow()
+        {
+            // 在此依照順序加入動作流程。
+            ActionFlow.Add("Example-1", () => Message.Show("Example message-1."), "Comment is optional.");
+            ActionFlow.Add("Example-2", () => Message.Show("Example message-2."));
+        }
 
-        private IActionFlowHandler ActionFlow = null;
+        /// <summary>
+        /// 組織可連線裝置組。
+        /// </summary>
+        private void OrganizeConnectableDevices()
+        {
+            // 加入的順序就是連線/斷線的順序。
+            // 若要禁用某裝置，在下方將其所屬的「 Devices.Add(裝置); 」註解掉即可。
+            Devices.Add(Arm);
+            //Devices.Add(Gripper);
+            //Devices.Add(BluetoothController);
+        }
 
-        private IArmController Arm = null;
+        #region - Others -
 
-        private IBluetoothController BluetoothController = null;
+        private readonly IActionFlowHandler ActionFlow;
 
-        private List<IDevice> Devices = null;
-        private IGripperController Gripper = null;
+        private readonly IArmController Arm;
 
-        private IMessage Message = null;
+        private IBluetoothController BluetoothController;
 
-        private IPositionHandler PositionHandler = null;
+        private readonly List<IDevice> Devices;
 
-        #endregion - Properties -
+        private IGripperController Gripper;
 
-        #region - Constructor -
+        private readonly IMessage Message;
+
+        private IPositionHandler PositionHandler;
 
         public Behavior(MainFormDependency mainFormDependency)
         {
@@ -45,32 +60,12 @@ namespace Contest
 
             // 初始化動作流程。
             ActionFlow.Clear();
-            ActionFlow.Add("Start", () => Message.Show("Action-Flow start."));
+            ActionFlow.Add("Start", () => { }, "The start of Action-Flow. (Empty)");
             OrganizeActionFlow();
-            ActionFlow.Add("Finish", () => Message.Show("Action-Flow finished."));
+            ActionFlow.Add("End", () => { }, "The end of Action-Flow. (Empty)");
             ActionFlow.UpdateListView();
         }
 
-        #endregion - Constructor -
-
-        /// <summary>
-        /// 組織動作流程。
-        /// </summary>
-        private void OrganizeActionFlow()
-        {
-            // 在此加入動作流程。
-        }
-
-        /// <summary>
-        /// 組織可連線裝置組。
-        /// </summary>
-        private void OrganizeConnectableDevices()
-        {
-            // 組織連線裝置組。加入的順序就是連線/斷線的順序。
-            // 若要禁用某裝置，在下方將其所屬的「 Devices.Add(裝置); 」註解掉即可。
-            Devices.Add(Arm);
-            //Devices.Add(Gripper);
-            //Devices.Add(BluetoothController);
-        }
+        #endregion - Others -
     }
 }

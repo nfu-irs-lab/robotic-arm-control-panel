@@ -64,11 +64,6 @@ namespace Features
             CreateFile(DateTime.Now);
         }
 
-        ~LogHandler()
-        {
-            Write("LogHandler Destruct.", LoggingLevel.Fatal);
-        }
-
         public string Path { get; set; }
 
         public void Write(Exception ex, LoggingLevel loggingLevel)
@@ -88,6 +83,11 @@ namespace Features
                 file.WriteLine(text);
                 file.Close();
             }
+        }
+
+        ~LogHandler()
+        {
+            Write("LogHandler Destruct.", LoggingLevel.Fatal);
         }
 
         private void CreateFile(DateTime dateTime)
