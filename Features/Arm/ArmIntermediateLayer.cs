@@ -80,13 +80,17 @@ namespace Features
 
         public virtual int get_override_ratio(int robot) => HRobot.get_override_ratio(robot);
 
-        public virtual int lin_axis(int robot, int mode, double smooth_value, double[] point) => HRobot.lin_axis(robot, mode, smooth_value, point);
+        public virtual int lin_axis(int robot, int mode, double smooth_value, double[] point)
+            => HRobot.lin_axis(robot, mode, smooth_value, point);
 
-        public virtual int lin_pos(int robot, int mode, double smooth_value, double[] point) => HRobot.lin_pos(robot, mode, smooth_value, point);
+        public virtual int lin_pos(int robot, int mode, double smooth_value, double[] point)
+            => HRobot.lin_pos(robot, mode, smooth_value, point);
 
-        public virtual int lin_rel_axis(int robot, int mode, double smooth_value, double[] point) => HRobot.lin_rel_axis(robot, mode, smooth_value, point);
+        public virtual int lin_rel_axis(int robot, int mode, double smooth_value, double[] point)
+            => HRobot.lin_rel_axis(robot, mode, smooth_value, point);
 
-        public virtual int lin_rel_pos(int robot, int mode, double smooth_value, double[] point) => HRobot.lin_rel_pos(robot, mode, smooth_value, point);
+        public virtual int lin_rel_pos(int robot, int mode, double smooth_value, double[] point)
+            => HRobot.lin_rel_pos(robot, mode, smooth_value, point);
 
         public virtual int open_connection(string a, int mode, HRobot.CallBackFun func) => HRobot.open_connection(a, mode, func);
 

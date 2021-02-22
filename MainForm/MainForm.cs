@@ -633,12 +633,11 @@ namespace MainForm
             {
                 if (Devices[i].Connected)
                 {
-                    DialogResult dr = Message.Show(
-                        "手臂或其它裝置似乎還在連線中。\r\n是否要斷開連線後關閉視窗？",
-                        "關閉視窗",
-                        MessageBoxButtons.YesNoCancel,
-                        MessageBoxIcon.Warning,
-                        LoggingLevel.Warn);
+                    DialogResult dr = Message.Show("手臂或其它裝置似乎還在連線中。\r\n是否要斷開連線後關閉視窗？",
+                                                   "關閉視窗",
+                                                   MessageBoxButtons.YesNoCancel,
+                                                   MessageBoxIcon.Warning,
+                                                   LoggingLevel.Warn);
 
                     if (dr == DialogResult.Yes)
                     {
@@ -846,17 +845,16 @@ namespace MainForm
                                                   comboBox_position_record_file_list,
                                                   CsvHandler,
                                                   Message);
-            Behavior = new Behavior(
-                new MainFormDependency()
-                {
-                    PositionHandler = PositionHandler,
-                    ActionFlowHandler = ActionFlow,
-                    ArmController = Arm,
-                    GripperController = Gripper,
-                    BluetoothController = Bluetooth,
-                    Message = Message,
-                    Devices = Devices
-                });
+            Behavior = new Behavior(new MainFormDependency()
+            {
+                PositionHandler = PositionHandler,
+                ActionFlowHandler = ActionFlow,
+                ArmController = Arm,
+                GripperController = Gripper,
+                BluetoothController = Bluetooth,
+                Message = Message,
+                Devices = Devices
+            });
 
             // 未與手臂連線，禁用部分按鈕。
             SetButtonsState(false);
