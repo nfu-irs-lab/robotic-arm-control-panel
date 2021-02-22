@@ -6,6 +6,13 @@ namespace Features.UnitTests
     [TestFixture]
     public class ActionFlowHandlerTests
     {
+        public interface ITestClass
+        {
+            void TestMethodA();
+
+            void TestMethodB();
+        }
+
         [Test]
         public void Add_InputName_ExistInListView()
         {
@@ -42,6 +49,29 @@ namespace Features.UnitTests
 
             // Assert.
             Assert.IsTrue(listView.Items[0].Selected);
+        }
+
+        [Test]
+        [Ignore("There is a problem with this test.")]
+        public void Do_InputIndex_CallSpecifyMethoe()
+        {
+            // Arrange.
+            ITestClass testClass = Substitute.For<ITestClass>();
+            IActionFlowHandler actionFlow = Substitute.For<IActionFlowHandler>();
+
+            actionFlow.ShowMessageBoforeAction = false;
+            actionFlow.AutoNextAction = false;
+
+            actionFlow.Clear();
+            actionFlow.Add("a", () => testClass.TestMethodA());
+            actionFlow.Add("b", () => { });
+            actionFlow.Add("c", () => { });
+
+            // Act.
+            actionFlow.Do(0);
+
+            // Assert.
+            testClass.Received().TestMethodA();
         }
     }
 }
