@@ -89,11 +89,7 @@ namespace Features
                           List<List<string>> rowColumnData,
                           List<string> columnName = null)
         {
-            bool fileAlreadyExists = false;
-            if (File.Exists(Path + filenameWithExtension))
-            {
-                fileAlreadyExists = true;
-            }
+            bool fileAlreadyExists = File.Exists(Path + filenameWithExtension);
 
             var file = MakeStreamWriter(filenameWithExtension);
 

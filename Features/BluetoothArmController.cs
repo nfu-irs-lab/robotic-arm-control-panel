@@ -13,9 +13,9 @@ namespace Features
 {
     public enum BluetoothSendDataType
     {
-        descartesPosition,
-        jointPosition,
-        state
+        DescartesPosition,
+        JointPosition,
+        State
     }
 
     /// <summary>
@@ -44,8 +44,12 @@ namespace Features
             Arm = armControl;
             Message = message;
 
-            SerialPort sp = new SerialPort() { PortName = comPort, BaudRate = 38400 };
-            sp.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+            SerialPort sp = new SerialPort()
+            {
+                PortName = comPort,
+                BaudRate = 38400
+            };
+            sp.DataReceived += DataReceivedHandler;
             SerialPortDevice = new SerialPortDevice(sp, message);
 
 #if (CONNECT_BY_CONSTRUCTOR)
@@ -64,7 +68,7 @@ namespace Features
 #if (CONNECT_WITH_UPDATE)
             if (Connected && Arm.Connected)
             {
-                Send(BluetoothSendDataType.descartesPosition,
+                Send(BluetoothSendDataType.DescartesPosition,
                      Arm.GetPosition(PositionType.Descartes));
             }
 #endif
@@ -86,7 +90,7 @@ namespace Features
 
             switch (dataType)
             {
-                case BluetoothSendDataType.descartesPosition:
+                case BluetoothSendDataType.DescartesPosition:
                     if (newValue.Length == 6)
                     {
                         var xValue = ConvertIntToByte(newValue[0]);
@@ -100,32 +104,25 @@ namespace Features
                         {
                             0xff,
                             0x01,
-
                             cValue[1],
                             cValue[0],
-
                             bValue[1],
                             bValue[0],
-
                             aValue[1],
                             aValue[0],
-
                             zValue[1],
                             zValue[0],
-
                             yValue[1],
                             yValue[0],
-
                             xValue[1],
                             xValue[0],
-
                             0xff
                         };
                         SerialPortDevice.SerialPort.Write(data, 0, data.Length);
                     }
                     break;
 
-                case BluetoothSendDataType.jointPosition:
+                case BluetoothSendDataType.JointPosition:
                     if (newValue.Length == 6)
                     {
                         var xValue = ConvertIntToByte(newValue[0]);
@@ -139,32 +136,25 @@ namespace Features
                         {
                             0xff,
                             0x02,
-
                             cValue[1],
                             cValue[0],
-
                             bValue[1],
                             bValue[0],
-
                             aValue[1],
                             aValue[0],
-
                             zValue[1],
                             zValue[0],
-
                             yValue[1],
                             yValue[0],
-
                             xValue[1],
                             xValue[0],
-
                             0xff
                         };
                         SerialPortDevice.SerialPort.Write(data, 0, data.Length);
                     }
                     break;
 
-                case BluetoothSendDataType.state:
+                case BluetoothSendDataType.State:
                     if (newValue.Length == 3)
                     {
                         var speedValue = ConvertIntToByte(newValue[0], 1);
@@ -173,16 +163,7 @@ namespace Features
 
                         byte[] data = new byte[]
                         {
-                            0xff,
-                            0x03,
-
-                            speedValue[0],
-
-                            accValue[0],
-
-                            connectState,
-
-                            0xff
+                            0xff, 0x03, speedValue[0], accValue[0], connectState, 0xff
                         };
                         SerialPortDevice.SerialPort.Write(data, 0, data.Length);
                     }
@@ -217,9 +198,9 @@ namespace Features
         private void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
         {
             SerialPort serialPort = (SerialPort)sender;
-            string indata = serialPort.ReadLine();
+            string data = serialPort.ReadLine();
 
-            Decoder(indata);
+            Decoder(data);
         }
 
         private void Decoder(string data)
@@ -231,21 +212,30 @@ namespace Features
             {
                 case "xr":
                     value = Convert.ToDouble(data.Split('r')[1]);
-                    Arm.MoveLinear(new double[] { value, 0, 0, 0, 0, 0 },
+                    Arm.MoveLinear(new double[]
+                                   {
+                                       value, 0, 0, 0, 0, 0
+                                   },
                                    CoordinateType.Relative,
                                    PositionType.Descartes);
                     break;
 
                 case "yr":
                     value = Convert.ToDouble(data.Split('r')[1]);
-                    Arm.MoveLinear(new double[] { 0, value, 0, 0, 0, 0 },
+                    Arm.MoveLinear(new double[]
+                                   {
+                                       0, value, 0, 0, 0, 0
+                                   },
                                    CoordinateType.Relative,
                                    PositionType.Descartes);
                     break;
 
                 case "zr":
                     value = Convert.ToDouble(data.Split('r')[1]);
-                    Arm.MoveLinear(new double[] { 0, 0, value, 0, 0, 0 },
+                    Arm.MoveLinear(new double[]
+                                   {
+                                       0, 0, value, 0, 0, 0
+                                   },
                                    CoordinateType.Relative,
                                    PositionType.Descartes);
                     break;
@@ -257,7 +247,7 @@ namespace Features
                     Message.Show($"Unknown data: {data}", LoggingLevel.Error);
                     break;
             }
-            Send(BluetoothSendDataType.descartesPosition,
+            Send(BluetoothSendDataType.DescartesPosition,
                  Arm.GetPosition(PositionType.Descartes));
         }
     }
