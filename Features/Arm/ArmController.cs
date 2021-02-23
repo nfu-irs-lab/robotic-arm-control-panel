@@ -250,15 +250,9 @@ namespace Features
 
         #region - Default Position -
 
-        public double[] DescartesHomePosition { get; } =
-        {
-            0, 368, 294, 180, 0, 90
-        };
+        public double[] DescartesHomePosition { get; } = { 0, 368, 294, 180, 0, 90 };
 
-        public double[] JointHomePosition { get; } =
-        {
-            0, 0, 0, 0, 0, 0
-        };
+        public double[] JointHomePosition { get; } = { 0, 0, 0, 0, 0, 0 };
 
         #endregion - Default Position -
 

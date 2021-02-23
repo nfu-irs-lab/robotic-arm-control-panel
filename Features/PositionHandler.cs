@@ -66,9 +66,9 @@ namespace Features
     public class PositionHandler : IPositionHandler
     {
         private readonly List<string> CsvColumnName = new List<string>();
-        private ICsvHandler CsvHandler = null;
-        private ListView DataListView = null;
-        private ComboBox FileList = null;
+        private readonly ICsvHandler CsvHandler;
+        private readonly ListView DataListView;
+        private readonly ComboBox FileList;
         private int SerialNumber = 0;
 
         public PositionHandler(ListView dataListView,
@@ -86,7 +86,7 @@ namespace Features
             // 取得該enum的成員數量。https://stackoverflow.com/questions/856154/total-number-of-items-defined-in-an-enum
             var enumCount = Enum.GetNames(typeof(PositionDataFormat)).Length;
 
-            for (int i = 0; i < enumCount; i++)
+            for (var i = 0; i < enumCount; i++)
             {
                 // 依照引索來取得enum的項目。https://stackoverflow.com/a/31452191/12005882
                 var e = new PositionDataFormat();
@@ -104,8 +104,8 @@ namespace Features
         {
             Message.Log("PositionHandler:Get position.", LoggingLevel.Trace);
 
-            double[] position = new double[6];
-            for (int i = (int)PositionDataFormat.J1X; i <= (int)PositionDataFormat.J6C; i++)
+            var position = new double[6];
+            for (var i = (int)PositionDataFormat.J1X; i <= (int)PositionDataFormat.J6C; i++)
             {
                 try
                 {
@@ -151,11 +151,11 @@ namespace Features
         {
             Message.Log("PositionHandler:Record.", LoggingLevel.Trace);
 
-            string filename = "[position_record]" +
-                              DateTime.Now.ToString("MMMdd") +
-                              ".csv";
+            var filename = "[position_record]" +
+                           DateTime.Now.ToString("MMMdd") +
+                           ".csv";
 
-            List<List<string>> csvContent = new List<List<string>>()
+            var csvContent = new List<List<string>>()
             {
                 new List<string>()
                 {
@@ -187,7 +187,7 @@ namespace Features
             Message.Log("PositionHandler:Update file list.", LoggingLevel.Trace);
 
             // 記錄最後選擇的項目。
-            string lastSelectedItem = "";
+            var lastSelectedItem = "";
             if (FileList.SelectedItem != null)
             {
                 lastSelectedItem = FileList.SelectedItem.ToString();
@@ -195,7 +195,7 @@ namespace Features
 
             FileList.Items.Clear();
 
-            DirectoryInfo directoryInfo = new DirectoryInfo(CsvHandler.Path);
+            var directoryInfo = new DirectoryInfo(CsvHandler.Path);
             try
             {
                 foreach (var fi in directoryInfo.GetFiles("*.csv"))
@@ -232,7 +232,7 @@ namespace Features
             DataListView.Items.Clear();
             for (int row = 1; row < csvData.Count; row++)
             {
-                ListViewItem item = new ListViewItem();
+                var item = new ListViewItem();
                 item.SubItems[0].Text = csvData[row][(int)PositionDataFormat.Id];
                 item.SubItems.Add(csvData[row][(int)PositionDataFormat.Name]);
                 item.SubItems.Add(csvData[row][(int)PositionDataFormat.Type]);
@@ -259,7 +259,7 @@ namespace Features
         {
             // 若要調整資料行中最長專案的寬度，請將 Width 屬性設定為-1。
             // 若要自動調整為數據行標題的寬度，請將 Width 屬性設定為-2。
-            for (int col = 0; col < DataListView.Columns.Count; col++)
+            for (var col = 0; col < DataListView.Columns.Count; col++)
             {
                 DataListView.Columns[col].Width = -2;
             }
@@ -267,7 +267,7 @@ namespace Features
 
         private void UpdateListColumnName()
         {
-            for (int col = 0; col < DataListView.Columns.Count; col++)
+            for (var col = 0; col < DataListView.Columns.Count; col++)
             {
                 // 依照引索來取得enum的項目。https://stackoverflow.com/a/31452191/12005882
                 var e = new PositionDataFormat();

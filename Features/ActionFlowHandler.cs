@@ -84,9 +84,9 @@ namespace Features
 
     public class ActionFlowHandler : IActionFlowHandler
     {
-        private readonly IMessage Message = null;
-        private ListView ActionListView = null;
-        private List<ActionStruct> Actions = new List<ActionStruct>();
+        private readonly ListView ActionListView;
+        private readonly List<ActionStruct> Actions = new List<ActionStruct>();
+        private readonly IMessage Message;
 
         public ActionFlowHandler(ListView actionListView, IMessage message)
         {
@@ -95,13 +95,13 @@ namespace Features
         }
 
         public bool AutoNextAction { get; set; } = true;
-        public int LastActionIndex { get; private set; } = 0;
+        public int LastActionIndex { get; private set; }
         public bool ShowMessageBeforeAction { get; set; } = true;
 
         public void Add(string name, Action action, string comment = "--")
         {
             // Add to Actions.
-            ActionStruct actionStruct = new ActionStruct()
+            var actionStruct = new ActionStruct()
             {
                 Action = action,
                 Name = name,
@@ -110,7 +110,7 @@ namespace Features
             Actions.Add(actionStruct);
 
             // Update ListView.
-            ListViewItem item = new ListViewItem();
+            var item = new ListViewItem();
             item.SubItems[0].Text = Convert.ToString(Actions.Count - 1);
             item.SubItems.Add(name);
             item.SubItems.Add(comment);
@@ -143,7 +143,7 @@ namespace Features
         {
             if (endActionIndex > startActionIndex)
             {
-                for (int i = startActionIndex; i <= endActionIndex; i++)
+                for (var i = startActionIndex; i <= endActionIndex; i++)
                 {
                     var act = Actions[i];
                     if (ShowActionMessageAndContinue(i, act))
@@ -164,8 +164,7 @@ namespace Features
         public int Do(string actionName)
         {
             // TODO: Use LINQ.
-            int actCount = Actions.Count;
-            for (int i = 0; i < actCount; i++)
+            for (var i = 0; i < Actions.Count; i++)
             {
                 if (Actions[i].Name.Equals(actionName))
                 {
@@ -188,8 +187,7 @@ namespace Features
 
         public int DoEach()
         {
-            int actCount = Actions.Count;
-            for (int i = 0; i < actCount; i++)
+            for (var i = 0; i < Actions.Count; i++)
             {
                 var act = Actions[i];
                 if (ShowActionMessageAndContinue(i, act))
@@ -207,11 +205,10 @@ namespace Features
 
         public void UpdateListView()
         {
-            int actCount = Actions.Count;
             ActionListView.Items.Clear();
-            for (int i = 0; i < actCount; i++)
+            for (var i = 0; i < Actions.Count; i++)
             {
-                ListViewItem item = new ListViewItem();
+                var item = new ListViewItem();
                 item.SubItems[0].Text = i.ToString();
                 item.SubItems.Add(Actions[i].Name);
                 item.SubItems.Add(Actions[i].Comment);
@@ -230,7 +227,7 @@ namespace Features
         {
             if (AutoNextAction)
             {
-                int nowIndex = ActionListView.SelectedIndices[0];
+                var nowIndex = ActionListView.SelectedIndices[0];
                 if (nowIndex < (Actions.Count - 1))
                 {
                     ActionListView.Items[++nowIndex].Selected = true;
@@ -242,7 +239,7 @@ namespace Features
         {
             // 若要調整資料行中最長專案的寬度，請將 Width 屬性設定為-1。
             // 若要自動調整為數據行標題的寬度，請將 Width 屬性設定為-2。
-            for (int col = 0; col < ActionListView.Columns.Count; col++)
+            for (var col = 0; col < ActionListView.Columns.Count; col++)
             {
                 ActionListView.Columns[col].Width = -2;
             }
