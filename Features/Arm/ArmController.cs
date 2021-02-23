@@ -851,10 +851,10 @@ namespace Features
 
         public void ClearAlarm()
         {
-            int retuenCode = HRobot.clear_alarm(Id);
+            int returnCode = HRobot.clear_alarm(Id);
 
             // 錯誤代碼300代表沒有警報，無法清除警報
-            IsErrorAndHandler(retuenCode, 300);
+            IsErrorAndHandler(returnCode, 300);
         }
 
         public double[] GetPosition(PositionType type = PositionType.Descartes)
