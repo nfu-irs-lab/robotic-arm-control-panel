@@ -202,7 +202,7 @@ namespace MainForm
                     break;
 
                 case MotionType.PointToPoint:
-                    Arm.MovePointToPoint(GetTargetPostion(), GetPositinoType(), GetCoordinateType());
+                    Arm.MovePointToPoint(GetTargetPostion(), GetCoordinateType(), GetPositinoType());
                     break;
 
                 default:
