@@ -232,22 +232,22 @@ namespace Features
                 case "xr":
                     value = Convert.ToDouble(data.Split('r')[1]);
                     Arm.MoveLinear(new double[] { value, 0, 0, 0, 0, 0 },
-                                   PositionType.Descartes,
-                                   CoordinateType.Relative);
+                                   CoordinateType.Relative,
+                                   PositionType.Descartes);
                     break;
 
                 case "yr":
                     value = Convert.ToDouble(data.Split('r')[1]);
                     Arm.MoveLinear(new double[] { 0, value, 0, 0, 0, 0 },
-                                   PositionType.Descartes,
-                                   CoordinateType.Relative);
+                                   CoordinateType.Relative,
+                                   PositionType.Descartes);
                     break;
 
                 case "zr":
                     value = Convert.ToDouble(data.Split('r')[1]);
                     Arm.MoveLinear(new double[] { 0, 0, value, 0, 0, 0 },
-                                   PositionType.Descartes,
-                                   CoordinateType.Relative);
+                                   CoordinateType.Relative,
+                                   PositionType.Descartes);
                     break;
 
                 case "ud":
