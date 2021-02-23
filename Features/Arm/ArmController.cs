@@ -457,7 +457,7 @@ namespace Features
         {
             Message.Log($"Arm-PointToPoint: {GetTextPositin(targetPosition)}. {positionType}",
                         LoggingLevel.Trace);
-            int retuenCode = 0;
+            int returnCode = 0;
             int smoothTypeCode = (smoothType == SmoothType.TwoLinesSpeedSmooth) ? 1 : 0;
 
 #if (USE_SDK_RELATIVE)
@@ -466,11 +466,11 @@ namespace Features
                 switch (positionType)
                 {
                     case PositionType.Descartes:
-                        retuenCode = HRobot.ptp_pos(Id, smoothTypeCode, targetPosition);
+                        returnCode = HRobot.ptp_pos(Id, smoothTypeCode, targetPosition);
                         break;
 
                     case PositionType.Joint:
-                        retuenCode = HRobot.ptp_axis(Id, smoothTypeCode, targetPosition);
+                        returnCode = HRobot.ptp_axis(Id, smoothTypeCode, targetPosition);
                         break;
 
                     default:
@@ -483,11 +483,11 @@ namespace Features
                 switch (positionType)
                 {
                     case PositionType.Descartes:
-                        retuenCode = HRobot.ptp_rel_pos(Id, smoothTypeCode, targetPosition);
+                        returnCode = HRobot.ptp_rel_pos(Id, smoothTypeCode, targetPosition);
                         break;
 
                     case PositionType.Joint:
-                        retuenCode = HRobot.ptp_rel_axis(Id, smoothTypeCode, targetPosition);
+                        returnCode = HRobot.ptp_rel_axis(Id, smoothTypeCode, targetPosition);
                         break;
 
                     default:
@@ -519,7 +519,7 @@ namespace Features
             }
 #endif
 
-            if (!IsErrorAndHandler(retuenCode) && waitForMotion)
+            if (!IsErrorAndHandler(returnCode) && waitForMotion)
             {
                 WaitForMotionComplete(targetPosition, positionType);
             }
