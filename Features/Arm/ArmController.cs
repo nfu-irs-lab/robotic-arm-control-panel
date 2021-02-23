@@ -164,6 +164,7 @@ namespace Features
         /// 回到指定座標系的原點。預設爲笛卡爾。
         /// </summary>
         /// <param name="positionType"></param>
+        /// <param name="waitForMotion"></param>
         void Homing(PositionType positionType = PositionType.Descartes,
                     bool waitForMotion = true);
 
@@ -683,15 +684,11 @@ namespace Features
 
                 connectionLevel = HRobot.get_connection_level(Id);
 
-                string text = string.Format("連線成功!\r\n" +
-                                            "手臂ID: {0}\r\n" +
-                                            "連線等級: {1}\r\n" +
-                                            "控制器狀態: {2}\r\n" +
-                                            "錯誤代碼: {3}\r\n",
-                                            Id,
-                                            (connectionLevel == 0) ? "觀測者" : "操作者",
-                                            (motorState == 0) ? "關閉" : "開啟",
-                                            alarmState);
+                string text = "連線成功!\r\n" +
+                              $"手臂ID: {Id}\r\n" +
+                              $"連線等級: {(connectionLevel == 0 ? "觀測者" : "操作者")}\r\n" +
+                              $"控制器狀態: {(motorState == 0 ? "關閉" : "開啟")}\r\n" +
+                              $"錯誤代碼: {alarmState}\r\n";
 
                 Message.Show(text, "連線", MessageBoxButtons.OK, MessageBoxIcon.None);
 
@@ -756,11 +753,9 @@ namespace Features
             //關閉手臂連線
             HRobot.disconnect(Id);
 
-            string text = string.Format("斷線成功!\r\n" +
-                                        "控制器狀態: {0}\r\n" +
-                                        "錯誤代碼: {1}\r\n",
-                                        (motorState == 0) ? "關閉" : "開啟",
-                                        alarmState);
+            string text = "斷線成功!\r\n" +
+                          $"控制器狀態: {(motorState == 0 ? "關閉" : "開啟")}\r\n" +
+                          $"錯誤代碼: {alarmState}\r\n";
 
             Message.Show(text, "斷線", MessageBoxButtons.OK, MessageBoxIcon.None);
 
@@ -876,7 +871,7 @@ namespace Features
             double[] position = new double[6];
             int returnCode = -1;
 
-            foreach (int k in position)
+            foreach (var k in position)
             {
                 if (type == PositionType.Descartes)
                 {
