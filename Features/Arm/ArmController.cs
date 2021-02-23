@@ -860,17 +860,17 @@ namespace Features
         public double[] GetPosition(PositionType type = PositionType.Descartes)
         {
             double[] position = new double[6];
-            int retuenCode = -1;
+            int returnCode = -1;
 
             foreach (int k in position)
             {
                 if (type == PositionType.Descartes)
                 {
-                    retuenCode = HRobot.get_current_position(Id, position);
+                    returnCode = HRobot.get_current_position(Id, position);
                 }
                 else if (type == PositionType.Joint)
                 {
-                    retuenCode = HRobot.get_current_joint(Id, position);
+                    returnCode = HRobot.get_current_joint(Id, position);
                 }
                 else
                 {
@@ -878,7 +878,7 @@ namespace Features
                     return position;
                 }
             }
-            IsErrorAndHandler(retuenCode);
+            IsErrorAndHandler(returnCode);
             return position;
         }
 
