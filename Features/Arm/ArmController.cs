@@ -384,7 +384,7 @@ namespace Features
         {
             Message.Log($"Arm-Linear: {GetTextPositin(targetPosition)}. {positionType}",
                         LoggingLevel.Trace);
-            int retuenCode = 0;
+            int returnCode = 0;
 
 #if (USE_SDK_RELATIVE)
             if (coordinateType == CoordinateType.Absolute)
@@ -392,11 +392,11 @@ namespace Features
                 switch (positionType)
                 {
                     case PositionType.Descartes:
-                        retuenCode = HRobot.lin_pos(Id, (int)smoothType, smoothValue, targetPosition);
+                        returnCode = HRobot.lin_pos(Id, (int)smoothType, smoothValue, targetPosition);
                         break;
 
                     case PositionType.Joint:
-                        retuenCode = HRobot.lin_axis(Id, (int)smoothType, smoothValue, targetPosition);
+                        returnCode = HRobot.lin_axis(Id, (int)smoothType, smoothValue, targetPosition);
                         break;
 
                     default:
@@ -409,11 +409,11 @@ namespace Features
                 switch (positionType)
                 {
                     case PositionType.Descartes:
-                        retuenCode = HRobot.lin_rel_pos(Id, (int)smoothType, smoothValue, targetPosition);
+                        returnCode = HRobot.lin_rel_pos(Id, (int)smoothType, smoothValue, targetPosition);
                         break;
 
                     case PositionType.Joint:
-                        retuenCode = HRobot.lin_rel_axis(Id, (int)smoothType, smoothValue, targetPosition);
+                        returnCode = HRobot.lin_rel_axis(Id, (int)smoothType, smoothValue, targetPosition);
                         break;
 
                     default:
@@ -443,7 +443,7 @@ namespace Features
             }
 #endif
 
-            if (!IsErrorAndHandler(retuenCode) && waitForMotion)
+            if (!IsErrorAndHandler(returnCode) && waitForMotion)
             {
                 WaitForMotionComplete(targetPosition, positionType);
             }
