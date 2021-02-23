@@ -331,8 +331,8 @@ namespace Features
                 {
                     if (Connected)
                     {
-                        int retuenCode = HRobot.set_override_ratio(Id, value);
-                        IsErrorAndHandler(retuenCode);
+                        int returnCode = HRobot.set_override_ratio(Id, value);
+                        IsErrorAndHandler(returnCode);
                     }
                     else
                     {
