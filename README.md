@@ -9,6 +9,7 @@
 - [使用方法](#使用方法)
   - [HRSDK.dll](#HRSDKdll)
   - [NuGet Packages](#NuGet-Packages)
+  - [設定起始專案](#設定起始專案)
   - [連線及檔案設定](#連線及檔案設定)
 - [版本及兼容性](#版本及兼容性)
 - [其它資源](#其它資源)
@@ -23,13 +24,19 @@
   - [Features.UnitTests](/Features.UnitTests/)：「Features」的單元測試。
 
 # 使用方法
+首次執行時可能會遇到一些問題，此時請參考以下各事項。
+
 ## HRSDK.dll
 請將正確版本的「HRSDK.dll」檔案放在目前程式執行的工作路徑下，例如：`MainForm\bin\x64\Debug\`。
 
 工作路徑會因 Visual Studio 的編譯及執行設定不同而改變，例如「Any CPU」、「x86」、「x64」和「Debug」、「Release」。
 
+## 設定起始專案
+1. 以 Visual Studio 開啓 Solution 檔 「[HIWIN_Robot.sln](/HIWIN_Robot.sln)」。
+2. 在 Visual Studio 的「Solution Explorer」中，對 Project「MainForm」點擊滑鼠右鍵。
+3. 點選右鍵清單中的「Set as Startup Project」。
+
 ## NuGet Packages
-首次執行前，請執行以下步驟：
 1. 以 Visual Studio 開啓 Solution 檔 「[HIWIN_Robot.sln](/HIWIN_Robot.sln)」。
 2. 在 Visual Studio 的「Solution Explorer」中，對本 Solution「Solution 'HIWIN_Robot'」點擊滑鼠右鍵。
 3. 點選右鍵清單中的「Restore NuGet Packages」，並等待其完成。
