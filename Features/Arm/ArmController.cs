@@ -532,7 +532,7 @@ namespace Features
         /// <param name="positionType"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private double[] ConvertRelativeToAdsolute(double[] relativePosition,
+        private double[] ConvertRelativeToAbsolute(double[] relativePosition,
                                                    PositionType positionType)
         {
             double[] position = GetPosition(positionType);
