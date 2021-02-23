@@ -65,7 +65,7 @@ namespace Features.UnitTests
             var message = new EmptyMessage();
             var actionFlow = new ActionFlowHandler(listView, message)
             {
-                ShowMessageBoforeAction = false,
+                ShowMessageBeforeAction = false,
                 AutoNextAction = true
             };
 
@@ -95,7 +95,7 @@ namespace Features.UnitTests
             var message = new EmptyMessage();
             var actionFlow = new ActionFlowHandler(listView, message)
             {
-                ShowMessageBoforeAction = false,
+                ShowMessageBeforeAction = false,
                 AutoNextAction = false
             };
 
@@ -125,7 +125,7 @@ namespace Features.UnitTests
             var message = new EmptyMessage();
             var actionFlow = new ActionFlowHandler(listView, message)
             {
-                ShowMessageBoforeAction = false,
+                ShowMessageBeforeAction = false,
                 AutoNextAction = false
             };
 

@@ -164,6 +164,7 @@ namespace Features
         /// 回到指定座標系的原點。預設爲笛卡爾。
         /// </summary>
         /// <param name="positionType"></param>
+        /// <param name="waitForMotion"></param>
         void Homing(PositionType positionType = PositionType.Descartes,
                     bool waitForMotion = true);
 
@@ -250,6 +251,7 @@ namespace Features
         #region - Default Position -
 
         public double[] DescartesHomePosition { get; } = { 0, 368, 294, 180, 0, 90 };
+
         public double[] JointHomePosition { get; } = { 0, 0, 0, 0, 0, 0 };
 
         #endregion - Default Position -
@@ -287,10 +289,10 @@ namespace Features
                 {
                     if (Connected)
                     {
-                        int retuenCode = HRobot.set_acc_dec_ratio(Id, value);
+                        int returnCode = HRobot.set_acc_dec_ratio(Id, value);
 
                         // 執行HRobot.set_acc_dec_ratio時會固定回傳錯誤代碼4000。
-                        IsErrorAndHandler(retuenCode, 4000);
+                        IsErrorAndHandler(returnCode, 4000);
                     }
                     else
                     {
@@ -331,8 +333,8 @@ namespace Features
                 {
                     if (Connected)
                     {
-                        int retuenCode = HRobot.set_override_ratio(Id, value);
-                        IsErrorAndHandler(retuenCode);
+                        int returnCode = HRobot.set_override_ratio(Id, value);
+                        IsErrorAndHandler(returnCode);
                     }
                     else
                     {
@@ -382,9 +384,9 @@ namespace Features
                                double smoothValue = 50,
                                bool waitForMotion = true)
         {
-            Message.Log($"Arm-Linear: {GetTextPositin(targetPosition)}. {positionType}",
+            Message.Log($"Arm-Linear: {GetTextPosition(targetPosition)}. {positionType}",
                         LoggingLevel.Trace);
-            int retuenCode = 0;
+            int returnCode = 0;
 
 #if (USE_SDK_RELATIVE)
             if (coordinateType == CoordinateType.Absolute)
@@ -392,11 +394,11 @@ namespace Features
                 switch (positionType)
                 {
                     case PositionType.Descartes:
-                        retuenCode = HRobot.lin_pos(Id, (int)smoothType, smoothValue, targetPosition);
+                        returnCode = HRobot.lin_pos(Id, (int)smoothType, smoothValue, targetPosition);
                         break;
 
                     case PositionType.Joint:
-                        retuenCode = HRobot.lin_axis(Id, (int)smoothType, smoothValue, targetPosition);
+                        returnCode = HRobot.lin_axis(Id, (int)smoothType, smoothValue, targetPosition);
                         break;
 
                     default:
@@ -409,11 +411,11 @@ namespace Features
                 switch (positionType)
                 {
                     case PositionType.Descartes:
-                        retuenCode = HRobot.lin_rel_pos(Id, (int)smoothType, smoothValue, targetPosition);
+                        returnCode = HRobot.lin_rel_pos(Id, (int)smoothType, smoothValue, targetPosition);
                         break;
 
                     case PositionType.Joint:
-                        retuenCode = HRobot.lin_rel_axis(Id, (int)smoothType, smoothValue, targetPosition);
+                        returnCode = HRobot.lin_rel_axis(Id, (int)smoothType, smoothValue, targetPosition);
                         break;
 
                     default:
@@ -443,7 +445,7 @@ namespace Features
             }
 #endif
 
-            if (!IsErrorAndHandler(retuenCode) && waitForMotion)
+            if (!IsErrorAndHandler(returnCode) && waitForMotion)
             {
                 WaitForMotionComplete(targetPosition, positionType);
             }
@@ -455,9 +457,9 @@ namespace Features
                                      SmoothType smoothType = SmoothType.TwoLinesSpeedSmooth,
                                      bool waitForMotion = true)
         {
-            Message.Log($"Arm-PointToPoint: {GetTextPositin(targetPosition)}. {positionType}",
+            Message.Log($"Arm-PointToPoint: {GetTextPosition(targetPosition)}. {positionType}",
                         LoggingLevel.Trace);
-            int retuenCode = 0;
+            int returnCode = 0;
             int smoothTypeCode = (smoothType == SmoothType.TwoLinesSpeedSmooth) ? 1 : 0;
 
 #if (USE_SDK_RELATIVE)
@@ -466,11 +468,11 @@ namespace Features
                 switch (positionType)
                 {
                     case PositionType.Descartes:
-                        retuenCode = HRobot.ptp_pos(Id, smoothTypeCode, targetPosition);
+                        returnCode = HRobot.ptp_pos(Id, smoothTypeCode, targetPosition);
                         break;
 
                     case PositionType.Joint:
-                        retuenCode = HRobot.ptp_axis(Id, smoothTypeCode, targetPosition);
+                        returnCode = HRobot.ptp_axis(Id, smoothTypeCode, targetPosition);
                         break;
 
                     default:
@@ -483,11 +485,11 @@ namespace Features
                 switch (positionType)
                 {
                     case PositionType.Descartes:
-                        retuenCode = HRobot.ptp_rel_pos(Id, smoothTypeCode, targetPosition);
+                        returnCode = HRobot.ptp_rel_pos(Id, smoothTypeCode, targetPosition);
                         break;
 
                     case PositionType.Joint:
-                        retuenCode = HRobot.ptp_rel_axis(Id, smoothTypeCode, targetPosition);
+                        returnCode = HRobot.ptp_rel_axis(Id, smoothTypeCode, targetPosition);
                         break;
 
                     default:
@@ -519,7 +521,7 @@ namespace Features
             }
 #endif
 
-            if (!IsErrorAndHandler(retuenCode) && waitForMotion)
+            if (!IsErrorAndHandler(returnCode) && waitForMotion)
             {
                 WaitForMotionComplete(targetPosition, positionType);
             }
@@ -532,7 +534,7 @@ namespace Features
         /// <param name="positionType"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private double[] ConvertRelativeToAdsolute(double[] relativePosition,
+        private double[] ConvertRelativeToAbsolute(double[] relativePosition,
                                                    PositionType positionType)
         {
             double[] position = GetPosition(positionType);
@@ -543,14 +545,17 @@ namespace Features
             return position;
         }
 
-        private string GetTextPositin(double[] position)
+        private string GetTextPosition(double[] position)
         {
             string stringPos = "\"";
             foreach (double val in position)
             {
                 stringPos += val.ToString() + ",";
             }
-            stringPos = stringPos.TrimEnd(new char[] { ' ', ',' });
+            stringPos = stringPos.TrimEnd(new char[]
+            {
+                ' ', ','
+            });
             stringPos += "\"";
             return stringPos;
         }
@@ -673,15 +678,11 @@ namespace Features
 
                 connectionLevel = HRobot.get_connection_level(Id);
 
-                string text = string.Format("連線成功!\r\n" +
-                                            "手臂ID: {0}\r\n" +
-                                            "連線等級: {1}\r\n" +
-                                            "控制器狀態: {2}\r\n" +
-                                            "錯誤代碼: {3}\r\n",
-                                            Id,
-                                            (connectionLevel == 0) ? "觀測者" : "操作者",
-                                            (motorState == 0) ? "關閉" : "開啟",
-                                            alarmState);
+                string text = "連線成功!\r\n" +
+                              $"手臂ID: {Id}\r\n" +
+                              $"連線等級: {(connectionLevel == 0 ? "觀測者" : "操作者")}\r\n" +
+                              $"控制器狀態: {(motorState == 0 ? "關閉" : "開啟")}\r\n" +
+                              $"錯誤代碼: {alarmState}\r\n";
 
                 Message.Show(text, "連線", MessageBoxButtons.OK, MessageBoxIcon.None);
 
@@ -746,11 +747,9 @@ namespace Features
             //關閉手臂連線
             HRobot.disconnect(Id);
 
-            string text = string.Format("斷線成功!\r\n" +
-                                        "控制器狀態: {0}\r\n" +
-                                        "錯誤代碼: {1}\r\n",
-                                        (motorState == 0) ? "關閉" : "開啟",
-                                        alarmState);
+            string text = "斷線成功!\r\n" +
+                          $"控制器狀態: {(motorState == 0 ? "關閉" : "開啟")}\r\n" +
+                          $"錯誤代碼: {alarmState}\r\n";
 
             Message.Show(text, "斷線", MessageBoxButtons.OK, MessageBoxIcon.None);
 
@@ -800,7 +799,11 @@ namespace Features
         /// </summary>
         private void InitTimer()
         {
-            ActionTimer = new Timer { Interval = 50, Enabled = false };
+            ActionTimer = new Timer
+            {
+                Interval = 50,
+                Enabled = false
+            };
             ActionTimer.Tick += (s, e) => { ++TimeCheck; };
         }
 
@@ -851,26 +854,26 @@ namespace Features
 
         public void ClearAlarm()
         {
-            int retuenCode = HRobot.clear_alarm(Id);
+            int returnCode = HRobot.clear_alarm(Id);
 
             // 錯誤代碼300代表沒有警報，無法清除警報
-            IsErrorAndHandler(retuenCode, 300);
+            IsErrorAndHandler(returnCode, 300);
         }
 
         public double[] GetPosition(PositionType type = PositionType.Descartes)
         {
             double[] position = new double[6];
-            int retuenCode = -1;
+            int returnCode = -1;
 
-            foreach (int k in position)
+            foreach (var k in position)
             {
                 if (type == PositionType.Descartes)
                 {
-                    retuenCode = HRobot.get_current_position(Id, position);
+                    returnCode = HRobot.get_current_position(Id, position);
                 }
                 else if (type == PositionType.Joint)
                 {
-                    retuenCode = HRobot.get_current_joint(Id, position);
+                    returnCode = HRobot.get_current_joint(Id, position);
                 }
                 else
                 {
@@ -878,7 +881,7 @@ namespace Features
                     return position;
                 }
             }
-            IsErrorAndHandler(retuenCode);
+            IsErrorAndHandler(returnCode);
             return position;
         }
 
