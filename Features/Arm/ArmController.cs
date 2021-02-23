@@ -766,7 +766,7 @@ namespace Features
         /// <param name="len"></param>
         private static void EventFun(UInt16 cmd, UInt16 rlt, ref UInt16 Msg, int len)
         {
-            Console.WriteLine("Command: " + cmd + " Resault: " + rlt);
+            Console.WriteLine("Command: " + cmd + " Result: " + rlt);
 
             switch (cmd)
             {
