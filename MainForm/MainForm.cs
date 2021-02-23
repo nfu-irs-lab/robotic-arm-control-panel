@@ -471,7 +471,7 @@ namespace MainForm
         /// <param name="e"></param>
         private void button_connect_Click(object sender, EventArgs e)
         {
-            LogHandler.Write("Connect", LoggingLevel.Trace);
+            Message.Log("Connect click", LoggingLevel.Trace);
 
             for (int i = 0; i < Devices.Count; i++)
             {
@@ -495,7 +495,7 @@ namespace MainForm
         /// <param name="e"></param>
         private void button_disconnect_Click(object sender, EventArgs e)
         {
-            LogHandler.Write("Disconnect", LoggingLevel.Trace);
+            Message.Log("Disconnect click", LoggingLevel.Trace);
 
             for (int i = 0; i < Devices.Count; i++)
             {
