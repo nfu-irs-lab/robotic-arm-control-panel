@@ -382,7 +382,7 @@ namespace Features
                                double smoothValue = 50,
                                bool waitForMotion = true)
         {
-            Message.Log($"Arm-Linear: {GetTextPositin(targetPosition)}. {positionType}",
+            Message.Log($"Arm-Linear: {GetTextPosition(targetPosition)}. {positionType}",
                         LoggingLevel.Trace);
             int returnCode = 0;
 
@@ -455,7 +455,7 @@ namespace Features
                                      SmoothType smoothType = SmoothType.TwoLinesSpeedSmooth,
                                      bool waitForMotion = true)
         {
-            Message.Log($"Arm-PointToPoint: {GetTextPositin(targetPosition)}. {positionType}",
+            Message.Log($"Arm-PointToPoint: {GetTextPosition(targetPosition)}. {positionType}",
                         LoggingLevel.Trace);
             int returnCode = 0;
             int smoothTypeCode = (smoothType == SmoothType.TwoLinesSpeedSmooth) ? 1 : 0;
@@ -543,7 +543,7 @@ namespace Features
             return position;
         }
 
-        private string GetTextPositin(double[] position)
+        private string GetTextPosition(double[] position)
         {
             string stringPos = "\"";
             foreach (double val in position)
