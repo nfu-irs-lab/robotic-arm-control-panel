@@ -177,14 +177,14 @@ namespace Features
         /// ● waitForMotion：是否等待動作完成。預設為true。
         /// </summary>
         /// <param name="targetPosition"></param>
-        /// <param name="positionType"></param>
         /// <param name="coordinateType"></param>
+        /// <param name="positionType"></param>
         /// <param name="smoothType"></param>
         /// <param name="smoothValue"></param>
         /// <param name="waitForMotion"></param>
         void MoveLinear(double[] targetPosition,
-                        PositionType positionType = PositionType.Descartes,
                         CoordinateType coordinateType = CoordinateType.Absolute,
+                        PositionType positionType = PositionType.Descartes,
                         SmoothType smoothType = SmoothType.TwoLinesSpeedSmooth,
                         double smoothValue = 50,
                         bool waitForMotion = true);
@@ -198,13 +198,13 @@ namespace Features
         /// ● waitForMotion：是否等待動作完成。預設為true。
         /// </summary>
         /// <param name="targetPosition"></param>
-        /// <param name="positionType"></param>
         /// <param name="coordinateType"></param>
+        /// <param name="positionType"></param>
         /// <param name="smoothType"></param>
         /// <param name="waitForMotion"></param>
         void MovePointToPoint(double[] targetPosition,
-                              PositionType positionType = PositionType.Descartes,
                               CoordinateType coordinateType = CoordinateType.Absolute,
+                              PositionType positionType = PositionType.Descartes,
                               SmoothType smoothType = SmoothType.TwoLinesSpeedSmooth,
                               bool waitForMotion = true);
 
@@ -376,8 +376,8 @@ namespace Features
         }
 
         public void MoveLinear(double[] targetPosition,
-                               PositionType positionType = PositionType.Descartes,
                                CoordinateType coordinateType = CoordinateType.Absolute,
+                               PositionType positionType = PositionType.Descartes,
                                SmoothType smoothType = SmoothType.TwoLinesSpeedSmooth,
                                double smoothValue = 50,
                                bool waitForMotion = true)
@@ -450,8 +450,8 @@ namespace Features
         }
 
         public void MovePointToPoint(double[] targetPosition,
-                                     PositionType positionType = PositionType.Descartes,
                                      CoordinateType coordinateType = CoordinateType.Absolute,
+                                     PositionType positionType = PositionType.Descartes,
                                      SmoothType smoothType = SmoothType.TwoLinesSpeedSmooth,
                                      bool waitForMotion = true)
         {

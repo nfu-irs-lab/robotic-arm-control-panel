@@ -198,11 +198,11 @@ namespace MainForm
             switch (GetMotionType())
             {
                 case MotionType.Linear:
-                    Arm.MoveLinear(GetTargetPostion(), GetPositinoType(), GetCoordinateType());
+                    Arm.MoveLinear(GetTargetPostion(), GetCoordinateType(), GetPositinoType());
                     break;
 
                 case MotionType.PointToPoint:
-                    Arm.MovePointToPoint(GetTargetPostion(), GetPositinoType(), GetCoordinateType());
+                    Arm.MovePointToPoint(GetTargetPostion(), GetCoordinateType(), GetPositinoType());
                     break;
 
                 default:
