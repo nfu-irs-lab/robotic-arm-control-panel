@@ -287,10 +287,10 @@ namespace Features
                 {
                     if (Connected)
                     {
-                        int retuenCode = HRobot.set_acc_dec_ratio(Id, value);
+                        int returnCode = HRobot.set_acc_dec_ratio(Id, value);
 
                         // 執行HRobot.set_acc_dec_ratio時會固定回傳錯誤代碼4000。
-                        IsErrorAndHandler(retuenCode, 4000);
+                        IsErrorAndHandler(returnCode, 4000);
                     }
                     else
                     {
