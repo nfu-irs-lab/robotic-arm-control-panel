@@ -249,8 +249,15 @@ namespace Features
 
         #region - Default Position -
 
-        public double[] DescartesHomePosition { get; } = { 0, 368, 294, 180, 0, 90 };
-        public double[] JointHomePosition { get; } = { 0, 0, 0, 0, 0, 0 };
+        public double[] DescartesHomePosition { get; } =
+        {
+            0, 368, 294, 180, 0, 90
+        };
+
+        public double[] JointHomePosition { get; } =
+        {
+            0, 0, 0, 0, 0, 0
+        };
 
         #endregion - Default Position -
 
@@ -550,7 +557,10 @@ namespace Features
             {
                 stringPos += val.ToString() + ",";
             }
-            stringPos = stringPos.TrimEnd(new char[] { ' ', ',' });
+            stringPos = stringPos.TrimEnd(new char[]
+            {
+                ' ', ','
+            });
             stringPos += "\"";
             return stringPos;
         }
@@ -800,7 +810,11 @@ namespace Features
         /// </summary>
         private void InitTimer()
         {
-            ActionTimer = new Timer { Interval = 50, Enabled = false };
+            ActionTimer = new Timer
+            {
+                Interval = 50,
+                Enabled = false
+            };
             ActionTimer.Tick += (s, e) => { ++TimeCheck; };
         }
 

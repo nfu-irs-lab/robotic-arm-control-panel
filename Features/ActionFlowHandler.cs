@@ -22,7 +22,7 @@ namespace Features
         /// <summary>
         /// 是否在每一個動作之前顯示確認訊息。
         /// </summary>
-        bool ShowMessageBoforeAction { get; set; }
+        bool ShowMessageBeforeAction { get; set; }
 
         /// <summary>
         /// 增加動作。增加的順序就是索引、執行的順序。<br/>
@@ -73,7 +73,7 @@ namespace Features
         void UpdateListView();
     }
 
-    public struct ActionStruce
+    public struct ActionStruct
     {
         public Action Action;
 
@@ -86,7 +86,7 @@ namespace Features
     {
         private readonly IMessage Message = null;
         private ListView ActionListView = null;
-        private List<ActionStruce> Actions = new List<ActionStruce>();
+        private List<ActionStruct> Actions = new List<ActionStruct>();
 
         public ActionFlowHandler(ListView actionListView, IMessage message)
         {
@@ -96,18 +96,18 @@ namespace Features
 
         public bool AutoNextAction { get; set; } = true;
         public int LastActionIndex { get; private set; } = 0;
-        public bool ShowMessageBoforeAction { get; set; } = true;
+        public bool ShowMessageBeforeAction { get; set; } = true;
 
         public void Add(string name, Action action, string comment = "--")
         {
             // Add to Actions.
-            ActionStruce actionStruce = new ActionStruce()
+            ActionStruct actionStruct = new ActionStruct()
             {
                 Action = action,
                 Name = name,
                 Comment = comment
             };
-            Actions.Add(actionStruce);
+            Actions.Add(actionStruct);
 
             // Update ListView.
             ListViewItem item = new ListViewItem();
@@ -252,15 +252,15 @@ namespace Features
         /// Show action messgae if enable, and return continue or not.
         /// </summary>
         /// <param name="index"></param>
-        /// <param name="actionStruce"></param>
+        /// <param name="actionStruct"></param>
         /// <returns>true: Continue; false: Not continue.</returns>
-        private bool ShowActionMessageAndContinue(int index, ActionStruce actionStruce)
+        private bool ShowActionMessageAndContinue(int index, ActionStruct actionStruct)
         {
-            if (ShowMessageBoforeAction)
+            if (ShowMessageBeforeAction)
             {
                 var text = $"•Index: {index}\r\n" +
-                           $"•Name: {actionStruce.Name}\r\n" +
-                           $"•Comment: {actionStruce.Comment}";
+                           $"•Name: {actionStruct.Name}\r\n" +
+                           $"•Comment: {actionStruct.Comment}";
 
                 var result = Message.Show(text,
                                           "Next Action",

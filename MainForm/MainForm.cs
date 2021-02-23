@@ -47,11 +47,14 @@ namespace MainForm
             var type = GetCoordinateType();
             if (type == CoordinateType.Absolute)
             {
-                SetTargetPostion(GetNowUiPostion());
+                SetTargetPosition(GetNowUiPosition());
             }
             else if (type == CoordinateType.Relative)
             {
-                SetTargetPostion(new double[] { 0, 0, 0, 0, 0, 0 });
+                SetTargetPosition(new double[]
+                {
+                    0, 0, 0, 0, 0, 0
+                });
             }
         }
 
@@ -69,7 +72,7 @@ namespace MainForm
         /// 取得目前顯示的位置。
         /// </summary>
         /// <returns>目前顯示的位置。</returns>
-        private double[] GetNowUiPostion()
+        private double[] GetNowUiPosition()
         {
             double[] position = new double[6];
             try
@@ -81,7 +84,7 @@ namespace MainForm
             }
             catch (FormatException)
             {
-                if (GetPositinoType() == PositionType.Descartes)
+                if (GetPositionType() == PositionType.Descartes)
                 {
                     position = Arm.DescartesHomePosition;
                 }
@@ -101,7 +104,7 @@ namespace MainForm
         /// 取得目標位置。
         /// </summary>
         /// <returns>目標位置。</returns>
-        private double[] GetTargetPostion()
+        private double[] GetTargetPosition()
         {
             double[] position = new double[6];
             try
@@ -122,7 +125,7 @@ namespace MainForm
         /// 設定目前 UI 顯示的位置。
         /// </summary>
         /// <param name="position"></param>
-        private void SetNowPostion(double[] position)
+        private void SetNowPosition(double[] position)
         {
             for (int i = 0; i < 6; i++)
             {
@@ -134,7 +137,7 @@ namespace MainForm
         /// 設定目標位置。
         /// </summary>
         /// <param name="position"></param>
-        private void SetTargetPostion(double[] position)
+        private void SetTargetPosition(double[] position)
         {
             try
             {
@@ -154,7 +157,7 @@ namespace MainForm
         /// </summary>
         private void UpdateNowPosition()
         {
-            SetNowPostion(Arm.GetPosition(GetPositinoType()));
+            SetNowPosition(Arm.GetPosition(GetPositionType()));
         }
 
         #endregion 位置
@@ -175,7 +178,7 @@ namespace MainForm
 
                 Thread.Sleep(300);
 
-                Arm.Homing(GetPositinoType(), true);
+                Arm.Homing(GetPositionType(), true);
                 UpdateNowPosition();
 
                 Arm.Speed = GetUiSpeed();
@@ -183,7 +186,7 @@ namespace MainForm
             }
             else
             {
-                Arm.Homing(GetPositinoType(), true);
+                Arm.Homing(GetPositionType(), true);
                 UpdateNowPosition();
             }
         }
@@ -198,11 +201,15 @@ namespace MainForm
             switch (GetMotionType())
             {
                 case MotionType.Linear:
-                    Arm.MoveLinear(GetTargetPostion(), GetCoordinateType(), GetPositinoType());
+                    Arm.MoveLinear(GetTargetPosition(),
+                                   GetCoordinateType(),
+                                   GetPositionType());
                     break;
 
                 case MotionType.PointToPoint:
-                    Arm.MovePointToPoint(GetTargetPostion(), GetCoordinateType(), GetPositinoType());
+                    Arm.MovePointToPoint(GetTargetPosition(),
+                                         GetCoordinateType(),
+                                         GetPositionType());
                     break;
 
                 default:
@@ -220,17 +227,20 @@ namespace MainForm
         /// <summary>
         /// 所選的坐標類型改變。
         /// </summary>
-        private void CoorrdinateTypeChange()
+        private void CoordinateTypeChange()
         {
             if (radioButton_coordinate_type_absolute.Checked)
             {
                 button_arm_copy_position_from_now_to_target.Text = "複製";
-                SetTargetPostion(GetNowUiPostion());
+                SetTargetPosition(GetNowUiPosition());
             }
             else if (radioButton_coordinate_type_relative.Checked)
             {
                 button_arm_copy_position_from_now_to_target.Text = "歸零";
-                SetTargetPostion(new double[] { 0, 0, 0, 0, 0, 0 });
+                SetTargetPosition(new double[]
+                {
+                    0, 0, 0, 0, 0, 0
+                });
             }
         }
 
@@ -282,7 +292,7 @@ namespace MainForm
         /// 取得目前所選的位置類型。
         /// </summary>
         /// <returns>目前所選的位置類型。</returns>
-        private PositionType GetPositinoType()
+        private PositionType GetPositionType()
         {
             PositionType type;
             if (radioButton_position_type_descartes.Checked)
@@ -307,24 +317,27 @@ namespace MainForm
         {
             if (radioButton_coordinate_type_relative.Checked)
             {
-                SetTargetPostion(new double[] { 0, 0, 0, 0, 0, 0 });
+                SetTargetPosition(new double[]
+                {
+                    0, 0, 0, 0, 0, 0
+                });
             }
             else if (Arm.Connected)
             {
-                var positionType = GetPositinoType();
+                var positionType = GetPositionType();
                 var nowPosition = Arm.GetPosition(positionType);
-                SetTargetPostion(nowPosition);
-                SetNowPostion(GetTargetPostion());
+                SetTargetPosition(nowPosition);
+                SetNowPosition(GetTargetPosition());
             }
             else
             {
                 if (radioButton_position_type_descartes.Checked)
                 {
-                    SetTargetPostion(Arm.DescartesHomePosition);
+                    SetTargetPosition(Arm.DescartesHomePosition);
                 }
                 else if (radioButton_position_type_joint.Checked)
                 {
-                    SetTargetPostion(Arm.JointHomePosition);
+                    SetTargetPosition(Arm.JointHomePosition);
                 }
 
                 for (int i = 0; i < NowPosition.Count; i++)
@@ -336,12 +349,12 @@ namespace MainForm
 
         private void radioButton_coordinate_type_absolute_CheckedChanged(object sender, EventArgs e)
         {
-            CoorrdinateTypeChange();
+            CoordinateTypeChange();
         }
 
         private void radioButton_coordinate_type_relative_CheckedChanged(object sender, EventArgs e)
         {
-            CoorrdinateTypeChange();
+            CoordinateTypeChange();
         }
 
         private void radioButton_position_type_descartes_CheckedChanged(object sender, EventArgs e)
@@ -517,8 +530,8 @@ namespace MainForm
         private void button_position_recode_Click(object sender, EventArgs e)
         {
             PositionHandler.Record(textBox_position_record_name.Text,
-                                   GetPositinoType(),
-                                   GetNowUiPostion(),
+                                   GetPositionType(),
+                                   GetNowUiPosition(),
                                    textBox_position_record_comment.Text);
         }
 
@@ -540,7 +553,7 @@ namespace MainForm
                     return;
             }
 
-            SetTargetPostion(PositionHandler.GetPosition());
+            SetTargetPosition(PositionHandler.GetPosition());
             radioButton_coordinate_type_absolute.Checked = true;
         }
 
@@ -640,22 +653,22 @@ namespace MainForm
                                                    MessageBoxButtons.YesNoCancel,
                                                    MessageBoxIcon.Warning,
                                                    LoggingLevel.Warn);
+                    switch (dr)
+                    {
+                        case DialogResult.Yes:
+                            button_disconnect.PerformClick();
+                            e.Cancel = false;
+                            break;
 
-                    if (dr == DialogResult.Yes)
-                    {
-                        button_disconnect.PerformClick();
-                        e.Cancel = false;
-                    }
-                    else if (dr == DialogResult.No)
-                    {
-                        e.Cancel = false;
-                    }
-                    else if (dr == DialogResult.Cancel)
-                    {
-                        // 取消視窗關閉事件。
-                        e.Cancel = true;
-                    }
+                        case DialogResult.No:
+                            e.Cancel = false;
+                            break;
 
+                        case DialogResult.Cancel:
+                            // 取消視窗關閉事件。
+                            e.Cancel = true;
+                            break;
+                    }
                     break;
                 }
             }
@@ -870,9 +883,9 @@ namespace MainForm
         /// <param name="enableButtons"></param>
         private void SetButtonsState(bool enableButtons)
         {
-            for (int i = 0; i < Buttons.Count; i++)
+            foreach (var t in Buttons)
             {
-                Buttons[i].Enabled = enableButtons;
+                t.Enabled = enableButtons;
             }
         }
 

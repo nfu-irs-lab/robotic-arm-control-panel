@@ -16,16 +16,16 @@ namespace Features
         /// <summary>
         /// Log.
         /// </summary>
-        /// <param name="loggingLevel"></param>
         /// <param name="message"></param>
+        /// <param name="loggingLevel"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        void Log(string message, LoggingLevel loggingLevel1);
+        void Log(string message, LoggingLevel loggingLevel);
 
         /// <summary>
         /// Log.
         /// </summary>
-        /// <param name="loggingLevel"></param>
         /// <param name="ex"></param>
+        /// <param name="loggingLevel"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         void Log(Exception ex, LoggingLevel loggingLevel);
 
@@ -33,6 +33,7 @@ namespace Features
         /// Show message.
         /// </summary>
         /// <param name="message"></param>
+        /// <param name="loggingLevel"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         DialogResult Show(string message,
                           LoggingLevel loggingLevel = LoggingLevel.Trace);
@@ -41,6 +42,7 @@ namespace Features
         /// Show message.
         /// </summary>
         /// <param name="ex"></param>
+        /// <param name="loggingLevel"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         DialogResult Show(Exception ex,
                           LoggingLevel loggingLevel = LoggingLevel.Trace);
@@ -50,6 +52,7 @@ namespace Features
         /// </summary>
         /// <param name="message"></param>
         /// <param name="ex"></param>
+        /// <param name="loggingLevel"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         DialogResult Show(string message,
                           Exception ex,
@@ -62,6 +65,7 @@ namespace Features
         /// <param name="caption"></param>
         /// <param name="buttons"></param>
         /// <param name="icon"></param>
+        /// <param name="loggingLevel"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         DialogResult Show(string text,
                           string caption,
@@ -129,11 +133,11 @@ namespace Features
         public DialogResult Show(Exception ex,
                                  LoggingLevel loggingLevel = LoggingLevel.Trace)
         {
-            string text = "未處理的例外。 \r\n\r\n";
+            string text = "未處理的例外。\r\n\r\n";
 
             if (ex != null)
             {
-                text += $"{ex.Message} \r\n\r\n" +
+                text += $"{ex.Message}\r\n\r\n" +
                         $"{ex.StackTrace}";
             }
             else

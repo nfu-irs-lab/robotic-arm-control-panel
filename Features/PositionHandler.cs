@@ -60,7 +60,6 @@ namespace Features
         /// 更新清單資料。
         /// </summary>
         /// <param name="filenameWithExtension"></param>
-        /// <param name="listView"></param>
         void UpdateListData(string filenameWithExtension);
     }
 
