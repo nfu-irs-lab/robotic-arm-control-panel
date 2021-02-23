@@ -525,17 +525,19 @@ namespace MainForm
         private void button_position_record_read_Click(object sender, EventArgs e)
         {
             var type = PositionHandler.GetPositionType();
-            if (type == PositionType.Descartes)
+            switch (type)
             {
-                radioButton_position_type_descartes.Checked = true;
-            }
-            else if (type == PositionType.Joint)
-            {
-                radioButton_position_type_joint.Checked = true;
-            }
-            else
-            {
-                Message.Show("錯誤的位置類型。", LoggingLevel.Error);
+                case PositionType.Descartes:
+                    radioButton_position_type_descartes.Checked = true;
+                    break;
+
+                case PositionType.Joint:
+                    radioButton_position_type_joint.Checked = true;
+                    break;
+
+                default:
+                    Message.Show("錯誤的位置類型。", LoggingLevel.Error);
+                    return;
             }
 
             SetTargetPostion(PositionHandler.GetPosition());
