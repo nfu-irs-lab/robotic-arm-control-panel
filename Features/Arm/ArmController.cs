@@ -1,6 +1,7 @@
 ﻿//#define DISABLE_SHOW_MESSAGE
 #define USE_SDK_RELATIVE
-#define USE_MOTION_STATE_WAIT
+#define USE_CALLBACK_MOTION_STATE_WAIT
+// #define USE_MOTION_STATE_WAIT
 
 #if (DISABLE_SHOW_MESSAGE)
 #warning Message is disabled.
@@ -8,6 +9,7 @@
 
 using SDKHrobot;
 using System;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
@@ -234,6 +236,10 @@ namespace Features
     /// </summary>
     public class ArmController : IArmController
     {
+#if (USE_CALLBACK_MOTION_STATE_WAIT)
+        private static bool Waiting = false;
+#endif
+
         public ArmController(string armIp, IMessage message)
         {
             Ip = armIp;
@@ -552,10 +558,7 @@ namespace Features
             {
                 stringPos += val.ToString() + ",";
             }
-            stringPos = stringPos.TrimEnd(new char[]
-            {
-                ' ', ','
-            });
+            stringPos = stringPos.TrimEnd(' ', ',');
             stringPos += "\"";
             return stringPos;
         }
@@ -567,7 +570,13 @@ namespace Features
         /// <param name="positionType"></param>
         private void WaitForMotionComplete(double[] targetPosition, PositionType positionType)
         {
-#if (USE_MOTION_STATE_WAIT)
+#if (USE_CALLBACK_MOTION_STATE_WAIT)
+            Waiting = true;
+            while (Waiting)
+            {
+                Thread.Sleep(50);
+            }
+#elif (USE_MOTION_STATE_WAIT)
             while (true)
             {
                 // motion_state = 1: Idle.
@@ -766,23 +775,58 @@ namespace Features
         /// <param name="len"></param>
         private static void EventFun(UInt16 cmd, UInt16 rlt, ref UInt16 Msg, int len)
         {
-            Console.WriteLine("Command: " + cmd + " Result: " + rlt);
+            // 該 Method 的內容請參考 HRSDK-SampleCode： 11.CallbackNotify。
+            // 此處不受 IMessage 影響。
 
+            // Get into.
+            String info = "";
+            unsafe
+            {
+                fixed (UInt16* p = &Msg)
+                {
+                    for (int i = 0; i < len; i++)
+                    {
+                        info += (char)p[i];
+                    }
+                }
+            }
+            var infos = info.Split(',');
+
+            // Show in Console.
+            Console.WriteLine($"Command:{cmd}, Result:{rlt}");
             switch (cmd)
             {
-                case 4011:
-                    if (rlt != 0)
-                    {
-#if (!DISABLE_SHOW_MESSAGE)
-                        // XXX 此處不受訊息控制器影響。
-                        MessageBox.Show("Update fail. " + rlt,
-                                        "HRSS update callback",
-                                        MessageBoxButtons.OK,
-                                        MessageBoxIcon.Warning,
-                                        MessageBoxDefaultButton.Button1,
-                                        MessageBoxOptions.DefaultDesktopOnly);
+                case 0 when rlt == 4702:
+                    Console.WriteLine($"HRSS Mode:{infos[0]}\r\n" +
+                                      $"Operation Mode:{infos[1]}\r\n" +
+                                      $"Override Ratio:{infos[2]}\r\n" +
+                                      $"Motor State:{infos[3]}\r\n" +
+                                      $"Exe File Name:{infos[4]}\r\n" +
+                                      $"Function Output:{infos[5]}\r\n" +
+                                      $"Alarm Count:{infos[6]}\r\n" +
+                                      $"Keep Alive:{infos[7]}\r\n" +
+                                      $"Motion Status:{infos[8]}\r\n" +
+                                      $"Payload:{infos[9]}\r\n" +
+                                      $"Speed:{infos[10]}\r\n" +
+                                      $"Position:{infos[11]}\r\n" +
+                                      $"Coor:{infos[14]},{infos[15]},{infos[16]},{infos[17]},{infos[18]},{infos[19]}\r\n" +
+                                      $"Joint:{infos[20]},{infos[21]},{infos[22]},{infos[23]},{infos[24]},{infos[25]}\r\n");
+
+#if (USE_CALLBACK_MOTION_STATE_WAIT)
+                    // Motion state=1: Idle.
+                    Waiting = infos[8] == "1" ? false : true;
 #endif
-                    }
+                    break;
+
+                case 4011 when rlt != 0:
+#if (!DISABLE_SHOW_MESSAGE)
+                    MessageBox.Show("Update fail. " + rlt,
+                                    "HRSS update callback",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning,
+                                    MessageBoxDefaultButton.Button1,
+                                    MessageBoxOptions.DefaultDesktopOnly);
+#endif
                     break;
             }
         }
