@@ -6,7 +6,7 @@
 
 ## 目錄
 - [整體架構](#整體架構)
-- [使用方法](#使用方法)
+- [使用方法及問題解決](#使用方法及問題解決)
   - [HRSDK.dll](#HRSDKdll)
   - [NuGet Packages](#NuGet-Packages)
   - [設定起始專案](#設定起始專案)
@@ -23,7 +23,7 @@
   - [Features](/Features/)：各功能的底層函式庫。
   - [Features.UnitTests](/Features.UnitTests/)：「Features」的單元測試。
 
-# 使用方法
+# 使用方法及問題解決
 首次執行時可能會遇到一些問題，此時請參考以下各事項。
 
 ## HRSDK.dll
