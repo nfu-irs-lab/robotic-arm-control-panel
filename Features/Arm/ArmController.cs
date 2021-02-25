@@ -591,15 +591,12 @@ namespace Features
         /// <summary>
         /// 此 delegate 必須要是 static，否則手臂動作有可能會出現問題。
         /// </summary>
-        private static HRobot.CallBackFun CallBackFun;
+        private static HRobot.CallBackFun CallBackFun = EventFun;
 
         public bool Connected { get; private set; } = false;
 
         public bool Connect()
         {
-            // 接收控制器回傳訊息
-            CallBackFun = EventFun;
-
             // 連線設定。測試連線設定:("127.0.0.1", 1, CallBackFun);
             Id = HRobot.open_connection(Ip, 1, CallBackFun);
             Thread.Sleep(500);
