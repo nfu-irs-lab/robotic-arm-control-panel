@@ -125,12 +125,12 @@ namespace Features
         /// <summary>
         /// 手臂ID。
         /// </summary>
-        int Id { get; set; }
+        int Id { get; }
 
         /// <summary>
         /// 手臂IP。
         /// </summary>
-        string Ip { get; set; }
+        string Ip { get; }
 
         #region - Default Position -
 
@@ -245,7 +245,6 @@ namespace Features
         public ArmController(string armIp, IMessage message)
         {
             Ip = armIp;
-            Id = 0;
             Message = message;
 
 #if (!USE_MOTION_STATE_WAIT && !USE_CALLBACK_MOTION_STATE_WAIT)
@@ -253,8 +252,8 @@ namespace Features
 #endif
         }
 
-        public int Id { get; set; }
-        public string Ip { get; set; }
+        public int Id { get; private set; }
+        public string Ip { get; private set; }
 
         #region - Default Position -
 
