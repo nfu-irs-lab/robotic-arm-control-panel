@@ -1,5 +1,4 @@
 ﻿//#define DISABLE_SHOW_MESSAGE
-#define USE_SDK_RELATIVE
 
 // 選擇一種等待手臂動作完成的做法，都不選就是使用預設方法。
 #define USE_CALLBACK_MOTION_STATE_WAIT
@@ -125,12 +124,12 @@ namespace Features
         /// <summary>
         /// 手臂ID。
         /// </summary>
-        int Id { get; set; }
+        int Id { get; }
 
         /// <summary>
         /// 手臂IP。
         /// </summary>
-        string Ip { get; set; }
+        string Ip { get; }
 
         #region - Default Position -
 
@@ -245,7 +244,6 @@ namespace Features
         public ArmController(string armIp, IMessage message)
         {
             Ip = armIp;
-            Id = 0;
             Message = message;
 
 #if (!USE_MOTION_STATE_WAIT && !USE_CALLBACK_MOTION_STATE_WAIT)
@@ -253,8 +251,8 @@ namespace Features
 #endif
         }
 
-        public int Id { get; set; }
-        public string Ip { get; set; }
+        public int Id { get; private set; }
+        public string Ip { get; private set; }
 
         #region - Default Position -
 
@@ -291,13 +289,14 @@ namespace Features
             {
                 if (value > 100 || value < 1)
                 {
-                    Message.Show("手臂加速度應為1% ~ 100%之間。", LoggingLevel.Info);
+                    Message.Show($"手臂加速度應為1% ~ 100%之間。輸入值為： {value}",
+                                 LoggingLevel.Warn);
                 }
                 else
                 {
                     if (Connected)
                     {
-                        int returnCode = HRobot.set_acc_dec_ratio(Id, value);
+                        var returnCode = HRobot.set_acc_dec_ratio(Id, value);
 
                         // 執行HRobot.set_acc_dec_ratio時會固定回傳錯誤代碼4000。
                         IsErrorAndHandler(returnCode, 4000);
@@ -335,13 +334,14 @@ namespace Features
             {
                 if (value > 100 || value < 1)
                 {
-                    Message.Show("手臂速度應為1% ~ 100%之間。", LoggingLevel.Info);
+                    Message.Show($"手臂速度應為1% ~ 100%之間。輸入值為： {value}",
+                                 LoggingLevel.Warn);
                 }
                 else
                 {
                     if (Connected)
                     {
-                        int returnCode = HRobot.set_override_ratio(Id, value);
+                        var returnCode = HRobot.set_override_ratio(Id, value);
                         IsErrorAndHandler(returnCode);
                     }
                     else
@@ -359,29 +359,33 @@ namespace Features
         public void Homing(PositionType positionType = PositionType.Descartes,
                            bool waitForMotion = true)
         {
-            Message.Log($"Arm-Homing. {positionType}", LoggingLevel.Trace);
-            int returnCode;
+            Message.Log($"Arm-Homing.Type:{positionType}, Wait:{waitForMotion}",
+                        LoggingLevel.Trace);
+
+            double[] pos;
+            Func<int, int, double[], int> action;
+
             switch (positionType)
             {
                 case PositionType.Descartes:
-                    returnCode = HRobot.ptp_pos(Id, (int)SmoothType.Disable, DescartesHomePosition);
-                    if ((returnCode >= 0) && waitForMotion)
-                    {
-                        WaitForMotionComplete(DescartesHomePosition, positionType);
-                    }
+                    pos = DescartesHomePosition;
+                    action = HRobot.ptp_pos;
                     break;
 
                 case PositionType.Joint:
-                    returnCode = HRobot.ptp_axis(Id, (int)SmoothType.Disable, JointHomePosition);
-                    if ((returnCode >= 0) && waitForMotion)
-                    {
-                        WaitForMotionComplete(JointHomePosition, positionType);
-                    }
+                    pos = JointHomePosition;
+                    action = HRobot.ptp_axis;
                     break;
 
                 default:
                     ShowUnknownPositionType();
                     return;
+            }
+
+            var returnCode = action(Id, (int)SmoothType.Disable, pos);
+            if (!IsErrorAndHandler(returnCode) && waitForMotion)
+            {
+                WaitForMotionComplete(pos, positionType);
             }
         }
 
@@ -392,67 +396,42 @@ namespace Features
                                double smoothValue = 50,
                                bool waitForMotion = true)
         {
-            Message.Log($"Arm-Linear: {GetTextPosition(targetPosition)}. {positionType}",
+            Message.Log($"Arm-Linear." +
+                        $"Pos:{GetTextPosition(targetPosition)}," +
+                        $"Type:{positionType};{coordinateType}," +
+                        $"Smo:{smoothType};{smoothValue}," +
+                        $"Wait:{waitForMotion}",
                         LoggingLevel.Trace);
-            int returnCode = 0;
 
-#if (USE_SDK_RELATIVE)
-            if (coordinateType == CoordinateType.Absolute)
-            {
-                switch (positionType)
-                {
-                    case PositionType.Descartes:
-                        returnCode = HRobot.lin_pos(Id, (int)smoothType, smoothValue, targetPosition);
-                        break;
-
-                    case PositionType.Joint:
-                        returnCode = HRobot.lin_axis(Id, (int)smoothType, smoothValue, targetPosition);
-                        break;
-
-                    default:
-                        ShowUnknownPositionType();
-                        return;
-                }
-            }
-            else if (coordinateType == CoordinateType.Relative)
-            {
-                switch (positionType)
-                {
-                    case PositionType.Descartes:
-                        returnCode = HRobot.lin_rel_pos(Id, (int)smoothType, smoothValue, targetPosition);
-                        break;
-
-                    case PositionType.Joint:
-                        returnCode = HRobot.lin_rel_axis(Id, (int)smoothType, smoothValue, targetPosition);
-                        break;
-
-                    default:
-                        ShowUnknownPositionType();
-                        return;
-                }
-            }
-#else
-            if (coordinateType == CoordinateType.relative)
-            {
-                targetPosition = ConvertRelativeToAdsolute(targetPosition, positionType);
-            }
+            Func<int, int, double, double[], int> action;
 
             switch (positionType)
             {
-                case PositionType.descartes:
-                    retuenCode = HRobot.lin_pos(DeviceID, (int)smoothType, smoothValue, targetPosition);
+                case PositionType.Descartes when coordinateType == CoordinateType.Absolute:
+                    action = HRobot.lin_pos;
                     break;
 
-                case PositionType.joint:
-                    retuenCode = HRobot.lin_axis(DeviceID, (int)smoothType, smoothValue, targetPosition);
+                case PositionType.Descartes when coordinateType == CoordinateType.Relative:
+                    action = HRobot.lin_rel_pos;
                     break;
 
-                default:
+                case PositionType.Joint when coordinateType == CoordinateType.Absolute:
+                    action = HRobot.lin_axis;
+                    break;
+
+                case PositionType.Joint when coordinateType == CoordinateType.Relative:
+                    action = HRobot.lin_rel_axis;
+                    break;
+
+                case PositionType.Unknown:
                     ShowUnknownPositionType();
                     return;
-            }
-#endif
 
+                default:
+                    return;
+            }
+
+            var returnCode = action(Id, (int)smoothType, smoothValue, targetPosition);
             if (!IsErrorAndHandler(returnCode) && waitForMotion)
             {
                 WaitForMotionComplete(targetPosition, positionType);
@@ -465,104 +444,59 @@ namespace Features
                                      SmoothType smoothType = SmoothType.TwoLinesSpeedSmooth,
                                      bool waitForMotion = true)
         {
-            Message.Log($"Arm-PointToPoint: {GetTextPosition(targetPosition)}. {positionType}",
+            Message.Log($"Arm-PointToPoint." +
+                        $"Pos:{GetTextPosition(targetPosition)}," +
+                        $"Type:{positionType};{coordinateType}," +
+                        $"Smo:{smoothType}," +
+                        $"Wait:{waitForMotion}",
                         LoggingLevel.Trace);
-            int returnCode = 0;
-            int smoothTypeCode = (smoothType == SmoothType.TwoLinesSpeedSmooth) ? 1 : 0;
 
-#if (USE_SDK_RELATIVE)
-            if (coordinateType == CoordinateType.Absolute)
-            {
-                switch (positionType)
-                {
-                    case PositionType.Descartes:
-                        returnCode = HRobot.ptp_pos(Id, smoothTypeCode, targetPosition);
-                        break;
-
-                    case PositionType.Joint:
-                        returnCode = HRobot.ptp_axis(Id, smoothTypeCode, targetPosition);
-                        break;
-
-                    default:
-                        ShowUnknownPositionType();
-                        return;
-                }
-            }
-            else if (coordinateType == CoordinateType.Relative)
-            {
-                switch (positionType)
-                {
-                    case PositionType.Descartes:
-                        returnCode = HRobot.ptp_rel_pos(Id, smoothTypeCode, targetPosition);
-                        break;
-
-                    case PositionType.Joint:
-                        returnCode = HRobot.ptp_rel_axis(Id, smoothTypeCode, targetPosition);
-                        break;
-
-                    default:
-#if (!DISABLE_SHOW_MESSAGE)
-                        ShowUnknownPositionType();
-#endif
-                        return;
-                }
-            }
-#else
-            if (coordinateType == CoordinateType.relative)
-            {
-                targetPosition = ConvertRelativeToAdsolute(targetPosition, positionType);
-            }
+            var smoothTypeCode = (smoothType == SmoothType.TwoLinesSpeedSmooth) ? 1 : 0;
+            Func<int, int, double[], int> action;
 
             switch (positionType)
             {
-                case PositionType.descartes:
-                    retuenCode = HRobot.ptp_pos(DeviceID, smoothTypeCode, targetPosition);
+                case PositionType.Descartes when coordinateType == CoordinateType.Absolute:
+                    action = HRobot.ptp_pos;
                     break;
 
-                case PositionType.joint:
-                    retuenCode = HRobot.ptp_axis(DeviceID, smoothTypeCode, targetPosition);
+                case PositionType.Descartes when coordinateType == CoordinateType.Relative:
+                    action = HRobot.ptp_rel_pos;
                     break;
+
+                case PositionType.Joint when coordinateType == CoordinateType.Absolute:
+                    action = HRobot.ptp_axis;
+                    break;
+
+                case PositionType.Joint when coordinateType == CoordinateType.Relative:
+                    action = HRobot.ptp_rel_axis;
+                    break;
+
+                case PositionType.Unknown:
+                    ShowUnknownPositionType();
+                    return;
 
                 default:
-                    ShowUnknownPositionType();
-                    retuen;
+                    return;
             }
-#endif
 
+            var returnCode = action(Id, smoothTypeCode, targetPosition);
             if (!IsErrorAndHandler(returnCode) && waitForMotion)
             {
                 WaitForMotionComplete(targetPosition, positionType);
             }
         }
 
-        /// <summary>
-        /// 將相對坐標以目前位置轉為絕對坐標。
-        /// </summary>
-        /// <param name="relativePosition"></param>
-        /// <param name="positionType"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private double[] ConvertRelativeToAbsolute(double[] relativePosition,
-                                                   PositionType positionType)
-        {
-            double[] position = GetPosition(positionType);
-            for (int i = 0; i < 6; i++)
-            {
-                position[i] += relativePosition[i];
-            }
-            return position;
-        }
-
         private string GetTextPosition(double[] position)
         {
-            string stringPos = "\"";
-            foreach (double val in position)
-            {
-                stringPos += val.ToString() + ",";
-            }
-            stringPos = stringPos.TrimEnd(' ', ',');
-            stringPos += "\"";
-            return stringPos;
+            return "\"" +
+                   $"{position[0]}," +
+                   $"{position[1]}," +
+                   $"{position[2]}," +
+                   $"{position[3]}," +
+                   $"{position[4]}," +
+                   $"{position[5]}" +
+                   "\"";
         }
 
         /// <summary>
@@ -653,50 +587,43 @@ namespace Features
         /// <summary>
         /// 此 delegate 必須要是 static，否則手臂動作有可能會出現問題。
         /// </summary>
-        private static HRobot.CallBackFun CallBackFun;
+        private static readonly HRobot.CallBackFun CallBackFun = EventFun;
 
         public bool Connected { get; private set; } = false;
 
         public bool Connect()
         {
-            //接收控制器回傳訊息
-            CallBackFun = new HRobot.CallBackFun(EventFun);
-
-            //連線設定。測試連線設定:("127.0.0.1", 1, CallBackFun);
+            // 連線。測試連線設定:("127.0.0.1", 1, CallBackFun);
             Id = HRobot.open_connection(Ip, 1, CallBackFun);
-            Thread.Sleep(500);
 
-            //0 ~ 65535為有效裝置ID
+            // 0 ~ 65535為有效裝置ID。
             if (Id >= 0 && Id <= 65535)
             {
                 int alarmState;
                 int motorState;
                 int connectionLevel;
 
-                //清除錯誤
+                // 將所有錯誤代碼清除。
                 alarmState = HRobot.clear_alarm(Id);
 
-                //錯誤代碼300代表沒有警報，無法清除警報
-                if (alarmState == 300)
-                {
-                    alarmState = 0;
-                }
+                // 錯誤代碼300代表沒有警報，無法清除警報。
+                alarmState = alarmState == 300 ? 0 : alarmState;
 
-                //設定控制器: 1為啟動,0為關閉
+                // 設定控制器: 1為啟動,0為關閉。
                 HRobot.set_motor_state(Id, 1);
                 Thread.Sleep(500);
 
-                //回傳控制器狀態
+                // 取得控制器狀態。
                 motorState = HRobot.get_motor_state(Id);
 
+                // 取得連線等級。
                 connectionLevel = HRobot.get_connection_level(Id);
 
-                string text = "連線成功!\r\n" +
-                              $"手臂ID: {Id}\r\n" +
-                              $"連線等級: {(connectionLevel == 0 ? "觀測者" : "操作者")}\r\n" +
-                              $"控制器狀態: {(motorState == 0 ? "關閉" : "開啟")}\r\n" +
-                              $"錯誤代碼: {alarmState}\r\n";
-
+                var text = "連線成功!\r\n" +
+                           $"手臂ID: {Id}\r\n" +
+                           $"連線等級: {(connectionLevel == 0 ? "觀測者" : "操作者")}\r\n" +
+                           $"控制器狀態: {(motorState == 0 ? "關閉" : "開啟")}\r\n" +
+                           $"錯誤代碼: {alarmState}";
                 Message.Show(text, "連線", MessageBoxButtons.OK, MessageBoxIcon.None);
 
                 Connected = true;
@@ -705,7 +632,6 @@ namespace Features
             else
             {
                 string message;
-
                 switch (Id)
                 {
                     case -1:
@@ -728,7 +654,6 @@ namespace Features
                         message = $"未知的錯誤代碼： {Id}";
                         break;
                 }
-
                 Message.Show($"無法連線!\r\n{message}", LoggingLevel.Error);
 
                 Connected = false;
@@ -741,29 +666,25 @@ namespace Features
             int alarmState;
             int motorState;
 
-            //設定控制器: 1為啟動,0為關閉
+            // 將所有錯誤代碼清除。
+            alarmState = HRobot.clear_alarm(Id);
+
+            // 錯誤代碼300代表沒有警報，無法清除警報。
+            alarmState = alarmState == 300 ? 0 : alarmState;
+
+            // 設定控制器: 1為啟動,0為關閉。
             HRobot.set_motor_state(Id, 0);
             Thread.Sleep(500);
 
-            //將所有錯誤代碼清除
-            alarmState = HRobot.clear_alarm(Id);
-
-            //錯誤代碼300代表沒有警報，無法清除警報
-            if (alarmState == 300)
-            {
-                alarmState = 0;
-            }
-
-            //回傳控制器狀態
+            // 取得控制器狀態。
             motorState = HRobot.get_motor_state(Id);
 
-            //關閉手臂連線
+            // 關閉手臂連線。
             HRobot.disconnect(Id);
 
-            string text = "斷線成功!\r\n" +
-                          $"控制器狀態: {(motorState == 0 ? "關閉" : "開啟")}\r\n" +
-                          $"錯誤代碼: {alarmState}\r\n";
-
+            var text = "斷線成功!\r\n" +
+                       $"控制器狀態: {(motorState == 0 ? "關閉" : "開啟")}\r\n" +
+                       $"錯誤代碼: {alarmState}";
             Message.Show(text, "斷線", MessageBoxButtons.OK, MessageBoxIcon.None);
 
             Connected = false;
@@ -818,7 +739,7 @@ namespace Features
 
 #if (USE_CALLBACK_MOTION_STATE_WAIT)
                     // Motion state=1: Idle.
-                    Waiting = infos[8] == "1" ? false : true;
+                    Waiting = infos[8] != "1";
 #endif
                     break;
 
@@ -852,7 +773,7 @@ namespace Features
                 Interval = 50,
                 Enabled = false
             };
-            ActionTimer.Tick += (s, e) => { ++TimeCheck; };
+            ActionTimer.Tick += (s, e) => ++TimeCheck;
         }
 
         #endregion - Timer -
@@ -902,7 +823,7 @@ namespace Features
 
         public void ClearAlarm()
         {
-            int returnCode = HRobot.clear_alarm(Id);
+            var returnCode = HRobot.clear_alarm(Id);
 
             // 錯誤代碼300代表沒有警報，無法清除警報
             IsErrorAndHandler(returnCode, 300);
@@ -910,25 +831,25 @@ namespace Features
 
         public double[] GetPosition(PositionType type = PositionType.Descartes)
         {
-            double[] position = new double[6];
-            int returnCode = -1;
+            var position = new double[6];
+            Func<int, double[], int> action;
 
-            foreach (var k in position)
+            switch (type)
             {
-                if (type == PositionType.Descartes)
-                {
-                    returnCode = HRobot.get_current_position(Id, position);
-                }
-                else if (type == PositionType.Joint)
-                {
-                    returnCode = HRobot.get_current_joint(Id, position);
-                }
-                else
-                {
+                case PositionType.Descartes:
+                    action = HRobot.get_current_position;
+                    break;
+
+                case PositionType.Joint:
+                    action = HRobot.get_current_joint;
+                    break;
+
+                default:
                     ShowUnknownPositionType();
                     return position;
-                }
             }
+
+            var returnCode = action(Id, position);
             IsErrorAndHandler(returnCode);
             return position;
         }
