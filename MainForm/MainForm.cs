@@ -47,11 +47,11 @@ namespace MainForm
             var type = GetCoordinateType();
             switch (type)
             {
-                case CoordinateType.Absolute:
+                case PositionType.Absolute:
                     SetTargetPosition(GetNowUiPosition());
                     break;
 
-                case CoordinateType.Relative:
+                case PositionType.Relative:
                     SetTargetPosition(new double[] { 0, 0, 0, 0, 0, 0 });
                     break;
             }
@@ -86,11 +86,11 @@ namespace MainForm
                 var type = GetPositionType();
                 switch (type)
                 {
-                    case PositionType.Descartes:
+                    case CoordinateType.Descartes:
                         position = Arm.DescartesHomePosition;
                         break;
 
-                    case PositionType.Joint:
+                    case CoordinateType.Joint:
                         position = Arm.JointHomePosition;
                         break;
                 }
@@ -247,20 +247,20 @@ namespace MainForm
         /// 取得目前所選的坐標類型。
         /// </summary>
         /// <returns>目前所選的坐標類型。</returns>
-        private CoordinateType GetCoordinateType()
+        private PositionType GetCoordinateType()
         {
-            CoordinateType type;
+            PositionType type;
             if (radioButton_coordinate_type_absolute.Checked)
             {
-                type = CoordinateType.Absolute;
+                type = PositionType.Absolute;
             }
             else if (radioButton_coordinate_type_relative.Checked)
             {
-                type = CoordinateType.Relative;
+                type = PositionType.Relative;
             }
             else
             {
-                type = CoordinateType.Unknown;
+                type = PositionType.Unknown;
             }
             return type;
         }
@@ -291,20 +291,20 @@ namespace MainForm
         /// 取得目前所選的位置類型。
         /// </summary>
         /// <returns>目前所選的位置類型。</returns>
-        private PositionType GetPositionType()
+        private CoordinateType GetPositionType()
         {
-            PositionType type;
+            CoordinateType type;
             if (radioButton_position_type_descartes.Checked)
             {
-                type = PositionType.Descartes;
+                type = CoordinateType.Descartes;
             }
             else if (radioButton_position_type_joint.Checked)
             {
-                type = PositionType.Joint;
+                type = CoordinateType.Joint;
             }
             else
             {
-                type = PositionType.Unknown;
+                type = CoordinateType.Unknown;
             }
             return type;
         }
@@ -536,11 +536,11 @@ namespace MainForm
             var type = PositionHandler.GetPositionType();
             switch (type)
             {
-                case PositionType.Descartes:
+                case CoordinateType.Descartes:
                     radioButton_position_type_descartes.Checked = true;
                     break;
 
-                case PositionType.Joint:
+                case CoordinateType.Joint:
                     radioButton_position_type_joint.Checked = true;
                     break;
 
