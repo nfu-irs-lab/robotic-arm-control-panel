@@ -633,7 +633,7 @@ namespace Features
                            $"手臂ID: {Id}\r\n" +
                            $"連線等級: {(connectionLevel == 0 ? "觀測者" : "操作者")}\r\n" +
                            $"控制器狀態: {(motorState == 0 ? "關閉" : "開啟")}\r\n" +
-                           $"錯誤代碼: {alarmState}\r\n";
+                           $"錯誤代碼: {alarmState}";
 
                 Message.Show(text, "連線", MessageBoxButtons.OK, MessageBoxIcon.None);
 
@@ -700,7 +700,7 @@ namespace Features
 
             var text = "斷線成功!\r\n" +
                        $"控制器狀態: {(motorState == 0 ? "關閉" : "開啟")}\r\n" +
-                       $"錯誤代碼: {alarmState}\r\n";
+                       $"錯誤代碼: {alarmState}";
 
             Message.Show(text, "斷線", MessageBoxButtons.OK, MessageBoxIcon.None);
 
