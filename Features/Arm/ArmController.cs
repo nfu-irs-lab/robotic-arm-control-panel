@@ -362,32 +362,30 @@ namespace Features
             Message.Log($"Arm-Homing.Type:{positionType}, Wait:{waitForMotion}",
                         LoggingLevel.Trace);
 
-            int returnCode;
+            double[] pos;
+            Func<int, int, double[], int> action;
+
             switch (positionType)
             {
                 case PositionType.Descartes:
-                    returnCode = HRobot.ptp_pos(Id,
-                                                (int)SmoothType.Disable,
-                                                DescartesHomePosition);
-                    if ((returnCode >= 0) && waitForMotion)
-                    {
-                        WaitForMotionComplete(DescartesHomePosition, positionType);
-                    }
+                    pos = DescartesHomePosition;
+                    action = HRobot.ptp_pos;
                     break;
 
                 case PositionType.Joint:
-                    returnCode = HRobot.ptp_axis(Id,
-                                                 (int)SmoothType.Disable,
-                                                 JointHomePosition);
-                    if ((returnCode >= 0) && waitForMotion)
-                    {
-                        WaitForMotionComplete(JointHomePosition, positionType);
-                    }
+                    pos = JointHomePosition;
+                    action = HRobot.ptp_axis;
                     break;
 
                 default:
                     ShowUnknownPositionType();
                     return;
+            }
+
+            var returnCode = action(Id, (int)SmoothType.Disable, pos);
+            if ((returnCode >= 0) && waitForMotion)
+            {
+                WaitForMotionComplete(pos, positionType);
             }
         }
 
