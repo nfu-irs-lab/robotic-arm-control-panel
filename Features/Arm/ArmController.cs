@@ -297,7 +297,7 @@ namespace Features
                 {
                     if (Connected)
                     {
-                        int returnCode = HRobot.set_acc_dec_ratio(Id, value);
+                        var returnCode = HRobot.set_acc_dec_ratio(Id, value);
 
                         // 執行HRobot.set_acc_dec_ratio時會固定回傳錯誤代碼4000。
                         IsErrorAndHandler(returnCode, 4000);
@@ -342,7 +342,7 @@ namespace Features
                 {
                     if (Connected)
                     {
-                        int returnCode = HRobot.set_override_ratio(Id, value);
+                        var returnCode = HRobot.set_override_ratio(Id, value);
                         IsErrorAndHandler(returnCode);
                     }
                     else
@@ -702,11 +702,11 @@ namespace Features
 
                 connectionLevel = HRobot.get_connection_level(Id);
 
-                string text = "連線成功!\r\n" +
-                              $"手臂ID: {Id}\r\n" +
-                              $"連線等級: {(connectionLevel == 0 ? "觀測者" : "操作者")}\r\n" +
-                              $"控制器狀態: {(motorState == 0 ? "關閉" : "開啟")}\r\n" +
-                              $"錯誤代碼: {alarmState}\r\n";
+                var text = "連線成功!\r\n" +
+                           $"手臂ID: {Id}\r\n" +
+                           $"連線等級: {(connectionLevel == 0 ? "觀測者" : "操作者")}\r\n" +
+                           $"控制器狀態: {(motorState == 0 ? "關閉" : "開啟")}\r\n" +
+                           $"錯誤代碼: {alarmState}\r\n";
 
                 Message.Show(text, "連線", MessageBoxButtons.OK, MessageBoxIcon.None);
 
@@ -771,9 +771,9 @@ namespace Features
             //關閉手臂連線
             HRobot.disconnect(Id);
 
-            string text = "斷線成功!\r\n" +
-                          $"控制器狀態: {(motorState == 0 ? "關閉" : "開啟")}\r\n" +
-                          $"錯誤代碼: {alarmState}\r\n";
+            var text = "斷線成功!\r\n" +
+                       $"控制器狀態: {(motorState == 0 ? "關閉" : "開啟")}\r\n" +
+                       $"錯誤代碼: {alarmState}\r\n";
 
             Message.Show(text, "斷線", MessageBoxButtons.OK, MessageBoxIcon.None);
 
@@ -913,7 +913,7 @@ namespace Features
 
         public void ClearAlarm()
         {
-            int returnCode = HRobot.clear_alarm(Id);
+            var returnCode = HRobot.clear_alarm(Id);
 
             // 錯誤代碼300代表沒有警報，無法清除警報
             IsErrorAndHandler(returnCode, 300);
