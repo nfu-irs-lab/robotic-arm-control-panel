@@ -383,7 +383,7 @@ namespace Features
             }
 
             var returnCode = action(Id, (int)SmoothType.Disable, pos);
-            if ((returnCode >= 0) && waitForMotion)
+            if (!IsErrorAndHandler(returnCode) && waitForMotion)
             {
                 WaitForMotionComplete(pos, positionType);
             }
