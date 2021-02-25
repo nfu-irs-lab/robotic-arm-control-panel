@@ -290,7 +290,8 @@ namespace Features
             {
                 if (value > 100 || value < 1)
                 {
-                    Message.Show("手臂加速度應為1% ~ 100%之間。", LoggingLevel.Info);
+                    Message.Show($"手臂加速度應為1% ~ 100%之間。輸入值為： {value}",
+                                 LoggingLevel.Warn);
                 }
                 else
                 {
@@ -334,7 +335,8 @@ namespace Features
             {
                 if (value > 100 || value < 1)
                 {
-                    Message.Show("手臂速度應為1% ~ 100%之間。", LoggingLevel.Info);
+                    Message.Show($"手臂速度應為1% ~ 100%之間。輸入值為： {value}",
+                                 LoggingLevel.Warn);
                 }
                 else
                 {
@@ -358,7 +360,9 @@ namespace Features
         public void Homing(PositionType positionType = PositionType.Descartes,
                            bool waitForMotion = true)
         {
-            Message.Log($"Arm-Homing. {positionType}", LoggingLevel.Trace);
+            Message.Log($"Arm-Homing.Type:{positionType}, Wait:{waitForMotion}",
+                        LoggingLevel.Trace);
+
             int returnCode;
             switch (positionType)
             {
@@ -391,7 +395,11 @@ namespace Features
                                double smoothValue = 50,
                                bool waitForMotion = true)
         {
-            Message.Log($"Arm-Linear: {GetTextPosition(targetPosition)}. {positionType}",
+            Message.Log($"Arm-Linear." +
+                        $"Pos:{GetTextPosition(targetPosition)}," +
+                        $"Type:{positionType};{coordinateType}," +
+                        $"Smo:{smoothType};{smoothValue}," +
+                        $"Wait:{waitForMotion}",
                         LoggingLevel.Trace);
             int returnCode = 0;
 
@@ -464,7 +472,11 @@ namespace Features
                                      SmoothType smoothType = SmoothType.TwoLinesSpeedSmooth,
                                      bool waitForMotion = true)
         {
-            Message.Log($"Arm-PointToPoint: {GetTextPosition(targetPosition)}. {positionType}",
+            Message.Log($"Arm-PointToPoint." +
+                        $"Pos:{GetTextPosition(targetPosition)}," +
+                        $"Type:{positionType};{coordinateType}," +
+                        $"Smo:{smoothType}," +
+                        $"Wait:{waitForMotion}",
                         LoggingLevel.Trace);
             int returnCode = 0;
             int smoothTypeCode = (smoothType == SmoothType.TwoLinesSpeedSmooth) ? 1 : 0;
