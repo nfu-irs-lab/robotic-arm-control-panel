@@ -1,5 +1,4 @@
 ﻿//#define DISABLE_SHOW_MESSAGE
-#define USE_SDK_RELATIVE
 
 // 選擇一種等待手臂動作完成的做法，都不選就是使用預設方法。
 #define USE_CALLBACK_MOTION_STATE_WAIT
@@ -409,7 +408,6 @@ namespace Features
             int returnCode;
             Func<int, int, double, double[], int> action;
 
-#if (USE_SDK_RELATIVE)
             switch (positionType)
             {
                 case PositionType.Descartes when coordinateType == CoordinateType.Absolute:
@@ -437,28 +435,6 @@ namespace Features
             }
             returnCode = action(Id, (int)smoothType, smoothValue, targetPosition);
 
-#else
-            if (coordinateType == CoordinateType.relative)
-            {
-                targetPosition = ConvertRelativeToAdsolute(targetPosition, positionType);
-            }
-
-            switch (positionType)
-            {
-                case PositionType.descartes:
-                    retuenCode = HRobot.lin_pos(DeviceID, (int)smoothType, smoothValue, targetPosition);
-                    break;
-
-                case PositionType.joint:
-                    retuenCode = HRobot.lin_axis(DeviceID, (int)smoothType, smoothValue, targetPosition);
-                    break;
-
-                default:
-                    ShowUnknownPositionType();
-                    return;
-            }
-#endif
-
             if (!IsErrorAndHandler(returnCode) && waitForMotion)
             {
                 WaitForMotionComplete(targetPosition, positionType);
@@ -480,7 +456,6 @@ namespace Features
 
             int returnCode;
             int smoothTypeCode = (smoothType == SmoothType.TwoLinesSpeedSmooth) ? 1 : 0;
-#if (USE_SDK_RELATIVE)
             Func<int, int, double[], int> action;
 
             switch (positionType)
@@ -510,50 +485,10 @@ namespace Features
             }
             returnCode = action(Id, smoothTypeCode, targetPosition);
 
-#else
-            if (coordinateType == CoordinateType.relative)
-            {
-                targetPosition = ConvertRelativeToAdsolute(targetPosition, positionType);
-            }
-
-            switch (positionType)
-            {
-                case PositionType.descartes:
-                    retuenCode = HRobot.ptp_pos(DeviceID, smoothTypeCode, targetPosition);
-                    break;
-
-                case PositionType.joint:
-                    retuenCode = HRobot.ptp_axis(DeviceID, smoothTypeCode, targetPosition);
-                    break;
-
-                default:
-                    ShowUnknownPositionType();
-                    retuen;
-            }
-#endif
-
             if (!IsErrorAndHandler(returnCode) && waitForMotion)
             {
                 WaitForMotionComplete(targetPosition, positionType);
             }
-        }
-
-        /// <summary>
-        /// 將相對坐標以目前位置轉為絕對坐標。
-        /// </summary>
-        /// <param name="relativePosition"></param>
-        /// <param name="positionType"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private double[] ConvertRelativeToAbsolute(double[] relativePosition,
-                                                   PositionType positionType)
-        {
-            double[] position = GetPosition(positionType);
-            for (int i = 0; i < 6; i++)
-            {
-                position[i] += relativePosition[i];
-            }
-            return position;
         }
 
         private string GetTextPosition(double[] position)
