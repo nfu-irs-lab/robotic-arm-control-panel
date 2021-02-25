@@ -405,43 +405,38 @@ namespace Features
                         $"Smo:{smoothType};{smoothValue}," +
                         $"Wait:{waitForMotion}",
                         LoggingLevel.Trace);
-            int returnCode = 0;
+
+            int returnCode;
+            Func<int, int, double, double[], int> action;
 
 #if (USE_SDK_RELATIVE)
-            if (coordinateType == CoordinateType.Absolute)
+            switch (positionType)
             {
-                switch (positionType)
-                {
-                    case PositionType.Descartes:
-                        returnCode = HRobot.lin_pos(Id, (int)smoothType, smoothValue, targetPosition);
-                        break;
+                case PositionType.Descartes when coordinateType == CoordinateType.Absolute:
+                    action = HRobot.lin_pos;
+                    break;
 
-                    case PositionType.Joint:
-                        returnCode = HRobot.lin_axis(Id, (int)smoothType, smoothValue, targetPosition);
-                        break;
+                case PositionType.Descartes when coordinateType == CoordinateType.Relative:
+                    action = HRobot.lin_rel_pos;
+                    break;
 
-                    default:
-                        ShowUnknownPositionType();
-                        return;
-                }
+                case PositionType.Joint when coordinateType == CoordinateType.Absolute:
+                    action = HRobot.lin_axis;
+                    break;
+
+                case PositionType.Joint when coordinateType == CoordinateType.Relative:
+                    action = HRobot.lin_rel_axis;
+                    break;
+
+                case PositionType.Unknown:
+                    ShowUnknownPositionType();
+                    return;
+
+                default:
+                    return;
             }
-            else if (coordinateType == CoordinateType.Relative)
-            {
-                switch (positionType)
-                {
-                    case PositionType.Descartes:
-                        returnCode = HRobot.lin_rel_pos(Id, (int)smoothType, smoothValue, targetPosition);
-                        break;
+            returnCode = action(Id, (int)smoothType, smoothValue, targetPosition);
 
-                    case PositionType.Joint:
-                        returnCode = HRobot.lin_rel_axis(Id, (int)smoothType, smoothValue, targetPosition);
-                        break;
-
-                    default:
-                        ShowUnknownPositionType();
-                        return;
-                }
-            }
 #else
             if (coordinateType == CoordinateType.relative)
             {
@@ -482,46 +477,39 @@ namespace Features
                         $"Smo:{smoothType}," +
                         $"Wait:{waitForMotion}",
                         LoggingLevel.Trace);
-            int returnCode = 0;
+
+            int returnCode;
             int smoothTypeCode = (smoothType == SmoothType.TwoLinesSpeedSmooth) ? 1 : 0;
-
 #if (USE_SDK_RELATIVE)
-            if (coordinateType == CoordinateType.Absolute)
+            Func<int, int, double[], int> action;
+
+            switch (positionType)
             {
-                switch (positionType)
-                {
-                    case PositionType.Descartes:
-                        returnCode = HRobot.ptp_pos(Id, smoothTypeCode, targetPosition);
-                        break;
+                case PositionType.Descartes when coordinateType == CoordinateType.Absolute:
+                    action = HRobot.ptp_pos;
+                    break;
 
-                    case PositionType.Joint:
-                        returnCode = HRobot.ptp_axis(Id, smoothTypeCode, targetPosition);
-                        break;
+                case PositionType.Descartes when coordinateType == CoordinateType.Relative:
+                    action = HRobot.ptp_rel_pos;
+                    break;
 
-                    default:
-                        ShowUnknownPositionType();
-                        return;
-                }
+                case PositionType.Joint when coordinateType == CoordinateType.Absolute:
+                    action = HRobot.ptp_axis;
+                    break;
+
+                case PositionType.Joint when coordinateType == CoordinateType.Relative:
+                    action = HRobot.ptp_rel_axis;
+                    break;
+
+                case PositionType.Unknown:
+                    ShowUnknownPositionType();
+                    return;
+
+                default:
+                    return;
             }
-            else if (coordinateType == CoordinateType.Relative)
-            {
-                switch (positionType)
-                {
-                    case PositionType.Descartes:
-                        returnCode = HRobot.ptp_rel_pos(Id, smoothTypeCode, targetPosition);
-                        break;
+            returnCode = action(Id, smoothTypeCode, targetPosition);
 
-                    case PositionType.Joint:
-                        returnCode = HRobot.ptp_rel_axis(Id, smoothTypeCode, targetPosition);
-                        break;
-
-                    default:
-#if (!DISABLE_SHOW_MESSAGE)
-                        ShowUnknownPositionType();
-#endif
-                        return;
-                }
-            }
 #else
             if (coordinateType == CoordinateType.relative)
             {
@@ -925,25 +913,26 @@ namespace Features
 
         public double[] GetPosition(PositionType type = PositionType.Descartes)
         {
-            double[] position = new double[6];
-            int returnCode = -1;
+            var position = new double[6];
+            int returnCode;
+            Func<int, double[], int> action;
 
-            foreach (var k in position)
+            switch (type)
             {
-                if (type == PositionType.Descartes)
-                {
-                    returnCode = HRobot.get_current_position(Id, position);
-                }
-                else if (type == PositionType.Joint)
-                {
-                    returnCode = HRobot.get_current_joint(Id, position);
-                }
-                else
-                {
+                case PositionType.Descartes:
+                    action = HRobot.get_current_position;
+                    break;
+
+                case PositionType.Joint:
+                    action = HRobot.get_current_joint;
+                    break;
+
+                default:
                     ShowUnknownPositionType();
                     return position;
-                }
             }
+
+            returnCode = action(Id, position);
             IsErrorAndHandler(returnCode);
             return position;
         }
