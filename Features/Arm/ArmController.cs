@@ -403,7 +403,6 @@ namespace Features
                         $"Wait:{waitForMotion}",
                         LoggingLevel.Trace);
 
-            int returnCode;
             Func<int, int, double, double[], int> action;
 
             switch (positionType)
@@ -431,8 +430,8 @@ namespace Features
                 default:
                     return;
             }
-            returnCode = action(Id, (int)smoothType, smoothValue, targetPosition);
 
+            var returnCode = action(Id, (int)smoothType, smoothValue, targetPosition);
             if (!IsErrorAndHandler(returnCode) && waitForMotion)
             {
                 WaitForMotionComplete(targetPosition, positionType);
@@ -452,8 +451,7 @@ namespace Features
                         $"Wait:{waitForMotion}",
                         LoggingLevel.Trace);
 
-            int returnCode;
-            int smoothTypeCode = (smoothType == SmoothType.TwoLinesSpeedSmooth) ? 1 : 0;
+            var smoothTypeCode = (smoothType == SmoothType.TwoLinesSpeedSmooth) ? 1 : 0;
             Func<int, int, double[], int> action;
 
             switch (positionType)
@@ -481,8 +479,8 @@ namespace Features
                 default:
                     return;
             }
-            returnCode = action(Id, smoothTypeCode, targetPosition);
 
+            var returnCode = action(Id, smoothTypeCode, targetPosition);
             if (!IsErrorAndHandler(returnCode) && waitForMotion)
             {
                 WaitForMotionComplete(targetPosition, positionType);
