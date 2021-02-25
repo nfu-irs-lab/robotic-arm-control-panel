@@ -69,7 +69,7 @@ namespace Features
             if (Connected && Arm.Connected)
             {
                 Send(BluetoothSendDataType.DescartesPosition,
-                     Arm.GetPosition(PositionType.Descartes));
+                     Arm.GetPosition(CoordinateType.Descartes));
             }
 #endif
             return state;
@@ -216,8 +216,8 @@ namespace Features
                                    {
                                        value, 0, 0, 0, 0, 0
                                    },
-                                   CoordinateType.Relative,
-                                   PositionType.Descartes);
+                                   PositionType.Relative,
+                                   CoordinateType.Descartes);
                     break;
 
                 case "yr":
@@ -226,8 +226,8 @@ namespace Features
                                    {
                                        0, value, 0, 0, 0, 0
                                    },
-                                   CoordinateType.Relative,
-                                   PositionType.Descartes);
+                                   PositionType.Relative,
+                                   CoordinateType.Descartes);
                     break;
 
                 case "zr":
@@ -236,8 +236,8 @@ namespace Features
                                    {
                                        0, 0, value, 0, 0, 0
                                    },
-                                   CoordinateType.Relative,
-                                   PositionType.Descartes);
+                                   PositionType.Relative,
+                                   CoordinateType.Descartes);
                     break;
 
                 case "ud":
@@ -248,7 +248,7 @@ namespace Features
                     break;
             }
             Send(BluetoothSendDataType.DescartesPosition,
-                 Arm.GetPosition(PositionType.Descartes));
+                 Arm.GetPosition(CoordinateType.Descartes));
         }
     }
 }
