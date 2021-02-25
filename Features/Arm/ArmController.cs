@@ -21,22 +21,22 @@ namespace Features
     #region - 列舉 enum -
 
     /// <summary>
-    /// 坐標類型。
+    /// 位置類型。
     /// </summary>
     public enum PositionType
     {
         /// <summary>
-        /// 絕對坐標。
+        /// 絕對位置。
         /// </summary>
         Absolute,
 
         /// <summary>
-        /// 相對坐標。
+        /// 相對位置。
         /// </summary>
         Relative,
 
         /// <summary>
-        /// 未知的類型。
+        /// 未知的位置類型。
         /// </summary>
         Unknown
     }
@@ -68,22 +68,22 @@ namespace Features
     }
 
     /// <summary>
-    /// 位置類型。
+    /// 座標類型。
     /// </summary>
     public enum CoordinateType
     {
         /// <summary>
-        /// 笛卡爾。
+        /// 笛卡爾座標。
         /// </summary>
         Descartes,
 
         /// <summary>
-        /// 關節。
+        /// 關節座標。
         /// </summary>
         Joint,
 
         /// <summary>
-        /// 未知的類型。
+        /// 未知的座標類型。
         /// </summary>
         Unknown
     }
@@ -134,12 +134,12 @@ namespace Features
         #region - Default Position -
 
         /// <summary>
-        /// 笛卡爾原點絕對坐標。
+        /// 笛卡爾座標之原點絕對位置。
         /// </summary>
         double[] DescartesHomePosition { get; }
 
         /// <summary>
-        /// 關節原點絕對坐標。
+        /// 關節座標之原點絕對位置。
         /// </summary>
         double[] JointHomePosition { get; }
 
@@ -164,7 +164,7 @@ namespace Features
         #region - Motion -
 
         /// <summary>
-        /// 回到指定座標系的原點。預設爲笛卡爾。
+        /// 回到指定座標系的原點。預設爲笛卡爾座標。
         /// </summary>
         /// <param name="coordinateType"></param>
         /// <param name="waitForMotion"></param>
@@ -174,8 +174,8 @@ namespace Features
         /// <summary>
         /// 進行直線運動。<br/>
         /// ● targetPosition：目標位置。<br/>
-        /// ● positionType：位置類型，笛卡爾或關節。預設爲笛卡爾。<br/>
-        /// ● coordinateType：坐標類型，絕對坐標或相對坐標。預設為絕對坐標。<br/>
+        /// ● positionType：位置類型，絕對或相對位置。預設為絕對位置。<br/>
+        /// ● coordinateType：座標類型，笛卡爾或關節座標。預設為笛卡爾座標。<br/>
         /// ● smoothType：平滑模式類型。預設為依兩線段速度平滑。<br/>
         /// ● smoothValue：平滑值。預設為50。<br/>
         /// ● waitForMotion：是否等待動作完成。預設為true。
@@ -196,8 +196,8 @@ namespace Features
         /// <summary>
         /// 進行點對點運動。<br/>
         /// ● targetPosition：目標位置。<br/>
-        /// ● positionType：位置類型，笛卡爾或關節。預設爲笛卡爾。<br/>
-        /// ● coordinateType：坐標類型，絕對坐標或相對坐標。預設為絕對坐標。<br/>
+        /// ● positionType：位置類型，絕對或相對位置。預設為絕對位置。<br/>
+        /// ● coordinateType：座標類型，笛卡爾或關節座標。預設為笛卡爾座標。<br/>
         /// ● smoothType：平滑模式類型。預設為依兩線段速度平滑。<br/>
         /// ● waitForMotion：是否等待動作完成。預設為true。
         /// </summary>
@@ -223,7 +223,7 @@ namespace Features
 
         /// <summary>
         /// 取得手臂目前的位置座標數值。<br/>
-        /// 須在引數選擇位置類型是笛卡爾還是關節。預設爲笛卡爾。
+        /// 須選擇是笛卡爾還是關節座標。預設爲笛卡爾座標。
         /// </summary>
         /// <param name="coordinateType"></param>
         /// <returns>目前的手臂位置座標數值。</returns>
@@ -378,7 +378,7 @@ namespace Features
                     break;
 
                 default:
-                    ShowUnknownPositionType();
+                    ShowUnknownCoordinateType();
                     return;
             }
 
@@ -424,7 +424,7 @@ namespace Features
                     break;
 
                 case CoordinateType.Unknown:
-                    ShowUnknownPositionType();
+                    ShowUnknownCoordinateType();
                     return;
 
                 default:
@@ -473,7 +473,7 @@ namespace Features
                     break;
 
                 case CoordinateType.Unknown:
-                    ShowUnknownPositionType();
+                    ShowUnknownCoordinateType();
                     return;
 
                 default:
@@ -539,7 +539,7 @@ namespace Features
                 {
                     foreach (int k in nowPosition)
                     {
-                        // 取得目前的笛卡爾坐標。
+                        // 取得目前的笛卡爾座標。
                         HRobot.get_current_position(Id, nowPosition);
                     }
 
@@ -558,7 +558,7 @@ namespace Features
                 {
                     foreach (int k in nowPosition)
                     {
-                        // 取得目前的關節坐標。
+                        // 取得目前的關節座標。
                         HRobot.get_current_joint(Id, nowPosition);
                     }
 
@@ -810,10 +810,10 @@ namespace Features
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void ShowUnknownPositionType()
+        private void ShowUnknownCoordinateType()
         {
-            Message.Show($"錯誤的位置類型。\r\n" +
-                         $"位置類型應為：{CoordinateType.Descartes} 或是 {CoordinateType.Joint}",
+            Message.Show($"錯誤的座標類型。\r\n" +
+                         $"座標類型應為：{CoordinateType.Descartes} 或是 {CoordinateType.Joint}",
                          LoggingLevel.Warn);
         }
 
@@ -845,7 +845,7 @@ namespace Features
                     break;
 
                 default:
-                    ShowUnknownPositionType();
+                    ShowUnknownCoordinateType();
                     return position;
             }
 
