@@ -743,7 +743,7 @@ namespace Features
 
 #if (USE_CALLBACK_MOTION_STATE_WAIT)
                     // Motion state=1: Idle.
-                    Waiting = infos[8] == "1" ? false : true;
+                    Waiting = infos[8] != "1";
 #endif
                     break;
 
