@@ -44,14 +44,14 @@ namespace MainForm
         /// <param name="e"></param>
         private void button_arm_copy_position_from_now_to_target_Click(object sender, EventArgs e)
         {
-            var type = GetCoordinateType();
+            var type = GetPositionType();
             switch (type)
             {
-                case CoordinateType.Absolute:
+                case PositionType.Absolute:
                     SetTargetPosition(GetNowUiPosition());
                     break;
 
-                case CoordinateType.Relative:
+                case PositionType.Relative:
                     SetTargetPosition(new double[] { 0, 0, 0, 0, 0, 0 });
                     break;
             }
@@ -83,14 +83,14 @@ namespace MainForm
             }
             catch (FormatException)
             {
-                var type = GetPositionType();
+                var type = GetCoordinateType();
                 switch (type)
                 {
-                    case PositionType.Descartes:
+                    case CoordinateType.Descartes:
                         position = Arm.DescartesHomePosition;
                         break;
 
-                    case PositionType.Joint:
+                    case CoordinateType.Joint:
                         position = Arm.JointHomePosition;
                         break;
                 }
@@ -159,7 +159,7 @@ namespace MainForm
         /// </summary>
         private void UpdateNowPosition()
         {
-            SetNowPosition(Arm.GetPosition(GetPositionType()));
+            SetNowPosition(Arm.GetPosition(GetCoordinateType()));
         }
 
         #endregion 位置
@@ -180,7 +180,7 @@ namespace MainForm
 
                 Thread.Sleep(300);
 
-                Arm.Homing(GetPositionType(), true);
+                Arm.Homing(GetCoordinateType(), true);
                 UpdateNowPosition();
 
                 Arm.Speed = GetUiSpeed();
@@ -188,7 +188,7 @@ namespace MainForm
             }
             else
             {
-                Arm.Homing(GetPositionType(), true);
+                Arm.Homing(GetCoordinateType(), true);
                 UpdateNowPosition();
             }
         }
@@ -204,14 +204,14 @@ namespace MainForm
             {
                 case MotionType.Linear:
                     Arm.MoveLinear(GetTargetPosition(),
-                                   GetCoordinateType(),
-                                   GetPositionType());
+                                   GetPositionType(),
+                                   GetCoordinateType());
                     break;
 
                 case MotionType.PointToPoint:
                     Arm.MovePointToPoint(GetTargetPosition(),
-                                         GetCoordinateType(),
-                                         GetPositionType());
+                                         GetPositionType(),
+                                         GetCoordinateType());
                     break;
 
                 default:
@@ -224,39 +224,56 @@ namespace MainForm
 
         #endregion 動作
 
-        #region 位置、坐標、動作類型
+        #region 位置、座標、動作類型
 
         /// <summary>
-        /// 所選的坐標類型改變。
+        /// 所選的座標類型改變。
         /// </summary>
         private void CoordinateTypeChange()
         {
-            if (radioButton_coordinate_type_absolute.Checked)
+            if (radioButton_position_type_relative.Checked)
             {
-                button_arm_copy_position_from_now_to_target.Text = "複製";
-                SetTargetPosition(GetNowUiPosition());
-            }
-            else if (radioButton_coordinate_type_relative.Checked)
-            {
-                button_arm_copy_position_from_now_to_target.Text = "歸零";
                 SetTargetPosition(new double[] { 0, 0, 0, 0, 0, 0 });
+            }
+            else if (Arm.Connected)
+            {
+                var coordinateType = GetCoordinateType();
+                var nowPosition = Arm.GetPosition(coordinateType);
+                SetTargetPosition(nowPosition);
+                SetNowPosition(GetTargetPosition());
+            }
+            else
+            {
+                if (radioButton_coordinate_type_descartes.Checked)
+                {
+                    SetTargetPosition(Arm.DescartesHomePosition);
+                }
+                else if (radioButton_coordinate_type_joint.Checked)
+                {
+                    SetTargetPosition(Arm.JointHomePosition);
+                }
+
+                foreach (var p in NowPosition)
+                {
+                    p.Text = "--";
+                }
             }
         }
 
         /// <summary>
-        /// 取得目前所選的坐標類型。
+        /// 取得目前所選的座標類型。
         /// </summary>
-        /// <returns>目前所選的坐標類型。</returns>
+        /// <returns>目前所選的座標類型。</returns>
         private CoordinateType GetCoordinateType()
         {
             CoordinateType type;
-            if (radioButton_coordinate_type_absolute.Checked)
+            if (radioButton_coordinate_type_descartes.Checked)
             {
-                type = CoordinateType.Absolute;
+                type = CoordinateType.Descartes;
             }
-            else if (radioButton_coordinate_type_relative.Checked)
+            else if (radioButton_coordinate_type_joint.Checked)
             {
-                type = CoordinateType.Relative;
+                type = CoordinateType.Joint;
             }
             else
             {
@@ -294,13 +311,13 @@ namespace MainForm
         private PositionType GetPositionType()
         {
             PositionType type;
-            if (radioButton_position_type_descartes.Checked)
+            if (radioButton_position_type_absolute.Checked)
             {
-                type = PositionType.Descartes;
+                type = PositionType.Absolute;
             }
-            else if (radioButton_position_type_joint.Checked)
+            else if (radioButton_position_type_relative.Checked)
             {
-                type = PositionType.Joint;
+                type = PositionType.Relative;
             }
             else
             {
@@ -314,56 +331,39 @@ namespace MainForm
         /// </summary>
         private void PositionTypeChange()
         {
-            if (radioButton_coordinate_type_relative.Checked)
+            if (radioButton_position_type_absolute.Checked)
             {
+                button_arm_copy_position_from_now_to_target.Text = "複製";
+                SetTargetPosition(GetNowUiPosition());
+            }
+            else if (radioButton_position_type_relative.Checked)
+            {
+                button_arm_copy_position_from_now_to_target.Text = "歸零";
                 SetTargetPosition(new double[] { 0, 0, 0, 0, 0, 0 });
             }
-            else if (Arm.Connected)
-            {
-                var positionType = GetPositionType();
-                var nowPosition = Arm.GetPosition(positionType);
-                SetTargetPosition(nowPosition);
-                SetNowPosition(GetTargetPosition());
-            }
-            else
-            {
-                if (radioButton_position_type_descartes.Checked)
-                {
-                    SetTargetPosition(Arm.DescartesHomePosition);
-                }
-                else if (radioButton_position_type_joint.Checked)
-                {
-                    SetTargetPosition(Arm.JointHomePosition);
-                }
-
-                foreach (var p in NowPosition)
-                {
-                    p.Text = "--";
-                }
-            }
         }
 
-        private void radioButton_coordinate_type_absolute_CheckedChanged(object sender, EventArgs e)
+        private void radioButton_coordinate_type_descartes_CheckedChanged(object sender, EventArgs e)
         {
             CoordinateTypeChange();
         }
 
-        private void radioButton_coordinate_type_relative_CheckedChanged(object sender, EventArgs e)
+        private void radioButton_coordinate_type_joint_CheckedChanged(object sender, EventArgs e)
         {
             CoordinateTypeChange();
         }
 
-        private void radioButton_position_type_descartes_CheckedChanged(object sender, EventArgs e)
+        private void radioButton_position_type_absolute_CheckedChanged(object sender, EventArgs e)
         {
             PositionTypeChange();
         }
 
-        private void radioButton_position_type_joint_CheckedChanged(object sender, EventArgs e)
+        private void radioButton_position_type_relative_CheckedChanged(object sender, EventArgs e)
         {
             PositionTypeChange();
         }
 
-        #endregion 位置、坐標、動作類型
+        #endregion 位置、座標、動作類型
 
         #region 速度與加速度
 
@@ -526,7 +526,7 @@ namespace MainForm
         private void button_position_recode_Click(object sender, EventArgs e)
         {
             PositionHandler.Record(textBox_position_record_name.Text,
-                                   GetPositionType(),
+                                   GetCoordinateType(),
                                    GetNowUiPosition(),
                                    textBox_position_record_comment.Text);
         }
@@ -536,21 +536,21 @@ namespace MainForm
             var type = PositionHandler.GetPositionType();
             switch (type)
             {
-                case PositionType.Descartes:
-                    radioButton_position_type_descartes.Checked = true;
+                case CoordinateType.Descartes:
+                    radioButton_coordinate_type_descartes.Checked = true;
                     break;
 
-                case PositionType.Joint:
-                    radioButton_position_type_joint.Checked = true;
+                case CoordinateType.Joint:
+                    radioButton_coordinate_type_joint.Checked = true;
                     break;
 
                 default:
-                    Message.Show("錯誤的位置類型。", LoggingLevel.Error);
+                    Message.Show("錯誤的座標類型。", LoggingLevel.Error);
                     return;
             }
 
             SetTargetPosition(PositionHandler.GetPosition());
-            radioButton_coordinate_type_absolute.Checked = true;
+            radioButton_position_type_absolute.Checked = true;
         }
 
         private void button_position_record_update_list_Click(object sender, EventArgs e)
@@ -587,6 +587,26 @@ namespace MainForm
 
         #region - 其它 -
 
+        /// <summary>
+        /// 未連線時禁用的按鈕組。
+        /// </summary>
+        private readonly List<Button> Buttons = new List<Button>();
+
+        /// <summary>
+        /// 連線裝置組。
+        /// </summary>
+        private readonly List<IDevice> Devices = new List<IDevice>();
+
+        /// <summary>
+        /// UI 目前顯示位置的控制項陣列。
+        /// </summary>
+        private readonly List<TextBox> NowPosition = new List<TextBox>();
+
+        /// <summary>
+        /// UI 目標位置的控制項陣列。
+        /// </summary>
+        private readonly List<NumericUpDown> TargetPosition = new List<NumericUpDown>();
+
         private Behavior Behavior = null;
 
         /// <summary>
@@ -595,19 +615,9 @@ namespace MainForm
         private IBluetoothController Bluetooth = null;
 
         /// <summary>
-        /// 未連線時禁用的按鈕組。
-        /// </summary>
-        private readonly List<Button> Buttons = new List<Button>();
-
-        /// <summary>
         /// CSV 檔處理器。
         /// </summary>
         private ICsvHandler CsvHandler = null;
-
-        /// <summary>
-        /// 連線裝置組。
-        /// </summary>
-        private readonly List<IDevice> Devices = new List<IDevice>();
 
         /// <summary>
         /// Log 檔處理器。
@@ -620,19 +630,9 @@ namespace MainForm
         private IMessage Message = null;
 
         /// <summary>
-        /// UI 目前顯示位置的控制項陣列。
-        /// </summary>
-        private readonly List<TextBox> NowPosition = new List<TextBox>();
-
-        /// <summary>
         /// 位置記錄處理器。
         /// </summary>
         private IPositionHandler PositionHandler = null;
-
-        /// <summary>
-        /// UI 目標位置的控制項陣列。
-        /// </summary>
-        private readonly List<NumericUpDown> TargetPosition = new List<NumericUpDown>();
 
         /// <summary>
         /// 視窗關閉事件。

@@ -37,17 +37,17 @@ namespace Features
         /// 取得目前所選取的位置類型。
         /// </summary>
         /// <returns></returns>
-        PositionType GetPositionType();
+        CoordinateType GetPositionType();
 
         /// <summary>
         /// 記錄位置資訊到 CSV 檔案。
         /// </summary>
         /// <param name="name"></param>
-        /// <param name="positionType"></param>
+        /// <param name="coordinateType"></param>
         /// <param name="position"></param>
         /// <param name="comment"></param>
         void Record(string name,
-                    PositionType positionType,
+                    CoordinateType coordinateType,
                     double[] position,
                     string comment = "--");
 
@@ -121,31 +121,31 @@ namespace Features
             return position;
         }
 
-        public PositionType GetPositionType()
+        public CoordinateType GetPositionType()
         {
             Message.Log("PositionHandler:Get position type.", LoggingLevel.Trace);
 
-            PositionType positionType;
+            CoordinateType coordinateType;
             var type = DataListView.SelectedItems[0].SubItems[(int)PositionDataFormat.Type].Text;
 
-            if (type.Equals(PositionType.Descartes.ToString()))
+            if (type.Equals(CoordinateType.Descartes.ToString()))
             {
-                positionType = PositionType.Descartes;
+                coordinateType = CoordinateType.Descartes;
             }
-            else if (type.Equals(PositionType.Joint.ToString()))
+            else if (type.Equals(CoordinateType.Joint.ToString()))
             {
-                positionType = PositionType.Joint;
+                coordinateType = CoordinateType.Joint;
             }
             else
             {
-                positionType = PositionType.Unknown;
+                coordinateType = CoordinateType.Unknown;
             }
 
-            return positionType;
+            return coordinateType;
         }
 
         public void Record(string name,
-                           PositionType positionType,
+                           CoordinateType coordinateType,
                            double[] position,
                            string comment = "--")
         {
@@ -161,7 +161,7 @@ namespace Features
                 {
                     SerialNumber.ToString(),
                     name.Trim(),
-                    positionType.ToString(),
+                    coordinateType.ToString(),
                     position[0].ToString(),
                     position[1].ToString(),
                     position[2].ToString(),

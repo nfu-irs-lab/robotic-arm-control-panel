@@ -36,14 +36,14 @@
             this.button_arm_clear_alarm = new System.Windows.Forms.Button();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.radioButton_position_type_descartes = new System.Windows.Forms.RadioButton();
-            this.radioButton_position_type_joint = new System.Windows.Forms.RadioButton();
+            this.radioButton_coordinate_type_descartes = new System.Windows.Forms.RadioButton();
+            this.radioButton_coordinate_type_joint = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.radioButton_motion_type_point_to_point = new System.Windows.Forms.RadioButton();
             this.radioButton_motion_type_linear = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.radioButton_coordinate_type_absolute = new System.Windows.Forms.RadioButton();
-            this.radioButton_coordinate_type_relative = new System.Windows.Forms.RadioButton();
+            this.radioButton_position_type_absolute = new System.Windows.Forms.RadioButton();
+            this.radioButton_position_type_relative = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.button_update_now_position = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -93,6 +93,15 @@
             this.numericUpDown_gripper_speed = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown_gripper_force = new System.Windows.Forms.NumericUpDown();
             this.tabControl_sub = new System.Windows.Forms.TabControl();
+            this.tabPage_sub_actionflow = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
+            this.listView_actionflow_actions = new System.Windows.Forms.ListView();
+            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
+            this.button_actionflow_do_all = new System.Windows.Forms.Button();
+            this.button_actionflow_do_selected = new System.Windows.Forms.Button();
             this.tabPage_sub_position_record = new System.Windows.Forms.TabPage();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
@@ -118,15 +127,6 @@
             this.label13 = new System.Windows.Forms.Label();
             this.textBox_position_record_name = new System.Windows.Forms.TextBox();
             this.textBox_position_record_comment = new System.Windows.Forms.TextBox();
-            this.tabPage_sub_actionflow = new System.Windows.Forms.TabPage();
-            this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
-            this.listView_actionflow_actions = new System.Windows.Forms.ListView();
-            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
-            this.button_actionflow_do_all = new System.Windows.Forms.Button();
-            this.button_actionflow_do_selected = new System.Windows.Forms.Button();
             this.groupBox_connect_disconnect.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -156,14 +156,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_gripper_speed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_gripper_force)).BeginInit();
             this.tabControl_sub.SuspendLayout();
+            this.tabPage_sub_actionflow.SuspendLayout();
+            this.tableLayoutPanel9.SuspendLayout();
+            this.tableLayoutPanel10.SuspendLayout();
             this.tabPage_sub_position_record.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
             this.groupBox_position_record.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
-            this.tabPage_sub_actionflow.SuspendLayout();
-            this.tableLayoutPanel9.SuspendLayout();
-            this.tableLayoutPanel10.SuspendLayout();
             this.SuspendLayout();
             // 
             // button_connect
@@ -269,8 +269,8 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.radioButton_position_type_descartes);
-            this.groupBox3.Controls.Add(this.radioButton_position_type_joint);
+            this.groupBox3.Controls.Add(this.radioButton_coordinate_type_descartes);
+            this.groupBox3.Controls.Add(this.radioButton_coordinate_type_joint);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Location = new System.Drawing.Point(536, 6);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(6);
@@ -279,33 +279,33 @@
             this.groupBox3.Size = new System.Drawing.Size(253, 182);
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "位置類型";
+            this.groupBox3.Text = "座標類型";
             // 
-            // radioButton_position_type_descartes
+            // radioButton_coordinate_type_descartes
             // 
-            this.radioButton_position_type_descartes.AutoSize = true;
-            this.radioButton_position_type_descartes.Checked = true;
-            this.radioButton_position_type_descartes.Location = new System.Drawing.Point(12, 43);
-            this.radioButton_position_type_descartes.Margin = new System.Windows.Forms.Padding(6);
-            this.radioButton_position_type_descartes.Name = "radioButton_position_type_descartes";
-            this.radioButton_position_type_descartes.Size = new System.Drawing.Size(140, 34);
-            this.radioButton_position_type_descartes.TabIndex = 0;
-            this.radioButton_position_type_descartes.TabStop = true;
-            this.radioButton_position_type_descartes.Text = "笛卡爾";
-            this.radioButton_position_type_descartes.UseVisualStyleBackColor = true;
-            this.radioButton_position_type_descartes.CheckedChanged += new System.EventHandler(this.radioButton_position_type_descartes_CheckedChanged);
+            this.radioButton_coordinate_type_descartes.AutoSize = true;
+            this.radioButton_coordinate_type_descartes.Checked = true;
+            this.radioButton_coordinate_type_descartes.Location = new System.Drawing.Point(12, 43);
+            this.radioButton_coordinate_type_descartes.Margin = new System.Windows.Forms.Padding(6);
+            this.radioButton_coordinate_type_descartes.Name = "radioButton_coordinate_type_descartes";
+            this.radioButton_coordinate_type_descartes.Size = new System.Drawing.Size(200, 34);
+            this.radioButton_coordinate_type_descartes.TabIndex = 0;
+            this.radioButton_coordinate_type_descartes.TabStop = true;
+            this.radioButton_coordinate_type_descartes.Text = "笛卡爾座標";
+            this.radioButton_coordinate_type_descartes.UseVisualStyleBackColor = true;
+            this.radioButton_coordinate_type_descartes.CheckedChanged += new System.EventHandler(this.radioButton_coordinate_type_descartes_CheckedChanged);
             // 
-            // radioButton_position_type_joint
+            // radioButton_coordinate_type_joint
             // 
-            this.radioButton_position_type_joint.AutoSize = true;
-            this.radioButton_position_type_joint.Location = new System.Drawing.Point(12, 98);
-            this.radioButton_position_type_joint.Margin = new System.Windows.Forms.Padding(6);
-            this.radioButton_position_type_joint.Name = "radioButton_position_type_joint";
-            this.radioButton_position_type_joint.Size = new System.Drawing.Size(110, 34);
-            this.radioButton_position_type_joint.TabIndex = 0;
-            this.radioButton_position_type_joint.Text = "關節";
-            this.radioButton_position_type_joint.UseVisualStyleBackColor = true;
-            this.radioButton_position_type_joint.CheckedChanged += new System.EventHandler(this.radioButton_position_type_joint_CheckedChanged);
+            this.radioButton_coordinate_type_joint.AutoSize = true;
+            this.radioButton_coordinate_type_joint.Location = new System.Drawing.Point(12, 98);
+            this.radioButton_coordinate_type_joint.Margin = new System.Windows.Forms.Padding(6);
+            this.radioButton_coordinate_type_joint.Name = "radioButton_coordinate_type_joint";
+            this.radioButton_coordinate_type_joint.Size = new System.Drawing.Size(170, 34);
+            this.radioButton_coordinate_type_joint.TabIndex = 0;
+            this.radioButton_coordinate_type_joint.Text = "關節座標";
+            this.radioButton_coordinate_type_joint.UseVisualStyleBackColor = true;
+            this.radioButton_coordinate_type_joint.CheckedChanged += new System.EventHandler(this.radioButton_coordinate_type_joint_CheckedChanged);
             // 
             // groupBox1
             // 
@@ -347,8 +347,8 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.radioButton_coordinate_type_absolute);
-            this.groupBox2.Controls.Add(this.radioButton_coordinate_type_relative);
+            this.groupBox2.Controls.Add(this.radioButton_position_type_absolute);
+            this.groupBox2.Controls.Add(this.radioButton_position_type_relative);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(271, 6);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(6);
@@ -357,33 +357,33 @@
             this.groupBox2.Size = new System.Drawing.Size(253, 182);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "坐標類型";
+            this.groupBox2.Text = "位置類型";
             // 
-            // radioButton_coordinate_type_absolute
+            // radioButton_position_type_absolute
             // 
-            this.radioButton_coordinate_type_absolute.AutoSize = true;
-            this.radioButton_coordinate_type_absolute.Checked = true;
-            this.radioButton_coordinate_type_absolute.Location = new System.Drawing.Point(12, 43);
-            this.radioButton_coordinate_type_absolute.Margin = new System.Windows.Forms.Padding(6);
-            this.radioButton_coordinate_type_absolute.Name = "radioButton_coordinate_type_absolute";
-            this.radioButton_coordinate_type_absolute.Size = new System.Drawing.Size(170, 34);
-            this.radioButton_coordinate_type_absolute.TabIndex = 0;
-            this.radioButton_coordinate_type_absolute.TabStop = true;
-            this.radioButton_coordinate_type_absolute.Text = "絕對坐標";
-            this.radioButton_coordinate_type_absolute.UseVisualStyleBackColor = true;
-            this.radioButton_coordinate_type_absolute.CheckedChanged += new System.EventHandler(this.radioButton_coordinate_type_absolute_CheckedChanged);
+            this.radioButton_position_type_absolute.AutoSize = true;
+            this.radioButton_position_type_absolute.Checked = true;
+            this.radioButton_position_type_absolute.Location = new System.Drawing.Point(12, 43);
+            this.radioButton_position_type_absolute.Margin = new System.Windows.Forms.Padding(6);
+            this.radioButton_position_type_absolute.Name = "radioButton_position_type_absolute";
+            this.radioButton_position_type_absolute.Size = new System.Drawing.Size(170, 34);
+            this.radioButton_position_type_absolute.TabIndex = 0;
+            this.radioButton_position_type_absolute.TabStop = true;
+            this.radioButton_position_type_absolute.Text = "絕對位置";
+            this.radioButton_position_type_absolute.UseVisualStyleBackColor = true;
+            this.radioButton_position_type_absolute.CheckedChanged += new System.EventHandler(this.radioButton_position_type_absolute_CheckedChanged);
             // 
-            // radioButton_coordinate_type_relative
+            // radioButton_position_type_relative
             // 
-            this.radioButton_coordinate_type_relative.AutoSize = true;
-            this.radioButton_coordinate_type_relative.Location = new System.Drawing.Point(12, 98);
-            this.radioButton_coordinate_type_relative.Margin = new System.Windows.Forms.Padding(6);
-            this.radioButton_coordinate_type_relative.Name = "radioButton_coordinate_type_relative";
-            this.radioButton_coordinate_type_relative.Size = new System.Drawing.Size(170, 34);
-            this.radioButton_coordinate_type_relative.TabIndex = 0;
-            this.radioButton_coordinate_type_relative.Text = "相對坐標";
-            this.radioButton_coordinate_type_relative.UseVisualStyleBackColor = true;
-            this.radioButton_coordinate_type_relative.CheckedChanged += new System.EventHandler(this.radioButton_coordinate_type_relative_CheckedChanged);
+            this.radioButton_position_type_relative.AutoSize = true;
+            this.radioButton_position_type_relative.Location = new System.Drawing.Point(12, 98);
+            this.radioButton_position_type_relative.Margin = new System.Windows.Forms.Padding(6);
+            this.radioButton_position_type_relative.Name = "radioButton_position_type_relative";
+            this.radioButton_position_type_relative.Size = new System.Drawing.Size(170, 34);
+            this.radioButton_position_type_relative.TabIndex = 0;
+            this.radioButton_position_type_relative.Text = "相對位置";
+            this.radioButton_position_type_relative.UseVisualStyleBackColor = true;
+            this.radioButton_position_type_relative.CheckedChanged += new System.EventHandler(this.radioButton_position_type_relative_CheckedChanged);
             // 
             // tableLayoutPanel4
             // 
@@ -1168,6 +1168,102 @@
             this.tabControl_sub.Size = new System.Drawing.Size(1331, 943);
             this.tabControl_sub.TabIndex = 6;
             // 
+            // tabPage_sub_actionflow
+            // 
+            this.tabPage_sub_actionflow.Controls.Add(this.tableLayoutPanel9);
+            this.tabPage_sub_actionflow.Location = new System.Drawing.Point(10, 48);
+            this.tabPage_sub_actionflow.Name = "tabPage_sub_actionflow";
+            this.tabPage_sub_actionflow.Size = new System.Drawing.Size(1311, 885);
+            this.tabPage_sub_actionflow.TabIndex = 1;
+            this.tabPage_sub_actionflow.Text = "動作流程";
+            this.tabPage_sub_actionflow.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel9
+            // 
+            this.tableLayoutPanel9.ColumnCount = 1;
+            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel9.Controls.Add(this.listView_actionflow_actions, 0, 0);
+            this.tableLayoutPanel9.Controls.Add(this.tableLayoutPanel10, 0, 1);
+            this.tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel9.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel9.Name = "tableLayoutPanel9";
+            this.tableLayoutPanel9.RowCount = 2;
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 85F));
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.tableLayoutPanel9.Size = new System.Drawing.Size(1311, 885);
+            this.tableLayoutPanel9.TabIndex = 2;
+            // 
+            // listView_actionflow_actions
+            // 
+            this.listView_actionflow_actions.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader11,
+            this.columnHeader12,
+            this.columnHeader13});
+            this.listView_actionflow_actions.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView_actionflow_actions.FullRowSelect = true;
+            this.listView_actionflow_actions.GridLines = true;
+            this.listView_actionflow_actions.HideSelection = false;
+            this.listView_actionflow_actions.Location = new System.Drawing.Point(3, 3);
+            this.listView_actionflow_actions.MultiSelect = false;
+            this.listView_actionflow_actions.Name = "listView_actionflow_actions";
+            this.listView_actionflow_actions.Size = new System.Drawing.Size(1305, 746);
+            this.listView_actionflow_actions.TabIndex = 2;
+            this.listView_actionflow_actions.UseCompatibleStateImageBehavior = false;
+            this.listView_actionflow_actions.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader11
+            // 
+            this.columnHeader11.Text = "Index";
+            this.columnHeader11.Width = 76;
+            // 
+            // columnHeader12
+            // 
+            this.columnHeader12.Text = "Name";
+            this.columnHeader12.Width = 80;
+            // 
+            // columnHeader13
+            // 
+            this.columnHeader13.Text = "Comment";
+            this.columnHeader13.Width = 1145;
+            // 
+            // tableLayoutPanel10
+            // 
+            this.tableLayoutPanel10.ColumnCount = 2;
+            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel10.Controls.Add(this.button_actionflow_do_all, 1, 0);
+            this.tableLayoutPanel10.Controls.Add(this.button_actionflow_do_selected, 0, 0);
+            this.tableLayoutPanel10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel10.Location = new System.Drawing.Point(3, 755);
+            this.tableLayoutPanel10.Name = "tableLayoutPanel10";
+            this.tableLayoutPanel10.RowCount = 1;
+            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 127F));
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(1305, 127);
+            this.tableLayoutPanel10.TabIndex = 3;
+            // 
+            // button_actionflow_do_all
+            // 
+            this.button_actionflow_do_all.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.button_actionflow_do_all.Location = new System.Drawing.Point(884, 12);
+            this.button_actionflow_do_all.Name = "button_actionflow_do_all";
+            this.button_actionflow_do_all.Size = new System.Drawing.Size(188, 102);
+            this.button_actionflow_do_all.TabIndex = 0;
+            this.button_actionflow_do_all.Text = "執行全部";
+            this.button_actionflow_do_all.UseVisualStyleBackColor = true;
+            this.button_actionflow_do_all.Click += new System.EventHandler(this.button_actionflow_do_all_Click);
+            // 
+            // button_actionflow_do_selected
+            // 
+            this.button_actionflow_do_selected.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.button_actionflow_do_selected.Location = new System.Drawing.Point(232, 12);
+            this.button_actionflow_do_selected.Name = "button_actionflow_do_selected";
+            this.button_actionflow_do_selected.Size = new System.Drawing.Size(188, 102);
+            this.button_actionflow_do_selected.TabIndex = 0;
+            this.button_actionflow_do_selected.Text = "執行一次";
+            this.button_actionflow_do_selected.UseVisualStyleBackColor = true;
+            this.button_actionflow_do_selected.Click += new System.EventHandler(this.button_actionflow_do_selected_Click);
+            // 
             // tabPage_sub_position_record
             // 
             this.tabPage_sub_position_record.Controls.Add(this.groupBox7);
@@ -1358,102 +1454,6 @@
             this.textBox_position_record_comment.Size = new System.Drawing.Size(513, 43);
             this.textBox_position_record_comment.TabIndex = 2;
             // 
-            // tabPage_sub_actionflow
-            // 
-            this.tabPage_sub_actionflow.Controls.Add(this.tableLayoutPanel9);
-            this.tabPage_sub_actionflow.Location = new System.Drawing.Point(10, 48);
-            this.tabPage_sub_actionflow.Name = "tabPage_sub_actionflow";
-            this.tabPage_sub_actionflow.Size = new System.Drawing.Size(1311, 885);
-            this.tabPage_sub_actionflow.TabIndex = 1;
-            this.tabPage_sub_actionflow.Text = "動作流程";
-            this.tabPage_sub_actionflow.UseVisualStyleBackColor = true;
-            // 
-            // tableLayoutPanel9
-            // 
-            this.tableLayoutPanel9.ColumnCount = 1;
-            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel9.Controls.Add(this.listView_actionflow_actions, 0, 0);
-            this.tableLayoutPanel9.Controls.Add(this.tableLayoutPanel10, 0, 1);
-            this.tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel9.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel9.Name = "tableLayoutPanel9";
-            this.tableLayoutPanel9.RowCount = 2;
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 85F));
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
-            this.tableLayoutPanel9.Size = new System.Drawing.Size(1311, 885);
-            this.tableLayoutPanel9.TabIndex = 2;
-            // 
-            // listView_actionflow_actions
-            // 
-            this.listView_actionflow_actions.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader11,
-            this.columnHeader12,
-            this.columnHeader13});
-            this.listView_actionflow_actions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView_actionflow_actions.FullRowSelect = true;
-            this.listView_actionflow_actions.GridLines = true;
-            this.listView_actionflow_actions.HideSelection = false;
-            this.listView_actionflow_actions.Location = new System.Drawing.Point(3, 3);
-            this.listView_actionflow_actions.MultiSelect = false;
-            this.listView_actionflow_actions.Name = "listView_actionflow_actions";
-            this.listView_actionflow_actions.Size = new System.Drawing.Size(1305, 746);
-            this.listView_actionflow_actions.TabIndex = 2;
-            this.listView_actionflow_actions.UseCompatibleStateImageBehavior = false;
-            this.listView_actionflow_actions.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader11
-            // 
-            this.columnHeader11.Text = "Index";
-            this.columnHeader11.Width = 76;
-            // 
-            // columnHeader12
-            // 
-            this.columnHeader12.Text = "Name";
-            this.columnHeader12.Width = 80;
-            // 
-            // columnHeader13
-            // 
-            this.columnHeader13.Text = "Comment";
-            this.columnHeader13.Width = 1145;
-            // 
-            // tableLayoutPanel10
-            // 
-            this.tableLayoutPanel10.ColumnCount = 2;
-            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel10.Controls.Add(this.button_actionflow_do_all, 1, 0);
-            this.tableLayoutPanel10.Controls.Add(this.button_actionflow_do_selected, 0, 0);
-            this.tableLayoutPanel10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel10.Location = new System.Drawing.Point(3, 755);
-            this.tableLayoutPanel10.Name = "tableLayoutPanel10";
-            this.tableLayoutPanel10.RowCount = 1;
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel10.Size = new System.Drawing.Size(1305, 127);
-            this.tableLayoutPanel10.TabIndex = 3;
-            // 
-            // button_actionflow_do_all
-            // 
-            this.button_actionflow_do_all.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button_actionflow_do_all.Location = new System.Drawing.Point(884, 12);
-            this.button_actionflow_do_all.Name = "button_actionflow_do_all";
-            this.button_actionflow_do_all.Size = new System.Drawing.Size(188, 102);
-            this.button_actionflow_do_all.TabIndex = 0;
-            this.button_actionflow_do_all.Text = "執行全部";
-            this.button_actionflow_do_all.UseVisualStyleBackColor = true;
-            this.button_actionflow_do_all.Click += new System.EventHandler(this.button_actionflow_do_all_Click);
-            // 
-            // button_actionflow_do_selected
-            // 
-            this.button_actionflow_do_selected.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button_actionflow_do_selected.Location = new System.Drawing.Point(232, 12);
-            this.button_actionflow_do_selected.Name = "button_actionflow_do_selected";
-            this.button_actionflow_do_selected.Size = new System.Drawing.Size(188, 102);
-            this.button_actionflow_do_selected.TabIndex = 0;
-            this.button_actionflow_do_selected.Text = "執行一次";
-            this.button_actionflow_do_selected.UseVisualStyleBackColor = true;
-            this.button_actionflow_do_selected.Click += new System.EventHandler(this.button_actionflow_do_selected_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 30F);
@@ -1504,6 +1504,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_gripper_speed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_gripper_force)).EndInit();
             this.tabControl_sub.ResumeLayout(false);
+            this.tabPage_sub_actionflow.ResumeLayout(false);
+            this.tableLayoutPanel9.ResumeLayout(false);
+            this.tableLayoutPanel10.ResumeLayout(false);
             this.tabPage_sub_position_record.ResumeLayout(false);
             this.groupBox7.ResumeLayout(false);
             this.tableLayoutPanel8.ResumeLayout(false);
@@ -1511,9 +1514,6 @@
             this.groupBox_position_record.ResumeLayout(false);
             this.tableLayoutPanel7.ResumeLayout(false);
             this.tableLayoutPanel7.PerformLayout();
-            this.tabPage_sub_actionflow.ResumeLayout(false);
-            this.tableLayoutPanel9.ResumeLayout(false);
-            this.tableLayoutPanel10.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1553,11 +1553,11 @@
         private System.Windows.Forms.RadioButton radioButton_motion_type_linear;
         private System.Windows.Forms.RadioButton radioButton_motion_type_point_to_point;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.RadioButton radioButton_coordinate_type_absolute;
-        private System.Windows.Forms.RadioButton radioButton_coordinate_type_relative;
+        private System.Windows.Forms.RadioButton radioButton_position_type_absolute;
+        private System.Windows.Forms.RadioButton radioButton_position_type_relative;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.RadioButton radioButton_position_type_descartes;
-        private System.Windows.Forms.RadioButton radioButton_position_type_joint;
+        private System.Windows.Forms.RadioButton radioButton_coordinate_type_descartes;
+        private System.Windows.Forms.RadioButton radioButton_coordinate_type_joint;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.GroupBox groupBox4;
