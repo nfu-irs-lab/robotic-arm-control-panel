@@ -248,7 +248,7 @@ namespace Features
             Id = 0;
             Message = message;
 
-#if (!USE_MOTION_STATE_WAIT)
+#if (!USE_MOTION_STATE_WAIT && !USE_CALLBACK_MOTION_STATE_WAIT)
             InitTimer();
 #endif
         }
