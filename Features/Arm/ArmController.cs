@@ -597,33 +597,30 @@ namespace Features
 
         public bool Connect()
         {
-            // 連線設定。測試連線設定:("127.0.0.1", 1, CallBackFun);
+            // 連線。測試連線設定:("127.0.0.1", 1, CallBackFun);
             Id = HRobot.open_connection(Ip, 1, CallBackFun);
-            Thread.Sleep(500);
 
-            //0 ~ 65535為有效裝置ID
+            // 0 ~ 65535為有效裝置ID。
             if (Id >= 0 && Id <= 65535)
             {
                 int alarmState;
                 int motorState;
                 int connectionLevel;
 
-                // 清除錯誤
+                // 將所有錯誤代碼清除。
                 alarmState = HRobot.clear_alarm(Id);
 
-                //錯誤代碼300代表沒有警報，無法清除警報
-                if (alarmState == 300)
-                {
-                    alarmState = 0;
-                }
+                // 錯誤代碼300代表沒有警報，無法清除警報。
+                alarmState = alarmState == 300 ? 0 : alarmState;
 
-                //設定控制器: 1為啟動,0為關閉
+                // 設定控制器: 1為啟動,0為關閉。
                 HRobot.set_motor_state(Id, 1);
                 Thread.Sleep(500);
 
-                //回傳控制器狀態
+                // 取得控制器狀態。
                 motorState = HRobot.get_motor_state(Id);
 
+                // 取得連線等級。
                 connectionLevel = HRobot.get_connection_level(Id);
 
                 var text = "連線成功!\r\n" +
@@ -631,7 +628,6 @@ namespace Features
                            $"連線等級: {(connectionLevel == 0 ? "觀測者" : "操作者")}\r\n" +
                            $"控制器狀態: {(motorState == 0 ? "關閉" : "開啟")}\r\n" +
                            $"錯誤代碼: {alarmState}";
-
                 Message.Show(text, "連線", MessageBoxButtons.OK, MessageBoxIcon.None);
 
                 Connected = true;
@@ -640,7 +636,6 @@ namespace Features
             else
             {
                 string message;
-
                 switch (Id)
                 {
                     case -1:
@@ -663,7 +658,6 @@ namespace Features
                         message = $"未知的錯誤代碼： {Id}";
                         break;
                 }
-
                 Message.Show($"無法連線!\r\n{message}", LoggingLevel.Error);
 
                 Connected = false;
@@ -676,29 +670,25 @@ namespace Features
             int alarmState;
             int motorState;
 
-            //設定控制器: 1為啟動,0為關閉
+            // 將所有錯誤代碼清除。
+            alarmState = HRobot.clear_alarm(Id);
+
+            // 錯誤代碼300代表沒有警報，無法清除警報。
+            alarmState = alarmState == 300 ? 0 : alarmState;
+
+            // 設定控制器: 1為啟動,0為關閉。
             HRobot.set_motor_state(Id, 0);
             Thread.Sleep(500);
 
-            //將所有錯誤代碼清除
-            alarmState = HRobot.clear_alarm(Id);
-
-            //錯誤代碼300代表沒有警報，無法清除警報
-            if (alarmState == 300)
-            {
-                alarmState = 0;
-            }
-
-            //回傳控制器狀態
+            // 取得控制器狀態。
             motorState = HRobot.get_motor_state(Id);
 
-            //關閉手臂連線
+            // 關閉手臂連線。
             HRobot.disconnect(Id);
 
             var text = "斷線成功!\r\n" +
                        $"控制器狀態: {(motorState == 0 ? "關閉" : "開啟")}\r\n" +
                        $"錯誤代碼: {alarmState}";
-
             Message.Show(text, "斷線", MessageBoxButtons.OK, MessageBoxIcon.None);
 
             Connected = false;
