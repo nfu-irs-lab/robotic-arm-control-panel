@@ -493,14 +493,14 @@ namespace Features
 
         private string GetTextPosition(double[] position)
         {
-            string stringPos = "\"";
-            foreach (double val in position)
-            {
-                stringPos += val.ToString() + ",";
-            }
-            stringPos = stringPos.TrimEnd(' ', ',');
-            stringPos += "\"";
-            return stringPos;
+            return "\"" +
+                   $"{position[0]}," +
+                   $"{position[1]}," +
+                   $"{position[2]}," +
+                   $"{position[3]}," +
+                   $"{position[4]}," +
+                   $"{position[5]}" +
+                   "\"";
         }
 
         /// <summary>
