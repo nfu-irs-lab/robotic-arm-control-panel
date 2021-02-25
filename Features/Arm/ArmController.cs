@@ -591,7 +591,7 @@ namespace Features
         /// <summary>
         /// 此 delegate 必須要是 static，否則手臂動作有可能會出現問題。
         /// </summary>
-        private static HRobot.CallBackFun CallBackFun = EventFun;
+        private static readonly HRobot.CallBackFun CallBackFun = EventFun;
 
         public bool Connected { get; private set; } = false;
 
