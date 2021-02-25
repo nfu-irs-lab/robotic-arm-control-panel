@@ -1,5 +1,7 @@
 ﻿//#define DISABLE_SHOW_MESSAGE
 #define USE_SDK_RELATIVE
+
+// 選擇一種等待手臂動作完成的做法，都不選就是使用預設方法。
 #define USE_CALLBACK_MOTION_STATE_WAIT
 // #define USE_MOTION_STATE_WAIT
 
@@ -571,25 +573,27 @@ namespace Features
         private void WaitForMotionComplete(double[] targetPosition, PositionType positionType)
         {
 #if (USE_CALLBACK_MOTION_STATE_WAIT)
+            // 使用 HRSDK 中的 delegate CallBackFun 來接收從手臂回傳的資訊，
+            // 並從中取得 motion_state 來判斷手臂是否還在運動中。
+
             Waiting = true;
             while (Waiting)
             {
+                // 等待 EventFun() 將 Waiting 的值改成 false 即跳出迴圈。
+                // 此 Thread.Sleep() 不一定要有。
                 Thread.Sleep(50);
             }
 #elif (USE_MOTION_STATE_WAIT)
-            while (true)
+            // 使用 HRSDK 中的 method get_motion_state() 來取得手臂 motion_state 來判斷手臂是否還在運動中。
+
+            // motion_state = 1: Idle.
+            while (HRobot.get_motion_state(Id) != 1)
             {
-                // motion_state = 1: Idle.
-                if (HRobot.get_motion_state(Id) != 1)
-                {
-                    Thread.Sleep(200);
-                }
-                else
-                {
-                    break;
-                }
+                Thread.Sleep(200);
             }
 #else
+            // 使用比較目標座標及手臂目前的座標來判斷手臂是否還在運動中。
+
             double[] nowPosition = new double[6];
 
             ActionTimer.Enabled = true;
