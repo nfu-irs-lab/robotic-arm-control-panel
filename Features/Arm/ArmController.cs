@@ -832,7 +832,6 @@ namespace Features
         public double[] GetPosition(PositionType type = PositionType.Descartes)
         {
             var position = new double[6];
-            int returnCode;
             Func<int, double[], int> action;
 
             switch (type)
@@ -850,7 +849,7 @@ namespace Features
                     return position;
             }
 
-            returnCode = action(Id, position);
+            var returnCode = action(Id, position);
             IsErrorAndHandler(returnCode);
             return position;
         }
