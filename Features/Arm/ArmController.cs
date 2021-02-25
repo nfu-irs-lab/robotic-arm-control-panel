@@ -367,7 +367,9 @@ namespace Features
             switch (positionType)
             {
                 case PositionType.Descartes:
-                    returnCode = HRobot.ptp_pos(Id, (int)SmoothType.Disable, DescartesHomePosition);
+                    returnCode = HRobot.ptp_pos(Id,
+                                                (int)SmoothType.Disable,
+                                                DescartesHomePosition);
                     if ((returnCode >= 0) && waitForMotion)
                     {
                         WaitForMotionComplete(DescartesHomePosition, positionType);
@@ -375,7 +377,9 @@ namespace Features
                     break;
 
                 case PositionType.Joint:
-                    returnCode = HRobot.ptp_axis(Id, (int)SmoothType.Disable, JointHomePosition);
+                    returnCode = HRobot.ptp_axis(Id,
+                                                 (int)SmoothType.Disable,
+                                                 JointHomePosition);
                     if ((returnCode >= 0) && waitForMotion)
                     {
                         WaitForMotionComplete(JointHomePosition, positionType);
@@ -670,10 +674,10 @@ namespace Features
 
         public bool Connect()
         {
-            //接收控制器回傳訊息
-            CallBackFun = new HRobot.CallBackFun(EventFun);
+            // 接收控制器回傳訊息
+            CallBackFun = EventFun;
 
-            //連線設定。測試連線設定:("127.0.0.1", 1, CallBackFun);
+            // 連線設定。測試連線設定:("127.0.0.1", 1, CallBackFun);
             Id = HRobot.open_connection(Ip, 1, CallBackFun);
             Thread.Sleep(500);
 
@@ -684,7 +688,7 @@ namespace Features
                 int motorState;
                 int connectionLevel;
 
-                //清除錯誤
+                // 清除錯誤
                 alarmState = HRobot.clear_alarm(Id);
 
                 //錯誤代碼300代表沒有警報，無法清除警報
@@ -863,7 +867,7 @@ namespace Features
                 Interval = 50,
                 Enabled = false
             };
-            ActionTimer.Tick += (s, e) => { ++TimeCheck; };
+            ActionTimer.Tick += (s, e) => ++TimeCheck;
         }
 
         #endregion - Timer -
