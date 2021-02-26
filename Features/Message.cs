@@ -190,10 +190,6 @@ namespace Features
             MessageBoxIcon messageBoxIcon;
             switch (loggingLevel)
             {
-                case LoggingLevel.Trace:
-                    messageBoxIcon = MessageBoxIcon.None;
-                    break;
-
                 case LoggingLevel.Info:
                     messageBoxIcon = MessageBoxIcon.Information;
                     break;
@@ -203,13 +199,11 @@ namespace Features
                     break;
 
                 case LoggingLevel.Error:
-                    messageBoxIcon = MessageBoxIcon.Error;
-                    break;
-
                 case LoggingLevel.Fatal:
                     messageBoxIcon = MessageBoxIcon.Error;
                     break;
 
+                case LoggingLevel.Trace:
                 default:
                     messageBoxIcon = MessageBoxIcon.None;
                     break;
