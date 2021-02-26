@@ -241,9 +241,9 @@ namespace Features
         {
             // 若要調整資料行中最長專案的寬度，請將 Width 屬性設定為-1。
             // 若要自動調整為數據行標題的寬度，請將 Width 屬性設定為-2。
-            for (var col = 0; col < ActionsListView.Columns.Count; col++)
+            foreach (ColumnHeader column in ActionsListView.Columns)
             {
-                ActionsListView.Columns[col].Width = -2;
+                column.Width = -2;
             }
         }
 
