@@ -33,14 +33,10 @@ namespace Contest
 
         private readonly IArmController Arm;
 
-        private IBluetoothController BluetoothController;
-
         private readonly List<IDevice> Devices;
-
-        private IGripperController Gripper;
-
         private readonly IMessage Message;
-
+        private IBluetoothController BluetoothController;
+        private IGripperController Gripper;
         private IPositionHandler PositionHandler;
 
         public Behavior(MainFormDependency mainFormDependency)

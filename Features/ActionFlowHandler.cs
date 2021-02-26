@@ -41,6 +41,12 @@ namespace Features
         void Clear();
 
         /// <summary>
+        /// 執行在 ListView 中選擇的動作。
+        /// </summary>
+        /// <returns>最後一個執行的動作索引值</returns>
+        int DoSelected();
+
+        /// <summary>
         /// 執行動作。
         /// </summary>
         /// <param name="actionIndex"></param>
@@ -121,6 +127,15 @@ namespace Features
         public void Clear()
         {
             Actions.Clear();
+        }
+
+        public int DoSelected()
+        {
+            foreach (int selectedIndex in ActionsListView.SelectedIndices)
+            {
+                LastActionIndex = Do(selectedIndex);
+            }
+            return LastActionIndex;
         }
 
         public int Do(int actionIndex)

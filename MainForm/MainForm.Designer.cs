@@ -1204,7 +1204,6 @@
             this.listView_actionflow_actions.GridLines = true;
             this.listView_actionflow_actions.HideSelection = false;
             this.listView_actionflow_actions.Location = new System.Drawing.Point(3, 3);
-            this.listView_actionflow_actions.MultiSelect = false;
             this.listView_actionflow_actions.Name = "listView_actionflow_actions";
             this.listView_actionflow_actions.Size = new System.Drawing.Size(1305, 746);
             this.listView_actionflow_actions.TabIndex = 2;
