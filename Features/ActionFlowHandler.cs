@@ -15,7 +15,8 @@ namespace Features
         bool AutoNextAction { get; set; }
 
         /// <summary>
-        /// 最後一個執行的動作索引值。
+        /// 最後一個執行的動作索引值。<br/>
+        /// -1 代表從未執行過動作。
         /// </summary>
         int LastActionIndex { get; }
 
@@ -38,6 +39,12 @@ namespace Features
         /// 清空所有動作。
         /// </summary>
         void Clear();
+
+        /// <summary>
+        /// 執行在 ListView 中選擇的動作。
+        /// </summary>
+        /// <returns>最後一個執行的動作索引值</returns>
+        int DoSelected();
 
         /// <summary>
         /// 執行動作。
@@ -84,42 +91,37 @@ namespace Features
 
     public class ActionFlowHandler : IActionFlowHandler
     {
-        private readonly ListView ActionListView;
         private readonly List<ActionStruct> Actions = new List<ActionStruct>();
+        private readonly ListView ActionsListView;
         private readonly IMessage Message;
 
-        public ActionFlowHandler(ListView actionListView, IMessage message)
+        public ActionFlowHandler(ListView actionsListView, IMessage message)
         {
-            ActionListView = actionListView;
+            ActionsListView = actionsListView;
             Message = message;
         }
 
         public bool AutoNextAction { get; set; } = true;
-        public int LastActionIndex { get; private set; }
         public bool ShowMessageBeforeAction { get; set; } = true;
+        public int LastActionIndex { get; private set; } = -1;
 
         public void Add(string name, Action action, string comment = "--")
         {
             // Add to Actions.
-            var actionStruct = new ActionStruct()
+            Actions.Add(new ActionStruct()
             {
                 Action = action,
                 Name = name,
                 Comment = comment
-            };
-            Actions.Add(actionStruct);
+            });
 
             // Update ListView.
             var item = new ListViewItem();
             item.SubItems[0].Text = Convert.ToString(Actions.Count - 1);
             item.SubItems.Add(name);
             item.SubItems.Add(comment);
-            ActionListView.Items.Add(item);
-
-            if (!ActionListView.Items[0].Selected)
-            {
-                ActionListView.Items[0].Selected = true;
-            }
+            ActionsListView.Items.Add(item);
+            ActionsListView.Items[0].Selected = true;
         }
 
         public void Clear()
@@ -127,10 +129,29 @@ namespace Features
             Actions.Clear();
         }
 
+        public int DoSelected()
+        {
+            foreach (int selectedIndex in ActionsListView.SelectedIndices)
+            {
+                var act = Actions[selectedIndex];
+                if (ShowActionMessageAndContinue(selectedIndex))
+                {
+                    act.Action();
+                    LastActionIndex = selectedIndex;
+                }
+                else
+                {
+                    return LastActionIndex;
+                }
+            }
+            AutoSelectedNextAction();
+            return LastActionIndex;
+        }
+
         public int Do(int actionIndex)
         {
             var act = Actions[actionIndex];
-            if (ShowActionMessageAndContinue(actionIndex, act))
+            if (ShowActionMessageAndContinue(actionIndex))
             {
                 act.Action();
                 LastActionIndex = actionIndex;
@@ -141,12 +162,12 @@ namespace Features
 
         public int Do(int startActionIndex, int endActionIndex)
         {
-            if (endActionIndex > startActionIndex)
+            if (endActionIndex >= startActionIndex)
             {
                 for (var i = startActionIndex; i <= endActionIndex; i++)
                 {
                     var act = Actions[i];
-                    if (ShowActionMessageAndContinue(i, act))
+                    if (ShowActionMessageAndContinue(i))
                     {
                         act.Action();
                         LastActionIndex = i;
@@ -169,7 +190,7 @@ namespace Features
                 if (Actions[i].Name.Equals(actionName))
                 {
                     var act = Actions[i];
-                    if (ShowActionMessageAndContinue(i, act))
+                    if (ShowActionMessageAndContinue(i))
                     {
                         act.Action();
                         LastActionIndex = i;
@@ -190,7 +211,7 @@ namespace Features
             for (var i = 0; i < Actions.Count; i++)
             {
                 var act = Actions[i];
-                if (ShowActionMessageAndContinue(i, act))
+                if (ShowActionMessageAndContinue(i))
                 {
                     act.Action();
                     LastActionIndex = i;
@@ -205,19 +226,21 @@ namespace Features
 
         public void UpdateListView()
         {
-            ActionListView.Items.Clear();
+            // Update ListView content.
+            ActionsListView.Items.Clear();
             for (var i = 0; i < Actions.Count; i++)
             {
                 var item = new ListViewItem();
                 item.SubItems[0].Text = i.ToString();
                 item.SubItems.Add(Actions[i].Name);
                 item.SubItems.Add(Actions[i].Comment);
-                ActionListView.Items.Add(item);
+                ActionsListView.Items.Add(item);
             }
 
-            if (ActionListView.Items.Count > 0)
+            // Select first item.
+            if (ActionsListView.Items.Count > 0)
             {
-                ActionListView.Items[0].Selected = true;
+                ActionsListView.Items[0].Selected = true;
             }
 
             ResizeListColumnWidth();
@@ -225,12 +248,20 @@ namespace Features
 
         private void AutoSelectedNextAction()
         {
-            if (AutoNextAction)
+            var selectedCount = ActionsListView.SelectedIndices.Count;
+            if (AutoNextAction && selectedCount > 0)
             {
-                var nowIndex = ActionListView.SelectedIndices[0];
-                if (nowIndex < (Actions.Count - 1))
+                var lestSelectedIndex = ActionsListView.SelectedIndices[selectedCount - 1];
+                if (lestSelectedIndex < (Actions.Count - 1))
                 {
-                    ActionListView.Items[++nowIndex].Selected = true;
+                    // Unselect all item.
+                    foreach (ListViewItem selectedItem in ActionsListView.SelectedItems)
+                    {
+                        selectedItem.Selected = false;
+                    }
+
+                    // Select next item.
+                    ActionsListView.Items[++lestSelectedIndex].Selected = true;
                 }
             }
         }
@@ -239,25 +270,24 @@ namespace Features
         {
             // 若要調整資料行中最長專案的寬度，請將 Width 屬性設定為-1。
             // 若要自動調整為數據行標題的寬度，請將 Width 屬性設定為-2。
-            for (var col = 0; col < ActionListView.Columns.Count; col++)
+            foreach (ColumnHeader column in ActionsListView.Columns)
             {
-                ActionListView.Columns[col].Width = -2;
+                column.Width = -2;
             }
         }
 
         /// <summary>
-        /// Show action messgae if enable, and return continue or not.
+        /// Show action message if enable, and return continue or not.
         /// </summary>
         /// <param name="index"></param>
-        /// <param name="actionStruct"></param>
         /// <returns>true: Continue; false: Not continue.</returns>
-        private bool ShowActionMessageAndContinue(int index, ActionStruct actionStruct)
+        private bool ShowActionMessageAndContinue(int index)
         {
             if (ShowMessageBeforeAction)
             {
                 var text = $"•Index: {index}\r\n" +
-                           $"•Name: {actionStruct.Name}\r\n" +
-                           $"•Comment: {actionStruct.Comment}";
+                           $"•Name: {Actions[index].Name}\r\n" +
+                           $"•Comment: {Actions[index].Comment}";
 
                 var result = Message.Show(text,
                                           "Next Action",
