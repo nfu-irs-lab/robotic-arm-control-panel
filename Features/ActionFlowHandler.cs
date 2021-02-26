@@ -205,6 +205,7 @@ namespace Features
 
         public void UpdateListView()
         {
+            // Update ListView content.
             ActionsListView.Items.Clear();
             for (var i = 0; i < Actions.Count; i++)
             {
@@ -215,6 +216,7 @@ namespace Features
                 ActionsListView.Items.Add(item);
             }
 
+            // Select first item.
             if (ActionsListView.Items.Count > 0)
             {
                 ActionsListView.Items[0].Selected = true;
@@ -246,7 +248,7 @@ namespace Features
         }
 
         /// <summary>
-        /// Show action messgae if enable, and return continue or not.
+        /// Show action message if enable, and return continue or not.
         /// </summary>
         /// <param name="index"></param>
         /// <param name="actionStruct"></param>
