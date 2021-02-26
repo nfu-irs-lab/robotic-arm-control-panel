@@ -85,8 +85,8 @@ namespace Features
 
     public class ActionFlowHandler : IActionFlowHandler
     {
-        private readonly ListView ActionsListView;
         private readonly List<ActionStruct> Actions = new List<ActionStruct>();
+        private readonly ListView ActionsListView;
         private readonly IMessage Message;
 
         public ActionFlowHandler(ListView actionsListView, IMessage message)
@@ -102,13 +102,12 @@ namespace Features
         public void Add(string name, Action action, string comment = "--")
         {
             // Add to Actions.
-            var actionStruct = new ActionStruct()
+            Actions.Add(new ActionStruct()
             {
                 Action = action,
                 Name = name,
                 Comment = comment
-            };
-            Actions.Add(actionStruct);
+            });
 
             // Update ListView.
             var item = new ListViewItem();
