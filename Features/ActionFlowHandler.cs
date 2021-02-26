@@ -115,11 +115,7 @@ namespace Features
             item.SubItems.Add(name);
             item.SubItems.Add(comment);
             ActionsListView.Items.Add(item);
-
-            if (!ActionsListView.Items[0].Selected)
-            {
-                ActionsListView.Items[0].Selected = true;
-            }
+            ActionsListView.Items[0].Selected = true;
         }
 
         public void Clear()
