@@ -130,7 +130,7 @@ namespace Features
         public int Do(int actionIndex)
         {
             var act = Actions[actionIndex];
-            if (ShowActionMessageAndContinue(actionIndex, act))
+            if (ShowActionMessageAndContinue(actionIndex))
             {
                 act.Action();
                 LastActionIndex = actionIndex;
@@ -146,7 +146,7 @@ namespace Features
                 for (var i = startActionIndex; i <= endActionIndex; i++)
                 {
                     var act = Actions[i];
-                    if (ShowActionMessageAndContinue(i, act))
+                    if (ShowActionMessageAndContinue(i))
                     {
                         act.Action();
                         LastActionIndex = i;
@@ -169,7 +169,7 @@ namespace Features
                 if (Actions[i].Name.Equals(actionName))
                 {
                     var act = Actions[i];
-                    if (ShowActionMessageAndContinue(i, act))
+                    if (ShowActionMessageAndContinue(i))
                     {
                         act.Action();
                         LastActionIndex = i;
@@ -190,7 +190,7 @@ namespace Features
             for (var i = 0; i < Actions.Count; i++)
             {
                 var act = Actions[i];
-                if (ShowActionMessageAndContinue(i, act))
+                if (ShowActionMessageAndContinue(i))
                 {
                     act.Action();
                     LastActionIndex = i;
@@ -251,15 +251,14 @@ namespace Features
         /// Show action message if enable, and return continue or not.
         /// </summary>
         /// <param name="index"></param>
-        /// <param name="actionStruct"></param>
         /// <returns>true: Continue; false: Not continue.</returns>
-        private bool ShowActionMessageAndContinue(int index, ActionStruct actionStruct)
+        private bool ShowActionMessageAndContinue(int index)
         {
             if (ShowMessageBeforeAction)
             {
                 var text = $"•Index: {index}\r\n" +
-                           $"•Name: {actionStruct.Name}\r\n" +
-                           $"•Comment: {actionStruct.Comment}";
+                           $"•Name: {Actions[index].Name}\r\n" +
+                           $"•Comment: {Actions[index].Comment}";
 
                 var result = Message.Show(text,
                                           "Next Action",
