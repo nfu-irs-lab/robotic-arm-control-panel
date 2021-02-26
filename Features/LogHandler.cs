@@ -41,7 +41,7 @@ namespace Features
 
     public interface ILogHandler
     {
-        string Path { get; set; }
+        string Path { get; }
 
         void Write(string message, LoggingLevel loggingLevel);
 
@@ -50,21 +50,19 @@ namespace Features
 
     public class LogHandler : ILogHandler
     {
-        private int Count = 1;
+        private string Filename;
 
-        private string FileName;
-
-        private LoggingLevel LoggingLevel;
+        private readonly LoggingLevel LoggingLevel;
 
         public LogHandler(string path = "",
                           LoggingLevel loggingLevel = LoggingLevel.Trace)
         {
             Path = path;
             LoggingLevel = loggingLevel;
-            CreateFile(DateTime.Now);
+            CreateFile();
         }
 
-        public string Path { get; set; }
+        public string Path { get; }
 
         public void Write(Exception ex, LoggingLevel loggingLevel)
         {
@@ -90,24 +88,30 @@ namespace Features
             Write("LogHandler Destruct.", LoggingLevel.Fatal);
         }
 
-        private void CreateFile(DateTime dateTime)
+        private void CreateFile()
         {
-            string targetFileName = $"{dateTime:MMMdd-HH}_{Count}.log";
+            var dateTimeNow = DateTime.Now;
+            var num = 1;
 
-            if (File.Exists(Path + targetFileName))
+            // Update filename.
+            while (true)
             {
-                // TODO: 改善目標檔名已經存在時，更新檔名的寫法。目前的方式是一個一個找。
-                Count++;
-                CreateFile(dateTime);
+                var targetFilename = $"{dateTimeNow:MMMdd-HH}_{num}.log";
+                if (File.Exists(Path + targetFilename))
+                {
+                    num++;
+                }
+                else
+                {
+                    Filename = targetFilename;
+                    break;
+                }
             }
-            else
-            {
-                FileName = targetFileName;
-                var file = MakeStreamWriter();
-                file.WriteLine(dateTime.ToString("yyyy-MM-dd_HH:mm:ss") +
-                               $"  LogLv: {LoggingLevel}\r\n---");
-                file.Close();
-            }
+
+            var sw = MakeStreamWriter();
+            sw.WriteLine($"{dateTimeNow:yyyy-MM-dd_HH:mm:ss}  " +
+                         $"LogLv: {LoggingLevel}\r\n---");
+            sw.Close();
         }
 
         /// <summary>
@@ -118,12 +122,12 @@ namespace Features
         {
             try
             {
-                return File.AppendText(Path + FileName);
+                return File.AppendText(Path + Filename);
             }
             catch (DirectoryNotFoundException)
             {
                 Directory.CreateDirectory(Path);
-                return File.AppendText(Path + FileName);
+                return File.AppendText(Path + Filename);
             }
         }
     }
