@@ -137,7 +137,7 @@ namespace Features
 
         public int Do(int startActionIndex, int endActionIndex)
         {
-            if (endActionIndex > startActionIndex)
+            if (endActionIndex >= startActionIndex)
             {
                 for (var i = startActionIndex; i <= endActionIndex; i++)
                 {
