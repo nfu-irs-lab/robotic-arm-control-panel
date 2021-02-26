@@ -579,8 +579,7 @@ namespace MainForm
 
         private void button_actionflow_do_selected_Click(object sender, EventArgs e)
         {
-            var index = listView_actionflow_actions.SelectedItems[0].Index;
-            ActionFlow.Do(index);
+            ActionFlow.DoSelected();
         }
 
         #endregion - 動作流程 -
