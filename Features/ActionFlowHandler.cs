@@ -96,8 +96,8 @@ namespace Features
         }
 
         public bool AutoNextAction { get; set; } = true;
-        public int LastActionIndex { get; private set; } = -1;
         public bool ShowMessageBeforeAction { get; set; } = true;
+        public int LastActionIndex { get; private set; } = -1;
 
         public void Add(string name, Action action, string comment = "--")
         {
