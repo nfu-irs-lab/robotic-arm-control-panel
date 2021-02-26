@@ -15,7 +15,8 @@ namespace Features
         bool AutoNextAction { get; set; }
 
         /// <summary>
-        /// 最後一個執行的動作索引值。
+        /// 最後一個執行的動作索引值。<br/>
+        /// -1 代表從未執行過動作。
         /// </summary>
         int LastActionIndex { get; }
 
@@ -95,7 +96,7 @@ namespace Features
         }
 
         public bool AutoNextAction { get; set; } = true;
-        public int LastActionIndex { get; private set; }
+        public int LastActionIndex { get; private set; } = -1;
         public bool ShowMessageBeforeAction { get; set; } = true;
 
         public void Add(string name, Action action, string comment = "--")
