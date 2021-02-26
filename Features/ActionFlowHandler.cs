@@ -85,13 +85,13 @@ namespace Features
 
     public class ActionFlowHandler : IActionFlowHandler
     {
-        private readonly ListView ActionListView;
+        private readonly ListView ActionsListView;
         private readonly List<ActionStruct> Actions = new List<ActionStruct>();
         private readonly IMessage Message;
 
-        public ActionFlowHandler(ListView actionListView, IMessage message)
+        public ActionFlowHandler(ListView actionsListView, IMessage message)
         {
-            ActionListView = actionListView;
+            ActionsListView = actionsListView;
             Message = message;
         }
 
@@ -115,11 +115,11 @@ namespace Features
             item.SubItems[0].Text = Convert.ToString(Actions.Count - 1);
             item.SubItems.Add(name);
             item.SubItems.Add(comment);
-            ActionListView.Items.Add(item);
+            ActionsListView.Items.Add(item);
 
-            if (!ActionListView.Items[0].Selected)
+            if (!ActionsListView.Items[0].Selected)
             {
-                ActionListView.Items[0].Selected = true;
+                ActionsListView.Items[0].Selected = true;
             }
         }
 
@@ -206,19 +206,19 @@ namespace Features
 
         public void UpdateListView()
         {
-            ActionListView.Items.Clear();
+            ActionsListView.Items.Clear();
             for (var i = 0; i < Actions.Count; i++)
             {
                 var item = new ListViewItem();
                 item.SubItems[0].Text = i.ToString();
                 item.SubItems.Add(Actions[i].Name);
                 item.SubItems.Add(Actions[i].Comment);
-                ActionListView.Items.Add(item);
+                ActionsListView.Items.Add(item);
             }
 
-            if (ActionListView.Items.Count > 0)
+            if (ActionsListView.Items.Count > 0)
             {
-                ActionListView.Items[0].Selected = true;
+                ActionsListView.Items[0].Selected = true;
             }
 
             ResizeListColumnWidth();
@@ -228,10 +228,10 @@ namespace Features
         {
             if (AutoNextAction)
             {
-                var nowIndex = ActionListView.SelectedIndices[0];
+                var nowIndex = ActionsListView.SelectedIndices[0];
                 if (nowIndex < (Actions.Count - 1))
                 {
-                    ActionListView.Items[++nowIndex].Selected = true;
+                    ActionsListView.Items[++nowIndex].Selected = true;
                 }
             }
         }
@@ -240,9 +240,9 @@ namespace Features
         {
             // 若要調整資料行中最長專案的寬度，請將 Width 屬性設定為-1。
             // 若要自動調整為數據行標題的寬度，請將 Width 屬性設定為-2。
-            for (var col = 0; col < ActionListView.Columns.Count; col++)
+            for (var col = 0; col < ActionsListView.Columns.Count; col++)
             {
-                ActionListView.Columns[col].Width = -2;
+                ActionsListView.Columns[col].Width = -2;
             }
         }
 
