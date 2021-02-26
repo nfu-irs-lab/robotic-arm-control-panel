@@ -133,8 +133,18 @@ namespace Features
         {
             foreach (int selectedIndex in ActionsListView.SelectedIndices)
             {
-                LastActionIndex = Do(selectedIndex);
+                var act = Actions[selectedIndex];
+                if (ShowActionMessageAndContinue(selectedIndex))
+                {
+                    act.Action();
+                    LastActionIndex = selectedIndex;
+                }
+                else
+                {
+                    return LastActionIndex;
+                }
             }
+            AutoSelectedNextAction();
             return LastActionIndex;
         }
 
@@ -238,12 +248,20 @@ namespace Features
 
         private void AutoSelectedNextAction()
         {
-            if (AutoNextAction)
+            var selectedCount = ActionsListView.SelectedIndices.Count;
+            if (AutoNextAction && selectedCount > 0)
             {
-                var nowIndex = ActionsListView.SelectedIndices[0];
-                if (nowIndex < (Actions.Count - 1))
+                var lestSelectedIndex = ActionsListView.SelectedIndices[selectedCount - 1];
+                if (lestSelectedIndex < (Actions.Count - 1))
                 {
-                    ActionsListView.Items[++nowIndex].Selected = true;
+                    // Unselect all item.
+                    foreach (ListViewItem selectedItem in ActionsListView.SelectedItems)
+                    {
+                        selectedItem.Selected = false;
+                    }
+
+                    // Select next item.
+                    ActionsListView.Items[++lestSelectedIndex].Selected = true;
                 }
             }
         }
