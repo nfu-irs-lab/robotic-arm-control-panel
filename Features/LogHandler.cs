@@ -41,7 +41,7 @@ namespace Features
 
     public interface ILogHandler
     {
-        string Path { get; set; }
+        string Path { get; }
 
         void Write(string message, LoggingLevel loggingLevel);
 
@@ -62,7 +62,7 @@ namespace Features
             CreateFile();
         }
 
-        public string Path { get; set; }
+        public string Path { get; }
 
         public void Write(Exception ex, LoggingLevel loggingLevel)
         {
