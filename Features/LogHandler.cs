@@ -52,7 +52,7 @@ namespace Features
     {
         private string Filename;
 
-        private LoggingLevel LoggingLevel;
+        private readonly LoggingLevel LoggingLevel;
 
         public LogHandler(string path = "",
                           LoggingLevel loggingLevel = LoggingLevel.Trace)

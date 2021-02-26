@@ -103,7 +103,7 @@ namespace Features
     /// </summary>
     public class NormalMessage : IMessage
     {
-        private ILogHandler LogHandler = null;
+        private readonly ILogHandler LogHandler = null;
 
         public NormalMessage(ILogHandler logHandler)
         {
