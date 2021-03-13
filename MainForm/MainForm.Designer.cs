@@ -100,8 +100,10 @@
             this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
+            this.checkBox_actionflow_autoNext = new System.Windows.Forms.CheckBox();
             this.button_actionflow_do_all = new System.Windows.Forms.Button();
             this.button_actionflow_do_selected = new System.Windows.Forms.Button();
+            this.checkBox_actionflow_showMsg = new System.Windows.Forms.CheckBox();
             this.tabPage_sub_position_record = new System.Windows.Forms.TabPage();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
@@ -127,8 +129,16 @@
             this.label13 = new System.Windows.Forms.Label();
             this.textBox_position_record_name = new System.Windows.Forms.TextBox();
             this.textBox_position_record_comment = new System.Windows.Forms.TextBox();
-            this.checkBox_actionflow_autoNext = new System.Windows.Forms.CheckBox();
-            this.checkBox_actionflow_showMsg = new System.Windows.Forms.CheckBox();
+            this.tabPage_sub_inching = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
+            this.button_inching_positive_y = new System.Windows.Forms.Button();
+            this.button_inching_negative_x = new System.Windows.Forms.Button();
+            this.button_inching_positive_x = new System.Windows.Forms.Button();
+            this.button_inching_negative_y = new System.Windows.Forms.Button();
+            this.button_inching_positive_z = new System.Windows.Forms.Button();
+            this.button_inching_negative_z = new System.Windows.Forms.Button();
+            this.numericUpDown_inching_xy = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown_inching_z = new System.Windows.Forms.NumericUpDown();
             this.groupBox_connect_disconnect.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -166,6 +176,10 @@
             this.tableLayoutPanel8.SuspendLayout();
             this.groupBox_position_record.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
+            this.tabPage_sub_inching.SuspendLayout();
+            this.tableLayoutPanel11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_inching_xy)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_inching_z)).BeginInit();
             this.SuspendLayout();
             // 
             // button_connect
@@ -927,7 +941,7 @@
             this.tabPage1.Controls.Add(this.groupBox_arm_position);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(707, 443);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "手臂";
@@ -938,7 +952,7 @@
             this.tabPage2.Controls.Add(this.tableLayoutPanel6);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(707, 443);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "夾爪";
@@ -1092,8 +1106,9 @@
             // 
             this.tabControl_sub.Controls.Add(this.tabPage_sub_actionflow);
             this.tabControl_sub.Controls.Add(this.tabPage_sub_position_record);
+            this.tabControl_sub.Controls.Add(this.tabPage_sub_inching);
             this.tabControl_sub.Location = new System.Drawing.Point(744, 98);
-            this.tabControl_sub.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabControl_sub.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl_sub.Name = "tabControl_sub";
             this.tabControl_sub.SelectedIndex = 0;
             this.tabControl_sub.Size = new System.Drawing.Size(666, 472);
@@ -1103,7 +1118,7 @@
             // 
             this.tabPage_sub_actionflow.Controls.Add(this.tableLayoutPanel9);
             this.tabPage_sub_actionflow.Location = new System.Drawing.Point(4, 25);
-            this.tabPage_sub_actionflow.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage_sub_actionflow.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage_sub_actionflow.Name = "tabPage_sub_actionflow";
             this.tabPage_sub_actionflow.Size = new System.Drawing.Size(658, 443);
             this.tabPage_sub_actionflow.TabIndex = 1;
@@ -1118,7 +1133,7 @@
             this.tableLayoutPanel9.Controls.Add(this.tableLayoutPanel10, 0, 1);
             this.tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel9.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel9.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel9.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel9.Name = "tableLayoutPanel9";
             this.tableLayoutPanel9.RowCount = 2;
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 85F));
@@ -1137,7 +1152,7 @@
             this.listView_actionflow_actions.GridLines = true;
             this.listView_actionflow_actions.HideSelection = false;
             this.listView_actionflow_actions.Location = new System.Drawing.Point(2, 2);
-            this.listView_actionflow_actions.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.listView_actionflow_actions.Margin = new System.Windows.Forms.Padding(2);
             this.listView_actionflow_actions.Name = "listView_actionflow_actions";
             this.listView_actionflow_actions.Size = new System.Drawing.Size(654, 372);
             this.listView_actionflow_actions.TabIndex = 2;
@@ -1172,18 +1187,32 @@
             this.tableLayoutPanel10.Controls.Add(this.checkBox_actionflow_showMsg, 0, 0);
             this.tableLayoutPanel10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel10.Location = new System.Drawing.Point(2, 378);
-            this.tableLayoutPanel10.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel10.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel10.Name = "tableLayoutPanel10";
             this.tableLayoutPanel10.RowCount = 1;
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel10.Size = new System.Drawing.Size(654, 63);
             this.tableLayoutPanel10.TabIndex = 3;
             // 
+            // checkBox_actionflow_autoNext
+            // 
+            this.checkBox_actionflow_autoNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBox_actionflow_autoNext.AutoSize = true;
+            this.checkBox_actionflow_autoNext.Checked = true;
+            this.checkBox_actionflow_autoNext.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox_actionflow_autoNext.Location = new System.Drawing.Point(146, 22);
+            this.checkBox_actionflow_autoNext.Name = "checkBox_actionflow_autoNext";
+            this.checkBox_actionflow_autoNext.Size = new System.Drawing.Size(137, 19);
+            this.checkBox_actionflow_autoNext.TabIndex = 7;
+            this.checkBox_actionflow_autoNext.Text = "Auto Next";
+            this.checkBox_actionflow_autoNext.UseVisualStyleBackColor = true;
+            this.checkBox_actionflow_autoNext.CheckedChanged += new System.EventHandler(this.checkBox_actionflow_autoNext_CheckedChanged);
+            // 
             // button_actionflow_do_all
             // 
             this.button_actionflow_do_all.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.button_actionflow_do_all.Location = new System.Drawing.Point(514, 6);
-            this.button_actionflow_do_all.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button_actionflow_do_all.Margin = new System.Windows.Forms.Padding(2);
             this.button_actionflow_do_all.Name = "button_actionflow_do_all";
             this.button_actionflow_do_all.Size = new System.Drawing.Size(94, 51);
             this.button_actionflow_do_all.TabIndex = 0;
@@ -1195,7 +1224,7 @@
             // 
             this.button_actionflow_do_selected.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.button_actionflow_do_selected.Location = new System.Drawing.Point(330, 6);
-            this.button_actionflow_do_selected.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button_actionflow_do_selected.Margin = new System.Windows.Forms.Padding(2);
             this.button_actionflow_do_selected.Name = "button_actionflow_do_selected";
             this.button_actionflow_do_selected.Size = new System.Drawing.Size(94, 51);
             this.button_actionflow_do_selected.TabIndex = 0;
@@ -1203,14 +1232,28 @@
             this.button_actionflow_do_selected.UseVisualStyleBackColor = true;
             this.button_actionflow_do_selected.Click += new System.EventHandler(this.button_actionflow_do_selected_Click);
             // 
+            // checkBox_actionflow_showMsg
+            // 
+            this.checkBox_actionflow_showMsg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBox_actionflow_showMsg.AutoSize = true;
+            this.checkBox_actionflow_showMsg.Checked = true;
+            this.checkBox_actionflow_showMsg.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox_actionflow_showMsg.Location = new System.Drawing.Point(3, 22);
+            this.checkBox_actionflow_showMsg.Name = "checkBox_actionflow_showMsg";
+            this.checkBox_actionflow_showMsg.Size = new System.Drawing.Size(137, 19);
+            this.checkBox_actionflow_showMsg.TabIndex = 8;
+            this.checkBox_actionflow_showMsg.Text = "Show Msg";
+            this.checkBox_actionflow_showMsg.UseVisualStyleBackColor = true;
+            this.checkBox_actionflow_showMsg.CheckedChanged += new System.EventHandler(this.checkBox_actionflow_showMsg_CheckedChanged);
+            // 
             // tabPage_sub_position_record
             // 
             this.tabPage_sub_position_record.Controls.Add(this.groupBox7);
             this.tabPage_sub_position_record.Controls.Add(this.groupBox_position_record);
             this.tabPage_sub_position_record.Location = new System.Drawing.Point(4, 25);
-            this.tabPage_sub_position_record.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage_sub_position_record.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage_sub_position_record.Name = "tabPage_sub_position_record";
-            this.tabPage_sub_position_record.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage_sub_position_record.Padding = new System.Windows.Forms.Padding(2);
             this.tabPage_sub_position_record.Size = new System.Drawing.Size(658, 443);
             this.tabPage_sub_position_record.TabIndex = 0;
             this.tabPage_sub_position_record.Text = "位置記錄";
@@ -1222,9 +1265,9 @@
             this.groupBox7.Controls.Add(this.listView_position_record);
             this.groupBox7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox7.Location = new System.Drawing.Point(2, 2);
-            this.groupBox7.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox7.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox7.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox7.Size = new System.Drawing.Size(654, 361);
             this.groupBox7.TabIndex = 3;
             this.groupBox7.TabStop = false;
@@ -1243,7 +1286,7 @@
             this.tableLayoutPanel8.Controls.Add(this.label14, 0, 0);
             this.tableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tableLayoutPanel8.Location = new System.Drawing.Point(2, 311);
-            this.tableLayoutPanel8.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel8.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel8.Name = "tableLayoutPanel8";
             this.tableLayoutPanel8.RowCount = 1;
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -1254,7 +1297,7 @@
             // 
             this.button_position_record_read.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.button_position_record_read.Location = new System.Drawing.Point(531, 6);
-            this.button_position_record_read.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button_position_record_read.Margin = new System.Windows.Forms.Padding(2);
             this.button_position_record_read.Name = "button_position_record_read";
             this.button_position_record_read.Size = new System.Drawing.Size(73, 36);
             this.button_position_record_read.TabIndex = 0;
@@ -1266,7 +1309,7 @@
             // 
             this.button_position_record_update_list.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.button_position_record_update_list.Location = new System.Drawing.Point(368, 6);
-            this.button_position_record_update_list.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button_position_record_update_list.Margin = new System.Windows.Forms.Padding(2);
             this.button_position_record_update_list.Name = "button_position_record_update_list";
             this.button_position_record_update_list.Size = new System.Drawing.Size(73, 36);
             this.button_position_record_update_list.TabIndex = 0;
@@ -1279,7 +1322,7 @@
             this.comboBox_position_record_file_list.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox_position_record_file_list.FormattingEnabled = true;
             this.comboBox_position_record_file_list.Location = new System.Drawing.Point(99, 12);
-            this.comboBox_position_record_file_list.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBox_position_record_file_list.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox_position_record_file_list.Name = "comboBox_position_record_file_list";
             this.comboBox_position_record_file_list.Size = new System.Drawing.Size(223, 23);
             this.comboBox_position_record_file_list.TabIndex = 1;
@@ -1314,7 +1357,7 @@
             this.listView_position_record.GridLines = true;
             this.listView_position_record.HideSelection = false;
             this.listView_position_record.Location = new System.Drawing.Point(2, 20);
-            this.listView_position_record.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.listView_position_record.Margin = new System.Windows.Forms.Padding(2);
             this.listView_position_record.MultiSelect = false;
             this.listView_position_record.Name = "listView_position_record";
             this.listView_position_record.Size = new System.Drawing.Size(650, 292);
@@ -1327,9 +1370,9 @@
             this.groupBox_position_record.Controls.Add(this.tableLayoutPanel7);
             this.groupBox_position_record.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.groupBox_position_record.Location = new System.Drawing.Point(2, 363);
-            this.groupBox_position_record.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox_position_record.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox_position_record.Name = "groupBox_position_record";
-            this.groupBox_position_record.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox_position_record.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox_position_record.Size = new System.Drawing.Size(654, 78);
             this.groupBox_position_record.TabIndex = 1;
             this.groupBox_position_record.TabStop = false;
@@ -1350,7 +1393,7 @@
             this.tableLayoutPanel7.Controls.Add(this.textBox_position_record_comment, 3, 0);
             this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel7.Location = new System.Drawing.Point(2, 20);
-            this.tableLayoutPanel7.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel7.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
             this.tableLayoutPanel7.RowCount = 1;
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -1361,7 +1404,7 @@
             // 
             this.button_position_recode.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.button_position_recode.Location = new System.Drawing.Point(587, 13);
-            this.button_position_recode.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button_position_recode.Margin = new System.Windows.Forms.Padding(2);
             this.button_position_recode.Name = "button_position_recode";
             this.button_position_recode.Size = new System.Drawing.Size(61, 30);
             this.button_position_recode.TabIndex = 1;
@@ -1395,7 +1438,7 @@
             // 
             this.textBox_position_record_name.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox_position_record_name.Location = new System.Drawing.Point(67, 15);
-            this.textBox_position_record_name.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox_position_record_name.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_position_record_name.Name = "textBox_position_record_name";
             this.textBox_position_record_name.Size = new System.Drawing.Size(191, 25);
             this.textBox_position_record_name.TabIndex = 0;
@@ -1405,38 +1448,140 @@
             // 
             this.textBox_position_record_comment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox_position_record_comment.Location = new System.Drawing.Point(327, 15);
-            this.textBox_position_record_comment.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox_position_record_comment.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_position_record_comment.Name = "textBox_position_record_comment";
             this.textBox_position_record_comment.Size = new System.Drawing.Size(256, 25);
             this.textBox_position_record_comment.TabIndex = 2;
             // 
-            // checkBox_actionflow_autoNext
+            // tabPage_sub_inching
             // 
-            this.checkBox_actionflow_autoNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox_actionflow_autoNext.AutoSize = true;
-            this.checkBox_actionflow_autoNext.Checked = true;
-            this.checkBox_actionflow_autoNext.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox_actionflow_autoNext.Location = new System.Drawing.Point(146, 22);
-            this.checkBox_actionflow_autoNext.Name = "checkBox_actionflow_autoNext";
-            this.checkBox_actionflow_autoNext.Size = new System.Drawing.Size(137, 19);
-            this.checkBox_actionflow_autoNext.TabIndex = 7;
-            this.checkBox_actionflow_autoNext.Text = "Auto Next";
-            this.checkBox_actionflow_autoNext.UseVisualStyleBackColor = true;
-            this.checkBox_actionflow_autoNext.CheckedChanged += new System.EventHandler(this.checkBox_actionflow_autoNext_CheckedChanged);
+            this.tabPage_sub_inching.Controls.Add(this.tableLayoutPanel11);
+            this.tabPage_sub_inching.Location = new System.Drawing.Point(4, 25);
+            this.tabPage_sub_inching.Name = "tabPage_sub_inching";
+            this.tabPage_sub_inching.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_sub_inching.Size = new System.Drawing.Size(658, 443);
+            this.tabPage_sub_inching.TabIndex = 2;
+            this.tabPage_sub_inching.Text = "寸動微調";
+            this.tabPage_sub_inching.UseVisualStyleBackColor = true;
             // 
-            // checkBox_actionflow_showMsg
+            // tableLayoutPanel11
             // 
-            this.checkBox_actionflow_showMsg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox_actionflow_showMsg.AutoSize = true;
-            this.checkBox_actionflow_showMsg.Checked = true;
-            this.checkBox_actionflow_showMsg.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox_actionflow_showMsg.Location = new System.Drawing.Point(3, 22);
-            this.checkBox_actionflow_showMsg.Name = "checkBox_actionflow_showMsg";
-            this.checkBox_actionflow_showMsg.Size = new System.Drawing.Size(137, 19);
-            this.checkBox_actionflow_showMsg.TabIndex = 8;
-            this.checkBox_actionflow_showMsg.Text = "Show Msg";
-            this.checkBox_actionflow_showMsg.UseVisualStyleBackColor = true;
-            this.checkBox_actionflow_showMsg.CheckedChanged += new System.EventHandler(this.checkBox_actionflow_showMsg_CheckedChanged);
+            this.tableLayoutPanel11.ColumnCount = 5;
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel11.Controls.Add(this.button_inching_negative_z, 4, 2);
+            this.tableLayoutPanel11.Controls.Add(this.button_inching_positive_z, 4, 0);
+            this.tableLayoutPanel11.Controls.Add(this.button_inching_negative_y, 1, 2);
+            this.tableLayoutPanel11.Controls.Add(this.button_inching_positive_x, 2, 1);
+            this.tableLayoutPanel11.Controls.Add(this.button_inching_negative_x, 0, 1);
+            this.tableLayoutPanel11.Controls.Add(this.button_inching_positive_y, 1, 0);
+            this.tableLayoutPanel11.Controls.Add(this.numericUpDown_inching_z, 4, 1);
+            this.tableLayoutPanel11.Controls.Add(this.numericUpDown_inching_xy, 1, 1);
+            this.tableLayoutPanel11.Location = new System.Drawing.Point(41, 37);
+            this.tableLayoutPanel11.Name = "tableLayoutPanel11";
+            this.tableLayoutPanel11.RowCount = 3;
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel11.Size = new System.Drawing.Size(496, 247);
+            this.tableLayoutPanel11.TabIndex = 0;
+            // 
+            // button_inching_positive_y
+            // 
+            this.button_inching_positive_y.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_inching_positive_y.Location = new System.Drawing.Point(102, 29);
+            this.button_inching_positive_y.Name = "button_inching_positive_y";
+            this.button_inching_positive_y.Size = new System.Drawing.Size(93, 23);
+            this.button_inching_positive_y.TabIndex = 0;
+            this.button_inching_positive_y.Text = "Y+";
+            this.button_inching_positive_y.UseVisualStyleBackColor = true;
+            this.button_inching_positive_y.Click += new System.EventHandler(this.button_inching_positive_y_Click);
+            // 
+            // button_inching_negative_x
+            // 
+            this.button_inching_negative_x.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_inching_negative_x.Location = new System.Drawing.Point(3, 111);
+            this.button_inching_negative_x.Name = "button_inching_negative_x";
+            this.button_inching_negative_x.Size = new System.Drawing.Size(93, 23);
+            this.button_inching_negative_x.TabIndex = 0;
+            this.button_inching_negative_x.Text = "X-";
+            this.button_inching_negative_x.UseVisualStyleBackColor = true;
+            this.button_inching_negative_x.Click += new System.EventHandler(this.button_inching_negative_x_Click);
+            // 
+            // button_inching_positive_x
+            // 
+            this.button_inching_positive_x.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_inching_positive_x.Location = new System.Drawing.Point(201, 111);
+            this.button_inching_positive_x.Name = "button_inching_positive_x";
+            this.button_inching_positive_x.Size = new System.Drawing.Size(93, 23);
+            this.button_inching_positive_x.TabIndex = 0;
+            this.button_inching_positive_x.Text = "X+";
+            this.button_inching_positive_x.UseVisualStyleBackColor = true;
+            this.button_inching_positive_x.Click += new System.EventHandler(this.button_inching_positive_x_Click);
+            // 
+            // button_inching_negative_y
+            // 
+            this.button_inching_negative_y.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_inching_negative_y.Location = new System.Drawing.Point(102, 194);
+            this.button_inching_negative_y.Name = "button_inching_negative_y";
+            this.button_inching_negative_y.Size = new System.Drawing.Size(93, 23);
+            this.button_inching_negative_y.TabIndex = 0;
+            this.button_inching_negative_y.Text = "Y-";
+            this.button_inching_negative_y.UseVisualStyleBackColor = true;
+            this.button_inching_negative_y.Click += new System.EventHandler(this.button_inching_negative_y_Click);
+            // 
+            // button_inching_positive_z
+            // 
+            this.button_inching_positive_z.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_inching_positive_z.Location = new System.Drawing.Point(399, 29);
+            this.button_inching_positive_z.Name = "button_inching_positive_z";
+            this.button_inching_positive_z.Size = new System.Drawing.Size(94, 23);
+            this.button_inching_positive_z.TabIndex = 0;
+            this.button_inching_positive_z.Text = "Z+";
+            this.button_inching_positive_z.UseVisualStyleBackColor = true;
+            this.button_inching_positive_z.Click += new System.EventHandler(this.button_inching_positive_z_Click);
+            // 
+            // button_inching_negative_z
+            // 
+            this.button_inching_negative_z.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_inching_negative_z.Location = new System.Drawing.Point(399, 194);
+            this.button_inching_negative_z.Name = "button_inching_negative_z";
+            this.button_inching_negative_z.Size = new System.Drawing.Size(94, 23);
+            this.button_inching_negative_z.TabIndex = 0;
+            this.button_inching_negative_z.Text = "Z-";
+            this.button_inching_negative_z.UseVisualStyleBackColor = true;
+            this.button_inching_negative_z.Click += new System.EventHandler(this.button_inching_negative_z_Click);
+            // 
+            // numericUpDown_inching_xy
+            // 
+            this.numericUpDown_inching_xy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown_inching_xy.DecimalPlaces = 3;
+            this.numericUpDown_inching_xy.Location = new System.Drawing.Point(102, 110);
+            this.numericUpDown_inching_xy.Name = "numericUpDown_inching_xy";
+            this.numericUpDown_inching_xy.Size = new System.Drawing.Size(93, 25);
+            this.numericUpDown_inching_xy.TabIndex = 1;
+            this.numericUpDown_inching_xy.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            // 
+            // numericUpDown_inching_z
+            // 
+            this.numericUpDown_inching_z.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown_inching_z.DecimalPlaces = 3;
+            this.numericUpDown_inching_z.Location = new System.Drawing.Point(399, 110);
+            this.numericUpDown_inching_z.Name = "numericUpDown_inching_z";
+            this.numericUpDown_inching_z.Size = new System.Drawing.Size(94, 25);
+            this.numericUpDown_inching_z.TabIndex = 1;
+            this.numericUpDown_inching_z.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             // 
             // MainForm
             // 
@@ -1498,6 +1643,10 @@
             this.groupBox_position_record.ResumeLayout(false);
             this.tableLayoutPanel7.ResumeLayout(false);
             this.tableLayoutPanel7.PerformLayout();
+            this.tabPage_sub_inching.ResumeLayout(false);
+            this.tableLayoutPanel11.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_inching_xy)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_inching_z)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1605,6 +1754,16 @@
         private System.Windows.Forms.Button button_actionflow_do_all;
         private System.Windows.Forms.CheckBox checkBox_actionflow_autoNext;
         private System.Windows.Forms.CheckBox checkBox_actionflow_showMsg;
+        private System.Windows.Forms.TabPage tabPage_sub_inching;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel11;
+        private System.Windows.Forms.Button button_inching_positive_y;
+        private System.Windows.Forms.Button button_inching_negative_z;
+        private System.Windows.Forms.Button button_inching_positive_z;
+        private System.Windows.Forms.Button button_inching_negative_y;
+        private System.Windows.Forms.Button button_inching_positive_x;
+        private System.Windows.Forms.Button button_inching_negative_x;
+        private System.Windows.Forms.NumericUpDown numericUpDown_inching_z;
+        private System.Windows.Forms.NumericUpDown numericUpDown_inching_xy;
     }
 }
 

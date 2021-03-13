@@ -592,6 +592,51 @@ namespace MainForm
 
         #endregion - 動作流程 -
 
+        #region - 寸動微調 -
+
+        private void button_inching_negative_x_Click(object sender, EventArgs e)
+        {
+            var value = Convert.ToDouble(numericUpDown_inching_xy.Value);
+            Inching(new double[] { -value, 0, 0, 0, 0, 0 });
+        }
+
+        private void button_inching_negative_y_Click(object sender, EventArgs e)
+        {
+            var value = Convert.ToDouble(numericUpDown_inching_xy.Value);
+            Inching(new double[] { 0, -value, 0, 0, 0, 0 });
+        }
+
+        private void button_inching_negative_z_Click(object sender, EventArgs e)
+        {
+            var value = Convert.ToDouble(numericUpDown_inching_z.Value);
+            Inching(new double[] { 0, 0, -value, 0, 0, 0 });
+        }
+
+        private void button_inching_positive_x_Click(object sender, EventArgs e)
+        {
+            var value = Convert.ToDouble(numericUpDown_inching_xy.Value);
+            Inching(new double[] { value, 0, 0, 0, 0, 0 });
+        }
+
+        private void button_inching_positive_y_Click(object sender, EventArgs e)
+        {
+            var value = Convert.ToDouble(numericUpDown_inching_xy.Value);
+            Inching(new double[] { 0, value, 0, 0, 0, 0 });
+        }
+
+        private void button_inching_positive_z_Click(object sender, EventArgs e)
+        {
+            var value = Convert.ToDouble(numericUpDown_inching_z.Value);
+            Inching(new double[] { 0, 0, value, 0, 0, 0 });
+        }
+
+        private void Inching(double[] value)
+        {
+            Arm.MovePointToPoint(value, PositionType.Relative, CoordinateType.Descartes);
+        }
+
+        #endregion - 寸動微調 -
+
         #region - 其它 -
 
         /// <summary>
