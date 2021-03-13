@@ -18,7 +18,9 @@
 # 整體架構
 - [HIWIN_Robot](/HIWIN_Robot.sln)：主要 Solution。
   - [MainForm](/MainForm/)：主要視窗、實際執行及最高層次程式。提供基本、共用的功能視窗。
-  - [Contest](/Contest/)：各比賽關卡或用途的專屬程式。
+    - [MainForm.cs](/MainForm/MainForm.cs)：主要視窗相關程式。
+    - [Contest.cs](/MainForm/Contest.cs)：各比賽關卡或用途的專屬程式。
+    - [Configuration.cs](/MainForm/Configuration.cs)：可調整之設定參數。
 
 # 使用方法及問題解決
 執行時可能會遇到一些問題，此時請參考以下各事項。
@@ -48,7 +50,7 @@
 ## 連線及檔案設定
 > 手臂或其它裝置無法連線，或檔案路徑錯誤時可以嘗試。
 
-連線相關設定（IP、COM Port）在「[Contest\Configuration.cs](/Contest/Configuration.cs)」中，設定錯誤會造成無法連線。
+連線相關設定（IP、COM Port）在「[Configuration.cs](/MainForm/Configuration.cs)」中，設定錯誤會造成無法連線。
 
 檔案及路徑相關設定也在同一份檔案中。
 
