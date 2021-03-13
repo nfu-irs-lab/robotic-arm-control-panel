@@ -76,6 +76,9 @@
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Core.4.4.0\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
+    <Reference Include="NFUIRSL.HRTK, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NFUIRSL.HRTK.0.1.1\lib\net472\NFUIRSL.HRTK.dll</HintPath>
+    </Reference>
     <Reference Include="NSubstitute, Version=4.2.0.0, Culture=neutral, PublicKeyToken=92dd2e9066daa5ca, processorArchitecture=MSIL">
       <HintPath>..\packages\NSubstitute.4.2.2\lib\net46\NSubstitute.dll</HintPath>
     </Reference>
@@ -158,10 +161,6 @@
     <ProjectReference Include="..\Contest\Contest.csproj">
       <Project>{fd85d268-f97e-46cf-8df6-b6a4b102439b}</Project>
       <Name>Contest</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Features\Features.csproj">
-      <Project>{23165e8b-d3d9-465a-98b3-ad90e97909c3}</Project>
-      <Name>Features</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
