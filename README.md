@@ -8,8 +8,8 @@
 - [整體架構](#整體架構)
 - [使用方法及問題解決](#使用方法及問題解決)
   - [HRSDK.dll](#HRSDKdll)
-  - [NuGet Packages](#NuGet-Packages)
   - [設定起始專案](#設定起始專案)
+  - [NuGet Packages](#NuGet-Packages)
   - [連線及檔案設定](#連線及檔案設定)
 - [其它資源](#其它資源)
 
