@@ -592,6 +592,34 @@ namespace MainForm
 
         #endregion - 動作流程 -
 
+        #region - 寸動微調 -
+
+        private void button_inching_negative_x_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void button_inching_negative_y_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void button_inching_negative_z_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void button_inching_positive_x_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void button_inching_positive_y_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void button_inching_positive_z_Click(object sender, EventArgs e)
+        {
+        }
+
+        #endregion - 寸動微調 -
+
         #region - 其它 -
 
         /// <summary>

@@ -1498,6 +1498,7 @@
             this.button_inching_positive_y.TabIndex = 0;
             this.button_inching_positive_y.Text = "Y+";
             this.button_inching_positive_y.UseVisualStyleBackColor = true;
+            this.button_inching_positive_y.Click += new System.EventHandler(this.button_inching_positive_y_Click);
             // 
             // button_inching_negative_x
             // 
@@ -1508,6 +1509,7 @@
             this.button_inching_negative_x.TabIndex = 0;
             this.button_inching_negative_x.Text = "X-";
             this.button_inching_negative_x.UseVisualStyleBackColor = true;
+            this.button_inching_negative_x.Click += new System.EventHandler(this.button_inching_negative_x_Click);
             // 
             // button_inching_positive_x
             // 
@@ -1518,6 +1520,7 @@
             this.button_inching_positive_x.TabIndex = 0;
             this.button_inching_positive_x.Text = "X+";
             this.button_inching_positive_x.UseVisualStyleBackColor = true;
+            this.button_inching_positive_x.Click += new System.EventHandler(this.button_inching_positive_x_Click);
             // 
             // button_inching_negative_y
             // 
@@ -1528,6 +1531,7 @@
             this.button_inching_negative_y.TabIndex = 0;
             this.button_inching_negative_y.Text = "Y-";
             this.button_inching_negative_y.UseVisualStyleBackColor = true;
+            this.button_inching_negative_y.Click += new System.EventHandler(this.button_inching_negative_y_Click);
             // 
             // button_inching_positive_z
             // 
@@ -1538,6 +1542,7 @@
             this.button_inching_positive_z.TabIndex = 0;
             this.button_inching_positive_z.Text = "Z+";
             this.button_inching_positive_z.UseVisualStyleBackColor = true;
+            this.button_inching_positive_z.Click += new System.EventHandler(this.button_inching_positive_z_Click);
             // 
             // button_inching_negative_z
             // 
@@ -1548,6 +1553,7 @@
             this.button_inching_negative_z.TabIndex = 0;
             this.button_inching_negative_z.Text = "Z-";
             this.button_inching_negative_z.UseVisualStyleBackColor = true;
+            this.button_inching_negative_z.Click += new System.EventHandler(this.button_inching_negative_z_Click);
             // 
             // numericUpDown_inching_xy
             // 
