@@ -131,6 +131,12 @@
             this.textBox_position_record_comment = new System.Windows.Forms.TextBox();
             this.tabPage_sub_inching = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
+            this.button_inching_positive_y = new System.Windows.Forms.Button();
+            this.button_inching_negative_x = new System.Windows.Forms.Button();
+            this.button_inching_positive_x = new System.Windows.Forms.Button();
+            this.button_inching_negative_y = new System.Windows.Forms.Button();
+            this.button_inching_positive_z = new System.Windows.Forms.Button();
+            this.button_inching_negative_z = new System.Windows.Forms.Button();
             this.groupBox_connect_disconnect.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -169,6 +175,7 @@
             this.groupBox_position_record.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
             this.tabPage_sub_inching.SuspendLayout();
+            this.tableLayoutPanel11.SuspendLayout();
             this.SuspendLayout();
             // 
             // button_connect
@@ -1461,6 +1468,12 @@
             this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel11.Controls.Add(this.button_inching_negative_z, 4, 2);
+            this.tableLayoutPanel11.Controls.Add(this.button_inching_positive_z, 4, 0);
+            this.tableLayoutPanel11.Controls.Add(this.button_inching_negative_y, 1, 2);
+            this.tableLayoutPanel11.Controls.Add(this.button_inching_positive_x, 2, 1);
+            this.tableLayoutPanel11.Controls.Add(this.button_inching_negative_x, 0, 1);
+            this.tableLayoutPanel11.Controls.Add(this.button_inching_positive_y, 1, 0);
             this.tableLayoutPanel11.Location = new System.Drawing.Point(41, 37);
             this.tableLayoutPanel11.Name = "tableLayoutPanel11";
             this.tableLayoutPanel11.RowCount = 3;
@@ -1469,6 +1482,66 @@
             this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel11.Size = new System.Drawing.Size(496, 247);
             this.tableLayoutPanel11.TabIndex = 0;
+            // 
+            // button_inching_positive_y
+            // 
+            this.button_inching_positive_y.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_inching_positive_y.Location = new System.Drawing.Point(102, 29);
+            this.button_inching_positive_y.Name = "button_inching_positive_y";
+            this.button_inching_positive_y.Size = new System.Drawing.Size(93, 23);
+            this.button_inching_positive_y.TabIndex = 0;
+            this.button_inching_positive_y.Text = "Y+";
+            this.button_inching_positive_y.UseVisualStyleBackColor = true;
+            // 
+            // button_inching_negative_x
+            // 
+            this.button_inching_negative_x.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_inching_negative_x.Location = new System.Drawing.Point(3, 111);
+            this.button_inching_negative_x.Name = "button_inching_negative_x";
+            this.button_inching_negative_x.Size = new System.Drawing.Size(93, 23);
+            this.button_inching_negative_x.TabIndex = 0;
+            this.button_inching_negative_x.Text = "X-";
+            this.button_inching_negative_x.UseVisualStyleBackColor = true;
+            // 
+            // button_inching_positive_x
+            // 
+            this.button_inching_positive_x.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_inching_positive_x.Location = new System.Drawing.Point(201, 111);
+            this.button_inching_positive_x.Name = "button_inching_positive_x";
+            this.button_inching_positive_x.Size = new System.Drawing.Size(93, 23);
+            this.button_inching_positive_x.TabIndex = 0;
+            this.button_inching_positive_x.Text = "X+";
+            this.button_inching_positive_x.UseVisualStyleBackColor = true;
+            // 
+            // button_inching_negative_y
+            // 
+            this.button_inching_negative_y.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_inching_negative_y.Location = new System.Drawing.Point(102, 194);
+            this.button_inching_negative_y.Name = "button_inching_negative_y";
+            this.button_inching_negative_y.Size = new System.Drawing.Size(93, 23);
+            this.button_inching_negative_y.TabIndex = 0;
+            this.button_inching_negative_y.Text = "Y-";
+            this.button_inching_negative_y.UseVisualStyleBackColor = true;
+            // 
+            // button_inching_positive_z
+            // 
+            this.button_inching_positive_z.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_inching_positive_z.Location = new System.Drawing.Point(399, 29);
+            this.button_inching_positive_z.Name = "button_inching_positive_z";
+            this.button_inching_positive_z.Size = new System.Drawing.Size(94, 23);
+            this.button_inching_positive_z.TabIndex = 0;
+            this.button_inching_positive_z.Text = "Z+";
+            this.button_inching_positive_z.UseVisualStyleBackColor = true;
+            // 
+            // button_inching_negative_z
+            // 
+            this.button_inching_negative_z.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_inching_negative_z.Location = new System.Drawing.Point(399, 194);
+            this.button_inching_negative_z.Name = "button_inching_negative_z";
+            this.button_inching_negative_z.Size = new System.Drawing.Size(94, 23);
+            this.button_inching_negative_z.TabIndex = 0;
+            this.button_inching_negative_z.Text = "Z-";
+            this.button_inching_negative_z.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -1531,6 +1604,7 @@
             this.tableLayoutPanel7.ResumeLayout(false);
             this.tableLayoutPanel7.PerformLayout();
             this.tabPage_sub_inching.ResumeLayout(false);
+            this.tableLayoutPanel11.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1640,6 +1714,12 @@
         private System.Windows.Forms.CheckBox checkBox_actionflow_showMsg;
         private System.Windows.Forms.TabPage tabPage_sub_inching;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel11;
+        private System.Windows.Forms.Button button_inching_positive_y;
+        private System.Windows.Forms.Button button_inching_negative_z;
+        private System.Windows.Forms.Button button_inching_positive_z;
+        private System.Windows.Forms.Button button_inching_negative_y;
+        private System.Windows.Forms.Button button_inching_positive_x;
+        private System.Windows.Forms.Button button_inching_negative_x;
     }
 }
 
