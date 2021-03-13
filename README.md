@@ -21,7 +21,7 @@
   - [Contest](/Contest/)：各比賽關卡或用途的專屬程式。
 
 # 使用方法及問題解決
-首次執行時可能會遇到一些問題，此時請參考以下各事項。
+執行時可能會遇到一些問題，此時請參考以下各事項。
 
 ## HRSDK.dll
 > 發生例外「System.DllNotFoundException」並提示無法載入「HRSDK.dll」時可以嘗試。
