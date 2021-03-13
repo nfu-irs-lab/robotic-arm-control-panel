@@ -8,11 +8,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
 using NFUIRSL.HRTK;
-using Contest;
 
 namespace MainForm
 {
@@ -606,8 +604,6 @@ namespace MainForm
         /// </summary>
         private readonly List<NumericUpDown> TargetPosition = new List<NumericUpDown>();
 
-        private Behavior Behavior = null;
-
         /// <summary>
         /// 手臂藍牙控制器。
         /// </summary>
@@ -843,7 +839,7 @@ namespace MainForm
             Buttons.Add(button_arm_motion_start);
             Buttons.Add(button_set_speed_acceleration);
 
-            // 物件具象化，依賴注入。
+            // 物件實體化。
             LogHandler = new LogHandler(Configuration.LogFilePath, LoggingLevel.Trace);
             Message = new NormalMessage(LogHandler);
             Arm = new ArmController(Configuration.ArmIp, Message);
@@ -855,16 +851,17 @@ namespace MainForm
                                                   comboBox_position_record_file_list,
                                                   CsvHandler,
                                                   Message);
-            Behavior = new Behavior(new MainFormDependency()
-            {
-                PositionHandler = PositionHandler,
-                ActionFlowHandler = ActionFlow,
-                ArmController = Arm,
-                GripperController = Gripper,
-                BluetoothController = Bluetooth,
-                Message = Message,
-                Devices = Devices
-            });
+
+            // 初始化可連線裝置組。
+            Devices.Clear();
+            OrganizeConnectableDevices();
+
+            // 初始化動作流程。
+            ActionFlow.Clear();
+            ActionFlow.Add("Start", () => { }, "The start of Action-Flow. (Empty)");
+            OrganizeActionFlow();
+            ActionFlow.Add("End", () => { }, "The end of Action-Flow. (Empty)");
+            ActionFlow.UpdateListView();
 
             // 未與手臂連線，禁用部分按鈕。
             SetButtonsState(false);
