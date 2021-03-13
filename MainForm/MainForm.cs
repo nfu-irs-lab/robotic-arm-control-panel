@@ -580,6 +580,16 @@ namespace MainForm
             ActionFlow.DoSelected();
         }
 
+        private void checkBox_actionflow_autoNext_CheckedChanged(object sender, EventArgs e)
+        {
+            ActionFlow.AutoNextAction = checkBox_actionflow_autoNext.Checked;
+        }
+
+        private void checkBox_actionflow_showMsg_CheckedChanged(object sender, EventArgs e)
+        {
+            ActionFlow.ShowMessageBeforeAction = checkBox_actionflow_showMsg.Checked;
+        }
+
         #endregion - 動作流程 -
 
         #region - 其它 -
