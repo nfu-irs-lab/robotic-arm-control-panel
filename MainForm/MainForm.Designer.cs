@@ -137,6 +137,8 @@
             this.button_inching_negative_y = new System.Windows.Forms.Button();
             this.button_inching_positive_z = new System.Windows.Forms.Button();
             this.button_inching_negative_z = new System.Windows.Forms.Button();
+            this.numericUpDown_inching_xy = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown_inching_z = new System.Windows.Forms.NumericUpDown();
             this.groupBox_connect_disconnect.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -176,6 +178,8 @@
             this.tableLayoutPanel7.SuspendLayout();
             this.tabPage_sub_inching.SuspendLayout();
             this.tableLayoutPanel11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_inching_xy)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_inching_z)).BeginInit();
             this.SuspendLayout();
             // 
             // button_connect
@@ -1474,6 +1478,8 @@
             this.tableLayoutPanel11.Controls.Add(this.button_inching_positive_x, 2, 1);
             this.tableLayoutPanel11.Controls.Add(this.button_inching_negative_x, 0, 1);
             this.tableLayoutPanel11.Controls.Add(this.button_inching_positive_y, 1, 0);
+            this.tableLayoutPanel11.Controls.Add(this.numericUpDown_inching_z, 4, 1);
+            this.tableLayoutPanel11.Controls.Add(this.numericUpDown_inching_xy, 1, 1);
             this.tableLayoutPanel11.Location = new System.Drawing.Point(41, 37);
             this.tableLayoutPanel11.Name = "tableLayoutPanel11";
             this.tableLayoutPanel11.RowCount = 3;
@@ -1543,6 +1549,34 @@
             this.button_inching_negative_z.Text = "Z-";
             this.button_inching_negative_z.UseVisualStyleBackColor = true;
             // 
+            // numericUpDown_inching_xy
+            // 
+            this.numericUpDown_inching_xy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown_inching_xy.DecimalPlaces = 3;
+            this.numericUpDown_inching_xy.Location = new System.Drawing.Point(102, 110);
+            this.numericUpDown_inching_xy.Name = "numericUpDown_inching_xy";
+            this.numericUpDown_inching_xy.Size = new System.Drawing.Size(93, 25);
+            this.numericUpDown_inching_xy.TabIndex = 1;
+            this.numericUpDown_inching_xy.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            // 
+            // numericUpDown_inching_z
+            // 
+            this.numericUpDown_inching_z.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown_inching_z.DecimalPlaces = 3;
+            this.numericUpDown_inching_z.Location = new System.Drawing.Point(399, 110);
+            this.numericUpDown_inching_z.Name = "numericUpDown_inching_z";
+            this.numericUpDown_inching_z.Size = new System.Drawing.Size(94, 25);
+            this.numericUpDown_inching_z.TabIndex = 1;
+            this.numericUpDown_inching_z.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -1605,6 +1639,8 @@
             this.tableLayoutPanel7.PerformLayout();
             this.tabPage_sub_inching.ResumeLayout(false);
             this.tableLayoutPanel11.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_inching_xy)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_inching_z)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1720,6 +1756,8 @@
         private System.Windows.Forms.Button button_inching_negative_y;
         private System.Windows.Forms.Button button_inching_positive_x;
         private System.Windows.Forms.Button button_inching_negative_x;
+        private System.Windows.Forms.NumericUpDown numericUpDown_inching_z;
+        private System.Windows.Forms.NumericUpDown numericUpDown_inching_xy;
     }
 }
 
