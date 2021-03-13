@@ -53,8 +53,5 @@
 
 檔案及路徑相關設定也在同一份檔案中。
 
-# 版本及兼容性
-- [HRTK](https://github.com/nfu-irs-lab/hiwinrobot-toolkit)：`0.1.1`
-
 # 其它資源
 - HIWIN 相關文件：[nfu-irs-lab/docs/others/hiwin.md](https://github.com/nfu-irs-lab/docs/blob/main/others/hiwin.md)
