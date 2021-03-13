@@ -1,4 +1,6 @@
-﻿namespace MainForm
+﻿using NFUIRSL.HRTK;
+
+namespace MainForm
 {
     public partial class MainForm
     {
