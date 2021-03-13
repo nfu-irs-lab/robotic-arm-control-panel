@@ -130,6 +130,7 @@
             this.textBox_position_record_name = new System.Windows.Forms.TextBox();
             this.textBox_position_record_comment = new System.Windows.Forms.TextBox();
             this.tabPage_sub_inching = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox_connect_disconnect.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -167,6 +168,7 @@
             this.tableLayoutPanel8.SuspendLayout();
             this.groupBox_position_record.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
+            this.tabPage_sub_inching.SuspendLayout();
             this.SuspendLayout();
             // 
             // button_connect
@@ -1442,6 +1444,7 @@
             // 
             // tabPage_sub_inching
             // 
+            this.tabPage_sub_inching.Controls.Add(this.tableLayoutPanel11);
             this.tabPage_sub_inching.Location = new System.Drawing.Point(4, 25);
             this.tabPage_sub_inching.Name = "tabPage_sub_inching";
             this.tabPage_sub_inching.Padding = new System.Windows.Forms.Padding(3);
@@ -1449,6 +1452,23 @@
             this.tabPage_sub_inching.TabIndex = 2;
             this.tabPage_sub_inching.Text = "寸動微調";
             this.tabPage_sub_inching.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel11
+            // 
+            this.tableLayoutPanel11.ColumnCount = 5;
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel11.Location = new System.Drawing.Point(41, 37);
+            this.tableLayoutPanel11.Name = "tableLayoutPanel11";
+            this.tableLayoutPanel11.RowCount = 3;
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel11.Size = new System.Drawing.Size(496, 247);
+            this.tableLayoutPanel11.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -1510,6 +1530,7 @@
             this.groupBox_position_record.ResumeLayout(false);
             this.tableLayoutPanel7.ResumeLayout(false);
             this.tableLayoutPanel7.PerformLayout();
+            this.tabPage_sub_inching.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1618,6 +1639,7 @@
         private System.Windows.Forms.CheckBox checkBox_actionflow_autoNext;
         private System.Windows.Forms.CheckBox checkBox_actionflow_showMsg;
         private System.Windows.Forms.TabPage tabPage_sub_inching;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel11;
     }
 }
 
