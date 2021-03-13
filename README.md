@@ -20,8 +20,6 @@
 - [HIWIN_Robot](/HIWIN_Robot.sln)：主要 Solution。
   - [MainForm](/MainForm/)：主要視窗、實際執行及最高層次程式。提供基本、共用的功能視窗。
   - [Contest](/Contest/)：各比賽關卡或用途的專屬程式。
-  - [Features](/Features/)：各功能的底層函式庫。
-  - [Features.UnitTests](/Features.UnitTests/)：「Features」的單元測試。
 
 # 使用方法及問題解決
 首次執行時可能會遇到一些問題，此時請參考以下各事項。
@@ -56,9 +54,7 @@
 檔案及路徑相關設定也在同一份檔案中。
 
 # 版本及兼容性
-- HRSDK：2.2.9_7492
-- HRSS：3.3.11.7492
-- Android App：[nfu-irs-lab/hiwinrobot-controller-app](https://github.com/nfu-irs-lab/hiwinrobot-controller-app) 版本 [v1.0.0](https://github.com/nfu-irs-lab/hiwinrobot-controller-app/releases/tag/v1.0.0)
+- [HRTK](https://github.com/nfu-irs-lab/hiwinrobot-toolkit)：`0.1.1`
 
 # 其它資源
 - HIWIN 相關文件：[nfu-irs-lab/docs/others/hiwin.md](https://github.com/nfu-irs-lab/docs/blob/main/others/hiwin.md)
