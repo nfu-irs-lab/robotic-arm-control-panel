@@ -148,7 +148,7 @@
             this.button_camera_close = new System.Windows.Forms.Button();
             this.button_camera_choose = new System.Windows.Forms.Button();
             this.button_camera_snapshot = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox_camera = new System.Windows.Forms.PictureBox();
             this.groupBox_connect_disconnect.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -193,7 +193,7 @@
             this.tabPage_sub_camera.SuspendLayout();
             this.tableLayoutPanel12.SuspendLayout();
             this.tableLayoutPanel13.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_camera)).BeginInit();
             this.SuspendLayout();
             // 
             // button_connect
@@ -1614,7 +1614,7 @@
             this.tableLayoutPanel12.ColumnCount = 1;
             this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel12.Controls.Add(this.tableLayoutPanel13, 0, 1);
-            this.tableLayoutPanel12.Controls.Add(this.pictureBox1, 0, 0);
+            this.tableLayoutPanel12.Controls.Add(this.pictureBox_camera, 0, 0);
             this.tableLayoutPanel12.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel12.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel12.Name = "tableLayoutPanel12";
@@ -1657,6 +1657,7 @@
             this.checkBox_camera_freerun.TabIndex = 8;
             this.checkBox_camera_freerun.Text = "Free Run";
             this.checkBox_camera_freerun.UseVisualStyleBackColor = true;
+            this.checkBox_camera_freerun.CheckedChanged += new System.EventHandler(this.checkBox_camera_freerun_CheckedChanged);
             // 
             // button_camera_open
             // 
@@ -1667,6 +1668,7 @@
             this.button_camera_open.TabIndex = 8;
             this.button_camera_open.Text = "開啟";
             this.button_camera_open.UseVisualStyleBackColor = true;
+            this.button_camera_open.Click += new System.EventHandler(this.button_camera_open_Click);
             // 
             // button_camera_setting
             // 
@@ -1677,6 +1679,7 @@
             this.button_camera_setting.TabIndex = 8;
             this.button_camera_setting.Text = "設定";
             this.button_camera_setting.UseVisualStyleBackColor = true;
+            this.button_camera_setting.Click += new System.EventHandler(this.button_camera_setting_Click);
             // 
             // button_camera_close
             // 
@@ -1687,6 +1690,7 @@
             this.button_camera_close.TabIndex = 7;
             this.button_camera_close.Text = "關閉";
             this.button_camera_close.UseVisualStyleBackColor = true;
+            this.button_camera_close.Click += new System.EventHandler(this.button_camera_close_Click);
             // 
             // button_camera_choose
             // 
@@ -1697,6 +1701,7 @@
             this.button_camera_choose.TabIndex = 8;
             this.button_camera_choose.Text = "選擇";
             this.button_camera_choose.UseVisualStyleBackColor = true;
+            this.button_camera_choose.Click += new System.EventHandler(this.button_camera_choose_Click);
             // 
             // button_camera_snapshot
             // 
@@ -1707,15 +1712,16 @@
             this.button_camera_snapshot.TabIndex = 8;
             this.button_camera_snapshot.Text = "快照";
             this.button_camera_snapshot.UseVisualStyleBackColor = true;
+            this.button_camera_snapshot.Click += new System.EventHandler(this.button_camera_snapshot_Click);
             // 
-            // pictureBox1
+            // pictureBox_camera
             // 
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(646, 321);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.pictureBox_camera.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox_camera.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox_camera.Name = "pictureBox_camera";
+            this.pictureBox_camera.Size = new System.Drawing.Size(646, 321);
+            this.pictureBox_camera.TabIndex = 0;
+            this.pictureBox_camera.TabStop = false;
             // 
             // MainForm
             // 
@@ -1785,7 +1791,7 @@
             this.tableLayoutPanel12.ResumeLayout(false);
             this.tableLayoutPanel13.ResumeLayout(false);
             this.tableLayoutPanel13.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_camera)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1905,7 +1911,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDown_inching_xy;
         private System.Windows.Forms.TabPage tabPage_sub_camera;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel12;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox_camera;
         private System.Windows.Forms.Button button_camera_close;
         private System.Windows.Forms.Button button_camera_open;
         private System.Windows.Forms.Button button_camera_setting;
