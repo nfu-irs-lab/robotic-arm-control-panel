@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
 using NFUIRSL.HRTK;
+using NFUIRSL.HRTK.Vision;
 
 namespace MainForm
 {
@@ -637,6 +638,45 @@ namespace MainForm
 
         #endregion - 寸動微調 -
 
+        #region - 攝影機 -
+
+        private IDSCamera Camera;
+
+        private void button_camera_choose_Click(object sender, EventArgs e)
+        {
+            Camera.ChooseCamera();
+        }
+
+        private void button_camera_close_Click(object sender, EventArgs e)
+        {
+            Camera.Exit();
+        }
+
+        private void button_camera_open_Click(object sender, EventArgs e)
+        {
+            var mode = checkBox_camera_freerun.Checked ? CaptureMode.FreeRun : CaptureMode.Stop;
+            Camera.Open(mode);
+        }
+
+        private void button_camera_setting_Click(object sender, EventArgs e)
+        {
+            Camera.ShowSettingForm();
+        }
+
+        private void button_camera_snapshot_Click(object sender, EventArgs e)
+        {
+            checkBox_camera_freerun.Checked = false;
+            Camera.ChangeCaptureMode(CaptureMode.Snapshot);
+        }
+
+        private void checkBox_camera_freerun_CheckedChanged(object sender, EventArgs e)
+        {
+            var mode = checkBox_camera_freerun.Checked ? CaptureMode.FreeRun : CaptureMode.Stop;
+            Camera.ChangeCaptureMode(mode);
+        }
+
+        #endregion - 攝影機 -
+
         #region - 其它 -
 
         /// <summary>
@@ -906,6 +946,7 @@ namespace MainForm
                                                   comboBox_position_record_file_list,
                                                   CsvHandler,
                                                   Message);
+            Camera = new IDSCamera(pictureBox_camera, Message);
 
             // 初始化可連線裝置組。
             Devices.Clear();

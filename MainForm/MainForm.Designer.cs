@@ -131,14 +131,24 @@
             this.textBox_position_record_comment = new System.Windows.Forms.TextBox();
             this.tabPage_sub_inching = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
-            this.button_inching_positive_y = new System.Windows.Forms.Button();
-            this.button_inching_negative_x = new System.Windows.Forms.Button();
-            this.button_inching_positive_x = new System.Windows.Forms.Button();
-            this.button_inching_negative_y = new System.Windows.Forms.Button();
-            this.button_inching_positive_z = new System.Windows.Forms.Button();
             this.button_inching_negative_z = new System.Windows.Forms.Button();
-            this.numericUpDown_inching_xy = new System.Windows.Forms.NumericUpDown();
+            this.button_inching_positive_z = new System.Windows.Forms.Button();
+            this.button_inching_negative_y = new System.Windows.Forms.Button();
+            this.button_inching_positive_x = new System.Windows.Forms.Button();
+            this.button_inching_negative_x = new System.Windows.Forms.Button();
+            this.button_inching_positive_y = new System.Windows.Forms.Button();
             this.numericUpDown_inching_z = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown_inching_xy = new System.Windows.Forms.NumericUpDown();
+            this.tabPage_sub_camera = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel13 = new System.Windows.Forms.TableLayoutPanel();
+            this.checkBox_camera_freerun = new System.Windows.Forms.CheckBox();
+            this.button_camera_open = new System.Windows.Forms.Button();
+            this.button_camera_setting = new System.Windows.Forms.Button();
+            this.button_camera_close = new System.Windows.Forms.Button();
+            this.button_camera_choose = new System.Windows.Forms.Button();
+            this.button_camera_snapshot = new System.Windows.Forms.Button();
+            this.pictureBox_camera = new System.Windows.Forms.PictureBox();
             this.groupBox_connect_disconnect.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -178,8 +188,12 @@
             this.tableLayoutPanel7.SuspendLayout();
             this.tabPage_sub_inching.SuspendLayout();
             this.tableLayoutPanel11.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_inching_xy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_inching_z)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_inching_xy)).BeginInit();
+            this.tabPage_sub_camera.SuspendLayout();
+            this.tableLayoutPanel12.SuspendLayout();
+            this.tableLayoutPanel13.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_camera)).BeginInit();
             this.SuspendLayout();
             // 
             // button_connect
@@ -1107,6 +1121,7 @@
             this.tabControl_sub.Controls.Add(this.tabPage_sub_actionflow);
             this.tabControl_sub.Controls.Add(this.tabPage_sub_position_record);
             this.tabControl_sub.Controls.Add(this.tabPage_sub_inching);
+            this.tabControl_sub.Controls.Add(this.tabPage_sub_camera);
             this.tabControl_sub.Location = new System.Drawing.Point(744, 98);
             this.tabControl_sub.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl_sub.Name = "tabControl_sub";
@@ -1489,49 +1504,16 @@
             this.tableLayoutPanel11.Size = new System.Drawing.Size(496, 247);
             this.tableLayoutPanel11.TabIndex = 0;
             // 
-            // button_inching_positive_y
+            // button_inching_negative_z
             // 
-            this.button_inching_positive_y.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_inching_positive_y.Location = new System.Drawing.Point(102, 29);
-            this.button_inching_positive_y.Name = "button_inching_positive_y";
-            this.button_inching_positive_y.Size = new System.Drawing.Size(93, 23);
-            this.button_inching_positive_y.TabIndex = 0;
-            this.button_inching_positive_y.Text = "Y+";
-            this.button_inching_positive_y.UseVisualStyleBackColor = true;
-            this.button_inching_positive_y.Click += new System.EventHandler(this.button_inching_positive_y_Click);
-            // 
-            // button_inching_negative_x
-            // 
-            this.button_inching_negative_x.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_inching_negative_x.Location = new System.Drawing.Point(3, 111);
-            this.button_inching_negative_x.Name = "button_inching_negative_x";
-            this.button_inching_negative_x.Size = new System.Drawing.Size(93, 23);
-            this.button_inching_negative_x.TabIndex = 0;
-            this.button_inching_negative_x.Text = "X-";
-            this.button_inching_negative_x.UseVisualStyleBackColor = true;
-            this.button_inching_negative_x.Click += new System.EventHandler(this.button_inching_negative_x_Click);
-            // 
-            // button_inching_positive_x
-            // 
-            this.button_inching_positive_x.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_inching_positive_x.Location = new System.Drawing.Point(201, 111);
-            this.button_inching_positive_x.Name = "button_inching_positive_x";
-            this.button_inching_positive_x.Size = new System.Drawing.Size(93, 23);
-            this.button_inching_positive_x.TabIndex = 0;
-            this.button_inching_positive_x.Text = "X+";
-            this.button_inching_positive_x.UseVisualStyleBackColor = true;
-            this.button_inching_positive_x.Click += new System.EventHandler(this.button_inching_positive_x_Click);
-            // 
-            // button_inching_negative_y
-            // 
-            this.button_inching_negative_y.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_inching_negative_y.Location = new System.Drawing.Point(102, 194);
-            this.button_inching_negative_y.Name = "button_inching_negative_y";
-            this.button_inching_negative_y.Size = new System.Drawing.Size(93, 23);
-            this.button_inching_negative_y.TabIndex = 0;
-            this.button_inching_negative_y.Text = "Y-";
-            this.button_inching_negative_y.UseVisualStyleBackColor = true;
-            this.button_inching_negative_y.Click += new System.EventHandler(this.button_inching_negative_y_Click);
+            this.button_inching_negative_z.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_inching_negative_z.Location = new System.Drawing.Point(399, 194);
+            this.button_inching_negative_z.Name = "button_inching_negative_z";
+            this.button_inching_negative_z.Size = new System.Drawing.Size(94, 23);
+            this.button_inching_negative_z.TabIndex = 0;
+            this.button_inching_negative_z.Text = "Z-";
+            this.button_inching_negative_z.UseVisualStyleBackColor = true;
+            this.button_inching_negative_z.Click += new System.EventHandler(this.button_inching_negative_z_Click);
             // 
             // button_inching_positive_z
             // 
@@ -1544,16 +1526,63 @@
             this.button_inching_positive_z.UseVisualStyleBackColor = true;
             this.button_inching_positive_z.Click += new System.EventHandler(this.button_inching_positive_z_Click);
             // 
-            // button_inching_negative_z
+            // button_inching_negative_y
             // 
-            this.button_inching_negative_z.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_inching_negative_z.Location = new System.Drawing.Point(399, 194);
-            this.button_inching_negative_z.Name = "button_inching_negative_z";
-            this.button_inching_negative_z.Size = new System.Drawing.Size(94, 23);
-            this.button_inching_negative_z.TabIndex = 0;
-            this.button_inching_negative_z.Text = "Z-";
-            this.button_inching_negative_z.UseVisualStyleBackColor = true;
-            this.button_inching_negative_z.Click += new System.EventHandler(this.button_inching_negative_z_Click);
+            this.button_inching_negative_y.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_inching_negative_y.Location = new System.Drawing.Point(102, 194);
+            this.button_inching_negative_y.Name = "button_inching_negative_y";
+            this.button_inching_negative_y.Size = new System.Drawing.Size(93, 23);
+            this.button_inching_negative_y.TabIndex = 0;
+            this.button_inching_negative_y.Text = "Y-";
+            this.button_inching_negative_y.UseVisualStyleBackColor = true;
+            this.button_inching_negative_y.Click += new System.EventHandler(this.button_inching_negative_y_Click);
+            // 
+            // button_inching_positive_x
+            // 
+            this.button_inching_positive_x.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_inching_positive_x.Location = new System.Drawing.Point(201, 111);
+            this.button_inching_positive_x.Name = "button_inching_positive_x";
+            this.button_inching_positive_x.Size = new System.Drawing.Size(93, 23);
+            this.button_inching_positive_x.TabIndex = 0;
+            this.button_inching_positive_x.Text = "X+";
+            this.button_inching_positive_x.UseVisualStyleBackColor = true;
+            this.button_inching_positive_x.Click += new System.EventHandler(this.button_inching_positive_x_Click);
+            // 
+            // button_inching_negative_x
+            // 
+            this.button_inching_negative_x.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_inching_negative_x.Location = new System.Drawing.Point(3, 111);
+            this.button_inching_negative_x.Name = "button_inching_negative_x";
+            this.button_inching_negative_x.Size = new System.Drawing.Size(93, 23);
+            this.button_inching_negative_x.TabIndex = 0;
+            this.button_inching_negative_x.Text = "X-";
+            this.button_inching_negative_x.UseVisualStyleBackColor = true;
+            this.button_inching_negative_x.Click += new System.EventHandler(this.button_inching_negative_x_Click);
+            // 
+            // button_inching_positive_y
+            // 
+            this.button_inching_positive_y.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_inching_positive_y.Location = new System.Drawing.Point(102, 29);
+            this.button_inching_positive_y.Name = "button_inching_positive_y";
+            this.button_inching_positive_y.Size = new System.Drawing.Size(93, 23);
+            this.button_inching_positive_y.TabIndex = 0;
+            this.button_inching_positive_y.Text = "Y+";
+            this.button_inching_positive_y.UseVisualStyleBackColor = true;
+            this.button_inching_positive_y.Click += new System.EventHandler(this.button_inching_positive_y_Click);
+            // 
+            // numericUpDown_inching_z
+            // 
+            this.numericUpDown_inching_z.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown_inching_z.DecimalPlaces = 3;
+            this.numericUpDown_inching_z.Location = new System.Drawing.Point(399, 110);
+            this.numericUpDown_inching_z.Name = "numericUpDown_inching_z";
+            this.numericUpDown_inching_z.Size = new System.Drawing.Size(94, 25);
+            this.numericUpDown_inching_z.TabIndex = 1;
+            this.numericUpDown_inching_z.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             // 
             // numericUpDown_inching_xy
             // 
@@ -1569,19 +1598,130 @@
             0,
             0});
             // 
-            // numericUpDown_inching_z
+            // tabPage_sub_camera
             // 
-            this.numericUpDown_inching_z.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown_inching_z.DecimalPlaces = 3;
-            this.numericUpDown_inching_z.Location = new System.Drawing.Point(399, 110);
-            this.numericUpDown_inching_z.Name = "numericUpDown_inching_z";
-            this.numericUpDown_inching_z.Size = new System.Drawing.Size(94, 25);
-            this.numericUpDown_inching_z.TabIndex = 1;
-            this.numericUpDown_inching_z.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
+            this.tabPage_sub_camera.Controls.Add(this.tableLayoutPanel12);
+            this.tabPage_sub_camera.Location = new System.Drawing.Point(4, 25);
+            this.tabPage_sub_camera.Name = "tabPage_sub_camera";
+            this.tabPage_sub_camera.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_sub_camera.Size = new System.Drawing.Size(658, 443);
+            this.tabPage_sub_camera.TabIndex = 3;
+            this.tabPage_sub_camera.Text = "攝影機";
+            this.tabPage_sub_camera.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel12
+            // 
+            this.tableLayoutPanel12.ColumnCount = 1;
+            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel12.Controls.Add(this.tableLayoutPanel13, 0, 1);
+            this.tableLayoutPanel12.Controls.Add(this.pictureBox_camera, 0, 0);
+            this.tableLayoutPanel12.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel12.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel12.Name = "tableLayoutPanel12";
+            this.tableLayoutPanel12.RowCount = 2;
+            this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 75F));
+            this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel12.Size = new System.Drawing.Size(652, 437);
+            this.tableLayoutPanel12.TabIndex = 0;
+            // 
+            // tableLayoutPanel13
+            // 
+            this.tableLayoutPanel13.ColumnCount = 3;
+            this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel13.Controls.Add(this.checkBox_camera_freerun, 2, 1);
+            this.tableLayoutPanel13.Controls.Add(this.button_camera_open, 0, 0);
+            this.tableLayoutPanel13.Controls.Add(this.button_camera_setting, 1, 1);
+            this.tableLayoutPanel13.Controls.Add(this.button_camera_close, 0, 1);
+            this.tableLayoutPanel13.Controls.Add(this.button_camera_choose, 1, 0);
+            this.tableLayoutPanel13.Controls.Add(this.button_camera_snapshot, 2, 0);
+            this.tableLayoutPanel13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel13.Location = new System.Drawing.Point(3, 330);
+            this.tableLayoutPanel13.Name = "tableLayoutPanel13";
+            this.tableLayoutPanel13.RowCount = 2;
+            this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel13.Size = new System.Drawing.Size(646, 104);
+            this.tableLayoutPanel13.TabIndex = 7;
+            // 
+            // checkBox_camera_freerun
+            // 
+            this.checkBox_camera_freerun.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBox_camera_freerun.AutoSize = true;
+            this.checkBox_camera_freerun.Checked = true;
+            this.checkBox_camera_freerun.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox_camera_freerun.Location = new System.Drawing.Point(433, 68);
+            this.checkBox_camera_freerun.Name = "checkBox_camera_freerun";
+            this.checkBox_camera_freerun.Size = new System.Drawing.Size(210, 19);
+            this.checkBox_camera_freerun.TabIndex = 8;
+            this.checkBox_camera_freerun.Text = "Free Run";
+            this.checkBox_camera_freerun.UseVisualStyleBackColor = true;
+            this.checkBox_camera_freerun.CheckedChanged += new System.EventHandler(this.checkBox_camera_freerun_CheckedChanged);
+            // 
+            // button_camera_open
+            // 
+            this.button_camera_open.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_camera_open.Location = new System.Drawing.Point(3, 11);
+            this.button_camera_open.Name = "button_camera_open";
+            this.button_camera_open.Size = new System.Drawing.Size(209, 30);
+            this.button_camera_open.TabIndex = 8;
+            this.button_camera_open.Text = "開啟";
+            this.button_camera_open.UseVisualStyleBackColor = true;
+            this.button_camera_open.Click += new System.EventHandler(this.button_camera_open_Click);
+            // 
+            // button_camera_setting
+            // 
+            this.button_camera_setting.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_camera_setting.Location = new System.Drawing.Point(218, 63);
+            this.button_camera_setting.Name = "button_camera_setting";
+            this.button_camera_setting.Size = new System.Drawing.Size(209, 30);
+            this.button_camera_setting.TabIndex = 8;
+            this.button_camera_setting.Text = "設定";
+            this.button_camera_setting.UseVisualStyleBackColor = true;
+            this.button_camera_setting.Click += new System.EventHandler(this.button_camera_setting_Click);
+            // 
+            // button_camera_close
+            // 
+            this.button_camera_close.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_camera_close.Location = new System.Drawing.Point(3, 63);
+            this.button_camera_close.Name = "button_camera_close";
+            this.button_camera_close.Size = new System.Drawing.Size(209, 30);
+            this.button_camera_close.TabIndex = 7;
+            this.button_camera_close.Text = "關閉";
+            this.button_camera_close.UseVisualStyleBackColor = true;
+            this.button_camera_close.Click += new System.EventHandler(this.button_camera_close_Click);
+            // 
+            // button_camera_choose
+            // 
+            this.button_camera_choose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_camera_choose.Location = new System.Drawing.Point(218, 11);
+            this.button_camera_choose.Name = "button_camera_choose";
+            this.button_camera_choose.Size = new System.Drawing.Size(209, 30);
+            this.button_camera_choose.TabIndex = 8;
+            this.button_camera_choose.Text = "選擇";
+            this.button_camera_choose.UseVisualStyleBackColor = true;
+            this.button_camera_choose.Click += new System.EventHandler(this.button_camera_choose_Click);
+            // 
+            // button_camera_snapshot
+            // 
+            this.button_camera_snapshot.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_camera_snapshot.Location = new System.Drawing.Point(433, 11);
+            this.button_camera_snapshot.Name = "button_camera_snapshot";
+            this.button_camera_snapshot.Size = new System.Drawing.Size(210, 30);
+            this.button_camera_snapshot.TabIndex = 8;
+            this.button_camera_snapshot.Text = "快照";
+            this.button_camera_snapshot.UseVisualStyleBackColor = true;
+            this.button_camera_snapshot.Click += new System.EventHandler(this.button_camera_snapshot_Click);
+            // 
+            // pictureBox_camera
+            // 
+            this.pictureBox_camera.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox_camera.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox_camera.Name = "pictureBox_camera";
+            this.pictureBox_camera.Size = new System.Drawing.Size(646, 321);
+            this.pictureBox_camera.TabIndex = 0;
+            this.pictureBox_camera.TabStop = false;
             // 
             // MainForm
             // 
@@ -1645,8 +1785,13 @@
             this.tableLayoutPanel7.PerformLayout();
             this.tabPage_sub_inching.ResumeLayout(false);
             this.tableLayoutPanel11.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_inching_xy)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_inching_z)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_inching_xy)).EndInit();
+            this.tabPage_sub_camera.ResumeLayout(false);
+            this.tableLayoutPanel12.ResumeLayout(false);
+            this.tableLayoutPanel13.ResumeLayout(false);
+            this.tableLayoutPanel13.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_camera)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1764,6 +1909,16 @@
         private System.Windows.Forms.Button button_inching_negative_x;
         private System.Windows.Forms.NumericUpDown numericUpDown_inching_z;
         private System.Windows.Forms.NumericUpDown numericUpDown_inching_xy;
+        private System.Windows.Forms.TabPage tabPage_sub_camera;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel12;
+        private System.Windows.Forms.PictureBox pictureBox_camera;
+        private System.Windows.Forms.Button button_camera_close;
+        private System.Windows.Forms.Button button_camera_open;
+        private System.Windows.Forms.Button button_camera_setting;
+        private System.Windows.Forms.Button button_camera_choose;
+        private System.Windows.Forms.CheckBox checkBox_camera_freerun;
+        private System.Windows.Forms.Button button_camera_snapshot;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel13;
     }
 }
 
