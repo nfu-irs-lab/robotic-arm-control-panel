@@ -601,13 +601,13 @@ namespace MainForm
             => Inching(-Convert.ToDouble(numericUpDown_inching_xy.Value), 0);
 
         private void button_inching_negative_x_MouseUp(object sender, MouseEventArgs e)
-            => Arm.Do(new AbortMotion());
+            => InchingStop();
 
         private void button_inching_positive_x_MouseDown(object sender, MouseEventArgs e)
             => Inching(Convert.ToDouble(numericUpDown_inching_xy.Value), 0);
 
         private void button_inching_positive_x_MouseUp(object sender, MouseEventArgs e)
-            => Arm.Do(new AbortMotion());
+            => InchingStop();
 
         #endregion X
 
@@ -617,13 +617,13 @@ namespace MainForm
             => Inching(-Convert.ToDouble(numericUpDown_inching_xy.Value), 1);
 
         private void button_inching_negative_y_MouseUp(object sender, MouseEventArgs e)
-            => Arm.Do(new AbortMotion());
+            => InchingStop();
 
         private void button_inching_positive_y_MouseDown(object sender, MouseEventArgs e)
             => Inching(Convert.ToDouble(numericUpDown_inching_xy.Value), 1);
 
         private void button_inching_positive_y_MouseUp(object sender, MouseEventArgs e)
-            => Arm.Do(new AbortMotion());
+            => InchingStop();
 
         #endregion Y
 
@@ -633,15 +633,21 @@ namespace MainForm
             => Inching(-Convert.ToDouble(numericUpDown_inching_z.Value), 2);
 
         private void button_inching_negative_z_MouseUp(object sender, MouseEventArgs e)
-            => Arm.Do(new AbortMotion());
+            => InchingStop();
 
         private void button_inching_positive_z_MouseDown(object sender, MouseEventArgs e)
             => Inching(Convert.ToDouble(numericUpDown_inching_z.Value), 2);
 
         private void button_inching_positive_z_MouseUp(object sender, MouseEventArgs e)
-            => Arm.Do(new AbortMotion());
+            => InchingStop();
 
         #endregion Z
+
+        private void InchingStop()
+        {
+            Arm.Do(new AbortMotion());
+            UpdateNowPosition();
+        }
 
         /// <summary>
         /// X/J1=0, Y/J2=1 ... C/J6=5.
@@ -677,7 +683,6 @@ namespace MainForm
                 MotionType = MotionType.Linear
             };
             Arm.Do(act);
-            UpdateNowPosition();
         }
 
         #endregion - 寸動微調 -
