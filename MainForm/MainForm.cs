@@ -673,7 +673,8 @@ namespace MainForm
             {
                 NeedWait = wait,
                 CoordinateType = CoordinateType.Descartes,
-                MotionType = MotionType.PointToPoint
+                // 必須要是直線運動，不能點對點，因為這邊的動作有可能會中途暫停，使用點對點的中途路徑不是直線的。
+                MotionType = MotionType.Linear
             };
             Arm.Do(act);
             UpdateNowPosition();
