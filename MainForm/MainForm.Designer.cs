@@ -1507,70 +1507,80 @@
             // button_inching_negative_z
             // 
             this.button_inching_negative_z.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_inching_negative_z.Location = new System.Drawing.Point(399, 194);
+            this.button_inching_negative_z.Location = new System.Drawing.Point(399, 184);
             this.button_inching_negative_z.Name = "button_inching_negative_z";
-            this.button_inching_negative_z.Size = new System.Drawing.Size(94, 23);
+            this.button_inching_negative_z.Size = new System.Drawing.Size(94, 42);
             this.button_inching_negative_z.TabIndex = 0;
             this.button_inching_negative_z.Text = "Z-";
             this.button_inching_negative_z.UseVisualStyleBackColor = true;
             this.button_inching_negative_z.Click += new System.EventHandler(this.button_inching_negative_z_Click);
+            this.button_inching_negative_z.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button_inching_negative_z_MouseDown);
+            this.button_inching_negative_z.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button_inching_negative_z_MouseUp);
             // 
             // button_inching_positive_z
             // 
             this.button_inching_positive_z.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_inching_positive_z.Location = new System.Drawing.Point(399, 29);
+            this.button_inching_positive_z.Location = new System.Drawing.Point(399, 20);
             this.button_inching_positive_z.Name = "button_inching_positive_z";
-            this.button_inching_positive_z.Size = new System.Drawing.Size(94, 23);
+            this.button_inching_positive_z.Size = new System.Drawing.Size(94, 42);
             this.button_inching_positive_z.TabIndex = 0;
             this.button_inching_positive_z.Text = "Z+";
             this.button_inching_positive_z.UseVisualStyleBackColor = true;
             this.button_inching_positive_z.Click += new System.EventHandler(this.button_inching_positive_z_Click);
+            this.button_inching_positive_z.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button_inching_positive_z_MouseDown);
+            this.button_inching_positive_z.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button_inching_positive_z_MouseUp);
             // 
             // button_inching_negative_y
             // 
             this.button_inching_negative_y.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_inching_negative_y.Location = new System.Drawing.Point(102, 194);
+            this.button_inching_negative_y.Location = new System.Drawing.Point(102, 184);
             this.button_inching_negative_y.Name = "button_inching_negative_y";
-            this.button_inching_negative_y.Size = new System.Drawing.Size(93, 23);
+            this.button_inching_negative_y.Size = new System.Drawing.Size(93, 42);
             this.button_inching_negative_y.TabIndex = 0;
             this.button_inching_negative_y.Text = "Y-";
             this.button_inching_negative_y.UseVisualStyleBackColor = true;
             this.button_inching_negative_y.Click += new System.EventHandler(this.button_inching_negative_y_Click);
+            this.button_inching_negative_y.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button_inching_negative_y_MouseDown);
+            this.button_inching_negative_y.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button_inching_negative_y_MouseUp);
             // 
             // button_inching_positive_x
             // 
             this.button_inching_positive_x.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_inching_positive_x.Location = new System.Drawing.Point(201, 111);
+            this.button_inching_positive_x.Location = new System.Drawing.Point(201, 102);
             this.button_inching_positive_x.Name = "button_inching_positive_x";
-            this.button_inching_positive_x.Size = new System.Drawing.Size(93, 23);
+            this.button_inching_positive_x.Size = new System.Drawing.Size(93, 42);
             this.button_inching_positive_x.TabIndex = 0;
             this.button_inching_positive_x.Text = "X+";
             this.button_inching_positive_x.UseVisualStyleBackColor = true;
             this.button_inching_positive_x.Click += new System.EventHandler(this.button_inching_positive_x_Click);
-            this.button_inching_positive_x.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_inching_positive_x_KeyDown);
-            this.button_inching_positive_x.KeyUp += new System.Windows.Forms.KeyEventHandler(this.button_inching_positive_x_KeyUp);
+            this.button_inching_positive_x.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button_inching_positive_x_MouseDown);
+            this.button_inching_positive_x.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button_inching_positive_x_MouseUp);
             // 
             // button_inching_negative_x
             // 
             this.button_inching_negative_x.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_inching_negative_x.Location = new System.Drawing.Point(3, 111);
+            this.button_inching_negative_x.Location = new System.Drawing.Point(3, 102);
             this.button_inching_negative_x.Name = "button_inching_negative_x";
-            this.button_inching_negative_x.Size = new System.Drawing.Size(93, 23);
+            this.button_inching_negative_x.Size = new System.Drawing.Size(93, 42);
             this.button_inching_negative_x.TabIndex = 0;
             this.button_inching_negative_x.Text = "X-";
             this.button_inching_negative_x.UseVisualStyleBackColor = true;
             this.button_inching_negative_x.Click += new System.EventHandler(this.button_inching_negative_x_Click);
+            this.button_inching_negative_x.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button_inching_negative_x_MouseDown);
+            this.button_inching_negative_x.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button_inching_negative_x_MouseUp);
             // 
             // button_inching_positive_y
             // 
             this.button_inching_positive_y.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_inching_positive_y.Location = new System.Drawing.Point(102, 29);
+            this.button_inching_positive_y.Location = new System.Drawing.Point(102, 20);
             this.button_inching_positive_y.Name = "button_inching_positive_y";
-            this.button_inching_positive_y.Size = new System.Drawing.Size(93, 23);
+            this.button_inching_positive_y.Size = new System.Drawing.Size(93, 42);
             this.button_inching_positive_y.TabIndex = 0;
             this.button_inching_positive_y.Text = "Y+";
             this.button_inching_positive_y.UseVisualStyleBackColor = true;
             this.button_inching_positive_y.Click += new System.EventHandler(this.button_inching_positive_y_Click);
+            this.button_inching_positive_y.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button_inching_positive_y_MouseDown);
+            this.button_inching_positive_y.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button_inching_positive_y_MouseUp);
             // 
             // numericUpDown_inching_z
             // 
@@ -1729,7 +1739,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1458, 670);
+            this.ClientSize = new System.Drawing.Size(2916, 1340);
             this.Controls.Add(this.tabControl_sub);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.groupBox_connect_disconnect);
