@@ -676,6 +676,7 @@ namespace MainForm
                 MotionType = MotionType.PointToPoint
             };
             Arm.Do(act);
+            UpdateNowPosition();
         }
 
         #endregion - 寸動微調 -
