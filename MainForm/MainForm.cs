@@ -597,17 +597,11 @@ namespace MainForm
 
         #region X
 
-        private void button_inching_negative_x_Click(object sender, EventArgs e)
-            => Inching(-Convert.ToDouble(numericUpDown_inching_xy.Value), 0);
-
         private void button_inching_negative_x_MouseDown(object sender, MouseEventArgs e)
             => Inching(-Convert.ToDouble(numericUpDown_inching_xy.Value), 0);
 
         private void button_inching_negative_x_MouseUp(object sender, MouseEventArgs e)
             => Arm.Do(new AbortMotion());
-
-        private void button_inching_positive_x_Click(object sender, EventArgs e)
-            => Inching(Convert.ToDouble(numericUpDown_inching_xy.Value), 0);
 
         private void button_inching_positive_x_MouseDown(object sender, MouseEventArgs e)
             => Inching(Convert.ToDouble(numericUpDown_inching_xy.Value), 0);
@@ -619,17 +613,11 @@ namespace MainForm
 
         #region Y
 
-        private void button_inching_negative_y_Click(object sender, EventArgs e)
-            => Inching(-Convert.ToDouble(numericUpDown_inching_xy.Value), 1);
-
         private void button_inching_negative_y_MouseDown(object sender, MouseEventArgs e)
             => Inching(-Convert.ToDouble(numericUpDown_inching_xy.Value), 1);
 
         private void button_inching_negative_y_MouseUp(object sender, MouseEventArgs e)
             => Arm.Do(new AbortMotion());
-
-        private void button_inching_positive_y_Click(object sender, EventArgs e)
-            => Inching(Convert.ToDouble(numericUpDown_inching_xy.Value), 1);
 
         private void button_inching_positive_y_MouseDown(object sender, MouseEventArgs e)
             => Inching(Convert.ToDouble(numericUpDown_inching_xy.Value), 1);
@@ -641,17 +629,11 @@ namespace MainForm
 
         #region Z
 
-        private void button_inching_negative_z_Click(object sender, EventArgs e)
-            => Inching(-Convert.ToDouble(numericUpDown_inching_z.Value), 2);
-
         private void button_inching_negative_z_MouseDown(object sender, MouseEventArgs e)
             => Inching(-Convert.ToDouble(numericUpDown_inching_z.Value), 2);
 
         private void button_inching_negative_z_MouseUp(object sender, MouseEventArgs e)
             => Arm.Do(new AbortMotion());
-
-        private void button_inching_positive_z_Click(object sender, EventArgs e)
-            => Inching(Convert.ToDouble(numericUpDown_inching_z.Value), 2);
 
         private void button_inching_positive_z_MouseDown(object sender, MouseEventArgs e)
             => Inching(Convert.ToDouble(numericUpDown_inching_z.Value), 2);
