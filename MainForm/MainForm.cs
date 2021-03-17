@@ -598,19 +598,19 @@ namespace MainForm
         #region X
 
         private void button_inching_negative_x_Click(object sender, EventArgs e)
-            => Inching(-Convert.ToDouble(numericUpDown_inching_xy.Value), 1);
+            => Inching(-Convert.ToDouble(numericUpDown_inching_xy.Value), 0);
 
         private void button_inching_negative_x_MouseDown(object sender, MouseEventArgs e)
-            => Inching(-Convert.ToDouble(numericUpDown_inching_xy.Value), 1);
+            => Inching(-Convert.ToDouble(numericUpDown_inching_xy.Value), 0);
 
         private void button_inching_negative_x_MouseUp(object sender, MouseEventArgs e)
             => Arm.Do(new AbortMotion());
 
         private void button_inching_positive_x_Click(object sender, EventArgs e)
-            => Inching(Convert.ToDouble(numericUpDown_inching_xy.Value), 1);
+            => Inching(Convert.ToDouble(numericUpDown_inching_xy.Value), 0);
 
         private void button_inching_positive_x_MouseDown(object sender, MouseEventArgs e)
-            => Inching(Convert.ToDouble(numericUpDown_inching_xy.Value), 1);
+            => Inching(Convert.ToDouble(numericUpDown_inching_xy.Value), 0);
 
         private void button_inching_positive_x_MouseUp(object sender, MouseEventArgs e)
             => Arm.Do(new AbortMotion());
@@ -620,19 +620,19 @@ namespace MainForm
         #region Y
 
         private void button_inching_negative_y_Click(object sender, EventArgs e)
-            => Inching(-Convert.ToDouble(numericUpDown_inching_xy.Value), 2);
+            => Inching(-Convert.ToDouble(numericUpDown_inching_xy.Value), 1);
 
         private void button_inching_negative_y_MouseDown(object sender, MouseEventArgs e)
-            => Inching(-Convert.ToDouble(numericUpDown_inching_xy.Value), 2);
+            => Inching(-Convert.ToDouble(numericUpDown_inching_xy.Value), 1);
 
         private void button_inching_negative_y_MouseUp(object sender, MouseEventArgs e)
             => Arm.Do(new AbortMotion());
 
         private void button_inching_positive_y_Click(object sender, EventArgs e)
-            => Inching(Convert.ToDouble(numericUpDown_inching_xy.Value), 2);
+            => Inching(Convert.ToDouble(numericUpDown_inching_xy.Value), 1);
 
         private void button_inching_positive_y_MouseDown(object sender, MouseEventArgs e)
-            => Inching(Convert.ToDouble(numericUpDown_inching_xy.Value), 2);
+            => Inching(Convert.ToDouble(numericUpDown_inching_xy.Value), 1);
 
         private void button_inching_positive_y_MouseUp(object sender, MouseEventArgs e)
             => Arm.Do(new AbortMotion());
@@ -642,19 +642,19 @@ namespace MainForm
         #region Z
 
         private void button_inching_negative_z_Click(object sender, EventArgs e)
-            => Inching(-Convert.ToDouble(numericUpDown_inching_z.Value), 3);
+            => Inching(-Convert.ToDouble(numericUpDown_inching_z.Value), 2);
 
         private void button_inching_negative_z_MouseDown(object sender, MouseEventArgs e)
-            => Inching(-Convert.ToDouble(numericUpDown_inching_z.Value), 3);
+            => Inching(-Convert.ToDouble(numericUpDown_inching_z.Value), 2);
 
         private void button_inching_negative_z_MouseUp(object sender, MouseEventArgs e)
             => Arm.Do(new AbortMotion());
 
         private void button_inching_positive_z_Click(object sender, EventArgs e)
-            => Inching(Convert.ToDouble(numericUpDown_inching_z.Value), 3);
+            => Inching(Convert.ToDouble(numericUpDown_inching_z.Value), 2);
 
         private void button_inching_positive_z_MouseDown(object sender, MouseEventArgs e)
-            => Inching(Convert.ToDouble(numericUpDown_inching_z.Value), 3);
+            => Inching(Convert.ToDouble(numericUpDown_inching_z.Value), 2);
 
         private void button_inching_positive_z_MouseUp(object sender, MouseEventArgs e)
             => Arm.Do(new AbortMotion());
@@ -662,7 +662,7 @@ namespace MainForm
         #endregion Z
 
         /// <summary>
-        /// X/J1=1, Y/J2=2 ... C/J6=6.
+        /// X/J1=0, Y/J2=1 ... C/J6=5.
         /// </summary>
         /// <param name="value"></param>
         /// <param name="indexOfAxis"></param>
@@ -673,17 +673,17 @@ namespace MainForm
 
             if (radioButtonInchingModeSingle.Checked)
             {
-                pos[++indexOfAxis] = value;
+                pos[indexOfAxis] = value;
                 wait = true;
             }
             else if (radioButtonInchingModeContinuousNarrow.Checked)
             {
-                pos[++indexOfAxis] = value;
+                pos[indexOfAxis] = value;
                 wait = false;
             }
             else if (radioButtonInchingModeContinuousWide.Checked)
             {
-                pos[++indexOfAxis] = (value > 0) ? 200 : -200;
+                pos[indexOfAxis] = (value > 0) ? 200 : -200;
                 wait = false;
             }
 
