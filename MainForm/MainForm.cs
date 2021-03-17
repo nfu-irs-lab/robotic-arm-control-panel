@@ -619,6 +619,14 @@ namespace MainForm
             Inching(new double[] { value, 0, 0, 0, 0, 0 });
         }
 
+        private void button_inching_positive_x_KeyDown(object sender, KeyEventArgs e)
+        {
+        }
+
+        private void button_inching_positive_x_KeyUp(object sender, KeyEventArgs e)
+        {
+        }
+
         private void button_inching_positive_y_Click(object sender, EventArgs e)
         {
             var value = Convert.ToDouble(numericUpDown_inching_xy.Value);
