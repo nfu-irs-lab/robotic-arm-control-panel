@@ -1519,7 +1519,6 @@
             this.button_inching_negative_z.TabIndex = 0;
             this.button_inching_negative_z.Text = "Z-";
             this.button_inching_negative_z.UseVisualStyleBackColor = true;
-            this.button_inching_negative_z.Click += new System.EventHandler(this.button_inching_negative_z_Click);
             this.button_inching_negative_z.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button_inching_negative_z_MouseDown);
             this.button_inching_negative_z.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button_inching_negative_z_MouseUp);
             // 
@@ -1532,7 +1531,6 @@
             this.button_inching_positive_z.TabIndex = 0;
             this.button_inching_positive_z.Text = "Z+";
             this.button_inching_positive_z.UseVisualStyleBackColor = true;
-            this.button_inching_positive_z.Click += new System.EventHandler(this.button_inching_positive_z_Click);
             this.button_inching_positive_z.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button_inching_positive_z_MouseDown);
             this.button_inching_positive_z.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button_inching_positive_z_MouseUp);
             // 
@@ -1545,7 +1543,6 @@
             this.button_inching_negative_y.TabIndex = 0;
             this.button_inching_negative_y.Text = "Y-";
             this.button_inching_negative_y.UseVisualStyleBackColor = true;
-            this.button_inching_negative_y.Click += new System.EventHandler(this.button_inching_negative_y_Click);
             this.button_inching_negative_y.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button_inching_negative_y_MouseDown);
             this.button_inching_negative_y.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button_inching_negative_y_MouseUp);
             // 
@@ -1558,7 +1555,6 @@
             this.button_inching_positive_x.TabIndex = 0;
             this.button_inching_positive_x.Text = "X+";
             this.button_inching_positive_x.UseVisualStyleBackColor = true;
-            this.button_inching_positive_x.Click += new System.EventHandler(this.button_inching_positive_x_Click);
             this.button_inching_positive_x.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button_inching_positive_x_MouseDown);
             this.button_inching_positive_x.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button_inching_positive_x_MouseUp);
             // 
@@ -1571,7 +1567,6 @@
             this.button_inching_negative_x.TabIndex = 0;
             this.button_inching_negative_x.Text = "X-";
             this.button_inching_negative_x.UseVisualStyleBackColor = true;
-            this.button_inching_negative_x.Click += new System.EventHandler(this.button_inching_negative_x_Click);
             this.button_inching_negative_x.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button_inching_negative_x_MouseDown);
             this.button_inching_negative_x.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button_inching_negative_x_MouseUp);
             // 
@@ -1584,7 +1579,6 @@
             this.button_inching_positive_y.TabIndex = 0;
             this.button_inching_positive_y.Text = "Y+";
             this.button_inching_positive_y.UseVisualStyleBackColor = true;
-            this.button_inching_positive_y.Click += new System.EventHandler(this.button_inching_positive_y_Click);
             this.button_inching_positive_y.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button_inching_positive_y_MouseDown);
             this.button_inching_positive_y.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button_inching_positive_y_MouseUp);
             // 
