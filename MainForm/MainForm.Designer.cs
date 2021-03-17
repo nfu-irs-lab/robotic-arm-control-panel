@@ -1547,6 +1547,8 @@
             this.button_inching_positive_x.Text = "X+";
             this.button_inching_positive_x.UseVisualStyleBackColor = true;
             this.button_inching_positive_x.Click += new System.EventHandler(this.button_inching_positive_x_Click);
+            this.button_inching_positive_x.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_inching_positive_x_KeyDown);
+            this.button_inching_positive_x.KeyUp += new System.Windows.Forms.KeyEventHandler(this.button_inching_positive_x_KeyUp);
             // 
             // button_inching_negative_x
             // 
