@@ -73,10 +73,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="NFUIRSL.HRTK, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NFUIRSL.HRTK.1.1.0-beta2\lib\net472\NFUIRSL.HRTK.dll</HintPath>
+      <HintPath>..\packages\NFUIRSL.HRTK.1.1.0\lib\net472\NFUIRSL.HRTK.dll</HintPath>
     </Reference>
     <Reference Include="NFUIRSL.HRTK.Vision, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NFUIRSL.HRTK.1.1.0-beta2\lib\net472\NFUIRSL.HRTK.Vision.dll</HintPath>
+      <HintPath>..\packages\NFUIRSL.HRTK.1.1.0\lib\net472\NFUIRSL.HRTK.Vision.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
