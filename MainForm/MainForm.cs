@@ -704,6 +704,7 @@ namespace MainForm
 
         private void button_camera_open_Click(object sender, EventArgs e)
         {
+            Camera.Init();
             var mode = checkBox_camera_freerun.Checked ? CaptureMode.FreeRun : CaptureMode.Stop;
             Camera.Open(mode);
         }
