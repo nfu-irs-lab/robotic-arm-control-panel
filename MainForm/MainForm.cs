@@ -646,6 +646,7 @@ namespace MainForm
         private void InchingStop()
         {
             Arm.Do(new AbortMotion());
+            Thread.Sleep(50);
             UpdateNowPosition();
         }
 
