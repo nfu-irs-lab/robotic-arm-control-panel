@@ -595,45 +595,94 @@ namespace MainForm
 
         #region - 寸動微調 -
 
-        private void button_inching_negative_x_Click(object sender, EventArgs e)
+        #region X
+
+        private void button_inching_negative_x_MouseDown(object sender, MouseEventArgs e)
+            => InchingStart(-Convert.ToDouble(numericUpDown_inching_xy.Value), 0);
+
+        private void button_inching_negative_x_MouseUp(object sender, MouseEventArgs e)
+            => InchingStop();
+
+        private void button_inching_positive_x_MouseDown(object sender, MouseEventArgs e)
+            => InchingStart(Convert.ToDouble(numericUpDown_inching_xy.Value), 0);
+
+        private void button_inching_positive_x_MouseUp(object sender, MouseEventArgs e)
+            => InchingStop();
+
+        #endregion X
+
+        #region Y
+
+        private void button_inching_negative_y_MouseDown(object sender, MouseEventArgs e)
+            => InchingStart(-Convert.ToDouble(numericUpDown_inching_xy.Value), 1);
+
+        private void button_inching_negative_y_MouseUp(object sender, MouseEventArgs e)
+            => InchingStop();
+
+        private void button_inching_positive_y_MouseDown(object sender, MouseEventArgs e)
+            => InchingStart(Convert.ToDouble(numericUpDown_inching_xy.Value), 1);
+
+        private void button_inching_positive_y_MouseUp(object sender, MouseEventArgs e)
+            => InchingStop();
+
+        #endregion Y
+
+        #region Z
+
+        private void button_inching_negative_z_MouseDown(object sender, MouseEventArgs e)
+            => InchingStart(-Convert.ToDouble(numericUpDown_inching_z.Value), 2);
+
+        private void button_inching_negative_z_MouseUp(object sender, MouseEventArgs e)
+            => InchingStop();
+
+        private void button_inching_positive_z_MouseDown(object sender, MouseEventArgs e)
+            => InchingStart(Convert.ToDouble(numericUpDown_inching_z.Value), 2);
+
+        private void button_inching_positive_z_MouseUp(object sender, MouseEventArgs e)
+            => InchingStop();
+
+        #endregion Z
+
+        private void InchingStop()
         {
-            var value = Convert.ToDouble(numericUpDown_inching_xy.Value);
-            Inching(new double[] { -value, 0, 0, 0, 0, 0 });
+            Arm.Do(new AbortMotion());
+            UpdateNowPosition();
         }
 
-        private void button_inching_negative_y_Click(object sender, EventArgs e)
+        /// <summary>
+        /// X/J1=0, Y/J2=1 ... C/J6=5.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="indexOfAxis"></param>
+        private void InchingStart(double value, int indexOfAxis)
         {
-            var value = Convert.ToDouble(numericUpDown_inching_xy.Value);
-            Inching(new double[] { 0, -value, 0, 0, 0, 0 });
-        }
+            var pos = new double[] { 0, 0, 0, 0, 0, 0 };
+            bool wait = true;
 
-        private void button_inching_negative_z_Click(object sender, EventArgs e)
-        {
-            var value = Convert.ToDouble(numericUpDown_inching_z.Value);
-            Inching(new double[] { 0, 0, -value, 0, 0, 0 });
-        }
+            if (radioButtonInchingModeSingle.Checked)
+            {
+                pos[indexOfAxis] = value;
+                wait = true;
+            }
+            else if (radioButtonInchingModeContinuousNarrow.Checked)
+            {
+                pos[indexOfAxis] = value;
+                wait = false;
+            }
+            else if (radioButtonInchingModeContinuousWide.Checked)
+            {
+                pos[indexOfAxis] = (value > 0) ? 200 : -200;
+                wait = false;
+            }
 
-        private void button_inching_positive_x_Click(object sender, EventArgs e)
-        {
-            var value = Convert.ToDouble(numericUpDown_inching_xy.Value);
-            Inching(new double[] { value, 0, 0, 0, 0, 0 });
-        }
-
-        private void button_inching_positive_y_Click(object sender, EventArgs e)
-        {
-            var value = Convert.ToDouble(numericUpDown_inching_xy.Value);
-            Inching(new double[] { 0, value, 0, 0, 0, 0 });
-        }
-
-        private void button_inching_positive_z_Click(object sender, EventArgs e)
-        {
-            var value = Convert.ToDouble(numericUpDown_inching_z.Value);
-            Inching(new double[] { 0, 0, value, 0, 0, 0 });
-        }
-
-        private void Inching(double[] value)
-        {
-            Arm.MovePointToPoint(value, PositionType.Relative, CoordinateType.Descartes);
+            var act = new RelativeMotion(pos)
+            {
+                NeedWait = wait,
+                CoordinateType = CoordinateType.Descartes,
+                // 必須要是直線運動，不能點對點，因為這邊的動作有可能會中途暫停，使用點對點的中途路徑不是直線的。
+                MotionType = MotionType.Linear
+            };
+            Arm.Do(act);
         }
 
         #endregion - 寸動微調 -

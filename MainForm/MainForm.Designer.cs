@@ -149,6 +149,10 @@
             this.button_camera_choose = new System.Windows.Forms.Button();
             this.button_camera_snapshot = new System.Windows.Forms.Button();
             this.pictureBox_camera = new System.Windows.Forms.PictureBox();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.radioButtonInchingModeSingle = new System.Windows.Forms.RadioButton();
+            this.radioButtonInchingModeContinuousNarrow = new System.Windows.Forms.RadioButton();
+            this.radioButtonInchingModeContinuousWide = new System.Windows.Forms.RadioButton();
             this.groupBox_connect_disconnect.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -194,6 +198,7 @@
             this.tableLayoutPanel12.SuspendLayout();
             this.tableLayoutPanel13.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_camera)).BeginInit();
+            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // button_connect
@@ -1470,6 +1475,7 @@
             // 
             // tabPage_sub_inching
             // 
+            this.tabPage_sub_inching.Controls.Add(this.groupBox8);
             this.tabPage_sub_inching.Controls.Add(this.tableLayoutPanel11);
             this.tabPage_sub_inching.Location = new System.Drawing.Point(4, 25);
             this.tabPage_sub_inching.Name = "tabPage_sub_inching";
@@ -1507,68 +1513,74 @@
             // button_inching_negative_z
             // 
             this.button_inching_negative_z.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_inching_negative_z.Location = new System.Drawing.Point(399, 194);
+            this.button_inching_negative_z.Location = new System.Drawing.Point(399, 184);
             this.button_inching_negative_z.Name = "button_inching_negative_z";
-            this.button_inching_negative_z.Size = new System.Drawing.Size(94, 23);
+            this.button_inching_negative_z.Size = new System.Drawing.Size(94, 42);
             this.button_inching_negative_z.TabIndex = 0;
             this.button_inching_negative_z.Text = "Z-";
             this.button_inching_negative_z.UseVisualStyleBackColor = true;
-            this.button_inching_negative_z.Click += new System.EventHandler(this.button_inching_negative_z_Click);
+            this.button_inching_negative_z.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button_inching_negative_z_MouseDown);
+            this.button_inching_negative_z.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button_inching_negative_z_MouseUp);
             // 
             // button_inching_positive_z
             // 
             this.button_inching_positive_z.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_inching_positive_z.Location = new System.Drawing.Point(399, 29);
+            this.button_inching_positive_z.Location = new System.Drawing.Point(399, 20);
             this.button_inching_positive_z.Name = "button_inching_positive_z";
-            this.button_inching_positive_z.Size = new System.Drawing.Size(94, 23);
+            this.button_inching_positive_z.Size = new System.Drawing.Size(94, 42);
             this.button_inching_positive_z.TabIndex = 0;
             this.button_inching_positive_z.Text = "Z+";
             this.button_inching_positive_z.UseVisualStyleBackColor = true;
-            this.button_inching_positive_z.Click += new System.EventHandler(this.button_inching_positive_z_Click);
+            this.button_inching_positive_z.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button_inching_positive_z_MouseDown);
+            this.button_inching_positive_z.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button_inching_positive_z_MouseUp);
             // 
             // button_inching_negative_y
             // 
             this.button_inching_negative_y.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_inching_negative_y.Location = new System.Drawing.Point(102, 194);
+            this.button_inching_negative_y.Location = new System.Drawing.Point(102, 184);
             this.button_inching_negative_y.Name = "button_inching_negative_y";
-            this.button_inching_negative_y.Size = new System.Drawing.Size(93, 23);
+            this.button_inching_negative_y.Size = new System.Drawing.Size(93, 42);
             this.button_inching_negative_y.TabIndex = 0;
             this.button_inching_negative_y.Text = "Y-";
             this.button_inching_negative_y.UseVisualStyleBackColor = true;
-            this.button_inching_negative_y.Click += new System.EventHandler(this.button_inching_negative_y_Click);
+            this.button_inching_negative_y.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button_inching_negative_y_MouseDown);
+            this.button_inching_negative_y.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button_inching_negative_y_MouseUp);
             // 
             // button_inching_positive_x
             // 
             this.button_inching_positive_x.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_inching_positive_x.Location = new System.Drawing.Point(201, 111);
+            this.button_inching_positive_x.Location = new System.Drawing.Point(201, 102);
             this.button_inching_positive_x.Name = "button_inching_positive_x";
-            this.button_inching_positive_x.Size = new System.Drawing.Size(93, 23);
+            this.button_inching_positive_x.Size = new System.Drawing.Size(93, 42);
             this.button_inching_positive_x.TabIndex = 0;
             this.button_inching_positive_x.Text = "X+";
             this.button_inching_positive_x.UseVisualStyleBackColor = true;
-            this.button_inching_positive_x.Click += new System.EventHandler(this.button_inching_positive_x_Click);
+            this.button_inching_positive_x.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button_inching_positive_x_MouseDown);
+            this.button_inching_positive_x.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button_inching_positive_x_MouseUp);
             // 
             // button_inching_negative_x
             // 
             this.button_inching_negative_x.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_inching_negative_x.Location = new System.Drawing.Point(3, 111);
+            this.button_inching_negative_x.Location = new System.Drawing.Point(3, 102);
             this.button_inching_negative_x.Name = "button_inching_negative_x";
-            this.button_inching_negative_x.Size = new System.Drawing.Size(93, 23);
+            this.button_inching_negative_x.Size = new System.Drawing.Size(93, 42);
             this.button_inching_negative_x.TabIndex = 0;
             this.button_inching_negative_x.Text = "X-";
             this.button_inching_negative_x.UseVisualStyleBackColor = true;
-            this.button_inching_negative_x.Click += new System.EventHandler(this.button_inching_negative_x_Click);
+            this.button_inching_negative_x.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button_inching_negative_x_MouseDown);
+            this.button_inching_negative_x.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button_inching_negative_x_MouseUp);
             // 
             // button_inching_positive_y
             // 
             this.button_inching_positive_y.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_inching_positive_y.Location = new System.Drawing.Point(102, 29);
+            this.button_inching_positive_y.Location = new System.Drawing.Point(102, 20);
             this.button_inching_positive_y.Name = "button_inching_positive_y";
-            this.button_inching_positive_y.Size = new System.Drawing.Size(93, 23);
+            this.button_inching_positive_y.Size = new System.Drawing.Size(93, 42);
             this.button_inching_positive_y.TabIndex = 0;
             this.button_inching_positive_y.Text = "Y+";
             this.button_inching_positive_y.UseVisualStyleBackColor = true;
-            this.button_inching_positive_y.Click += new System.EventHandler(this.button_inching_positive_y_Click);
+            this.button_inching_positive_y.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button_inching_positive_y_MouseDown);
+            this.button_inching_positive_y.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button_inching_positive_y_MouseUp);
             // 
             // numericUpDown_inching_z
             // 
@@ -1723,11 +1735,57 @@
             this.pictureBox_camera.TabIndex = 0;
             this.pictureBox_camera.TabStop = false;
             // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.radioButtonInchingModeContinuousWide);
+            this.groupBox8.Controls.Add(this.radioButtonInchingModeContinuousNarrow);
+            this.groupBox8.Controls.Add(this.radioButtonInchingModeSingle);
+            this.groupBox8.Location = new System.Drawing.Point(41, 302);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(137, 135);
+            this.groupBox8.TabIndex = 1;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "模式";
+            // 
+            // radioButtonInchingModeSingle
+            // 
+            this.radioButtonInchingModeSingle.AutoSize = true;
+            this.radioButtonInchingModeSingle.Checked = true;
+            this.radioButtonInchingModeSingle.Location = new System.Drawing.Point(6, 24);
+            this.radioButtonInchingModeSingle.Name = "radioButtonInchingModeSingle";
+            this.radioButtonInchingModeSingle.Size = new System.Drawing.Size(88, 19);
+            this.radioButtonInchingModeSingle.TabIndex = 7;
+            this.radioButtonInchingModeSingle.TabStop = true;
+            this.radioButtonInchingModeSingle.Text = "單次動作";
+            this.radioButtonInchingModeSingle.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonInchingModeContinuousNarrow
+            // 
+            this.radioButtonInchingModeContinuousNarrow.AutoSize = true;
+            this.radioButtonInchingModeContinuousNarrow.Location = new System.Drawing.Point(6, 49);
+            this.radioButtonInchingModeContinuousNarrow.Name = "radioButtonInchingModeContinuousNarrow";
+            this.radioButtonInchingModeContinuousNarrow.Size = new System.Drawing.Size(103, 19);
+            this.radioButtonInchingModeContinuousNarrow.TabIndex = 7;
+            this.radioButtonInchingModeContinuousNarrow.TabStop = true;
+            this.radioButtonInchingModeContinuousNarrow.Text = "連續小範圍";
+            this.radioButtonInchingModeContinuousNarrow.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonInchingModeContinuousWide
+            // 
+            this.radioButtonInchingModeContinuousWide.AutoSize = true;
+            this.radioButtonInchingModeContinuousWide.Location = new System.Drawing.Point(6, 74);
+            this.radioButtonInchingModeContinuousWide.Name = "radioButtonInchingModeContinuousWide";
+            this.radioButtonInchingModeContinuousWide.Size = new System.Drawing.Size(103, 19);
+            this.radioButtonInchingModeContinuousWide.TabIndex = 7;
+            this.radioButtonInchingModeContinuousWide.TabStop = true;
+            this.radioButtonInchingModeContinuousWide.Text = "連續大範圍";
+            this.radioButtonInchingModeContinuousWide.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1458, 670);
+            this.ClientSize = new System.Drawing.Size(2916, 1340);
             this.Controls.Add(this.tabControl_sub);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.groupBox_connect_disconnect);
@@ -1792,6 +1850,8 @@
             this.tableLayoutPanel13.ResumeLayout(false);
             this.tableLayoutPanel13.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_camera)).EndInit();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1919,6 +1979,10 @@
         private System.Windows.Forms.CheckBox checkBox_camera_freerun;
         private System.Windows.Forms.Button button_camera_snapshot;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel13;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.RadioButton radioButtonInchingModeContinuousWide;
+        private System.Windows.Forms.RadioButton radioButtonInchingModeContinuousNarrow;
+        private System.Windows.Forms.RadioButton radioButtonInchingModeSingle;
     }
 }
 
