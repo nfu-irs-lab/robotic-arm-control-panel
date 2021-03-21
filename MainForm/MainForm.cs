@@ -199,22 +199,29 @@ namespace MainForm
         /// <param name="e"></param>
         private void button_arm_motion_start_Click(object sender, EventArgs e)
         {
-            switch (GetMotionType())
+            IArmAction act;
+            switch (GetPositionType())
             {
-                case MotionType.Linear:
-                    Arm.MoveLinear(GetTargetPosition(),
-                                   GetPositionType(),
-                                   GetCoordinateType());
+                case PositionType.Absolute:
+                    act = new AbsoluteMotion(GetTargetPosition())
+                    {
+                        MotionType = GetMotionType(),
+                        CoordinateType = GetCoordinateType(),
+                    };
+                    Arm.Do(act);
                     break;
 
-                case MotionType.PointToPoint:
-                    Arm.MovePointToPoint(GetTargetPosition(),
-                                         GetPositionType(),
-                                         GetCoordinateType());
+                case PositionType.Relative:
+                    act = new RelativeMotion(GetTargetPosition())
+                    {
+                        MotionType = GetMotionType(),
+                        CoordinateType = GetCoordinateType(),
+                    };
+                    Arm.Do(act);
                     break;
 
                 default:
-                    Message.Show("未知的運動類型。", LoggingLevel.Warn);
+                    Message.Show("未知的位置類型。", LoggingLevel.Warn);
                     break;
             }
 
