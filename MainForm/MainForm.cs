@@ -86,11 +86,11 @@ namespace MainForm
                 switch (type)
                 {
                     case CoordinateType.Descartes:
-                        position = Arm.DescartesHomePosition;
+                        position = ArmController.DescartesHomePosition;
                         break;
 
                     case CoordinateType.Joint:
-                        position = Arm.JointHomePosition;
+                        position = ArmController.JointHomePosition;
                         break;
                 }
             }
@@ -252,11 +252,11 @@ namespace MainForm
             {
                 if (radioButton_coordinate_type_descartes.Checked)
                 {
-                    SetTargetPosition(Arm.DescartesHomePosition);
+                    SetTargetPosition(ArmController.DescartesHomePosition);
                 }
                 else if (radioButton_coordinate_type_joint.Checked)
                 {
-                    SetTargetPosition(Arm.JointHomePosition);
+                    SetTargetPosition(ArmController.JointHomePosition);
                 }
 
                 foreach (var p in NowPosition)
