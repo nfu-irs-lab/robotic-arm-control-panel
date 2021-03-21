@@ -86,11 +86,11 @@ namespace MainForm
                 switch (type)
                 {
                     case CoordinateType.Descartes:
-                        position = Arm.DescartesHomePosition;
+                        position = ArmController.DescartesHomePosition;
                         break;
 
                     case CoordinateType.Joint:
-                        position = Arm.JointHomePosition;
+                        position = ArmController.JointHomePosition;
                         break;
                 }
             }
@@ -179,7 +179,7 @@ namespace MainForm
 
                 Thread.Sleep(300);
 
-                Arm.Homing(GetCoordinateType(), true);
+                Arm.Do(new Homing(GetCoordinateType()));
                 UpdateNowPosition();
 
                 Arm.Speed = GetUiSpeed();
@@ -187,7 +187,7 @@ namespace MainForm
             }
             else
             {
-                Arm.Homing(GetCoordinateType(), true);
+                Arm.Do(new Homing(GetCoordinateType()));
                 UpdateNowPosition();
             }
         }
@@ -199,22 +199,29 @@ namespace MainForm
         /// <param name="e"></param>
         private void button_arm_motion_start_Click(object sender, EventArgs e)
         {
-            switch (GetMotionType())
+            IArmAction act;
+            switch (GetPositionType())
             {
-                case MotionType.Linear:
-                    Arm.MoveLinear(GetTargetPosition(),
-                                   GetPositionType(),
-                                   GetCoordinateType());
+                case PositionType.Absolute:
+                    act = new AbsoluteMotion(GetTargetPosition())
+                    {
+                        MotionType = GetMotionType(),
+                        CoordinateType = GetCoordinateType(),
+                    };
+                    Arm.Do(act);
                     break;
 
-                case MotionType.PointToPoint:
-                    Arm.MovePointToPoint(GetTargetPosition(),
-                                         GetPositionType(),
-                                         GetCoordinateType());
+                case PositionType.Relative:
+                    act = new RelativeMotion(GetTargetPosition())
+                    {
+                        MotionType = GetMotionType(),
+                        CoordinateType = GetCoordinateType(),
+                    };
+                    Arm.Do(act);
                     break;
 
                 default:
-                    Message.Show("未知的運動類型。", LoggingLevel.Warn);
+                    Message.Show("未知的位置類型。", LoggingLevel.Warn);
                     break;
             }
 
@@ -245,11 +252,11 @@ namespace MainForm
             {
                 if (radioButton_coordinate_type_descartes.Checked)
                 {
-                    SetTargetPosition(Arm.DescartesHomePosition);
+                    SetTargetPosition(ArmController.DescartesHomePosition);
                 }
                 else if (radioButton_coordinate_type_joint.Checked)
                 {
-                    SetTargetPosition(Arm.JointHomePosition);
+                    SetTargetPosition(ArmController.JointHomePosition);
                 }
 
                 foreach (var p in NowPosition)
@@ -646,7 +653,7 @@ namespace MainForm
         private void InchingStop()
         {
             Arm.Do(new AbortMotion());
-            Thread.Sleep(50);
+            Thread.Sleep(185);
             UpdateNowPosition();
         }
 
@@ -657,33 +664,36 @@ namespace MainForm
         /// <param name="indexOfAxis"></param>
         private void InchingStart(double value, int indexOfAxis)
         {
-            var pos = new double[] { 0, 0, 0, 0, 0, 0 };
-            bool wait = true;
+            if (radioButtonInchingModeContinuousWide.Checked)
+            {
+                var dir = value >= 0 ? '+' : '-';
+                Arm.Do(new Jog($"{dir}{indexOfAxis}"));
+            }
+            else
+            {
+                var pos = new double[] { 0, 0, 0, 0, 0, 0 };
+                bool wait = true;
 
-            if (radioButtonInchingModeSingle.Checked)
-            {
-                pos[indexOfAxis] = value;
-                wait = true;
-            }
-            else if (radioButtonInchingModeContinuousNarrow.Checked)
-            {
-                pos[indexOfAxis] = value;
-                wait = false;
-            }
-            else if (radioButtonInchingModeContinuousWide.Checked)
-            {
-                pos[indexOfAxis] = (value > 0) ? 200 : -200;
-                wait = false;
-            }
+                if (radioButtonInchingModeSingle.Checked)
+                {
+                    pos[indexOfAxis] = value;
+                    wait = true;
+                }
+                else if (radioButtonInchingModeContinuousNarrow.Checked)
+                {
+                    pos[indexOfAxis] = value;
+                    wait = false;
+                }
 
-            var act = new RelativeMotion(pos)
-            {
-                NeedWait = wait,
-                CoordinateType = CoordinateType.Descartes,
-                // 必須要是直線運動，不能點對點，因為這邊的動作有可能會中途暫停，使用點對點的中途路徑不是直線的。
-                MotionType = MotionType.Linear
-            };
-            Arm.Do(act);
+                var act = new RelativeMotion(pos)
+                {
+                    NeedWait = wait,
+                    CoordinateType = CoordinateType.Descartes,
+                    // 必須要是直線運動，不能點對點，因為這邊的動作有可能會中途暫停，使用點對點的中途路徑不是直線的。
+                    MotionType = MotionType.Linear
+                };
+                Arm.Do(act);
+            }
         }
 
         #endregion - 寸動微調 -

@@ -72,30 +72,32 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NFUIRSL.HRTK, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NFUIRSL.HRTK.1.1.0\lib\net472\NFUIRSL.HRTK.dll</HintPath>
+    <Reference Include="NFUIRSL.HRTK, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\NFUIRSL.HRTK.1.2.0\lib\net472\NFUIRSL.HRTK.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="NFUIRSL.HRTK.Vision, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NFUIRSL.HRTK.1.1.0\lib\net472\NFUIRSL.HRTK.Vision.dll</HintPath>
+    <Reference Include="NFUIRSL.HRTK.Vision, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\NFUIRSL.HRTK.1.2.0\lib\net472\NFUIRSL.HRTK.Vision.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Windows" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System"/>
+    <Reference Include="System.Configuration"/>
+    <Reference Include="System.Core"/>
+    <Reference Include="System.Windows"/>
+    <Reference Include="System.Xml.Linq"/>
+    <Reference Include="System.Data.DataSetExtensions"/>
+    <Reference Include="Microsoft.CSharp"/>
+    <Reference Include="System.Data"/>
+    <Reference Include="System.Deployment"/>
+    <Reference Include="System.Drawing"/>
+    <Reference Include="System.Net.Http"/>
+    <Reference Include="System.Windows.Forms"/>
+    <Reference Include="System.Xml"/>
     <Reference Include="uEyeDotNet, Version=1.9.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>\\robothd\實驗室雲端同步區\個人資料\實驗室新進實習人員暫存資料夾\咨富\00-Others\iDS工業攝影機(UI-3880CP-C-HQ Rev.2)\Develop\DotNet\uEyeDotNet.dll</HintPath>
     </Reference>
-    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsBase"/>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration.cs" />
