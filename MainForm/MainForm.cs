@@ -86,11 +86,11 @@ namespace MainForm
                 switch (type)
                 {
                     case CoordinateType.Descartes:
-                        position = Arm.DescartesHomePosition;
+                        position = ArmController.DescartesHomePosition;
                         break;
 
                     case CoordinateType.Joint:
-                        position = Arm.JointHomePosition;
+                        position = ArmController.JointHomePosition;
                         break;
                 }
             }
@@ -179,7 +179,7 @@ namespace MainForm
 
                 Thread.Sleep(300);
 
-                Arm.Homing(GetCoordinateType(), true);
+                Arm.Do(new Homing(GetCoordinateType()));
                 UpdateNowPosition();
 
                 Arm.Speed = GetUiSpeed();
@@ -187,7 +187,7 @@ namespace MainForm
             }
             else
             {
-                Arm.Homing(GetCoordinateType(), true);
+                Arm.Do(new Homing(GetCoordinateType()));
                 UpdateNowPosition();
             }
         }
@@ -199,22 +199,29 @@ namespace MainForm
         /// <param name="e"></param>
         private void button_arm_motion_start_Click(object sender, EventArgs e)
         {
-            switch (GetMotionType())
+            IArmAction act;
+            switch (GetPositionType())
             {
-                case MotionType.Linear:
-                    Arm.MoveLinear(GetTargetPosition(),
-                                   GetPositionType(),
-                                   GetCoordinateType());
+                case PositionType.Absolute:
+                    act = new AbsoluteMotion(GetTargetPosition())
+                    {
+                        MotionType = GetMotionType(),
+                        CoordinateType = GetCoordinateType(),
+                    };
+                    Arm.Do(act);
                     break;
 
-                case MotionType.PointToPoint:
-                    Arm.MovePointToPoint(GetTargetPosition(),
-                                         GetPositionType(),
-                                         GetCoordinateType());
+                case PositionType.Relative:
+                    act = new RelativeMotion(GetTargetPosition())
+                    {
+                        MotionType = GetMotionType(),
+                        CoordinateType = GetCoordinateType(),
+                    };
+                    Arm.Do(act);
                     break;
 
                 default:
-                    Message.Show("未知的運動類型。", LoggingLevel.Warn);
+                    Message.Show("未知的位置類型。", LoggingLevel.Warn);
                     break;
             }
 
@@ -245,11 +252,11 @@ namespace MainForm
             {
                 if (radioButton_coordinate_type_descartes.Checked)
                 {
-                    SetTargetPosition(Arm.DescartesHomePosition);
+                    SetTargetPosition(ArmController.DescartesHomePosition);
                 }
                 else if (radioButton_coordinate_type_joint.Checked)
                 {
-                    SetTargetPosition(Arm.JointHomePosition);
+                    SetTargetPosition(ArmController.JointHomePosition);
                 }
 
                 foreach (var p in NowPosition)
