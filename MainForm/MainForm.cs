@@ -179,7 +179,7 @@ namespace MainForm
 
                 Thread.Sleep(300);
 
-                Arm.Homing(GetCoordinateType(), true);
+                Arm.Do(new Homing(GetCoordinateType()));
                 UpdateNowPosition();
 
                 Arm.Speed = GetUiSpeed();
@@ -187,7 +187,7 @@ namespace MainForm
             }
             else
             {
-                Arm.Homing(GetCoordinateType(), true);
+                Arm.Do(new Homing(GetCoordinateType()));
                 UpdateNowPosition();
             }
         }
