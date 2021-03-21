@@ -27,7 +27,7 @@ namespace MainForm
         {
             Devices.Add(Arm);
             //Devices.Add(Gripper);
-            //Devices.Add(BluetoothController);
+            //Devices.Add(Bluetooth);
         }
     }
 }
