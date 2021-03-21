@@ -646,7 +646,7 @@ namespace MainForm
         private void InchingStop()
         {
             Arm.Do(new AbortMotion());
-            Thread.Sleep(50);
+            Thread.Sleep(185);
             UpdateNowPosition();
         }
 
@@ -657,33 +657,36 @@ namespace MainForm
         /// <param name="indexOfAxis"></param>
         private void InchingStart(double value, int indexOfAxis)
         {
-            var pos = new double[] { 0, 0, 0, 0, 0, 0 };
-            bool wait = true;
+            if (radioButtonInchingModeContinuousWide.Checked)
+            {
+                var dir = value >= 0 ? '+' : '-';
+                Arm.Do(new Jog($"{dir}{indexOfAxis}"));
+            }
+            else
+            {
+                var pos = new double[] { 0, 0, 0, 0, 0, 0 };
+                bool wait = true;
 
-            if (radioButtonInchingModeSingle.Checked)
-            {
-                pos[indexOfAxis] = value;
-                wait = true;
-            }
-            else if (radioButtonInchingModeContinuousNarrow.Checked)
-            {
-                pos[indexOfAxis] = value;
-                wait = false;
-            }
-            else if (radioButtonInchingModeContinuousWide.Checked)
-            {
-                pos[indexOfAxis] = (value > 0) ? 200 : -200;
-                wait = false;
-            }
+                if (radioButtonInchingModeSingle.Checked)
+                {
+                    pos[indexOfAxis] = value;
+                    wait = true;
+                }
+                else if (radioButtonInchingModeContinuousNarrow.Checked)
+                {
+                    pos[indexOfAxis] = value;
+                    wait = false;
+                }
 
-            var act = new RelativeMotion(pos)
-            {
-                NeedWait = wait,
-                CoordinateType = CoordinateType.Descartes,
-                // 必須要是直線運動，不能點對點，因為這邊的動作有可能會中途暫停，使用點對點的中途路徑不是直線的。
-                MotionType = MotionType.Linear
-            };
-            Arm.Do(act);
+                var act = new RelativeMotion(pos)
+                {
+                    NeedWait = wait,
+                    CoordinateType = CoordinateType.Descartes,
+                    // 必須要是直線運動，不能點對點，因為這邊的動作有可能會中途暫停，使用點對點的中途路徑不是直線的。
+                    MotionType = MotionType.Linear
+                };
+                Arm.Do(act);
+            }
         }
 
         #endregion - 寸動微調 -
