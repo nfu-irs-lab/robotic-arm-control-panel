@@ -650,13 +650,6 @@ namespace MainForm
 
         #endregion Z
 
-        private void InchingStop()
-        {
-            Arm.Do(new AbortMotion());
-            Thread.Sleep(185);
-            UpdateNowPosition();
-        }
-
         /// <summary>
         /// X/J1=0, Y/J2=1 ... C/J6=5.
         /// </summary>
@@ -694,6 +687,13 @@ namespace MainForm
                 };
                 Arm.Do(act);
             }
+        }
+
+        private void InchingStop()
+        {
+            Arm.Do(new AbortMotion());
+            Thread.Sleep(185);
+            UpdateNowPosition();
         }
 
         #endregion - 寸動微調 -
@@ -1000,7 +1000,7 @@ namespace MainForm
             Message = new NormalMessage(LogHandler);
             Arm = new ArmController(Configuration.ArmIp, Message);
             Gripper = new GripperController(Configuration.GripperComPort, Message);
-            Bluetooth = new BluetoothArmController(Configuration.BluetoothComPort, Arm, Message);
+            Bluetooth = new BluetoothArmController(Configuration.BluetoothComPort,Arm,Gripper, Message);
             CsvHandler = new CsvHandler(Configuration.CsvFilePath);
             ActionFlow = new ActionFlowHandler(listView_actionflow_actions, Message);
             PositionHandler = new PositionHandler(listView_position_record,

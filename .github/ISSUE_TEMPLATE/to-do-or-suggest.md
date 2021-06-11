@@ -2,7 +2,7 @@
 name: To-Do or Suggest
 about: 非迫切之待辦事項或建議
 title: ''
-labels: enhancement
+labels: ''
 assignees: ''
 
 ---
