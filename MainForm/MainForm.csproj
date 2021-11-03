@@ -111,6 +111,9 @@
     <Compile Include="Contest.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Jog.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Keyboard.cs">
       <SubType>Form</SubType>
     </Compile>
