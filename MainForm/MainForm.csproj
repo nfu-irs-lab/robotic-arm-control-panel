@@ -107,6 +107,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Camera.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Config.cs" />
     <Compile Include="Connection.cs">
       <SubType>Form</SubType>
