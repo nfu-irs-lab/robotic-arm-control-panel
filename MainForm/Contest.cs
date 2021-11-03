@@ -1,4 +1,4 @@
-﻿using NFUIRSL.HRTK;
+﻿using RASDK.Basic;
 
 namespace MainForm
 {
@@ -12,8 +12,8 @@ namespace MainForm
         /// </remarks>
         private void OrganizeActionFlow()
         {
-            ActionFlow.Add("Example-1", () => Message.Show("Example message-1."), "Comment is optional.");
-            ActionFlow.Add("Example-2", () => Message.Show("Example message-2."));
+            // ActionFlow.Add("Example-1", () => Message.Show("Example message-1."), "Comment is optional.");
+            // ActionFlow.Add("Example-2", () => Message.Show("Example message-2."));
         }
 
         /// <summary>
@@ -25,7 +25,9 @@ namespace MainForm
         /// </remarks>
         private void OrganizeConnectableDevices()
         {
-            Devices.Add(Arm);
+            Devices.Clear();
+
+            Devices.Add((IDevice)Arm);
             //Devices.Add(Gripper);
             //Devices.Add(Bluetooth);
         }
