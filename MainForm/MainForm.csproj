@@ -108,6 +108,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
+    <Compile Include="Connection.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Contest.cs">
       <SubType>Form</SubType>
     </Compile>
