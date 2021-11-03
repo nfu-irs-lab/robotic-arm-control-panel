@@ -72,11 +72,20 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NFUIRSL.HRTK, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NFUIRSL.HRTK.1.4.0\lib\net472\NFUIRSL.HRTK.dll</HintPath>
+    <Reference Include="RASDK.Arm, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>..\packages\NFUIRSL.RASDK.0.2.0\lib\net472\RASDK.Arm.dll</HintPath>
     </Reference>
-    <Reference Include="NFUIRSL.HRTK.Vision, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NFUIRSL.HRTK.1.4.0\lib\net472\NFUIRSL.HRTK.Vision.dll</HintPath>
+    <Reference Include="RASDK.Basic, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>..\packages\NFUIRSL.RASDK.0.2.0\lib\net472\RASDK.Basic.dll</HintPath>
+    </Reference>
+    <Reference Include="RASDK.Gripper, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>..\packages\NFUIRSL.RASDK.0.2.0\lib\net472\RASDK.Gripper.dll</HintPath>
+    </Reference>
+    <Reference Include="RASDK.UI, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>..\packages\NFUIRSL.RASDK.0.2.0\lib\net472\RASDK.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="RASDK.Vision, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>..\packages\NFUIRSL.RASDK.0.2.0\lib\net472\RASDK.Vision.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -98,8 +107,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration.cs" />
+    <Compile Include="Config.cs" />
     <Compile Include="Contest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Keyboard.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.cs">

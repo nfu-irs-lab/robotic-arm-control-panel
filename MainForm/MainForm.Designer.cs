@@ -130,6 +130,10 @@
             this.textBox_position_record_name = new System.Windows.Forms.TextBox();
             this.textBox_position_record_comment = new System.Windows.Forms.TextBox();
             this.tabPage_sub_inching = new System.Windows.Forms.TabPage();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.radioButtonInchingModeContinuousWide = new System.Windows.Forms.RadioButton();
+            this.radioButtonInchingModeContinuousNarrow = new System.Windows.Forms.RadioButton();
+            this.radioButtonInchingModeSingle = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
             this.button_inching_negative_z = new System.Windows.Forms.Button();
             this.button_inching_positive_z = new System.Windows.Forms.Button();
@@ -149,10 +153,6 @@
             this.button_camera_choose = new System.Windows.Forms.Button();
             this.button_camera_snapshot = new System.Windows.Forms.Button();
             this.pictureBox_camera = new System.Windows.Forms.PictureBox();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.radioButtonInchingModeSingle = new System.Windows.Forms.RadioButton();
-            this.radioButtonInchingModeContinuousNarrow = new System.Windows.Forms.RadioButton();
-            this.radioButtonInchingModeContinuousWide = new System.Windows.Forms.RadioButton();
             this.groupBox_connect_disconnect.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -191,6 +191,7 @@
             this.groupBox_position_record.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
             this.tabPage_sub_inching.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.tableLayoutPanel11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_inching_z)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_inching_xy)).BeginInit();
@@ -198,7 +199,6 @@
             this.tableLayoutPanel12.SuspendLayout();
             this.tableLayoutPanel13.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_camera)).BeginInit();
-            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // button_connect
@@ -1485,6 +1485,52 @@
             this.tabPage_sub_inching.Text = "寸動微調";
             this.tabPage_sub_inching.UseVisualStyleBackColor = true;
             // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.radioButtonInchingModeContinuousWide);
+            this.groupBox8.Controls.Add(this.radioButtonInchingModeContinuousNarrow);
+            this.groupBox8.Controls.Add(this.radioButtonInchingModeSingle);
+            this.groupBox8.Location = new System.Drawing.Point(41, 302);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(137, 135);
+            this.groupBox8.TabIndex = 1;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "模式";
+            // 
+            // radioButtonInchingModeContinuousWide
+            // 
+            this.radioButtonInchingModeContinuousWide.AutoSize = true;
+            this.radioButtonInchingModeContinuousWide.Location = new System.Drawing.Point(6, 74);
+            this.radioButtonInchingModeContinuousWide.Name = "radioButtonInchingModeContinuousWide";
+            this.radioButtonInchingModeContinuousWide.Size = new System.Drawing.Size(103, 19);
+            this.radioButtonInchingModeContinuousWide.TabIndex = 7;
+            this.radioButtonInchingModeContinuousWide.TabStop = true;
+            this.radioButtonInchingModeContinuousWide.Text = "連續大範圍";
+            this.radioButtonInchingModeContinuousWide.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonInchingModeContinuousNarrow
+            // 
+            this.radioButtonInchingModeContinuousNarrow.AutoSize = true;
+            this.radioButtonInchingModeContinuousNarrow.Location = new System.Drawing.Point(6, 49);
+            this.radioButtonInchingModeContinuousNarrow.Name = "radioButtonInchingModeContinuousNarrow";
+            this.radioButtonInchingModeContinuousNarrow.Size = new System.Drawing.Size(103, 19);
+            this.radioButtonInchingModeContinuousNarrow.TabIndex = 7;
+            this.radioButtonInchingModeContinuousNarrow.TabStop = true;
+            this.radioButtonInchingModeContinuousNarrow.Text = "連續小範圍";
+            this.radioButtonInchingModeContinuousNarrow.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonInchingModeSingle
+            // 
+            this.radioButtonInchingModeSingle.AutoSize = true;
+            this.radioButtonInchingModeSingle.Checked = true;
+            this.radioButtonInchingModeSingle.Location = new System.Drawing.Point(6, 24);
+            this.radioButtonInchingModeSingle.Name = "radioButtonInchingModeSingle";
+            this.radioButtonInchingModeSingle.Size = new System.Drawing.Size(88, 19);
+            this.radioButtonInchingModeSingle.TabIndex = 7;
+            this.radioButtonInchingModeSingle.TabStop = true;
+            this.radioButtonInchingModeSingle.Text = "單次動作";
+            this.radioButtonInchingModeSingle.UseVisualStyleBackColor = true;
+            // 
             // tableLayoutPanel11
             // 
             this.tableLayoutPanel11.ColumnCount = 5;
@@ -1735,65 +1781,19 @@
             this.pictureBox_camera.TabIndex = 0;
             this.pictureBox_camera.TabStop = false;
             // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this.radioButtonInchingModeContinuousWide);
-            this.groupBox8.Controls.Add(this.radioButtonInchingModeContinuousNarrow);
-            this.groupBox8.Controls.Add(this.radioButtonInchingModeSingle);
-            this.groupBox8.Location = new System.Drawing.Point(41, 302);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(137, 135);
-            this.groupBox8.TabIndex = 1;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "模式";
-            // 
-            // radioButtonInchingModeSingle
-            // 
-            this.radioButtonInchingModeSingle.AutoSize = true;
-            this.radioButtonInchingModeSingle.Checked = true;
-            this.radioButtonInchingModeSingle.Location = new System.Drawing.Point(6, 24);
-            this.radioButtonInchingModeSingle.Name = "radioButtonInchingModeSingle";
-            this.radioButtonInchingModeSingle.Size = new System.Drawing.Size(88, 19);
-            this.radioButtonInchingModeSingle.TabIndex = 7;
-            this.radioButtonInchingModeSingle.TabStop = true;
-            this.radioButtonInchingModeSingle.Text = "單次動作";
-            this.radioButtonInchingModeSingle.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonInchingModeContinuousNarrow
-            // 
-            this.radioButtonInchingModeContinuousNarrow.AutoSize = true;
-            this.radioButtonInchingModeContinuousNarrow.Location = new System.Drawing.Point(6, 49);
-            this.radioButtonInchingModeContinuousNarrow.Name = "radioButtonInchingModeContinuousNarrow";
-            this.radioButtonInchingModeContinuousNarrow.Size = new System.Drawing.Size(103, 19);
-            this.radioButtonInchingModeContinuousNarrow.TabIndex = 7;
-            this.radioButtonInchingModeContinuousNarrow.TabStop = true;
-            this.radioButtonInchingModeContinuousNarrow.Text = "連續小範圍";
-            this.radioButtonInchingModeContinuousNarrow.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonInchingModeContinuousWide
-            // 
-            this.radioButtonInchingModeContinuousWide.AutoSize = true;
-            this.radioButtonInchingModeContinuousWide.Location = new System.Drawing.Point(6, 74);
-            this.radioButtonInchingModeContinuousWide.Name = "radioButtonInchingModeContinuousWide";
-            this.radioButtonInchingModeContinuousWide.Size = new System.Drawing.Size(103, 19);
-            this.radioButtonInchingModeContinuousWide.TabIndex = 7;
-            this.radioButtonInchingModeContinuousWide.TabStop = true;
-            this.radioButtonInchingModeContinuousWide.Text = "連續大範圍";
-            this.radioButtonInchingModeContinuousWide.UseVisualStyleBackColor = true;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(2916, 1340);
+            this.ClientSize = new System.Drawing.Size(1924, 1055);
             this.Controls.Add(this.tabControl_sub);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.groupBox_connect_disconnect);
             this.KeyPreview = true;
             this.Name = "MainForm";
-            this.Text = "HIWIN Robot";
+            this.Text = "Robotic Arm Control Panel";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_HIWIN_Robot_FormClosing);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_HIWIN_Robot_KeyDown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_MainForm_KeyDown);
             this.groupBox_connect_disconnect.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
@@ -1842,6 +1842,8 @@
             this.tableLayoutPanel7.ResumeLayout(false);
             this.tableLayoutPanel7.PerformLayout();
             this.tabPage_sub_inching.ResumeLayout(false);
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.tableLayoutPanel11.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_inching_z)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_inching_xy)).EndInit();
@@ -1850,8 +1852,6 @@
             this.tableLayoutPanel13.ResumeLayout(false);
             this.tableLayoutPanel13.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_camera)).EndInit();
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
             this.ResumeLayout(false);
 
         }
