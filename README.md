@@ -1,15 +1,15 @@
-# hiwinrobot
+# Robotic Arm Control Panel
 
-[![GitHub release](https://img.shields.io/github/release/nfu-irs-lab/hiwinrobot.svg)](https://github.com/nfu-irs-lab/hiwinrobot/releases)
-[![GitHub repo size](https://img.shields.io/github/repo-size/nfu-irs-lab/hiwinrobot)](https://github.com/nfu-irs-lab/hiwinrobot)
-[![GitHub issues](https://img.shields.io/github/issues/nfu-irs-lab/hiwinrobot.svg)](https://github.com/nfu-irs-lab/hiwinrobot/issues)
+[![GitHub release](https://img.shields.io/github/release/nfu-irs-lab/robotic-arm-control-panel.svg)](https://github.com/nfu-irs-lab/robotic-arm-control-panel/releases)
+[![GitHub repo size](https://img.shields.io/github/repo-size/nfu-irs-lab/robotic-arm-control-panel)](https://github.com/nfu-irs-lab/robotic-arm-control-panel)
+[![GitHub issues](https://img.shields.io/github/issues/nfu-irs-lab/robotic-arm-control-panel.svg)](https://github.com/nfu-irs-lab/robotic-arm-control-panel/issues)
 
 ## 目錄
 - [整體架構](#整體架構)
 - [使用方法及問題解決](#使用方法及問題解決)
-  - [HRSDK.dll](#HRSDKdll)
+  - [HRSDK.dll](#hrsdkdll)
   - [設定起始專案](#設定起始專案)
-  - [NuGet Packages](#NuGet-Packages)
+  - [NuGet Packages](#nuget-packages)
   - [連線及檔案設定](#連線及檔案設定)
 - [其它資源](#其它資源)
 
@@ -17,10 +17,18 @@
 
 # 整體架構
 - [HIWIN_Robot](/HIWIN_Robot.sln)：主要 Solution。
-  - [MainForm](/MainForm/)：主要視窗、實際執行及最高層次程式。提供基本、共用的功能視窗。
-    - [MainForm.cs](/MainForm/MainForm.cs)：主要視窗相關程式。
-    - [Contest.cs](/MainForm/Contest.cs)：各比賽關卡或用途的專屬程式。
-    - [Configuration.cs](/MainForm/Configuration.cs)：可調整之設定參數。
+  - [MainForm](/MainForm/)：主要視窗、實際執行之程式。。
+    - [MainForm](/MainForm/MainForm.cs)：視窗的基本物件。
+    - [Contest](/MainForm/Contest.cs)：各比賽關卡或用途的專屬程式。
+    - [Config](/MainForm/Config.cs)：可調整之設定參數。
+    - [ActionFlow](/MainForm/ActionFlow.cs)：動作流程。
+    - [Arm](/MainForm/Arm.cs)：手臂。
+    - [Camera](/MainForm/Camera.cs)：相機。
+    - [Connection](/MainForm/Connection.cs)：連線與斷線。
+    - [Gripper](/MainForm/Gripper.cs)：夾爪。
+    - [Jog](/MainForm/Jog.cs)：吋動。
+    - [Keyboard](/MainForm/Keyboard.cs)：鍵盤按鍵事件。
+    - [PositionRecord](/MainForm/PositionRecord.cs)：位置記錄。
 
 # 使用方法及問題解決
 執行時可能會遇到一些問題，此時請參考以下各事項。
@@ -50,7 +58,7 @@
 ## 連線及檔案設定
 > 手臂或其它裝置無法連線，或檔案路徑錯誤時可以嘗試。
 
-連線相關設定（IP、COM Port）在「[Configuration.cs](/MainForm/Configuration.cs)」中，設定錯誤會造成無法連線。
+連線相關設定（IP、COM Port）在「[Config.cs](/MainForm/Config.cs)」中，設定錯誤會造成無法連線。
 
 檔案及路徑相關設定也在同一份檔案中。
 

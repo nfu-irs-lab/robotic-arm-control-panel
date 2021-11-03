@@ -3,13 +3,20 @@
     /// <summary>
     /// 可調整之設定。
     /// </summary>
-    public class Configuration
+    public static class Config
     {
         /// <summary>
         /// 手臂連線IP位置。<br/>
         /// 設定錯誤將會無法連線。
         /// </summary>
-        public const string ArmIp = "192.168.0.3";
+        // public const string ArmIp = "192.168.0.3";
+        public const string ArmIp = "169.254.119.180";
+
+        /// <summary>
+        /// 手臂連線Port。<br/>
+        /// 設定錯誤將會無法連線。
+        /// </summary>
+        public const int ArmPort = 3000;
 
         /// <summary>
         /// 夾爪連線COM Port。<br/>
