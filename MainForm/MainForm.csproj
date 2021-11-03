@@ -110,6 +110,9 @@
     <Compile Include="ActionFlow.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Arm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Camera.cs">
       <SubType>Form</SubType>
     </Compile>

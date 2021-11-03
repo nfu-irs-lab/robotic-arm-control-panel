@@ -1,6 +1,5 @@
 ﻿//#define DISABLE_KEYBOARD_CONTROL
 
-using System;
 using System.Windows.Forms;
 
 namespace MainForm
