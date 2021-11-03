@@ -1792,8 +1792,8 @@
             this.KeyPreview = true;
             this.Name = "MainForm";
             this.Text = "Robotic Arm Control Panel";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_HIWIN_Robot_FormClosing);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_MainForm_KeyDown);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.groupBox_connect_disconnect.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);

@@ -824,7 +824,7 @@ namespace MainForm
         /// <summary>
         /// 視窗關閉事件。
         /// </summary>
-        private void Form_HIWIN_Robot_FormClosing(object sender, FormClosingEventArgs e)
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
 #if (!DISABLE_FORM_CLOSING)
             foreach (var device in Devices)

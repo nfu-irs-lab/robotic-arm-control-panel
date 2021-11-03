@@ -12,7 +12,7 @@ namespace MainForm
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Form_MainForm_KeyDown(object sender, KeyEventArgs e)
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
 #if (!DISABLE_KEYBOARD_CONTROL)
             switch (e.KeyCode)
