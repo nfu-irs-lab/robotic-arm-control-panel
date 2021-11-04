@@ -25,7 +25,7 @@ namespace MainForm
         /// </remarks>
         private void OrganizeConnectableDevices()
         {
-            Devices.Clear();
+            Devices.Clear(); // 請勿移除此行。
 
             Devices.Add((IDevice)Arm);
             //Devices.Add(Gripper);
