@@ -18,6 +18,40 @@ namespace MainForm
     /// </summary>
     public partial class MainForm : Form
     {
+        /// <summary>
+        /// 未連線時禁用的按鈕組。
+        /// </summary>
+        private readonly List<Button> Buttons;
+
+        /// <summary>
+        /// UI 目前顯示位置的控制項陣列。
+        /// </summary>
+        private readonly List<TextBox> NowPosition;
+
+        /// <summary>
+        /// UI 目標位置的控制項陣列。
+        /// </summary>
+        private readonly List<NumericUpDown> TargetPosition;
+
+        /// <summary>
+        /// 連線裝置組。
+        /// </summary>
+        private List<IDevice> Devices = new List<IDevice>();
+
+        /// <summary>
+        /// Log 檔處理器。
+        /// </summary>
+        private ILogHandler LogHandler;
+
+        /// <summary>
+        /// 手臂藍牙控制器。
+        /// </summary>
+        // private IBluetoothController Bluetooth = null;
+        /// <summary>
+        /// 訊息處理器。
+        /// </summary>
+        private IMessage MessageHandler;
+
         public MainForm()
         {
             InitializeComponent();
@@ -136,48 +170,9 @@ namespace MainForm
             }
         }
 
-        #region - 其它 -
-
-        /// <summary>
-        /// 未連線時禁用的按鈕組。
-        /// </summary>
-        private readonly List<Button> Buttons;
-
-        /// <summary>
-        /// 連線裝置組。
-        /// </summary>
-        private List<IDevice> Devices = new List<IDevice>();
-
-        /// <summary>
-        /// UI 目前顯示位置的控制項陣列。
-        /// </summary>
-        private readonly List<TextBox> NowPosition;
-
-        /// <summary>
-        /// UI 目標位置的控制項陣列。
-        /// </summary>
-        private readonly List<NumericUpDown> TargetPosition;
-
-        /// <summary>
-        /// 手臂藍牙控制器。
-        /// </summary>
-        // private IBluetoothController Bluetooth = null;
-
-        /// <summary>
-        /// Log 檔處理器。
-        /// </summary>
-        private ILogHandler LogHandler;
-
-        /// <summary>
-        /// 訊息處理器。
-        /// </summary>
-        private IMessage MessageHandler;
-
         /// <summary>
         /// 位置記錄處理器。
         /// </summary>
         // private IPositionHandler PositionHandler = null;
-
-        #endregion - 其它 -
     }
 }

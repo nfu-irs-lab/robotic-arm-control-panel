@@ -16,7 +16,7 @@
 ---
 
 # 整體架構
-- [HIWIN_Robot](/HIWIN_Robot.sln)：主要 Solution。
+- [RoboticArm](/RoboticArm.sln)：主要 Solution。
   - [MainForm](/MainForm/)：主要視窗、實際執行之程式。。
     - [MainForm](/MainForm/MainForm.cs)：視窗的基本物件。
     - [Contest](/MainForm/Contest.cs)：各比賽關卡或用途的專屬程式。
@@ -43,15 +43,15 @@
 ## 設定起始專案
 > 提示「A project with an Output Type of Class Library cannot be started directly.」時可以嘗試。
 
-1. 以 Visual Studio 開啓 Solution 檔 「[HIWIN_Robot.sln](/HIWIN_Robot.sln)」。
+1. 以 Visual Studio 開啓 Solution 檔 「[RoboticArm.sln](/RoboticArm.sln)」。
 2. 在 Visual Studio 的「Solution Explorer」中，對 Project「MainForm」點擊滑鼠右鍵。
 3. 點選右鍵清單中的「Set as Startup Project」。
 
 ## NuGet Packages
 > 提示「無法找到 NuGet Packages」時可以嘗試。
 
-1. 以 Visual Studio 開啓 Solution 檔 「[HIWIN_Robot.sln](/HIWIN_Robot.sln)」。
-2. 在 Visual Studio 的「Solution Explorer」中，對本 Solution「Solution 'HIWIN_Robot'」點擊滑鼠右鍵。
+1. 以 Visual Studio 開啓 Solution 檔 「[RoboticArm.sln](/RoboticArm.sln)」。
+2. 在 Visual Studio 的「Solution Explorer」中，對本 Solution「Solution 'RoboticArm'」點擊滑鼠右鍵。
 3. 點選右鍵清單中的「Restore NuGet Packages」，並等待其完成。
 4. 確認資料夾「packages」及其內容已經於 Solution 路徑下自動產生。
 
