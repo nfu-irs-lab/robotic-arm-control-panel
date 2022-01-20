@@ -12,11 +12,6 @@ namespace ExclusiveProgram
 {
     public partial class ContestExclusiveControl : MainForm.ExclusiveControl
     {
-
-        public RASDK.Arm.RoboticArm Arm;
-        public RASDK.Basic.ILogHandler LogHandler;
-        public RASDK.Basic.Message.IMessage MessageHandler;
-
         public ContestExclusiveControl()
         {
             InitializeComponent();
@@ -24,10 +19,7 @@ namespace ExclusiveProgram
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (button1.Text == "A")
-            { button1.Text = "B"; }
-            else
-            { button1.Text = "A"; }
+            MessageHandler.Show("Hello!");
         }
     }
 }
