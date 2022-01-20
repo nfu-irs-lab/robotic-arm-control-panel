@@ -66,8 +66,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContestExclusiveControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ContestExclusiveControl.Designer.cs">
+      <DependentUpon>ContestExclusiveControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ContestExclusiveControl.resx">
+      <DependentUpon>ContestExclusiveControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
