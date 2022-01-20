@@ -43,6 +43,8 @@ namespace MainForm
         /// </summary>
         private ILogHandler LogHandler;
 
+        private readonly ExclusiveControl _exclusiveControl;
+
         /// <summary>
         /// 手臂藍牙控制器。
         /// </summary>
@@ -52,7 +54,7 @@ namespace MainForm
         /// </summary>
         private IMessage MessageHandler;
 
-        public MainForm()
+        public MainForm(ExclusiveControl exclusiveControl = null)
         {
             InitializeComponent();
 
@@ -116,6 +118,19 @@ namespace MainForm
             //SetButtonsState(false);
 
             // PositionHandler.UpdateFileList();
+
+            if (exclusiveControl != null)
+            {
+                _exclusiveControl = exclusiveControl;
+                _exclusiveControl.Location = new System.Drawing.Point(0, 0);
+                _exclusiveControl.Name = "ExclusiveControl";
+
+                _exclusiveControl.Arm = Arm;
+                _exclusiveControl.LogHandler = LogHandler;
+                _exclusiveControl.MessageHandler = MessageHandler;
+
+                tabControl_main.TabPages[1].Controls.Add(_exclusiveControl);
+            }
         }
 
         /// <summary>
