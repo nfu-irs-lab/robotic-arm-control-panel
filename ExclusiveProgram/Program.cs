@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MainForm
+namespace ExclusiveProgram
 {
     internal static class Program
     {
@@ -9,11 +12,12 @@ namespace MainForm
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        private static void Main()
+        static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            var control = new ContestExclusiveControl();
+            Application.Run(new MainForm.MainForm((MainForm.ExclusiveControl)control));
         }
     }
 }
