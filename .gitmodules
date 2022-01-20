@@ -1,0 +1,3 @@
+[submodule "MainForm"]
+	path = MainForm
+	url = https://github.com/nfu-irs-lab/robotic-arm-control-panel-core.git
