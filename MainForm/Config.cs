@@ -9,8 +9,8 @@
         /// 手臂連線IP位置。<br/>
         /// 設定錯誤將會無法連線。
         /// </summary>
-        // public const string ArmIp = "192.168.0.3";
-        public const string ArmIp = "169.254.119.180";
+         public const string ArmIp = "192.168.100.126";
+        //public const string ArmIp = "169.254.119.180";
 
         /// <summary>
         /// 手臂連線Port。<br/>

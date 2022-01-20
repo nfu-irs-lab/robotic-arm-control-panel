@@ -73,19 +73,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="RASDK.Arm, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\packages\NFUIRSL.RASDK.0.2.0\lib\net472\RASDK.Arm.dll</HintPath>
+      <HintPath>..\packages\NFUIRSL.RASDK.0.2.2\lib\net472\RASDK.Arm.dll</HintPath>
     </Reference>
     <Reference Include="RASDK.Basic, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\packages\NFUIRSL.RASDK.0.2.0\lib\net472\RASDK.Basic.dll</HintPath>
+      <HintPath>..\packages\NFUIRSL.RASDK.0.2.2\lib\net472\RASDK.Basic.dll</HintPath>
     </Reference>
     <Reference Include="RASDK.Gripper, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\packages\NFUIRSL.RASDK.0.2.0\lib\net472\RASDK.Gripper.dll</HintPath>
-    </Reference>
-    <Reference Include="RASDK.UI, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\packages\NFUIRSL.RASDK.0.2.0\lib\net472\RASDK.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="RASDK.Vision, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\packages\NFUIRSL.RASDK.0.2.0\lib\net472\RASDK.Vision.dll</HintPath>
+      <HintPath>..\packages\NFUIRSL.RASDK.0.2.2\lib\net472\RASDK.Gripper.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -113,8 +107,11 @@
     <Compile Include="Arm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Camera.cs">
-      <SubType>Form</SubType>
+    <Compile Include="ExclusiveControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ExclusiveControl.Designer.cs">
+      <DependentUpon>ExclusiveControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Config.cs" />
     <Compile Include="Connection.cs">
