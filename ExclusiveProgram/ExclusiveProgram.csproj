@@ -53,6 +53,15 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="RASDK.Arm, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>..\packages\NFUIRSL.RASDK.0.2.2\lib\net472\RASDK.Arm.dll</HintPath>
+    </Reference>
+    <Reference Include="RASDK.Basic, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>..\packages\NFUIRSL.RASDK.0.2.2\lib\net472\RASDK.Basic.dll</HintPath>
+    </Reference>
+    <Reference Include="RASDK.Gripper, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>..\packages\NFUIRSL.RASDK.0.2.2\lib\net472\RASDK.Gripper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -86,6 +95,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

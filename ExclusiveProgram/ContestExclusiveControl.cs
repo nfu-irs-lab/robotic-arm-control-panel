@@ -10,11 +10,24 @@ using System.Windows.Forms;
 
 namespace ExclusiveProgram
 {
-    public partial class ContestExclusiveControl : UserControl
+    public partial class ContestExclusiveControl : MainForm.ExclusiveControl
     {
+
+        public RASDK.Arm.RoboticArm Arm;
+        public RASDK.Basic.ILogHandler LogHandler;
+        public RASDK.Basic.Message.IMessage MessageHandler;
+
         public ContestExclusiveControl()
         {
             InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (button1.Text == "A")
+            { button1.Text = "B"; }
+            else
+            { button1.Text = "A"; }
         }
     }
 }
