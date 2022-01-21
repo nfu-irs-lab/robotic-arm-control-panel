@@ -34,4 +34,10 @@
 
 ## MainForm 資料夾沒有檔案
 
-1. 使用 git 指令更新 submodule：`git submodule update --recursive --remote`。
+1. 使用 git 指令更新 submodule：`git submodule update --init --recursive`。
+
+## Git Clone
+
+- 因爲本 repo 含有 [submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules)，在使用 `git clone` 指令時，請再加上 `--recurse-submodules`，也就是 `git clone --recurse-submodules https://github.com/nfu-irs-lab/robotic-arm-control-panel.git`。
+- 如果在使用 `git clone` 指令時忘記加上 `--recurse-submodules` 的話，只要再執行 `git submodule update --init --recursive` 指令即可。
+
