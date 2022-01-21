@@ -1,6 +1,6 @@
 ﻿namespace ExclusiveProgram
 {
-    partial class ContestExclusiveControl
+    partial class Control
     {
         /// <summary> 
         /// Required designer variable.
