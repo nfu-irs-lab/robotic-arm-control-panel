@@ -16,8 +16,7 @@ namespace ExclusiveProgram
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            var control = new ContestExclusiveControl();
-            Application.Run(new MainForm.MainForm((MainForm.ExclusiveControl)control));
+            Application.Run(new MainForm.MainForm(new Control()));
         }
     }
 }

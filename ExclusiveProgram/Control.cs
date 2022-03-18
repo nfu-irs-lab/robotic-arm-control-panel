@@ -7,14 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using RASDK.Arm;
+using RASDK.Basic;
+using RASDK.Basic.Message;
+using RASDK.Gripper;
 
 namespace ExclusiveProgram
 {
-    public partial class ContestExclusiveControl : MainForm.ExclusiveControl
+    public partial class Control : MainForm.ExclusiveControl
     {
-        public ContestExclusiveControl()
+        public Control()
         {
             InitializeComponent();
+            Config = new Config();
         }
 
         private void button1_Click(object sender, EventArgs e)
