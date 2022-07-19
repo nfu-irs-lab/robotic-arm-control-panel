@@ -4,7 +4,7 @@ namespace ExclusiveProgram
 {
     public class Config : MainForm.Config
     {
-        public override string ArmIp => "192.168.100.126";
+        public override string ArmIp => "192.168.0.1";
 
         public override bool ArmEnable => true;
 
